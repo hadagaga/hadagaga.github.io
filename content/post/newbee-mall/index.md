@@ -1,7 +1,7 @@
 ---
 title: newbee-mall
 description: GitHub地址-https://github.com/newbee-ltd/newbee-mall
-date: 2024-11-25 21:19:00+0000
+date: 2024-11-25
 image: cover.png
 categories:
     - cate2

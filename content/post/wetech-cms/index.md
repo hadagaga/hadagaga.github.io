@@ -1,11 +1,11 @@
 ---
-title: wetech_cms
+title: wetech-cms
 description: GitHub地址-https://github.com/cjbi/wetech-cms
-date: 2024-11-28 22:32
+date: 2024-11-28
 image: cover.png
 categories:
     - cate2
-     tags:
+tags:
     - Code Audit
 ---
 

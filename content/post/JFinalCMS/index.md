@@ -1,7 +1,7 @@
 ---
 title: JFinalCMS
 description: GitHub地址-https://github.com/jwillber/JFinalCMS
-date: 2024-12-3
+date: 2024-12-03
 image: cover.png
 categories:
     - cate2

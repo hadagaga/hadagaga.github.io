@@ -1,7 +1,7 @@
 ---
 title: 2024重庆市大学生信息安全竞赛个人WP
 description: 本次重庆市大学生信息安全竞赛共解出4道题，总计400分，其中三道WEB，一道MISC。
-date: 2024-12-9
+date: 2024-12-09
 image: cover.jpg
 categories:
     - cate3

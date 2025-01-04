@@ -1,7 +1,7 @@
 ---
 title: EasyReport
 description: GitHub地址-https://github.com/zwdgit/EasyReport
-date: 2025-1-4
+date: 2025-01-04
 image: cover.png
 categories:
     - cate2

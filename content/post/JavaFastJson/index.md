@@ -1,9 +1,8 @@
 ---
 title: Java反序列化-FastJson
 description: 本文章详细记录Java反序列化-FastJson的审计全过程和漏洞利用原理。
-slug: Intelligent-reporting-system
 date: 2025-01-04
-image: cover.jpg
+image: cover.png
 categories:
     - cate1
 tags:

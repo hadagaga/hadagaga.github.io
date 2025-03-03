@@ -1,7 +1,7 @@
 ---
 title: PHP模板注入漏洞-Twig篇
 description: 该文章详细记录了PHP Twig模板引擎的成因、利用方式和解析
-date: 2024-03-03
+date: 2025-03-03
 image: cover.png
 categories:
     - cate1

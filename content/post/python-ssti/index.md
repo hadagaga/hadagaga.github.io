@@ -6,7 +6,8 @@ image: cover.png
 categories:
     - cate1
 tags:
-    - Python SSTI
+    - Python
+    - SSTI
 ---
 
 ## 模板注入漏洞成因

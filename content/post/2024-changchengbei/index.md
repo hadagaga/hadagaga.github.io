@@ -6,7 +6,8 @@ image: cover.png
 categories:
     - cate3
 tags:
-    - CTF WP
+    - CTF
+    - WP
 ---
 
 ## WEB 安全 

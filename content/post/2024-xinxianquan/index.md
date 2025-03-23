@@ -6,7 +6,8 @@ image: cover.jpg
 categories:
     - cate3
 tags:
-    - CTF WP
+    - CTF
+    - WP
 ---
 
 ## WEB：

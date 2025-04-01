@@ -1,6 +1,6 @@
 ---
 title: Java反序列化-01
-description: 本文章记录了Java反序列化的基础利用，并使用最基础的利用链URLDNS作为示例
+description: 本文章记录了Java反序列化的基础知识，并使用最基础的利用链URLDNS作为示例
 date: 2025-04-01
 image: cover.png
 categories:

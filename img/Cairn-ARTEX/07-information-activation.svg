@@ -1,0 +1,150 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="545" viewBox="0 0 1600 545" role="img" aria-labelledby="title desc">
+<title id="title">区域点亮、关联点亮与语境切片</title>
+<desc id="desc">三个面板采用同一套三维直角坐标与投影。长方体同时圈选三个坐标范围，包含 I₁、I₂。适用策略关系从 I₁ 连至 I₃。实线切片固定 z，保留 I₁ 至 I₄。虚线切片固定 x，仅用于展示改变约束维度后的切片方向。</desc>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="userSpaceOnUse"><path d="M1 1 L8 5 L1 9" fill="none" stroke="#BE753D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<style>text{font-family:PingFang SC,Hiragino Sans GB,Microsoft YaHei,sans-serif;}</style>
+<rect x="0" y="0" width="1600" height="545" rx="0" fill="#FFFFFF" stroke="none" stroke-width="1.5"/>
+<rect x="56" y="28" width="484" height="453" rx="22" fill="#FFF9F3" stroke="#EDDCCE" stroke-width="1.5"/>
+<g transform="translate(56 0)">
+<text x="242" y="70" text-anchor="middle" font-size="29" font-weight="600" fill="#4D3B30">区域点亮</text>
+<path d="M246.00 298.00 L114.00 370.00" fill="none" stroke="#E7D9CD" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M198.00 298.00 L354.00 370.00" fill="none" stroke="#E7D9CD" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M272.00 310.00 L140.00 382.00" fill="none" stroke="#E7D9CD" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M176.00 310.00 L332.00 382.00" fill="none" stroke="#E7D9CD" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M298.00 322.00 L166.00 394.00" fill="none" stroke="#E7D9CD" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M154.00 322.00 L310.00 394.00" fill="none" stroke="#E7D9CD" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M324.00 334.00 L192.00 406.00" fill="none" stroke="#E7D9CD" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M132.00 334.00 L288.00 406.00" fill="none" stroke="#E7D9CD" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M350.00 346.00 L218.00 418.00" fill="none" stroke="#E7D9CD" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M110.00 346.00 L266.00 418.00" fill="none" stroke="#E7D9CD" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M376.00 358.00 L244.00 430.00" fill="none" stroke="#E7D9CD" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M88.00 358.00 L244.00 430.00" fill="none" stroke="#E7D9CD" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M220.00 286.00 L389.00 364.00" fill="none" stroke="#A58A75" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<text x="400.0" y="371.0" text-anchor="start" font-size="23" font-weight="600" fill="#826B59">x</text>
+<path d="M220.00 286.00 L77.00 364.00" fill="none" stroke="#A58A75" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<text x="59.0" y="371.0" text-anchor="start" font-size="23" font-weight="600" fill="#826B59">y</text>
+<path d="M220.00 286.00 L220.00 102.10" fill="none" stroke="#A58A75" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<text x="214" y="92.1" text-anchor="start" font-size="23" font-weight="600" fill="#826B59">z</text>
+<text x="208" y="282" text-anchor="end" font-size="16" font-weight="400" fill="#826B59">O</text>
+<path d="M229.80 316.00 L229.80 236.50" fill="none" stroke="#CDB8A6" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="6 7"/>
+<path d="M267.20 338.80 L267.20 259.30" fill="none" stroke="#CDB8A6" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="6 7"/>
+<path d="M352.00 358.00 L352.00 278.50" fill="none" stroke="#CDB8A6" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="6 7"/>
+<path d="M140.30 347.80 L140.30 268.30" fill="none" stroke="#CDB8A6" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="6 7"/>
+<path d="M243.80 328.00 L243.80 184.00" fill="none" stroke="#CDB8A6" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="6 7"/>
+<path d="M196.80 377.20 L196.80 351.70" fill="none" stroke="#CDB8A6" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="6 7"/>
+<polygon points="230.00,253.30 300.20,285.70 261.70,306.70 191.50,274.30" fill="#F4D1AF" fill-opacity="0.34" stroke="#C78E5E" stroke-width="1.9" stroke-linejoin="round" stroke-dasharray="5 5"/>
+<path d="M230.00 253.30 L230.00 193.30" fill="none" stroke="#C99A73" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="6 7"/>
+<polygon points="300.20,285.70 261.70,306.70 261.70,246.70 300.20,225.70" fill="#F3C9A2" fill-opacity="0.46" stroke="#C58B59" stroke-width="1.9" stroke-linejoin="round"/>
+<polygon points="261.70,306.70 191.50,274.30 191.50,214.30 261.70,246.70" fill="#EAB78B" fill-opacity="0.46" stroke="#C58B59" stroke-width="1.9" stroke-linejoin="round"/>
+<polygon points="230.00,193.30 300.20,225.70 261.70,246.70 191.50,214.30" fill="#FDEBD9" fill-opacity="0.72" stroke="#C58B59" stroke-width="1.9" stroke-linejoin="round"/>
+<text x="242" y="454" text-anchor="middle" font-size="22" font-weight="500" fill="#826B59">圈定 x、y、z 的取值范围</text>
+<circle cx="229.80" cy="236.50" r="7.6" fill="#BE753D" stroke="#BE753D" stroke-width="2"/>
+<text x="211.80" y="227.50" text-anchor="end" font-size="23" font-weight="600" fill="#4D3B30">I₁</text>
+<circle cx="267.20" cy="259.30" r="7.6" fill="#BE753D" stroke="#BE753D" stroke-width="2"/>
+<text x="276.20" y="249.30" text-anchor="start" font-size="23" font-weight="600" fill="#4D3B30">I₂</text>
+<circle cx="352.00" cy="278.50" r="7.6" fill="#FFFFFF" stroke="#AF9985" stroke-width="2"/>
+<text x="363.00" y="280.50" text-anchor="start" font-size="23" font-weight="400" fill="#826B59">I₃</text>
+<circle cx="140.30" cy="268.30" r="7.6" fill="#FFFFFF" stroke="#AF9985" stroke-width="2"/>
+<text x="127.30" y="261.30" text-anchor="end" font-size="23" font-weight="400" fill="#826B59">I₄</text>
+<circle cx="243.80" cy="184.00" r="7.6" fill="#FFFFFF" stroke="#AF9985" stroke-width="2"/>
+<text x="254.80" y="176.00" text-anchor="start" font-size="23" font-weight="400" fill="#826B59">I₅</text>
+<circle cx="196.80" cy="351.70" r="7.6" fill="#FFFFFF" stroke="#AF9985" stroke-width="2"/>
+<text x="184.80" y="354.70" text-anchor="end" font-size="23" font-weight="400" fill="#826B59">I₆</text>
+</g>
+<rect x="558" y="28" width="484" height="453" rx="22" fill="#FFF9F3" stroke="#EDDCCE" stroke-width="1.5"/>
+<g transform="translate(558 0)">
+<text x="242" y="70" text-anchor="middle" font-size="29" font-weight="600" fill="#4D3B30">关联点亮</text>
+<path d="M246.00 298.00 L114.00 370.00" fill="none" stroke="#E7D9CD" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M198.00 298.00 L354.00 370.00" fill="none" stroke="#E7D9CD" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M272.00 310.00 L140.00 382.00" fill="none" stroke="#E7D9CD" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M176.00 310.00 L332.00 382.00" fill="none" stroke="#E7D9CD" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M298.00 322.00 L166.00 394.00" fill="none" stroke="#E7D9CD" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M154.00 322.00 L310.00 394.00" fill="none" stroke="#E7D9CD" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M324.00 334.00 L192.00 406.00" fill="none" stroke="#E7D9CD" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M132.00 334.00 L288.00 406.00" fill="none" stroke="#E7D9CD" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M350.00 346.00 L218.00 418.00" fill="none" stroke="#E7D9CD" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M110.00 346.00 L266.00 418.00" fill="none" stroke="#E7D9CD" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M376.00 358.00 L244.00 430.00" fill="none" stroke="#E7D9CD" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M88.00 358.00 L244.00 430.00" fill="none" stroke="#E7D9CD" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M220.00 286.00 L389.00 364.00" fill="none" stroke="#A58A75" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<text x="400.0" y="371.0" text-anchor="start" font-size="23" font-weight="600" fill="#826B59">x</text>
+<path d="M220.00 286.00 L77.00 364.00" fill="none" stroke="#A58A75" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<text x="59.0" y="371.0" text-anchor="start" font-size="23" font-weight="600" fill="#826B59">y</text>
+<path d="M220.00 286.00 L220.00 102.10" fill="none" stroke="#A58A75" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<text x="214" y="92.1" text-anchor="start" font-size="23" font-weight="600" fill="#826B59">z</text>
+<text x="208" y="282" text-anchor="end" font-size="16" font-weight="400" fill="#826B59">O</text>
+<path d="M229.80 316.00 L229.80 236.50" fill="none" stroke="#CDB8A6" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="6 7"/>
+<path d="M267.20 338.80 L267.20 259.30" fill="none" stroke="#CDB8A6" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="6 7"/>
+<path d="M352.00 358.00 L352.00 278.50" fill="none" stroke="#CDB8A6" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="6 7"/>
+<path d="M140.30 347.80 L140.30 268.30" fill="none" stroke="#CDB8A6" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="6 7"/>
+<path d="M243.80 328.00 L243.80 184.00" fill="none" stroke="#CDB8A6" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="6 7"/>
+<path d="M196.80 377.20 L196.80 351.70" fill="none" stroke="#CDB8A6" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="6 7"/>
+<path d="M234.80 230.50 Q318.90 155.50 349.00 268.50" fill="none" stroke="#BE753D" stroke-width="2.45" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="6 7" marker-end="url(#arrow)"/>
+<text x="315" y="197" text-anchor="middle" font-size="21" font-weight="500" fill="#826B59">适用策略</text>
+<text x="242" y="454" text-anchor="middle" font-size="22" font-weight="500" fill="#826B59">沿有类型的关系连边</text>
+<circle cx="229.80" cy="236.50" r="7.6" fill="#BE753D" stroke="#BE753D" stroke-width="2"/>
+<text x="211.80" y="227.50" text-anchor="end" font-size="23" font-weight="600" fill="#4D3B30">I₁</text>
+<circle cx="267.20" cy="259.30" r="7.6" fill="#FFFFFF" stroke="#AF9985" stroke-width="2"/>
+<text x="276.20" y="249.30" text-anchor="start" font-size="23" font-weight="400" fill="#826B59">I₂</text>
+<circle cx="352.00" cy="278.50" r="7.6" fill="#BE753D" stroke="#BE753D" stroke-width="2"/>
+<text x="363.00" y="280.50" text-anchor="start" font-size="23" font-weight="600" fill="#4D3B30">I₃</text>
+<circle cx="140.30" cy="268.30" r="7.6" fill="#FFFFFF" stroke="#AF9985" stroke-width="2"/>
+<text x="127.30" y="261.30" text-anchor="end" font-size="23" font-weight="400" fill="#826B59">I₄</text>
+<circle cx="243.80" cy="184.00" r="7.6" fill="#FFFFFF" stroke="#AF9985" stroke-width="2"/>
+<text x="254.80" y="176.00" text-anchor="start" font-size="23" font-weight="400" fill="#826B59">I₅</text>
+<circle cx="196.80" cy="351.70" r="7.6" fill="#FFFFFF" stroke="#AF9985" stroke-width="2"/>
+<text x="184.80" y="354.70" text-anchor="end" font-size="23" font-weight="400" fill="#826B59">I₆</text>
+</g>
+<rect x="1060" y="28" width="484" height="453" rx="22" fill="#FFF9F3" stroke="#EDDCCE" stroke-width="1.5"/>
+<g transform="translate(1060 0)">
+<text x="242" y="70" text-anchor="middle" font-size="29" font-weight="600" fill="#4D3B30">语境切片</text>
+<path d="M246.00 298.00 L114.00 370.00" fill="none" stroke="#E7D9CD" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M198.00 298.00 L354.00 370.00" fill="none" stroke="#E7D9CD" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M272.00 310.00 L140.00 382.00" fill="none" stroke="#E7D9CD" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M176.00 310.00 L332.00 382.00" fill="none" stroke="#E7D9CD" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M298.00 322.00 L166.00 394.00" fill="none" stroke="#E7D9CD" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M154.00 322.00 L310.00 394.00" fill="none" stroke="#E7D9CD" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M324.00 334.00 L192.00 406.00" fill="none" stroke="#E7D9CD" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M132.00 334.00 L288.00 406.00" fill="none" stroke="#E7D9CD" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M350.00 346.00 L218.00 418.00" fill="none" stroke="#E7D9CD" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M110.00 346.00 L266.00 418.00" fill="none" stroke="#E7D9CD" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M376.00 358.00 L244.00 430.00" fill="none" stroke="#E7D9CD" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M88.00 358.00 L244.00 430.00" fill="none" stroke="#E7D9CD" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M220.00 286.00 L389.00 364.00" fill="none" stroke="#A58A75" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<text x="400.0" y="371.0" text-anchor="start" font-size="23" font-weight="600" fill="#826B59">x</text>
+<path d="M220.00 286.00 L77.00 364.00" fill="none" stroke="#A58A75" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<text x="59.0" y="371.0" text-anchor="start" font-size="23" font-weight="600" fill="#826B59">y</text>
+<path d="M220.00 286.00 L220.00 102.10" fill="none" stroke="#A58A75" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<text x="214" y="92.1" text-anchor="start" font-size="23" font-weight="600" fill="#826B59">z</text>
+<text x="208" y="282" text-anchor="end" font-size="16" font-weight="400" fill="#826B59">O</text>
+<path d="M229.80 316.00 L229.80 236.50" fill="none" stroke="#CDB8A6" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="6 7"/>
+<path d="M267.20 338.80 L267.20 259.30" fill="none" stroke="#CDB8A6" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="6 7"/>
+<path d="M352.00 358.00 L352.00 278.50" fill="none" stroke="#CDB8A6" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="6 7"/>
+<path d="M140.30 347.80 L140.30 268.30" fill="none" stroke="#CDB8A6" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="6 7"/>
+<path d="M243.80 328.00 L243.80 184.00" fill="none" stroke="#CDB8A6" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="6 7"/>
+<path d="M196.80 377.20 L196.80 351.70" fill="none" stroke="#CDB8A6" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="6 7"/>
+<polygon points="292.28,318.22 175.68,381.82 175.68,226.12 292.28,162.52" fill="#FFFDFB" fill-opacity="0.3" stroke="#B09B89" stroke-width="1.9" stroke-linejoin="round" stroke-dasharray="5 5"/>
+<polygon points="220.14,211.66 364.96,278.50 251.66,340.30 106.84,273.46" fill="#F4D3B3" fill-opacity="0.68" stroke="#BE753D" stroke-width="1.9" stroke-linejoin="round"/>
+<path d="M292.28 245.62 L179.64 307.06" fill="none" stroke="#A58F7D" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="6 7"/>
+<path d="M47 449 H77" fill="none" stroke="#BE753D" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="87" y="456" text-anchor="start" font-size="20" font-weight="500" fill="#826B59">固定 z · 当前语境</text>
+<path d="M259 449 H289" fill="none" stroke="#A58F7D" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="6 7"/>
+<text x="299" y="456" text-anchor="start" font-size="20" font-weight="500" fill="#826B59">固定 x · 另一切片</text>
+<circle cx="229.80" cy="236.50" r="7.6" fill="#BE753D" stroke="#BE753D" stroke-width="2"/>
+<text x="211.80" y="227.50" text-anchor="end" font-size="23" font-weight="600" fill="#4D3B30">I₁</text>
+<circle cx="267.20" cy="259.30" r="7.6" fill="#BE753D" stroke="#BE753D" stroke-width="2"/>
+<text x="276.20" y="249.30" text-anchor="start" font-size="23" font-weight="600" fill="#4D3B30">I₂</text>
+<circle cx="352.00" cy="278.50" r="7.6" fill="#BE753D" stroke="#BE753D" stroke-width="2"/>
+<text x="363.00" y="280.50" text-anchor="start" font-size="23" font-weight="600" fill="#4D3B30">I₃</text>
+<circle cx="140.30" cy="268.30" r="7.6" fill="#BE753D" stroke="#BE753D" stroke-width="2"/>
+<text x="127.30" y="261.30" text-anchor="end" font-size="23" font-weight="600" fill="#4D3B30">I₄</text>
+<circle cx="243.80" cy="184.00" r="7.6" fill="#FFFFFF" stroke="#AF9985" stroke-width="2"/>
+<text x="254.80" y="176.00" text-anchor="start" font-size="23" font-weight="400" fill="#826B59">I₅</text>
+<circle cx="196.80" cy="351.70" r="7.6" fill="#FFFFFF" stroke="#AF9985" stroke-width="2"/>
+<text x="184.80" y="354.70" text-anchor="end" font-size="23" font-weight="400" fill="#826B59">I₆</text>
+</g>
+<circle cx="640" cy="513" r="7" fill="#BE753D" stroke="none" stroke-width="1.5"/>
+<text x="657" y="521" text-anchor="start" font-size="22" font-weight="500" fill="#826B59">进入候选</text>
+<circle cx="817" cy="513" r="7" fill="#FFFFFF" stroke="#AF9985" stroke-width="2"/>
+<text x="834" y="521" text-anchor="start" font-size="22" font-weight="500" fill="#826B59">未选中</text>
+</svg>

@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="820" viewBox="0 0 1200 820" role="img" aria-label="本地账户与域账户的认证路径">
+<title>本地账户与域账户的认证路径</title>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0 L8 3 L0 6" fill="#64748b"/></marker></defs>
+<style>text{font-family:"PingFang SC","Microsoft YaHei",sans-serif;fill:#172b4d}.title{font-size:30px;font-weight:700}.sub{font-size:18px;fill:#52647c}.label{font-size:22px;font-weight:600}.body{font-size:19px}</style>
+<rect width="1200" height="820" fill="#f8fafc"/>
+<text x="40" y="53" class="title">本地账户与域账户的认证路径</text>
+<text x="40" y="86" class="sub">交互登录的简化示意 · 协议选择取决于登录方式、策略与环境</text>
+<rect x="40" y="130" width="500" height="130" rx="14" fill="#eaf2ff" stroke="#cad5e3"/>
+<text x="62" y="166" class="label">本地账户</text>
+<text x="62" y="199" class="body">例如 MACHINE\user</text>
+<rect x="660" y="130" width="500" height="130" rx="14" fill="#eaf2ff" stroke="#cad5e3"/>
+<text x="682" y="166" class="label">域账户</text>
+<text x="682" y="199" class="body">例如 DOMAIN\user 或 UPN</text>
+<path d="M290 260 L290 320" fill="none" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="40" y="325" width="500" height="145" rx="14" fill="#eaf2ff" stroke="#cad5e3"/>
+<text x="62" y="361" class="label">本地认证</text>
+<text x="62" y="394" class="body">MSV1_0 处理认证请求</text>
+<text x="62" y="423" class="body">使用本地 SAM 中的账户数据</text>
+<path d="M910 260 L910 320" fill="none" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="660" y="325" width="500" height="145" rx="14" fill="#eaf2ff" stroke="#cad5e3"/>
+<text x="682" y="361" class="label">在线域认证</text>
+<text x="682" y="394" class="body">联系域控，通常使用 Kerberos</text>
+<text x="682" y="423" class="body">适用条件下可能使用 NTLM</text>
+<path d="M290 470 L290 630" fill="none" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="40" y="635" width="500" height="130" rx="14" fill="#e8f4ef" stroke="#cad5e3"/>
+<text x="62" y="671" class="label">认证成功</text>
+<text x="62" y="704" class="body">系统创建登录会话和访问令牌</text>
+<path d="M1160 195 L1180 195 L1180 590 L1163 590" fill="none" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="660" y="515" width="500" height="155" rx="14" fill="#fff3df" stroke="#cad5e3"/>
+<text x="682" y="551" class="label">域控不可达时</text>
+<text x="682" y="584" class="body">若存在可用缓存且策略允许</text>
+<text x="682" y="613" class="body">可使用缓存的域登录信息登录</text>
+<text x="682" y="642" class="body">缓存不可用时可能无法登录</text>
+<text x="660" y="715" class="sub">离线缓存登录不等于在线 NTLM 认证。</text>
+<text x="660" y="747" class="sub">缓存登录也不保证能访问需要域验证的资源。</text>
+</svg>

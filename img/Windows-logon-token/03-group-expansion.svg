@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720" role="img" aria-label="嵌套组如何转成组 SID 列表">
+<title>嵌套组如何转成组 SID 列表</title>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0 L8 3 L0 6" fill="#64748b"/></marker></defs>
+<style>text{font-family:"PingFang SC","Microsoft YaHei",sans-serif;fill:#172b4d}.title{font-size:30px;font-weight:700}.sub{font-size:18px;fill:#52647c}.label{font-size:22px;font-weight:600}.body{font-size:19px}</style>
+<rect width="1200" height="720" fill="#f8fafc"/>
+<text x="40" y="53" class="title">嵌套组如何转成组 SID 列表</text>
+<text x="40" y="86" class="sub">示例组仅用于说明成员关系 · 实际结果受组作用域和登录环境影响</text>
+<rect x="40" y="135" width="510" height="105" rx="14" fill="#eaf2ff" stroke="#cad5e3"/>
+<text x="62" y="171" class="label">alice</text>
+<text x="62" y="204" class="body">用户账户</text>
+<path d="M295 240 L295 280" fill="none" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="40" y="285" width="510" height="105" rx="14" fill="#eaf2ff" stroke="#cad5e3"/>
+<text x="62" y="321" class="label">AppReaders</text>
+<text x="62" y="354" class="body">alice 是该组的直接成员</text>
+<path d="M295 390 L295 430" fill="none" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="40" y="435" width="510" height="105" rx="14" fill="#eaf2ff" stroke="#cad5e3"/>
+<text x="62" y="471" class="label">ResourceReaders</text>
+<text x="62" y="504" class="body">AppReaders 是该组的成员</text>
+<path d="M550 335 L650 335" fill="none" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="660" y="200" width="500" height="250" rx="14" fill="#e8f4ef" stroke="#cad5e3"/>
+<text x="682" y="236" class="label">令牌中的组信息（示意）</text>
+<text x="682" y="269" class="body">AppReaders 的 SID</text>
+<text x="682" y="298" class="body">ResourceReaders 的 SID</text>
+<text x="682" y="327" class="body">以及按登录方式等加入的 SID</text>
+<text x="40" y="595" class="sub">箭头表示“是下方组的成员”，不表示默认的管理员组继承关系。</text>
+<text x="40" y="630" class="sub">INTERACTIVE、NETWORK 等 SID 按登录类型加入，并非每次登录都会同时出现。</text>
+<text x="40" y="665" class="sub">已有令牌中的组成员信息通常不会随 AD 组成员变更自动刷新。</text>
+</svg>

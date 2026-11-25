@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="838" viewBox="0 0 1600 838" role="img" aria-labelledby="title desc">
+<title id="title">Cairn 与 ARTEX：共同的探索闭环，不同的图组织方式</title>
+<desc id="desc">左侧 Cairn 的共享图以 Fact 为节点，以 Intent 为边，支持多个源事实；Hint 是图外建议。右侧 ARTEX 将每任务的探索图和跨任务共享的资产图通过锚点关联。两者均围绕已有 Fact、Intent 和新 Fact 推进探索。</desc>
+<defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto-start-reverse" markerUnits="userSpaceOnUse"><path d="M1,1 L8,4.5 L1,8" fill="none" stroke="#C27B42" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<style>text{font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;fill:#4D3B30} .edge{fill:none;stroke:#C27B42;stroke-width:2;stroke-linecap:round;stroke-linejoin:round} .link{fill:none;stroke:#CFA37F;stroke-width:2;stroke-dasharray:5 6;stroke-linecap:round}</style>
+<rect x="0" y="0" width="1600" height="838" rx="0" fill="#FFFFFF" stroke="none" stroke-width="1.5"/>
+<g transform="translate(0 -242)">
+<rect x="56" y="270" width="716" height="604" rx="24" fill="#FFF9F3" stroke="#EDDCCE" stroke-width="1.5"/>
+<rect x="800" y="270" width="744" height="604" rx="24" fill="#FFF9F3" stroke="#EDDCCE" stroke-width="1.5"/>
+<rect x="84" y="298" width="660" height="318" rx="18" fill="#FFFFFF" stroke="#EDDCCE" stroke-width="1.5"/>
+<text x="108" y="335" font-size="22" font-weight="500" text-anchor="start" style="fill:#8B7462">共享图</text>
+<rect x="112" y="357" width="152" height="56" rx="11" fill="#FDEBD9" stroke="#EDDCCE" stroke-width="1.5"/>
+<text x="188.0" y="393" font-size="25" font-weight="500" text-anchor="middle" style="fill:#4D3B30">Fact ₁</text>
+<rect x="112" y="473" width="152" height="56" rx="11" fill="#FDEBD9" stroke="#EDDCCE" stroke-width="1.5"/>
+<text x="188.0" y="509" font-size="25" font-weight="500" text-anchor="middle" style="fill:#4D3B30">Fact ₂</text>
+<rect x="560" y="415" width="152" height="56" rx="11" fill="#FDEBD9" stroke="#EDDCCE" stroke-width="1.5"/>
+<text x="636.0" y="451" font-size="25" font-weight="500" text-anchor="middle" style="fill:#4D3B30">Fact ₃</text>
+<path d="M264 385 H304 Q330 385 330 411 V443 H560" class="edge" marker-end="url(#arrow)"/>
+<path d="M264 501 H304 Q330 501 330 475 V443" class="edge"/>
+<text x="445" y="425" font-size="25" font-weight="600" text-anchor="middle" style="fill:#C27B42">Intent</text>
+<text x="445" y="481" font-size="21" font-weight="400" text-anchor="middle" style="fill:#8B7462">探索过程</text>
+<text x="112" y="582" font-size="22" font-weight="400" text-anchor="start" style="fill:#8B7462">多个 Fact 可以共同作为一条 Intent 的来源</text>
+<rect x="84" y="680" width="180" height="66" rx="13" fill="#FFFFFF" stroke="#EDDCCE" stroke-width="1.5"/>
+<text x="174" y="721" font-size="26" font-weight="500" text-anchor="middle" style="fill:#4D3B30">Hint</text>
+<rect x="383" y="676" width="361" height="76" rx="13" fill="#FDEBD9" stroke="#EDDCCE" stroke-width="1.5"/>
+<text x="563.5" y="722" font-size="25" font-weight="500" text-anchor="middle" style="fill:#4D3B30">读取 · 判断 · 执行</text>
+<path d="M264 713 H383" class="link" marker-end="url(#arrow)"/>
+<path d="M563 676 V616" class="edge" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+<text x="580" y="653" font-size="18" font-weight="400" text-anchor="start" style="fill:#8B7462">读图 / 写回</text>
+<text x="84" y="783" font-size="21" font-weight="400" text-anchor="start" style="fill:#8B7462">图外建议，供判断参考</text>
+<text x="383" y="783" font-size="21" font-weight="400" text-anchor="start" style="fill:#8B7462">Dispatcher 派发任务并写回</text>
+<text x="84" y="840" font-size="23" font-weight="500" text-anchor="start" style="fill:#4D3B30">Fact 只增不改，探索沿依赖关系推进</text>
+<rect x="828" y="298" width="295" height="499" rx="18" fill="#FFFFFF" stroke="#EDDCCE" stroke-width="1.5"/>
+<rect x="1230" y="298" width="286" height="499" rx="18" fill="#FFFFFF" stroke="#EDDCCE" stroke-width="1.5"/>
+<text x="850" y="337" font-size="25" font-weight="600" text-anchor="start" style="fill:#4D3B30">探索图</text>
+<text x="1101" y="336" font-size="18" font-weight="400" text-anchor="end" style="fill:#8B7462">每任务</text>
+<text x="1252" y="337" font-size="25" font-weight="600" text-anchor="start" style="fill:#4D3B30">资产图</text>
+<text x="1494" y="336" font-size="18" font-weight="400" text-anchor="end" style="fill:#8B7462">跨任务</text>
+<rect x="850" y="370" width="251" height="56" rx="11" fill="#FDEBD9" stroke="#EDDCCE" stroke-width="1.5"/>
+<text x="975.5" y="406" font-size="25" font-weight="500" text-anchor="middle" style="fill:#4D3B30">Fact · 事实</text>
+<rect x="850" y="479" width="251" height="56" rx="11" fill="#FDEBD9" stroke="#EDDCCE" stroke-width="1.5"/>
+<text x="975.5" y="515" font-size="25" font-weight="500" text-anchor="middle" style="fill:#4D3B30">Intent · 意图</text>
+<rect x="850" y="588" width="251" height="56" rx="11" fill="#FDEBD9" stroke="#EDDCCE" stroke-width="1.5"/>
+<text x="975.5" y="624" font-size="25" font-weight="500" text-anchor="middle" style="fill:#4D3B30">Finding · 发现</text>
+<rect x="850" y="697" width="251" height="56" rx="11" fill="#FDEBD9" stroke="#EDDCCE" stroke-width="1.5"/>
+<text x="975.5" y="733" font-size="25" font-weight="500" text-anchor="middle" style="fill:#4D3B30">Goal · 目标</text>
+<path d="M975.5 426 V479" class="edge" marker-end="url(#arrow)"/>
+<text x="992" y="460" font-size="19" font-weight="400" text-anchor="start" style="fill:#8B7462">作为依据</text>
+<path d="M975.5 535 V588" class="edge" marker-end="url(#arrow)"/>
+<text x="992" y="569" font-size="19" font-weight="400" text-anchor="start" style="fill:#8B7462">产出</text>
+<path d="M975.5 644 V697" class="edge" marker-end="url(#arrow)"/>
+<text x="992" y="678" font-size="19" font-weight="400" text-anchor="start" style="fill:#8B7462">证明目标</text>
+<rect x="1250" y="370" width="246" height="56" rx="11" fill="#FFFFFF" stroke="#EDDCCE" stroke-width="1.5"/>
+<text x="1373.0" y="395" font-size="23" font-weight="500" text-anchor="middle" style="fill:#4D3B30">主域名</text>
+<text x="1373.0" y="415" font-size="16" font-weight="400" text-anchor="middle" style="fill:#8B7462">root_domain</text>
+<rect x="1250" y="479" width="246" height="56" rx="11" fill="#FFFFFF" stroke="#EDDCCE" stroke-width="1.5"/>
+<text x="1373.0" y="504" font-size="23" font-weight="500" text-anchor="middle" style="fill:#4D3B30">子域名</text>
+<text x="1373.0" y="524" font-size="16" font-weight="400" text-anchor="middle" style="fill:#8B7462">subdomain</text>
+<rect x="1250" y="588" width="246" height="56" rx="11" fill="#FFFFFF" stroke="#EDDCCE" stroke-width="1.5"/>
+<text x="1373.0" y="613" font-size="23" font-weight="500" text-anchor="middle" style="fill:#4D3B30">服务</text>
+<text x="1373.0" y="633" font-size="16" font-weight="400" text-anchor="middle" style="fill:#8B7462">service</text>
+<rect x="1250" y="697" width="246" height="56" rx="11" fill="#FFFFFF" stroke="#EDDCCE" stroke-width="1.5"/>
+<text x="1373.0" y="722" font-size="23" font-weight="500" text-anchor="middle" style="fill:#4D3B30">端点</text>
+<text x="1373.0" y="742" font-size="16" font-weight="400" text-anchor="middle" style="fill:#8B7462">endpoint</text>
+<path d="M1373 426 V479" class="edge" marker-end="url(#arrow)"/>
+<path d="M1373 535 V588" class="edge" marker-end="url(#arrow)"/>
+<path d="M1373 644 V697" class="edge" marker-end="url(#arrow)"/>
+<text x="1176" y="473" font-size="20" font-weight="500" text-anchor="middle" style="fill:#8B7462">锚点</text>
+<path d="M1101 507 L1250 507" class="link"/>
+<path d="M1101 616 L1250 616" class="link"/>
+<text x="828" y="840" font-size="23" font-weight="500" text-anchor="start" style="fill:#4D3B30">探索记录通过锚点关联到具体资产</text>
+</g>
+<g transform="translate(0 -270)">
+<rect x="56" y="910" width="1488" height="142" rx="20" fill="#FFF9F3" stroke="#EDDCCE" stroke-width="1.5"/>
+<g transform="translate(-103 0)">
+<rect x="380" y="939" width="236" height="56" rx="11" fill="#FFFFFF" stroke="#EDDCCE" stroke-width="1.5"/>
+<text x="498.0" y="975" font-size="25" font-weight="500" text-anchor="middle" style="fill:#4D3B30">已有 Fact</text>
+<rect x="785" y="939" width="236" height="56" rx="11" fill="#FDEBD9" stroke="#EDDCCE" stroke-width="1.5"/>
+<text x="903.0" y="975" font-size="25" font-weight="500" text-anchor="middle" style="fill:#4D3B30">Intent</text>
+<rect x="1190" y="939" width="236" height="56" rx="11" fill="#FFFFFF" stroke="#EDDCCE" stroke-width="1.5"/>
+<text x="1308.0" y="975" font-size="25" font-weight="500" text-anchor="middle" style="fill:#4D3B30">新 Fact</text>
+<path d="M616 967 H785" class="edge" marker-end="url(#arrow)"/>
+<text x="700" y="952" font-size="19" font-weight="400" text-anchor="middle" style="fill:#8B7462">提出方向</text>
+<path d="M1021 967 H1190" class="edge" marker-end="url(#arrow)"/>
+<text x="1105" y="952" font-size="19" font-weight="400" text-anchor="middle" style="fill:#8B7462">执行探索</text>
+<path d="M1308 995 V1026 H498 V995" class="edge" marker-end="url(#arrow)"/>
+<text x="903" y="1020" font-size="19" font-weight="400" text-anchor="middle" style="fill:#8B7462">作为后续探索的依据</text>
+</g>
+</g>
+</svg>

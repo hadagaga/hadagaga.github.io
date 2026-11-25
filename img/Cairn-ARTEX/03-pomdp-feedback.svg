@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="623" viewBox="0 0 1600 623" role="img" aria-labelledby="title desc">
+<title id="title">POMDP 下的行动与观测</title>
+<desc id="desc">隐藏状态在环境内演化。决策侧依据当前信念选择行动，经 Worker 执行；已执行行动和新观测共同用于更新信念。</desc>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="userSpaceOnUse"><path d="M1 1 L8 5 L1 9" fill="none" stroke="#BE753D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<style>text{font-family:PingFang SC,Hiragino Sans GB,Microsoft YaHei,sans-serif;}</style>
+<rect x="0" y="0" width="1600" height="623" rx="0" fill="#FFFFFF" stroke="none" stroke-width="1.5"/>
+<rect x="56" y="28" width="1488" height="237" rx="22" fill="#FFF9F3" stroke="#EDDCCE" stroke-width="1.5"/>
+<text x="86" y="75" text-anchor="start" font-size="26" font-weight="600" fill="#4D3B30">环境</text>
+<rect x="1034" y="131" width="312" height="75" rx="13" fill="#FDEBD9" stroke="#EDDCCE" stroke-width="1.5"/>
+<text x="1190.0" y="164.5" text-anchor="middle" font-size="27" font-weight="500" fill="#4D3B30">隐藏状态的变化</text>
+<text x="1190.0" y="192.5" text-anchor="middle" font-size="21" font-weight="400" fill="#826B59">由真实状态和行动共同决定</text>
+<rect x="564" y="131" width="268" height="75" rx="13" fill="#FFFFFF" stroke="#EDDCCE" stroke-width="1.5"/>
+<text x="698.0" y="178.5" text-anchor="middle" font-size="28" font-weight="500" fill="#4D3B30">生成观测</text>
+<path d="M1034 168 H832" fill="none" stroke="#BE753D" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<rect x="56" y="315" width="1488" height="280" rx="22" fill="#FFF9F3" stroke="#EDDCCE" stroke-width="1.5"/>
+<text x="86" y="361" text-anchor="start" font-size="26" font-weight="600" fill="#4D3B30">决策与执行</text>
+<rect x="90" y="398" width="265" height="82" rx="13" fill="#FDEBD9" stroke="#EDDCCE" stroke-width="1.5"/>
+<text x="222.5" y="435.0" text-anchor="middle" font-size="27" font-weight="500" fill="#4D3B30">更新信念</text>
+<text x="222.5" y="463.0" text-anchor="middle" font-size="21" font-weight="400" fill="#826B59">结合先验、行动与观测</text>
+<rect x="420" y="398" width="272" height="82" rx="13" fill="#FFFFFF" stroke="#EDDCCE" stroke-width="1.5"/>
+<text x="556.0" y="435.0" text-anchor="middle" font-size="27" font-weight="500" fill="#4D3B30">当前信念</text>
+<text x="556.0" y="463.0" text-anchor="middle" font-size="21" font-weight="400" fill="#826B59">对隐藏状态的概率分布</text>
+<rect x="756" y="398" width="325" height="82" rx="13" fill="#FFFFFF" stroke="#EDDCCE" stroke-width="1.5"/>
+<text x="918.5" y="449.0" text-anchor="middle" font-size="26" font-weight="500" fill="#4D3B30">候选计划与行动选择</text>
+<rect x="1142" y="398" width="373" height="82" rx="13" fill="#FFFFFF" stroke="#EDDCCE" stroke-width="1.5"/>
+<text x="1328.5" y="449.0" text-anchor="middle" font-size="28" font-weight="500" fill="#4D3B30">Worker 执行</text>
+<path d="M355 439 H420" fill="none" stroke="#BE753D" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path d="M692 439 H756" fill="none" stroke="#BE753D" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path d="M1081 439 H1142" fill="none" stroke="#BE753D" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path d="M698 206 V284 H222.5 V398" fill="none" stroke="#BE753D" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<text x="459" y="274" text-anchor="middle" font-size="22" font-weight="500" fill="#826B59">新观测 oₜ₊₁</text>
+<path d="M1328 480 V531 H222.5 V480" fill="none" stroke="#CFA37F" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="6 7" marker-end="url(#arrow)"/>
+<text x="775" y="563" text-anchor="middle" font-size="22" font-weight="400" fill="#826B59">已执行行动也用于信念更新</text>
+<path d="M1392 398 V168 H1346" fill="none" stroke="#BE753D" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<text x="1376" y="310" text-anchor="end" font-size="22" font-weight="500" fill="#826B59">实际行动 aₜ</text>
+</svg>

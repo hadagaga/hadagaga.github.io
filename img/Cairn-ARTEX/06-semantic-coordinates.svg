@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="650" viewBox="0 0 1600 650" role="img" aria-labelledby="title desc">
+<title id="title">一条信息的语义坐标</title>
+<desc id="desc">记录 I₁ 有独立 ID。内容、来源、时间、主体、目的和情境以不同类型描述同一条记录，适用策略关系将它与另一记录 I₃ 关联。</desc>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="userSpaceOnUse"><path d="M1 1 L8 5 L1 9" fill="none" stroke="#BE753D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<style>text{font-family:PingFang SC,Hiragino Sans GB,Microsoft YaHei,sans-serif;}</style>
+<rect x="0" y="0" width="1600" height="650" rx="0" fill="#FFFFFF" stroke="none" stroke-width="1.5"/>
+<rect x="56" y="28" width="1038" height="594" rx="22" fill="#FFF9F3" stroke="#EDDCCE" stroke-width="1.5"/>
+<rect x="84" y="56" width="174" height="66" rx="13" fill="#FDEBD9" stroke="#EDDCCE" stroke-width="1.5"/>
+<text x="171.0" y="99.0" text-anchor="middle" font-size="32" font-weight="500" fill="#4D3B30">I₁</text>
+<text x="278" y="97" text-anchor="start" font-size="25" font-weight="500" fill="#826B59">独立 ID</text>
+<path d="M84 148 H1066" fill="none" stroke="#EDDCCE" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="84" y="176" width="482" height="116" rx="14" fill="#FFFFFF" stroke="#EDDCCE" stroke-width="1.5"/>
+<text x="106" y="216" text-anchor="start" font-size="24" font-weight="600" fill="#4D3B30">内容</text>
+<text x="538" y="216" text-anchor="end" font-size="21" font-weight="400" fill="#826B59">文本</text>
+<text x="106" y="260" text-anchor="start" font-size="27" font-weight="500" fill="#4D3B30">匿名请求返回 401</text>
+<rect x="584" y="176" width="482" height="116" rx="14" fill="#FFFFFF" stroke="#EDDCCE" stroke-width="1.5"/>
+<text x="606" y="216" text-anchor="start" font-size="24" font-weight="600" fill="#4D3B30">来源</text>
+<text x="1038" y="216" text-anchor="end" font-size="21" font-weight="400" fill="#826B59">引用</text>
+<text x="606" y="260" text-anchor="start" font-size="27" font-weight="500" fill="#4D3B30">本轮测试会话</text>
+<rect x="84" y="316" width="482" height="116" rx="14" fill="#FFFFFF" stroke="#EDDCCE" stroke-width="1.5"/>
+<text x="106" y="356" text-anchor="start" font-size="24" font-weight="600" fill="#4D3B30">时间</text>
+<text x="538" y="356" text-anchor="end" font-size="21" font-weight="400" fill="#826B59">时间点</text>
+<text x="106" y="400" text-anchor="start" font-size="27" font-weight="500" fill="#4D3B30">该次请求的观测时间</text>
+<rect x="584" y="316" width="482" height="116" rx="14" fill="#FFFFFF" stroke="#EDDCCE" stroke-width="1.5"/>
+<text x="606" y="356" text-anchor="start" font-size="24" font-weight="600" fill="#4D3B30">主体</text>
+<text x="1038" y="356" text-anchor="end" font-size="21" font-weight="400" fill="#826B59">实体</text>
+<text x="606" y="400" text-anchor="start" font-size="27" font-weight="500" fill="#4D3B30">服务 A</text>
+<rect x="84" y="456" width="482" height="116" rx="14" fill="#FFFFFF" stroke="#EDDCCE" stroke-width="1.5"/>
+<text x="106" y="496" text-anchor="start" font-size="24" font-weight="600" fill="#4D3B30">目的</text>
+<text x="538" y="496" text-anchor="end" font-size="21" font-weight="400" fill="#826B59">任务</text>
+<text x="106" y="540" text-anchor="start" font-size="27" font-weight="500" fill="#4D3B30">验证账户访问策略</text>
+<rect x="584" y="456" width="482" height="116" rx="14" fill="#FFFFFF" stroke="#EDDCCE" stroke-width="1.5"/>
+<text x="606" y="496" text-anchor="start" font-size="24" font-weight="600" fill="#4D3B30">情境</text>
+<text x="1038" y="496" text-anchor="end" font-size="21" font-weight="400" fill="#826B59">条件</text>
+<text x="606" y="540" text-anchor="start" font-size="27" font-weight="500" fill="#4D3B30">当前部署版本 · 匿名访问</text>
+<rect x="1255" y="259" width="289" height="98" rx="13" fill="#FDEBD9" stroke="#EDDCCE" stroke-width="1.5"/>
+<text x="1399.5" y="304.0" text-anchor="middle" font-size="32" font-weight="500" fill="#4D3B30">I₃</text>
+<text x="1399.5" y="332.0" text-anchor="middle" font-size="21" font-weight="400" fill="#826B59">当前访问策略</text>
+<path d="M1094 308 H1255" fill="none" stroke="#CFA37F" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="6 7" marker-end="url(#arrow)"/>
+<text x="1175" y="285" text-anchor="middle" font-size="22" font-weight="500" fill="#826B59">适用策略</text>
+</svg>

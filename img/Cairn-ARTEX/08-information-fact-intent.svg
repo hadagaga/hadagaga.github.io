@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="555" viewBox="0 0 1600 555" role="img" aria-labelledby="title desc">
+<title id="title">从信息点亮到 Fact–Intent 闭环</title>
+<desc id="desc">信息经候选召回与证据检查后才形成或修订 Fact。证据不足可直接进入缺口识别。Intent 指导下一轮采集，新观测返回信息库。</desc>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="userSpaceOnUse"><path d="M1 1 L8 5 L1 9" fill="none" stroke="#BE753D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<style>text{font-family:PingFang SC,Hiragino Sans GB,Microsoft YaHei,sans-serif;}</style>
+<rect x="0" y="0" width="1600" height="555" rx="0" fill="#FFFFFF" stroke="none" stroke-width="1.5"/>
+<rect x="56" y="28" width="1488" height="499" rx="22" fill="#FFF9F3" stroke="#EDDCCE" stroke-width="1.5"/>
+<rect x="87" y="99" width="228" height="84" rx="13" fill="#FFFFFF" stroke="#EDDCCE" stroke-width="1.5"/>
+<text x="201.0" y="151.0" text-anchor="middle" font-size="28" font-weight="500" fill="#4D3B30">问题与语境</text>
+<rect x="378" y="99" width="238" height="84" rx="13" fill="#FFFFFF" stroke="#EDDCCE" stroke-width="1.5"/>
+<text x="497.0" y="137.0" text-anchor="middle" font-size="28" font-weight="500" fill="#4D3B30">候选信息</text>
+<text x="497.0" y="165.0" text-anchor="middle" font-size="21" font-weight="400" fill="#826B59">区域、关系、切片</text>
+<rect x="680" y="99" width="333" height="84" rx="13" fill="#FDEBD9" stroke="#EDDCCE" stroke-width="1.5"/>
+<text x="846.5" y="137.0" text-anchor="middle" font-size="28" font-weight="500" fill="#4D3B30">证据检查</text>
+<text x="846.5" y="165.0" text-anchor="middle" font-size="21" font-weight="400" fill="#826B59">适用性、同源、冲突</text>
+<rect x="1122" y="99" width="384" height="84" rx="13" fill="#FFFFFF" stroke="#EDDCCE" stroke-width="1.5"/>
+<text x="1314.0" y="151.0" text-anchor="middle" font-size="27" font-weight="500" fill="#4D3B30">形成或修订 Fact</text>
+<path d="M315 141 H378" fill="none" stroke="#BE753D" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path d="M616 141 H680" fill="none" stroke="#BE753D" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path d="M1013 141 H1122" fill="none" stroke="#BE753D" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<text x="1067" y="127" text-anchor="middle" font-size="19" font-weight="500" fill="#826B59">有依据</text>
+<rect x="1107" y="386" width="399" height="88" rx="13" fill="#FFFFFF" stroke="#EDDCCE" stroke-width="1.5"/>
+<text x="1306.5" y="440.0" text-anchor="middle" font-size="28" font-weight="500" fill="#4D3B30">识别证据缺口</text>
+<rect x="733" y="386" width="301" height="88" rx="13" fill="#FDEBD9" stroke="#EDDCCE" stroke-width="1.5"/>
+<text x="883.5" y="426.0" text-anchor="middle" font-size="28" font-weight="500" fill="#4D3B30">生成 Intent</text>
+<text x="883.5" y="454.0" text-anchor="middle" font-size="21" font-weight="400" fill="#826B59">明确下一轮要验证的问题</text>
+<rect x="378" y="386" width="281" height="88" rx="13" fill="#FFFFFF" stroke="#EDDCCE" stroke-width="1.5"/>
+<text x="518.5" y="426.0" text-anchor="middle" font-size="28" font-weight="500" fill="#4D3B30">获得新信息</text>
+<text x="518.5" y="454.0" text-anchor="middle" font-size="21" font-weight="400" fill="#826B59">采集与验证</text>
+<rect x="87" y="386" width="228" height="88" rx="13" fill="#FFFFFF" stroke="#EDDCCE" stroke-width="1.5"/>
+<text x="201.0" y="440.0" text-anchor="middle" font-size="28" font-weight="500" fill="#4D3B30">信息库</text>
+<path d="M1314 183 V386" fill="none" stroke="#BE753D" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path d="M846.5 183 V270 H1228 V386" fill="none" stroke="#CFA37F" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="6 7" marker-end="url(#arrow)"/>
+<text x="1013" y="257" text-anchor="middle" font-size="22" font-weight="500" fill="#826B59">证据不足</text>
+<path d="M1107 430 H1034" fill="none" stroke="#BE753D" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path d="M733 430 H659" fill="none" stroke="#BE753D" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path d="M378 430 H315" fill="none" stroke="#BE753D" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path d="M201 386 V313 H497 V183" fill="none" stroke="#BE753D" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<text x="340" y="300" text-anchor="middle" font-size="22" font-weight="500" fill="#826B59">取回已有记录</text>
+</svg>

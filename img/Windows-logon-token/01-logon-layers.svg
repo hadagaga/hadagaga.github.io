@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="810" viewBox="0 0 1200 810" role="img" aria-label="Windows 登录与访问检查的分层">
+<title>Windows 登录与访问检查的分层</title>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0 L8 3 L0 6" fill="#64748b"/></marker></defs>
+<style>text{font-family:"PingFang SC","Microsoft YaHei",sans-serif;fill:#172b4d}.title{font-size:30px;font-weight:700}.sub{font-size:18px;fill:#52647c}.label{font-size:22px;font-weight:600}.body{font-size:19px}</style>
+<rect width="1200" height="810" fill="#f8fafc"/>
+<text x="40" y="53" class="title">Windows 登录与访问检查的分层</text>
+<text x="40" y="86" class="sub">以传统桌面交互登录为例 · 图中为职责划分，省略部分组件与调用细节</text>
+<rect x="40" y="120" width="1120" height="145" rx="14" fill="#eaf2ff" stroke="#cad5e3"/>
+<text x="62" y="156" class="label">用户态 · 登录前台</text>
+<text x="62" y="189" class="body">LogonUI / 凭据提供程序收集凭据</text>
+<text x="62" y="218" class="body">Winlogon 协调交互登录</text>
+<path d="M600 265 L600 310" fill="none" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="625" y="295" class="sub">通过本地接口提交认证请求</text>
+<rect x="40" y="315" width="1120" height="155" rx="14" fill="#eaf2ff" stroke="#cad5e3"/>
+<text x="62" y="351" class="label">用户态 · LSASS（SYSTEM 身份）</text>
+<text x="62" y="384" class="body">LSA 协调认证包，验证身份并组织登录信息</text>
+<text x="62" y="413" class="body">本地账户使用 SAM；域账户涉及域控；维护登录会话及相关认证状态</text>
+<path d="M600 470 L600 515" fill="none" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="625" y="500" class="sub">登录成功后，系统创建访问令牌</text>
+<rect x="40" y="520" width="535" height="145" rx="14" fill="#eeeafa" stroke="#cad5e3"/>
+<text x="62" y="556" class="label">内核对象 · 访问令牌</text>
+<text x="62" y="589" class="body">用户 SID、组 SID、特权等</text>
+<text x="62" y="618" class="body">进程 / 线程的安全上下文</text>
+<rect x="625" y="520" width="535" height="145" rx="14" fill="#eeeafa" stroke="#cad5e3"/>
+<text x="647" y="556" class="label">内核 · SRM</text>
+<text x="647" y="589" class="body">结合令牌、对象安全描述符等</text>
+<text x="647" y="618" class="body">执行访问检查</text>
+<path d="M575 590 L625 590" fill="none" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="40" y="715" class="sub">账户策略变更通常不会自动重建已有令牌；令牌的部分字段或状态可通过 API 调整。</text>
+<text x="40" y="749" class="sub">登录会话 LUID 与桌面 / 远程桌面 Session ID 是不同标识。</text>
+</svg>

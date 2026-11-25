@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="648" viewBox="0 0 1600 648" role="img" aria-labelledby="title desc">
+<title id="title">Fact–Intent–Hint 与 State–Intent</title>
+<desc id="desc">左侧为 Fact–Intent–Hint 图式，右侧为含事实集合的 State–Intent。右栏虚线卡片表示可另行设计的输入和审计机制。</desc>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="userSpaceOnUse"><path d="M1 1 L8 5 L1 9" fill="none" stroke="#BE753D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<style>text{font-family:PingFang SC,Hiragino Sans GB,Microsoft YaHei,sans-serif;}</style>
+<rect x="0" y="0" width="1600" height="648" rx="0" fill="#FFFFFF" stroke="none" stroke-width="1.5"/>
+<rect x="56" y="28" width="1488" height="592" rx="22" fill="#FFF9F3" stroke="#EDDCCE" stroke-width="1.5"/>
+<rect x="278" y="55" width="592" height="537" rx="18" fill="#FFFFFF" stroke="#EDDCCE" stroke-width="1.5"/>
+<rect x="902" y="55" width="614" height="537" rx="18" fill="#FFFFFF" stroke="#EDDCCE" stroke-width="1.5"/>
+<rect x="302" y="82" width="163" height="77" rx="13" fill="#FDEBD9" stroke="#EDDCCE" stroke-width="1.5"/>
+<text x="383.5" y="130.5" text-anchor="middle" font-size="30" font-weight="500" fill="#4D3B30">Fact</text>
+<rect x="488" y="82" width="172" height="77" rx="13" fill="#FDEBD9" stroke="#EDDCCE" stroke-width="1.5"/>
+<text x="574.0" y="130.5" text-anchor="middle" font-size="30" font-weight="500" fill="#4D3B30">Intent</text>
+<rect x="683" y="82" width="163" height="77" rx="13" fill="#FDEBD9" stroke="#EDDCCE" stroke-width="1.5"/>
+<text x="764.5" y="130.5" text-anchor="middle" font-size="30" font-weight="500" fill="#4D3B30">Hint</text>
+<rect x="926" y="82" width="306" height="77" rx="13" fill="#FDEBD9" stroke="#EDDCCE" stroke-width="1.5"/>
+<text x="1079.0" y="116.5" text-anchor="middle" font-size="30" font-weight="500" fill="#4D3B30">State</text>
+<text x="1079.0" y="144.5" text-anchor="middle" font-size="21" font-weight="400" fill="#826B59">事实集合</text>
+<rect x="1255" y="82" width="237" height="77" rx="13" fill="#FDEBD9" stroke="#EDDCCE" stroke-width="1.5"/>
+<text x="1373.5" y="130.5" text-anchor="middle" font-size="30" font-weight="500" fill="#4D3B30">Intent</text>
+<path d="M85 183 H1516" fill="none" stroke="#EDDCCE" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M85 313 H1516" fill="none" stroke="#EDDCCE" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M85 443 H1516" fill="none" stroke="#EDDCCE" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="85" y="264" text-anchor="start" font-size="26" font-weight="600" fill="#4D3B30">人类输入</text>
+<rect x="302" y="205" width="544" height="86" rx="13" fill="#FFFFFF" stroke="#EDDCCE" stroke-width="1.5"/>
+<text x="574.0" y="244.0" text-anchor="middle" font-size="28" font-weight="500" fill="#4D3B30">Hint</text>
+<text x="574.0" y="272.0" text-anchor="middle" font-size="21" font-weight="400" fill="#826B59">图外补充建议</text>
+<rect x="926" y="205" width="566" height="86" rx="13" fill="#FFFFFF" stroke="#CFA37F" stroke-width="1.5" stroke-dasharray="7 6"/>
+<text x="1209.0" y="244.0" text-anchor="middle" font-size="28" font-weight="500" fill="#4D3B30">外部输入接口</text>
+<text x="1209.0" y="272.0" text-anchor="middle" font-size="21" font-weight="400" fill="#826B59">可另行定义</text>
+<text x="85" y="394" text-anchor="start" font-size="26" font-weight="600" fill="#4D3B30">状态更新</text>
+<rect x="302" y="335" width="544" height="86" rx="13" fill="#FFFFFF" stroke="#EDDCCE" stroke-width="1.5"/>
+<text x="574.0" y="374.0" text-anchor="middle" font-size="28" font-weight="500" fill="#4D3B30">追加 Fact</text>
+<text x="574.0" y="402.0" text-anchor="middle" font-size="21" font-weight="400" fill="#826B59">通过 Intent 保留依赖</text>
+<rect x="926" y="335" width="566" height="86" rx="13" fill="#FFFFFF" stroke="#EDDCCE" stroke-width="1.5"/>
+<text x="1209.0" y="374.0" text-anchor="middle" font-size="28" font-weight="500" fill="#4D3B30">State → State′</text>
+<text x="1209.0" y="402.0" text-anchor="middle" font-size="21" font-weight="400" fill="#826B59">Intent 作用于事实集合</text>
+<text x="85" y="524" text-anchor="start" font-size="26" font-weight="600" fill="#4D3B30">历史与审计</text>
+<rect x="302" y="465" width="544" height="86" rx="13" fill="#FFFFFF" stroke="#EDDCCE" stroke-width="1.5"/>
+<text x="574.0" y="504.0" text-anchor="middle" font-size="28" font-weight="500" fill="#4D3B30">Fact–Intent 链</text>
+<text x="574.0" y="532.0" text-anchor="middle" font-size="21" font-weight="400" fill="#826B59">回看事实与探索依赖</text>
+<rect x="926" y="465" width="566" height="86" rx="13" fill="#FFFFFF" stroke="#CFA37F" stroke-width="1.5" stroke-dasharray="7 6"/>
+<text x="1209.0" y="504.0" text-anchor="middle" font-size="28" font-weight="500" fill="#4D3B30">操作日志与依赖记录</text>
+<text x="1209.0" y="532.0" text-anchor="middle" font-size="21" font-weight="400" fill="#826B59">可另行设计</text>
+</svg>

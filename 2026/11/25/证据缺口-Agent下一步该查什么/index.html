@@ -1,0 +1,244 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>证据缺口：Agent 下一步该查什么 | hada的个人博客</title><meta name="author" content="hada"><meta name="copyright" content="hada"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="两个 Demo 让我把「还差什么才能判断」单独拎了出来。这篇记录了问题清单、信息拆分，以及 32 条查询下四种检索表示与两种复核方式的对照结果。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="证据缺口：Agent 下一步该查什么">
+<meta property="og:url" content="http://hadagaga.github.io/2026/11/25/%E8%AF%81%E6%8D%AE%E7%BC%BA%E5%8F%A3-Agent%E4%B8%8B%E4%B8%80%E6%AD%A5%E8%AF%A5%E6%9F%A5%E4%BB%80%E4%B9%88/index.html">
+<meta property="og:site_name" content="hada的个人博客">
+<meta property="og:description" content="两个 Demo 让我把「还差什么才能判断」单独拎了出来。这篇记录了问题清单、信息拆分，以及 32 条查询下四种检索表示与两种复核方式的对照结果。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://hadagaga.github.io/img/information-evidence/cover.png">
+<meta property="article:published_time" content="2026-11-24T16:00:00.000Z">
+<meta property="article:modified_time" content="2026-11-25T05:41:39.629Z">
+<meta property="article:author" content="hada">
+<meta property="article:tag" content="AI">
+<meta property="article:tag" content="Agent">
+<meta property="article:tag" content="RAG">
+<meta property="article:tag" content="检索">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://hadagaga.github.io/img/information-evidence/cover.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "证据缺口：Agent 下一步该查什么",
+  "url": "http://hadagaga.github.io/2026/11/25/%E8%AF%81%E6%8D%AE%E7%BC%BA%E5%8F%A3-Agent%E4%B8%8B%E4%B8%80%E6%AD%A5%E8%AF%A5%E6%9F%A5%E4%BB%80%E4%B9%88/",
+  "image": "http://hadagaga.github.io/img/information-evidence/cover.png",
+  "datePublished": "2026-11-24T16:00:00.000Z",
+  "dateModified": "2026-11-25T05:41:39.629Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "hada",
+      "url": "http://hadagaga.github.io/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favico.ico"><link rel="canonical" href="http://hadagaga.github.io/2026/11/25/%E8%AF%81%E6%8D%AE%E7%BC%BA%E5%8F%A3-Agent%E4%B8%8B%E4%B8%80%E6%AD%A5%E8%AF%A5%E6%9F%A5%E4%BB%80%E4%B9%88/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '证据缺口：Agent 下一步该查什么',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg" style="background-image: url(/img/background.png);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/headimg.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">28</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">24</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/information-evidence/cover.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="/img/headimg.jpg" alt="Logo"><span class="site-name">hada的个人博客</span></a><a class="nav-page-title" href="/"><span class="site-name">证据缺口：Agent 下一步该查什么</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">证据缺口：Agent 下一步该查什么</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-11-24T16:00:00.000Z" title="发表于 2026-11-25 00:00:00">2026-11-25</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-11-25T05:41:39.629Z" title="更新于 2026-11-25 13:41:39">2026-11-25</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/AI-Agent/">AI Agent</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>我在上一篇文章里分析了 Cairn 和 ARTEX 的 Fact–Intent 循环，并提出了一种以信息为核心的程序设计思路。这篇文章记录了我尝试把这个思路做成可运行的原型时遇到的问题。一开始，我想让系统根据已有信息决定下一步查什么，再把执行端带回的材料拆成可复用的信息条目。有了新信息，系统就能重新审视原来的判断，决定接下来还要查什么。<a target="_blank" rel="noopener" href="https://hada.asia/2026/11/11/%E5%85%B3%E4%BA%8ECairn%E5%8F%8AARTEX%E2%80%94%E2%80%94%E8%B0%88%E8%B0%88%E6%88%91%E8%87%AA%E5%B7%B1%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%9D%E8%80%83/">《关于 Cairn 及 ARTEX——谈谈我自己的一些思考》</a></p>
+<p>而真正开始做时，我先卡在了「从已有信息出发」这一步。这里的「已有」是全部资料，还是只取其中一部分？把所有资料交过去，历史记录会越来越长，已经查明白的事也会被反复翻出来。只取一部分，又凭什么知道哪一部分值得看？我先想了想，什么样的工作会交给这个程序。</p>
+<h2 id="对一个任务而言，眼下到底要弄清哪件事"><a href="#对一个任务而言，眼下到底要弄清哪件事" class="headerlink" title="对一个任务而言，眼下到底要弄清哪件事"></a>对一个任务而言，眼下到底要弄清哪件事</h2><p>我想让这套东西能应对两类任务。一类是<strong>目标求解</strong>，有明确的验收条件，比如证明一个命题。命题得证，任务就完成。另一类是<strong>开放探索</strong>，用户先给一个调查范围或大致方向，比如了解某个市场最近发生了什么变化。调查过程中还会冒出新问题，可以按约定的预算和时间收束，交付已有的发现和仍待核实的问题。</p>
+<p>两类任务的区别在于怎样收束，推进时却有相似之处。证明一个有界数列收敛时，如果打算用单调有界定理，下一步就要证明它的单调性。做市场调研时，假如两份报告对价格走势的判断正好相反，我也会把大问题暂时放在一边，先核对它们的统计时间和样本范围。这两件事查清了，才好判断报告能不能直接比较。</p>
+<p>我把用户最初想解决的问题叫作<strong>根问题</strong>，把这类可以单独核查的小问题叫作<strong>子问题</strong>。调查过程中可以新增子问题，子问题的结论也要带回上一级。假如报告的统计时间已经核对过，我希望系统能记住时间是否一致、结论依据哪些材料，以及样本范围是否还有待核实。这样，下一轮就能接着查下去。这就是我想做一份<strong>问题清单</strong>的原因。</p>
+<p>假如两份报告的统计时间一致，眼下要核实的是它们是否覆盖同一类客群。我会先在手头的报告里查样本定义。如果现有材料足以比较样本范围，就更新清单里的判断。如果正文只写了价格走势，就安排一次新核查，比如去找两份报告的方法附录，确认各自的样本范围。我把这样一项可以交给执行端的核查叫作<strong>意图</strong>。</p>
+<p><img src="/img/information-evidence/01-question-breakdown.svg" alt="判断市场价格走势时，样本范围待核实会引出查找方法附录的意图"></p>
+<p>这个例子也改变了我对检索入口的想法。如果直接拿「了解这个市场的价格走势」去做语义检索，大概会找到更多价格报告。可这一轮需要的是原来那两份报告的样本说明。问题清单上待核实的那一项，已经给出了检索范围，也说明了什么样的材料能推进判断。</p>
+<h2 id="核查结果回来了，什么时候重新判断"><a href="#核查结果回来了，什么时候重新判断" class="headerlink" title="核查结果回来了，什么时候重新判断"></a>核查结果回来了，什么时候重新判断</h2><p>假如一开始就同时安排核对统计时间和样本范围，两项核查的结果可能先后到达。系统需要一个<strong>意图队列</strong>，记下每项核查对应的问题和执行状态。我设想每个意图可以交给一个独立的会话执行。执行完成后，系统把原始回传和从中拆出的信息存进<strong>信息模型</strong>，清单上的判断便能引用具体的信息版本。</p>
+<p>我先设想了两种状态。任务刚启动时，系统先拆分并保存用户提供的目标、提示和起始材料，再根据这些信息提出需要的首批核查。核查结果陆续返回后，系统围绕受影响的问题查库，根据已有证据判断能否更新结论、还需等待哪些结果，或者是否要安排新的核查。</p>
+<p>我在这里犹豫过，是等整批做完再看，还是每次收到结果都重评。等整批做完，一项慢任务可能拖住已经可以更新的判断。每条结果都触发重评，又可能对同一个缺口重复安排核查。后来和 ChatGPT 讨论时，我们把写入和重评拆开。<strong>结果随到随写，按问题合并重评</strong>。如果缺少的证据已经有核查在途，就等结果回来。系统还要记下每次评估用到的信息版本，把重评期间到达的新结果纳入下一次评估。</p>
+<p>我用固定的 CI 构建资料做了第一个 Demo，想判断在两次构建可比的前提下，依赖准备阶段的耗时增量是否超过总耗时增量的一半。先到的是耗时结果。总耗时多了 80 秒，依赖准备多了 70 秒。核查运行条件的意图已经在队列里，系统继续等待。收到第一版运行清单后，系统核对了运行器配置（<code>runner</code>）、缓存模式（<code>cache</code>）和计时口径（<code>timing</code>）。清单显示两次构建都使用 <code>linux-x64-small</code>，均为冷缓存（<code>cold</code>），各阶段按顺序计时（<code>serial</code>）。这满足了 Demo 的可比条件，系统得出依赖准备阶段占总耗时增量的 <code>70 ÷ 80 = 87.5%</code>，超过一半。</p>
+<p>随后我让系统收到一份更正后的运行清单。清单把 <code>ci-102</code> 的运行器从误记的 <code>linux-x64-small</code> 更正为 <code>linux-x64-large</code>，与 <code>ci-101</code> 使用的 <code>linux-x64-small</code> 不同。这一处更正让可比性条件失效。系统重新打开问题，记下还缺一组可比的构建数据，同时保留上一次判断引用的依据。这个 Demo 用固定顺序模拟结果到达，我用它检查了等待、去重和重评。实际并发和独立会话的执行方式还在设计中。</p>
+<p><img src="/img/information-evidence/02-ci-evidence-timeline.svg" alt="耗时先到，第一版清单支持可比，运行器配置更正后重新打开问题"></p>
+<h2 id="同一份回传里，哪些内容该分开存"><a href="#同一份回传里，哪些内容该分开存" class="headerlink" title="同一份回传里，哪些内容该分开存"></a>同一份回传里，哪些内容该分开存</h2><p>运行清单更正之后，70 秒和 80 秒都还在，原来的结论却失去了可比性这个前提。为了追溯到底是哪项前提变了，拆出来的每条信息都应该能单独引用、核验和更正。一份回传可能包含好几项记录。比如一份日志既有「依赖准备耗时 90 秒」，也有「镜像端点要求稍后重试」，我会保留整份原文，再把这两项各存一条。后续修正耗时，就能找到引用了旧耗时的判断，同时继续引用那条重试记录。</p>
+<p><img src="/img/information-evidence/03-information-provenance.svg" alt="原始日志拆出耗时和重试信息，耗时更正后只重评引用该信息的判断"></p>
+<p>每条信息还带着主体、内容、阶段、时间、来源等描述，我在上一篇里把它们叫作信息维度。我和 ChatGPT 讨论过要不要给不同维度各做一套向量索引。拿构建日志来看，构建编号已知时就可以按字段直接查，阶段也可以用同样的方式限定。至于「让客户端稍后再试」这种内容，原文未必用相同的字眼，这才需要语义匹配。同一次查询可以同时用上这些维度。</p>
+<p>先前那篇文章里关于「点亮」的设想，在这里也有了具体的例子。要查某次构建，就先用项目、构建和阶段圈一个<strong>区域</strong>。要同时看这次构建的耗时、日志和运行配置，可以固定构建，把几类材料取出来形成一个<strong>切片</strong>。拿到一条结果后，还可以沿<strong>关联</strong>找到它引用的配置，或者找到更正这条记录的清单。它们是我设想的几种找材料的方式，我先挑了其中最简单的部分来试。</p>
+<p>第二个 Demo 只处理两份固定回传，按行拆成六条信息，用 SQLite 保存原文、信息条目和来源版本。查询时先按项目、主体和明确给出的阶段筛选，再逐一计算查询向量与候选正文向量的余弦相似度。拿到结果后，可以按信息 ID 和版本追溯到对应的原文行。通用文本拆分和沿关系查找材料还需要分别验证。</p>
+<h2 id="语义上找到了，为什么最后还会漏掉"><a href="#语义上找到了，为什么最后还会漏掉" class="headerlink" title="语义上找到了，为什么最后还会漏掉"></a>语义上找到了，为什么最后还会漏掉</h2><p>这次我测了三种情况。直接检索「依赖准备耗时多久」，应该能找到明确写着耗时的记录。问题和日志的措辞相差较大时，仍希望能找到支持回答的记录，我把这类用例叫作弱关联查询。手头的记录无法回答时，查询应该返回空结果。</p>
+<p>第一次我用相邻字符对的频次构造向量，再计算余弦相似度。四条用例通过了三条，漏掉了「上游有没有让客户端等一会儿再试」。这句话和原文的 <code>Retry-After</code> 没有共同的相邻字符对。换成本机 LM Studio 里的 Qwen3-Embedding-0.6B 后，正确记录被找到了，部署阶段那条正文一模一样的记录也被找到了。仅用正文计算时，两条记录的得分相同。</p>
+<p>和 ChatGPT 讨论后，我选择把「查错阶段」和「分数不够」分开测。先在一组查询上选门槛，再用另一组留出的查询验证。在留出的 12 条查询中，程序正确判断了其中 10 条的阶段。直接指定正确阶段后，可以排除一部分来自错误阶段的结果，可仍有三条弱关联查询的必需证据被 <code>0.84</code> 的门槛挡住。</p>
+<p>让我继续查下去的是两个分数。有条留出的查询问的是「灰度扩容的采购合同编号」，而记录只写了扩容过程。两者都在谈扩容，相似度达到了 0.7254。三条弱关联查询的必需证据里，最高分是 0.6873。如果统一用一道门槛挡住那条扩容记录，这些证据也会被挡住。我考虑过按阶段给整条向量乘以一个正系数，随后发现这个系数会在余弦相似度计算中抵消。采购合同的查询和干扰记录还恰好属于同一阶段，这时得直接检查记录里有没有合同编号。</p>
+<p><img src="/img/information-evidence/04-similarity-threshold.svg" alt="同阶段干扰项分数高于必需证据，统一门槛无法同时排噪和保留证据"></p>
+<h2 id="给低分线索一次被检查的机会"><a href="#给低分线索一次被检查的机会" class="headerlink" title="给低分线索一次被检查的机会"></a>给低分线索一次被检查的机会</h2><p>我想到的折中办法是为每条查询额外保留最多两条低于门槛的记录，作为复核候选。这一轮我比较了两种做法：直接返回这些候选，或按规则核对原文后再返回。这样可以看出漏掉的证据能找回多少，又会带进多少干扰项。</p>
+<p>一共测了 36 条查询。直接返回低分候选时，9 条弱关联查询的必需证据都留下了，但 18 条无答案查询中有 16 条也返回了记录。加上规则复核后，完整通过数从仅使用门槛时的 25 条增加到 30 条，18 条无答案查询都返回了空结果。</p>
+<p>我再拆开看那 5 条新增通过的查询，发现全是之前用过的样例。新样例里的「备用源已配置但未启用」和「目标实例未齐，发布已暂停」都进了候选池，但规则没能识别出这些表述可以回答对应的问题。这一层规则依赖几种已知的表达对应关系。碰到重试问题，就去查 <code>Retry-After</code>。如果两条不同阶段的日志都写着 <code>idle=0</code>，只按这段文字匹配，两条都可能通过。</p>
+<p>我也试了用本地 LLM 复核，可惜遇到了模型加载和推理故障，没拿到可比较的数据。所以我想先复用现有的嵌入模型。既然两条日志的阶段是已知的，能不能在向量化时把阶段也编码进去？如果日志里用了缩写，能不能补一句便于检索的说明？我想看看这些改动能把结果改善多少。</p>
+<h2 id="换一种检索表示，还需要复核吗"><a href="#换一种检索表示，还需要复核吗" class="headerlink" title="换一种检索表示，还需要复核吗"></a>换一种检索表示，还需要复核吗</h2><p>我查到三个可以借用的做法。Qwen 的模型说明建议给查询加任务指令，RAGMate 的研究对照过在正文前加元数据的效果，Doc2Query++ 把原文和生成的查询分开检索，再合并结果。我分别借用了查询指令、元数据前缀和双路检索的做法，在 CI 样例上与只编码正文的版本比较。<a target="_blank" rel="noopener" href="https://huggingface.co/Qwen/Qwen3-Embedding-0.6B-GGUF#usage">Qwen 模型说明</a> · <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2601.11863">RAGMate 论文</a> · <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2510.09557">Doc2Query++ 论文</a></p>
+<p>第一种在查询前加固定的任务说明，复用正文向量。第二种在正文前加阶段和已有的组件信息，一起编码。第三种保留正文向量，再单独编码从原文提炼出的证据说明。例如给实验日志里的 <code>Retry-After: 46</code> 补上「服务端提示客户端收到响应后等待 46 秒，再发起下一次请求」。两路命中都指向同一条原文。要回答客户端实际等了多久，还得找客户端的记录。<a target="_blank" rel="noopener" href="https://www.rfc-editor.org/rfc/rfc9110.html#section-10.2.3">RFC 9110 §10.2.3</a></p>
+<p>不过我还想知道，改检索表示和增加复核各能改善多少，所以在这一轮把它们放在一起对照。上一轮配额实验的 36 条查询，这一轮继续用。其中 12 条校准查询用来给每种表示选门槛。其余 24 条放进测试组，包括 12 条留出查询、最初 Demo 的 4 条验收查询，以及做配额实验时新增的 8 条。</p>
+<p>我又为两次构建各写了 4 条新查询。每次构建各有一条强关联、一条弱关联、一条完全无关，以及一条措辞相近但日志答不上来的查询。每次构建的弱关联查询和这条无答案查询组成一对，共有两对。比如对着同一条日志，一次问「上游有没有要求稍后重试」，一次问「客户端实际等了多久」。两问都提到重试，日志只能回答第一问。本轮用来测试的 32 条查询里，有 8 条弱关联查询，其中旧样例 6 条、新样例 2 条。</p>
+<p>达到门槛的结果照常返回。「配额」指额外保留低分候选。在同一种检索表示下，规则和 Agent 复核的是同一批低分候选。我用 DeepSeek 的 <code>deepseek-flash</code> 做 Agent 复核，交给它查询、候选原文和情境，并要求它在保留候选时引用依据。下表统计完整通过数。只有同时满足用例规定的排序、必需证据和干扰项排除条件，才算通过。</p>
+<table>
+<thead>
+<tr>
+<th>检索表示</th>
+<th align="right">仅门槛</th>
+<th align="right">配额直接返回</th>
+<th align="right">配额＋规则</th>
+<th align="right">配额＋Agent</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>正文</td>
+<td align="right">22&#x2F;32</td>
+<td align="right">6&#x2F;32</td>
+<td align="right">26&#x2F;32</td>
+<td align="right">30&#x2F;32</td>
+</tr>
+<tr>
+<td>查询指令</td>
+<td align="right">23&#x2F;32</td>
+<td align="right">11&#x2F;32</td>
+<td align="right">26&#x2F;32</td>
+<td align="right">28&#x2F;32</td>
+</tr>
+<tr>
+<td>情境前缀</td>
+<td align="right">23&#x2F;32</td>
+<td align="right">7&#x2F;32</td>
+<td align="right">26&#x2F;32</td>
+<td align="right">29&#x2F;32</td>
+</tr>
+<tr>
+<td>正文＋证据说明</td>
+<td align="right">22&#x2F;32</td>
+<td align="right">6&#x2F;32</td>
+<td align="right">26&#x2F;32</td>
+<td align="right">30&#x2F;32</td>
+</tr>
+</tbody></table>
+<p>情境前缀把原来同分的两条日志拉开了，但两条仍需复核。加了证据说明以后，问「上游有没有要求稍后重试」，正确记录的分数从 0.566 涨到 0.622。换成问「客户端实际等了多久」，同一条记录的分数也从 0.613 涨到 0.682。补写说明提高了这条日志对两种问法的相似度，但是原文只能回答第一问。</p>
+<p><img src="/img/information-evidence/05-retry-question-comparison.svg" alt="补充证据说明后两种问法相似度都升高，原文只能回答是否要求重试"></p>
+<p>四种检索表示在应用门槛前，都已经把 8 条弱关联查询所需的证据排进各自的前三名。在这批样例中，复核方式影响了这些证据最终能保留多少。拿正文组来说，规则为 8 条弱关联查询中的 4 条保留了全部必需证据，Agent 为其中 7 条保留了全部必需证据。两种方式在 16 条无答案查询上都返回了空结果。只看 8 条新查询，加规则复核的通过数和只用门槛一样。四种检索表示加上 Agent 复核后，都通过了这 8 条。</p>
+<p>Agent 也漏过证据。一次查询问「找出各处出现的重试提示」，它却把复核范围缩到了部署阶段，丢掉了另一个阶段的必需记录。这轮对照共复核了 82 项去重后的候选，发出了 11 次云端请求，单次批量请求的耗时中位数为 1.41 秒。我还想测量单条查询的端到端耗时，看看哪些问题值得多做一次推理。</p>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>我在实践过程中的两个 Demo 都碰到了同一个问题：手头的信息还差什么，才能作出判断？第一个 Demo 里，耗时齐了，但运行清单更正后，还需要一组可比的构建数据。第二个 Demo 里，重试指示已经找到了，但要知道客户端实际等了多久，还需要同一次重试中收到响应和再次发出请求的时间。我把为了推进判断而仍需补上的具体依据叫作<strong>证据缺口</strong>。</p>
+<p>如果把这个缺口写回问题清单，下一轮就有了可以执行的意图，比如去客户端日志里核对两个时间点。新记录回来后，先确认它们是否对应同一次重试，再决定现有证据能否回答问题。这就是我想接回 Fact–Intent 循环的地方。</p>
+<p>对于目前跑通的是两个针对固定资料的 Demo。开放探索里先查哪个问题，怎样把长篇材料拆成可独立核验的信息，以及并发时怎样处理陆续到达的结果和后续更正，都需要分别验证。接下来我想先验证一件事：写清证据缺口以后，系统提出的下一项核查能不能拿到缺的那条证据。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://hadagaga.github.io">hada</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://hadagaga.github.io/2026/11/25/%E8%AF%81%E6%8D%AE%E7%BC%BA%E5%8F%A3-Agent%E4%B8%8B%E4%B8%80%E6%AD%A5%E8%AF%A5%E6%9F%A5%E4%BB%80%E4%B9%88/">http://hadagaga.github.io/2026/11/25/%E8%AF%81%E6%8D%AE%E7%BC%BA%E5%8F%A3-Agent%E4%B8%8B%E4%B8%80%E6%AD%A5%E8%AF%A5%E6%9F%A5%E4%BB%80%E4%B9%88/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="http://hadagaga.github.io" target="_blank">hada的个人博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/AI/">AI</a><a class="post-meta__tags" href="/tags/Agent/">Agent</a><a class="post-meta__tags" href="/tags/RAG/">RAG</a><a class="post-meta__tags" href="/tags/%E6%A3%80%E7%B4%A2/">检索</a></div><div class="post-share"><div class="social-share" data-image="/img/information-evidence/cover.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/2026/11/20/Windows%E7%99%BB%E5%BD%95%E4%BB%A4%E7%89%8C%E4%B8%8E%E4%BC%9A%E8%AF%9D%E6%9C%BA%E5%88%B6/" title="Windows 登录、访问令牌与会话机制"><img class="cover" src="/img/Windows-logon-token/01-logon-layers.svg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">Windows 登录、访问令牌与会话机制</div></div><div class="info-2"><div class="info-item-1">前言学习 Windows 安全时，经常会遇到令牌、登录会话、组和特权这些概念。单看定义似乎都能理解，但把它们放进一次登录过程里，就容易混淆。比如，密码验证通过后，进程凭什么访问文件？管理员登录后，为什么普通程序还需要提权？移除组成员，又为什么不一定立即影响已有进程？ 这篇笔记从一次密码交互登录开始，顺着凭据提交、身份认证、令牌创建到进程启动的过程，把这些概念串起来。文中也整理了术语表和流程图，方便后续学习时回头查阅。 一、令牌存在的真正原因我们先来分析一下 Windows 为什么需要令牌。常见的说法是“令牌是权限的载体”，但这句话没有解释为什么需要令牌。 访问文件时，系统既要知道是谁在访问，也要知道对方申请了什么权限。登录认证解决的是身份验证，访问令牌则把用户 SID、组 SID、特权等信息组织成一个安全上下文，供后续操作使用。 进程通常有一个主令牌；线程模拟其他用户时，还可能有模拟令牌。系统进行访问检查时，会选用相应的令牌，再结合对象的安全描述符、请求的访问权限等信息作出判断。    信息 在访问检查中的作用    用户和组 SID 与对象 DACL...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2026/11/11/%E5%85%B3%E4%BA%8ECairn%E5%8F%8AARTEX%E2%80%94%E2%80%94%E8%B0%88%E8%B0%88%E6%88%91%E8%87%AA%E5%B7%B1%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%9D%E8%80%83/" title="基于对 Cairn 和 ARTEX 的分析，谈谈我的一些思考"><img class="cover" src="/img/Cairn-ARTEX/cover.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-11-11</div><div class="info-item-2">基于对 Cairn 和 ARTEX 的分析，谈谈我的一些思考</div></div><div class="info-2"><div class="info-item-1">关于 Cairn 和 ARTEX 的一些分析基于对这两个项目的梳理，我将 ARTEX 理解为面向渗透测试的、由图支撑的目标导向探索系统，而 Cairn 则将目标导向的问题求解组织为未知状态空间中的探索过程。二者都采用围绕共享图展开的“Fact → Intent → Fact”循环，因而在协作与探索机制上具有相似性。基于这一点，我产生了一个问题：能否进一步简化这套机制，或者提高它的执行效率？于是，我借助 AI 检索资料，从几个不同层面展开分析。 为了讨论这些可能的改造方向，我先从行动选择、状态表示和数据管理三个层面分析这套机制。这里的划分是本文采用的分析视角，并非项目源码的实际模块分层。   从行动选择的角度看，可以借鉴搜索算法中“选择候选 → 扩展 → 评估”的循环，将部分候选排序与前瞻逻辑交给搜索算法，LLM 则负责候选生成、状态解释或启发式评估。不过，在引入算法之前，仍需明确搜索节点、行动、成本和目标判定分别对应什么。 在此基础上，ARTEX...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/headimg.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">hada</div><div class="author-info-description">hada的个人博客网站</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">28</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">24</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/hadagaga"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/hadagaga" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%B9%E4%B8%80%E4%B8%AA%E4%BB%BB%E5%8A%A1%E8%80%8C%E8%A8%80%EF%BC%8C%E7%9C%BC%E4%B8%8B%E5%88%B0%E5%BA%95%E8%A6%81%E5%BC%84%E6%B8%85%E5%93%AA%E4%BB%B6%E4%BA%8B"><span class="toc-number">2.</span> <span class="toc-text">对一个任务而言，眼下到底要弄清哪件事</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%B8%E6%9F%A5%E7%BB%93%E6%9E%9C%E5%9B%9E%E6%9D%A5%E4%BA%86%EF%BC%8C%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E9%87%8D%E6%96%B0%E5%88%A4%E6%96%AD"><span class="toc-number">3.</span> <span class="toc-text">核查结果回来了，什么时候重新判断</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%8C%E4%B8%80%E4%BB%BD%E5%9B%9E%E4%BC%A0%E9%87%8C%EF%BC%8C%E5%93%AA%E4%BA%9B%E5%86%85%E5%AE%B9%E8%AF%A5%E5%88%86%E5%BC%80%E5%AD%98"><span class="toc-number">4.</span> <span class="toc-text">同一份回传里，哪些内容该分开存</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%AD%E4%B9%89%E4%B8%8A%E6%89%BE%E5%88%B0%E4%BA%86%EF%BC%8C%E4%B8%BA%E4%BB%80%E4%B9%88%E6%9C%80%E5%90%8E%E8%BF%98%E4%BC%9A%E6%BC%8F%E6%8E%89"><span class="toc-number">5.</span> <span class="toc-text">语义上找到了，为什么最后还会漏掉</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%99%E4%BD%8E%E5%88%86%E7%BA%BF%E7%B4%A2%E4%B8%80%E6%AC%A1%E8%A2%AB%E6%A3%80%E6%9F%A5%E7%9A%84%E6%9C%BA%E4%BC%9A"><span class="toc-number">6.</span> <span class="toc-text">给低分线索一次被检查的机会</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8D%A2%E4%B8%80%E7%A7%8D%E6%A3%80%E7%B4%A2%E8%A1%A8%E7%A4%BA%EF%BC%8C%E8%BF%98%E9%9C%80%E8%A6%81%E5%A4%8D%E6%A0%B8%E5%90%97"><span class="toc-number">7.</span> <span class="toc-text">换一种检索表示，还需要复核吗</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E8%AF%AD"><span class="toc-number">8.</span> <span class="toc-text">结语</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/11/25/%E8%AF%81%E6%8D%AE%E7%BC%BA%E5%8F%A3-Agent%E4%B8%8B%E4%B8%80%E6%AD%A5%E8%AF%A5%E6%9F%A5%E4%BB%80%E4%B9%88/" title="证据缺口：Agent 下一步该查什么"><img src="/img/information-evidence/cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="证据缺口：Agent 下一步该查什么"/></a><div class="content"><a class="title" href="/2026/11/25/%E8%AF%81%E6%8D%AE%E7%BC%BA%E5%8F%A3-Agent%E4%B8%8B%E4%B8%80%E6%AD%A5%E8%AF%A5%E6%9F%A5%E4%BB%80%E4%B9%88/" title="证据缺口：Agent 下一步该查什么">证据缺口：Agent 下一步该查什么</a><time datetime="2026-11-24T16:00:00.000Z" title="发表于 2026-11-25 00:00:00">2026-11-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/11/20/Windows%E7%99%BB%E5%BD%95%E4%BB%A4%E7%89%8C%E4%B8%8E%E4%BC%9A%E8%AF%9D%E6%9C%BA%E5%88%B6/" title="Windows 登录、访问令牌与会话机制"><img src="/img/Windows-logon-token/01-logon-layers.svg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Windows 登录、访问令牌与会话机制"/></a><div class="content"><a class="title" href="/2026/11/20/Windows%E7%99%BB%E5%BD%95%E4%BB%A4%E7%89%8C%E4%B8%8E%E4%BC%9A%E8%AF%9D%E6%9C%BA%E5%88%B6/" title="Windows 登录、访问令牌与会话机制">Windows 登录、访问令牌与会话机制</a><time datetime="2026-11-19T16:00:00.000Z" title="发表于 2026-11-20 00:00:00">2026-11-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/11/11/%E5%85%B3%E4%BA%8ECairn%E5%8F%8AARTEX%E2%80%94%E2%80%94%E8%B0%88%E8%B0%88%E6%88%91%E8%87%AA%E5%B7%B1%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%9D%E8%80%83/" title="基于对 Cairn 和 ARTEX 的分析，谈谈我的一些思考"><img src="/img/Cairn-ARTEX/cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="基于对 Cairn 和 ARTEX 的分析，谈谈我的一些思考"/></a><div class="content"><a class="title" href="/2026/11/11/%E5%85%B3%E4%BA%8ECairn%E5%8F%8AARTEX%E2%80%94%E2%80%94%E8%B0%88%E8%B0%88%E6%88%91%E8%87%AA%E5%B7%B1%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%9D%E8%80%83/" title="基于对 Cairn 和 ARTEX 的分析，谈谈我的一些思考">基于对 Cairn 和 ARTEX 的分析，谈谈我的一些思考</a><time datetime="2026-11-10T16:00:00.000Z" title="发表于 2026-11-11 00:00:00">2026-11-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/03/25/CyberStrikeLab_PT-1/" title="CyberStrikeLab PT-1"><img src="/img/CyberStrikeLab_PT-1/cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="CyberStrikeLab PT-1"/></a><div class="content"><a class="title" href="/2026/03/25/CyberStrikeLab_PT-1/" title="CyberStrikeLab PT-1">CyberStrikeLab PT-1</a><time datetime="2026-03-24T16:00:00.000Z" title="发表于 2026-03-25 00:00:00">2026-03-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/08/03/JavaCC%E9%93%BE3/" title="Java反序列化CC链3"><img src="/img/JavaCC3/cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Java反序列化CC链3"/></a><div class="content"><a class="title" href="/2025/08/03/JavaCC%E9%93%BE3/" title="Java反序列化CC链3">Java反序列化CC链3</a><time datetime="2025-08-02T16:00:00.000Z" title="发表于 2025-08-03 00:00:00">2025-08-03</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(/img/information-evidence/cover.png);"><div id="footer-wrap"><div class="copyright">&copy;2025 - 2026 By hada</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.3.5</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">簡</button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

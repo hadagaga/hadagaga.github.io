@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="610" viewBox="0 0 720 610" role="img" aria-labelledby="title desc">
+  <title id="title">同一条重试日志的两种问法</title>
+  <desc id="desc">依赖准备日志含 Retry-After: 46。加入证据说明后，能由原文回答的重试指示问题从 0.566 升到 0.622，仍需客户端记录的实际等待时长问题也从 0.613 升到 0.682。两行使用相同的相似度区间。</desc>
+  <style>
+    text { font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif; }
+    .label { font-size: 22px; fill: #625b52; }
+    .question { font-size: 27px; font-weight: 650; fill: #292721; }
+    .status { font-size: 22px; font-weight: 600; }
+    .number { font-size: 24px; font-weight: 650; text-anchor: middle; }
+  </style>
+  <rect x="1" y="1" width="718" height="608" rx="20" fill="#fcfaf7" stroke="#e2d9cc" stroke-width="2"/>
+
+  <rect x="30" y="28" width="660" height="86" rx="16" fill="#ecf2fa" stroke="#cdd9e8" stroke-width="2"/>
+  <text class="label" x="54" y="60">依赖准备日志</text>
+  <text x="54" y="95" style="font: 27px SFMono-Regular, Consolas, monospace" fill="#2d4e73">Retry-After: 46</text>
+
+  <circle cx="62" cy="144" r="7" fill="#fcfaf7" stroke="#625b52" stroke-width="2.5"/>
+  <text class="label" x="80" y="152">仅正文</text>
+  <circle cx="196" cy="144" r="7" fill="#625b52"/>
+  <text class="label" x="214" y="152">正文＋证据说明</text>
+
+  <rect x="30" y="174" width="660" height="160" rx="16" fill="#fff" stroke="#e2d9cc" stroke-width="2"/>
+  <text class="question" x="54" y="212">上游有没有要求稍后重试？</text>
+  <text class="status" x="54" y="246" fill="#25594c">日志可作答</text>
+  <path d="M96 302 H616" fill="none" stroke="#e2d9cc" stroke-width="2"/>
+  <path d="M233.28 302 H349.76" fill="none" stroke="#25594c" stroke-width="4"/>
+  <circle cx="233.28" cy="302" r="7" fill="#fff" stroke="#25594c" stroke-width="3"/>
+  <circle cx="349.76" cy="302" r="8" fill="#25594c"/>
+  <text class="number" x="233.28" y="285" fill="#25594c">0.566</text>
+  <text class="number" x="349.76" y="285" fill="#25594c">0.622</text>
+
+  <rect x="30" y="351" width="660" height="160" rx="16" fill="#fff" stroke="#e2d9cc" stroke-width="2"/>
+  <text class="question" x="54" y="389">客户端实际等了多久？</text>
+  <text class="status" x="54" y="423" fill="#954817">需要客户端记录</text>
+  <path d="M96 479 H616" fill="none" stroke="#e2d9cc" stroke-width="2"/>
+  <path d="M331.04 479 H474.56" fill="none" stroke="#954817" stroke-width="4"/>
+  <circle cx="331.04" cy="479" r="7" fill="#fff" stroke="#954817" stroke-width="3"/>
+  <circle cx="474.56" cy="479" r="8" fill="#954817"/>
+  <text class="number" x="331.04" y="462" fill="#954817">0.613</text>
+  <text class="number" x="474.56" y="462" fill="#954817">0.682</text>
+
+  <path d="M96 531 H616 M96 531 v7m104-7v7m104-7v7m104-7v7m104-7v7m104-7v7" fill="none" stroke="#877b6d" stroke-width="2"/>
+  <text class="label" y="563" text-anchor="middle"><tspan x="96">0.50</tspan><tspan x="200">0.55</tspan><tspan x="304">0.60</tspan><tspan x="408">0.65</tspan><tspan x="512">0.70</tspan><tspan x="616">0.75</tspan></text>
+  <text class="label" x="356" y="592" text-anchor="middle">相似度（局部区间）</text>
+</svg>

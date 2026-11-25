@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="574" viewBox="0 0 720 574" role="img" aria-labelledby="title desc">
+  <title id="title">CI 构建证据到达时序</title>
+  <desc id="desc">耗时结果先到，系统等待运行条件。第一版清单显示三项运行条件符合比较要求，依赖准备占新增耗时 87.5%。更正清单将 ci-102 的运行器从 linux-x64-small 改记为 linux-x64-large，系统重开问题。</desc>
+  <style>
+    text { font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif; }
+    .heading { font-size: 27px; font-weight: 650; fill: #292721; }
+    .detail { font-size: 23px; fill: #625b52; }
+    .state { font-size: 23px; font-weight: 600; }
+    .mono { font: 23px "SFMono-Regular", Consolas, monospace; fill: #292721; }
+  </style>
+  <rect x="1" y="1" width="718" height="572" rx="20" fill="#fcfaf7" stroke="#e2d9cc" stroke-width="2"/>
+  <path d="M53 63 V414" fill="none" stroke="#baaea0" stroke-width="3"/>
+  <path d="m46 168 7 7 7-7m-14 175 7 7 7-7" fill="none" stroke="#877b6d" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="53" cy="63" r="10" fill="#ecf2fa" stroke="#2d4e73" stroke-width="3"/>
+  <circle cx="53" cy="237" r="10" fill="#e8f4ee" stroke="#25594c" stroke-width="3"/>
+  <circle cx="53" cy="414" r="10" fill="#fff0e3" stroke="#954817" stroke-width="3"/>
+
+  <rect x="84" y="29" width="605" height="133" rx="16" fill="#fff" stroke="#e2d9cc" stroke-width="2"/>
+  <text class="heading" x="108" y="72">耗时结果到达</text>
+  <text class="detail" x="108" y="109">总耗时增加 80 秒，依赖准备增加 70 秒</text>
+  <text class="state" x="108" y="141" fill="#2d4e73">等待运行条件核查</text>
+
+  <rect x="84" y="201" width="605" height="135" rx="16" fill="#e8f4ee" stroke="#c7ded2" stroke-width="2"/>
+  <text class="heading" x="108" y="246">第一版清单到达</text>
+  <text class="detail" x="108" y="282">运行器、缓存模式和计时口径符合可比条件</text>
+  <text class="state" x="108" y="314" fill="#25594c">70 / 80 = 87.5%，超过一半</text>
+
+  <rect x="84" y="378" width="605" height="167" rx="16" fill="#fff0e3" stroke="#ead1bc" stroke-width="2"/>
+  <text class="heading" x="108" y="423">更正清单到达</text>
+  <text class="detail" x="108" y="460">ci-102 的运行器配置更正</text>
+  <text class="mono" x="108" y="494">linux-x64-small</text>
+  <path d="M326 486 H352 m-7-6 7 6-7 6" fill="none" stroke="#954817" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <text class="mono" x="367" y="494">linux-x64-large</text>
+  <text class="state" x="108" y="526" fill="#954817">缺少可比基线，重新打开问题</text>
+</svg>

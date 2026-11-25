@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="512" viewBox="0 0 720 512" role="img" aria-labelledby="title desc">
+  <title id="title">从原始日志追溯证据及更正</title>
+  <desc id="desc">示意日志 v1 的第一行记录依赖准备耗时 90 秒，第二行记录镜像端点要求稍后重试。两行分别拆成可引用的信息并保留各自的来源。日志 v2 更正耗时后，引用旧耗时的判断待重评，重试证据仍可追溯到 v1 的第二行。</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" markerWidth="10" markerHeight="10" refX="8" refY="5" markerUnits="userSpaceOnUse" orient="auto">
+      <path d="M2 2L8 5L2 8" fill="none" stroke="#807468" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+  </defs>
+  <style>
+    text { font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif; fill: #292721; }
+    .heading { font-size: 26px; font-weight: 600; }
+    .entry { font-size: 24px; }
+    .source { font-size: 22px; fill: #625b52; }
+    .link { fill: none; stroke: #807468; stroke-width: 2; marker-end: url(#arrow); }
+    .duration { fill: #954817; }
+    .retry { fill: #25594c; }
+  </style>
+  <rect x="1" y="1" width="718" height="510" rx="20" fill="#fcfaf7" stroke="#e2d9cc"/>
+
+  <rect x="32" y="28" width="656" height="130" rx="15" fill="#fff" stroke="#e2d9cc"/>
+  <text x="54" y="64" class="heading">示意运行日志 v1</text>
+  <path d="M360 85V138" fill="none" stroke="#e2d9cc" stroke-width="2"/>
+  <text x="54" y="101" class="source">第 1 行</text>
+  <text x="54" y="134" class="entry">依赖准备耗时 90 秒</text>
+  <text x="388" y="101" class="source">第 2 行</text>
+  <text x="388" y="134" class="entry">镜像端点要求稍后重试</text>
+
+  <path d="M188 158V184" class="link"/>
+  <path d="M532 158V184" class="link"/>
+
+  <rect x="32" y="184" width="312" height="86" rx="14" fill="#fff" stroke="#e2d9cc"/>
+  <text x="54" y="219" class="heading">耗时信息</text>
+  <text x="54" y="248" class="source">来源 · v1 第 1 行</text>
+  <rect x="376" y="184" width="312" height="86" rx="14" fill="#fff" stroke="#e2d9cc"/>
+  <text x="398" y="219" class="heading">重试信息</text>
+  <text x="398" y="248" class="source">来源 · v1 第 2 行</text>
+
+  <path d="M188 270V296" class="link"/>
+  <path d="M532 270V396" class="link"/>
+
+  <rect x="32" y="296" width="312" height="74" rx="14" fill="#fff0e3" stroke="#e2d9cc"/>
+  <text x="54" y="342" class="heading duration">日志 v2 更正耗时</text>
+  <path d="M188 370V396" class="link"/>
+
+  <rect x="32" y="396" width="312" height="88" rx="14" fill="#fff0e3" stroke="#e2d9cc"/>
+  <text x="54" y="432" class="heading duration">相关判断待重评</text>
+  <text x="54" y="462" class="source">曾引用 v1 第 1 行</text>
+  <rect x="376" y="396" width="312" height="88" rx="14" fill="#e8f4ee" stroke="#e2d9cc"/>
+  <text x="398" y="432" class="heading retry">重试证据可继续引用</text>
+  <text x="398" y="462" class="source">仍可追溯至 v1 第 2 行</text>
+</svg>

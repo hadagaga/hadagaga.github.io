@@ -1,0 +1,283 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>hada的个人博客</title><meta name="author" content="hada"><meta name="copyright" content="hada"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="hada的个人博客网站">
+<meta property="og:type" content="website">
+<meta property="og:title" content="hada的个人博客">
+<meta property="og:url" content="http://hadagaga.github.io/index.html">
+<meta property="og:site_name" content="hada的个人博客">
+<meta property="og:description" content="hada的个人博客网站">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://hadagaga.github.io/img/headimg.jpg">
+<meta property="article:author" content="hada">
+<meta property="article:tag" content="hada">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://hadagaga.github.io/img/headimg.jpg"><link rel="shortcut icon" href="/img/favico.ico"><link rel="canonical" href="http://hadagaga.github.io/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'hada的个人博客',
+  isHighlightShrink: false,
+  isToc: false,
+  pageType: 'home'
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg" style="background-image: url(/img/background.png);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/headimg.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">28</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">24</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="full_page" id="page-header" style="background-image: url(/img/banner.webp);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="/img/headimg.jpg" alt="Logo"><span class="site-name">hada的个人博客</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="site-info"><h1 id="site-title">hada的个人博客</h1><div id="site-subtitle"><span id="subtitle"></span></div><div id="site_social_icons"><a class="social-icon" href="https://github.com/hadagaga" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a></div></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts nc" id="recent-posts"><div class="recent-post-items"><div class="recent-post-item"><div class="post_cover left"><a href="/2026/11/25/%E8%AF%81%E6%8D%AE%E7%BC%BA%E5%8F%A3-Agent%E4%B8%8B%E4%B8%80%E6%AD%A5%E8%AF%A5%E6%9F%A5%E4%BB%80%E4%B9%88/" title="证据缺口：Agent 下一步该查什么"><img class="post-bg" src="/img/information-evidence/cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="证据缺口：Agent 下一步该查什么"></a></div><div class="recent-post-info"><a class="article-title" href="/2026/11/25/%E8%AF%81%E6%8D%AE%E7%BC%BA%E5%8F%A3-Agent%E4%B8%8B%E4%B8%80%E6%AD%A5%E8%AF%A5%E6%9F%A5%E4%BB%80%E4%B9%88/" title="证据缺口：Agent 下一步该查什么">证据缺口：Agent 下一步该查什么</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2026-11-24T16:00:00.000Z" title="发表于 2026-11-25 00:00:00">2026-11-25</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/AI-Agent/">AI Agent</a></span></div><div class="content">前言我在上一篇文章里分析了 Cairn 和 ARTEX 的 Fact–Intent 循环，并提出了一种以信息为核心的程序设计思路。这篇文章记录了我尝试把这个思路做成可运行的原型时遇到的问题。一开始，我想让系统根据已有信息决定下一步查什么，再把执行端带回的材料拆成可复用的信息条目。有了新信息，系统就能重新审视原来的判断，决定接下来还要查什么。《关于 Cairn 及...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2026/11/20/Windows%E7%99%BB%E5%BD%95%E4%BB%A4%E7%89%8C%E4%B8%8E%E4%BC%9A%E8%AF%9D%E6%9C%BA%E5%88%B6/" title="Windows 登录、访问令牌与会话机制"><img class="post-bg" src="/img/Windows-logon-token/01-logon-layers.svg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Windows 登录、访问令牌与会话机制"></a></div><div class="recent-post-info"><a class="article-title" href="/2026/11/20/Windows%E7%99%BB%E5%BD%95%E4%BB%A4%E7%89%8C%E4%B8%8E%E4%BC%9A%E8%AF%9D%E6%9C%BA%E5%88%B6/" title="Windows 登录、访问令牌与会话机制">Windows 登录、访问令牌与会话机制</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2026-11-19T16:00:00.000Z" title="发表于 2026-11-20 00:00:00">2026-11-20</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/">基础学习记录</a></span></div><div class="content">前言学习 Windows 安全时，经常会遇到令牌、登录会话、组和特权这些概念。单看定义似乎都能理解，但把它们放进一次登录过程里，就容易混淆。比如，密码验证通过后，进程凭什么访问文件？管理员登录后，为什么普通程序还需要提权？移除组成员，又为什么不一定立即影响已有进程？ 这篇笔记从一次密码交互登录开始，顺着凭据提交、身份认证、令牌创建到进程启动的过程，把这些概念串起来。文中也整理了术语表和流程图，方便后续学习时回头查阅。 一、令牌存在的真正原因我们先来分析一下 Windows 为什么需要令牌。常见的说法是“令牌是权限的载体”，但这句话没有解释为什么需要令牌。 访问文件时，系统既要知道是谁在访问，也要知道对方申请了什么权限。登录认证解决的是身份验证，访问令牌则把用户 SID、组 SID、特权等信息组织成一个安全上下文，供后续操作使用。 进程通常有一个主令牌；线程模拟其他用户时，还可能有模拟令牌。系统进行访问检查时，会选用相应的令牌，再结合对象的安全描述符、请求的访问权限等信息作出判断。    信息 在访问检查中的作用    用户和组 SID 与对象 DACL...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2026/11/11/%E5%85%B3%E4%BA%8ECairn%E5%8F%8AARTEX%E2%80%94%E2%80%94%E8%B0%88%E8%B0%88%E6%88%91%E8%87%AA%E5%B7%B1%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%9D%E8%80%83/" title="基于对 Cairn 和 ARTEX 的分析，谈谈我的一些思考"><img class="post-bg" src="/img/Cairn-ARTEX/cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="基于对 Cairn 和 ARTEX 的分析，谈谈我的一些思考"></a></div><div class="recent-post-info"><a class="article-title" href="/2026/11/11/%E5%85%B3%E4%BA%8ECairn%E5%8F%8AARTEX%E2%80%94%E2%80%94%E8%B0%88%E8%B0%88%E6%88%91%E8%87%AA%E5%B7%B1%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%9D%E8%80%83/" title="基于对 Cairn 和 ARTEX 的分析，谈谈我的一些思考">基于对 Cairn 和 ARTEX 的分析，谈谈我的一些思考</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2026-11-10T16:00:00.000Z" title="发表于 2026-11-11 00:00:00">2026-11-11</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/AI-Agent/">AI Agent</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/AI-Agent/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/">渗透测试</a></span></div><div class="content">关于 Cairn 和 ARTEX 的一些分析基于对这两个项目的梳理，我将 ARTEX 理解为面向渗透测试的、由图支撑的目标导向探索系统，而 Cairn 则将目标导向的问题求解组织为未知状态空间中的探索过程。二者都采用围绕共享图展开的“Fact → Intent → Fact”循环，因而在协作与探索机制上具有相似性。基于这一点，我产生了一个问题：能否进一步简化这套机制，或者提高它的执行效率？于是，我借助 AI 检索资料，从几个不同层面展开分析。 为了讨论这些可能的改造方向，我先从行动选择、状态表示和数据管理三个层面分析这套机制。这里的划分是本文采用的分析视角，并非项目源码的实际模块分层。   从行动选择的角度看，可以借鉴搜索算法中“选择候选 → 扩展 → 评估”的循环，将部分候选排序与前瞻逻辑交给搜索算法，LLM 则负责候选生成、状态解释或启发式评估。不过，在引入算法之前，仍需明确搜索节点、行动、成本和目标判定分别对应什么。 在此基础上，ARTEX...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2026/03/25/CyberStrikeLab_PT-1/" title="CyberStrikeLab PT-1"><img class="post-bg" src="/img/CyberStrikeLab_PT-1/cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="CyberStrikeLab PT-1"></a></div><div class="recent-post-info"><a class="article-title" href="/2026/03/25/CyberStrikeLab_PT-1/" title="CyberStrikeLab PT-1">CyberStrikeLab PT-1</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2026-03-24T16:00:00.000Z" title="发表于 2026-03-25 00:00:00">2026-03-25</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/">靶场学习记录</a></span></div><div class="content">前言这段时间都在忙着项目的开发，很长一段时间没有打靶场了，感觉自己都快变成Go开发工程师了。正好朋友推荐了一个域渗透的靶场，来尝尝咸淡。再水篇文章，记录一下。脚本无限供应，shellcode已在路上，开整。 解题流程信息搜集连接VPN后访问靶机，可以看到这么个页面 往下翻到底就看到一个海洋cms，很熟悉的框架，这里除了这个我们还可以用指纹识别工具判别，再扫一扫目录可以发现很多信息，如下：  目前的有的信息有： 服务：phpMyAdmin后台，seacms框架，Apache中间件 系统：php语言，Windows 那么我们的思路就很广了。我们可以尝试数据库弱密码，走phpMyAdmin日志写shell，我们可以走seacms框架找CVE，打POC。Apache中间件可能会有目录穿透，读一些敏感文件。 这里我们扫一下目录，看看还能不能拿到些更有用的信息。当然也可以不扫，作为一个cms，目录结构自然是公开透明的，直接看官方文档就行了。 海洋cms系统程序文件目录结构 -...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2025/08/03/JavaCC%E9%93%BE3/" title="Java反序列化CC链3"><img class="post-bg" src="/img/JavaCC3/cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Java反序列化CC链3"></a></div><div class="recent-post-info"><a class="article-title" href="/2025/08/03/JavaCC%E9%93%BE3/" title="Java反序列化CC链3">Java反序列化CC链3</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-08-02T16:00:00.000Z" title="发表于 2025-08-03 00:00:00">2025-08-03</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%BC%8F%E6%B4%9E%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/">漏洞学习记录</a></span></div><div class="content">前言CC3 链同之前我们讲的 CC1 链与 CC6 链的区别之处是非常大的。原本的 CC1 链与 CC6 链是通过 Runtime.exec() 进行命令执行的。而很多时候服务器的代码当中的黑名单会选择禁用 Runtime。 而 CC3 链，则是通过动态加载类加载机制来实现自动执行恶意类代码的。所以我们先来过一遍 Java 动态类加载机制。 环境 jdk8u65 Commons-Collections 3.2.1  TemplatesImpl 解析在之前的类的动态加载文章中，提到了一种通过ClassLoader#defineClass直接加载字节码的方法，在这一条链子中，流程图如下：  我们正向去看，首先来到loadClass，他的作用是从已加载的类缓存，父加载器等位置寻找类（这里实际上是双亲委派机制），在前面没有找到的情况下，执行 findClass()。 来到 findClass() 方法，他的流程如下：  根据名称或位置加载 .class 字节码,然后使用 defineClass，代码实例如下。 通常由子类去实现。 defineClass()...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2025/07/23/%E7%B1%BB%E7%9A%84%E5%8A%A8%E6%80%81%E5%8A%A0%E8%BD%BD/" title="类的动态加载"><img class="post-bg" src="/img/JavaClassLoader/cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="类的动态加载"></a></div><div class="recent-post-info"><a class="article-title" href="/2025/07/23/%E7%B1%BB%E7%9A%84%E5%8A%A8%E6%80%81%E5%8A%A0%E8%BD%BD/" title="类的动态加载">类的动态加载</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-07-22T16:00:00.000Z" title="发表于 2025-07-23 00:00:00">2025-07-23</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/">基础学习记录</a></span></div><div class="content">类加载器及双亲委派类加载器有什么用加载 Class 文件以下列代码为例 1Student student = new Student();  我们知道，Student 本身其实是一个抽象类，是通过 new 这个操作，将其实例化的，类加载器做的便是这个工作。 ClassLoader 的工作如图所示  加载器有多种，主要分为这四类加载器：   虚拟机自带的加载器 启动类（根）加载器 扩展类加载器 应用程序加载器   加载器简介引导类加载器引导类加载器(BootstrapClassLoader)，底层原生代码是 C++ 语言编写，属于 JVM 一部分。 不继承 java.lang.ClassLoader 类，也没有父加载器，主要负责加载核心 java 库(即 JVM 本身)，存储在 /jre/lib/rt.jar 目录当中。(同时处于安全考虑，BootstrapClassLoader 只加载包名为 java、javax、sun 等开头的类)。 扩展类加载器（ExtensionsClassLoader）扩展类加载器(ExtensionsClassLoader)，由...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2025/06/12/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81/" title="Windows权限维持"><img class="post-bg" src="/img/Windows_Local_Persistence/cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Windows权限维持"></a></div><div class="recent-post-info"><a class="article-title" href="/2025/06/12/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81/" title="Windows权限维持">Windows权限维持</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-06-11T16:00:00.000Z" title="发表于 2025-06-12 00:00:00">2025-06-12</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/">基础学习记录</a></span></div><div class="content">前言前些天发了一篇关于Windows权限提升的文章，这一篇算是下文，关于Windows权限维持的。当我们成功在目标机器上获取到了一定的权限，我们就需要考虑权限维持了，该文章所有的操作都默认已经拥有了一定的权限甚至是system权限。 Windows权限维持一般都考虑如下几个方面：用户、服务、文件、软件。具体就是如下几种：  低权限用户篡改 Windows服务篡改 隐蔽后门文件 第三方软件利用  接下来就让我详细的讨论一下。  注意：本文章中的演示均借用了tryhackme所提供的靶机，所以不会提供环境配置的相关细节，如果需要实操的建议去买一个tryhackme的会员  低权限用户篡改通常来说大多数的安全措施都会格外关注管理员、管理员组、者系统用户的情况，所以为了避免我的被踢下线导致权限丢失，我们就可以考虑篡改低权限的用户，使其拥有管理员权限，从而维持我们的权限。 分配组成员资格篡改直接划入管理员组让非特权用户获得管理员权限的直接方法是使其成为管理员组的一部分。我们可以通过如下命令实现： 1net localgroup administrators myuser...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2025/06/07/Windows%E6%9D%83%E9%99%90%E6%8F%90%E5%8D%87/" title="Windows提权"><img class="post-bg" src="/img/Windows_privilege_escalation/cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Windows提权"></a></div><div class="recent-post-info"><a class="article-title" href="/2025/06/07/Windows%E6%9D%83%E9%99%90%E6%8F%90%E5%8D%87/" title="Windows提权">Windows提权</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-06-06T16:00:00.000Z" title="发表于 2025-06-07 00:00:00">2025-06-07</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/">基础学习记录</a></span></div><div class="content">前言最近在tryhackme里边学习有关红队的一些东西，目前学习到了主机逃逸了，想着把前面的知识总结复习一下，就有了这边文章，这篇文章重点不在于如何利用，更多的是对思路的梳理和总结，根据我所学的在Windows中进行权限提升，通常有如下四个情况  Windows 服务或计划任务的配置错误 我们的帐户被赋予了过多的权限 易受攻击的软件 缺少 Windows...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2025/05/24/JavaCC%E9%93%BE6/" title="Java反序列化CC链6"><img class="post-bg" src="/img/JavaCC6/cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Java反序列化CC链6"></a></div><div class="recent-post-info"><a class="article-title" href="/2025/05/24/JavaCC%E9%93%BE6/" title="Java反序列化CC链6">Java反序列化CC链6</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-05-23T16:00:00.000Z" title="发表于 2025-05-24 00:00:00">2025-05-24</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%BC%8F%E6%B4%9E%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/">漏洞学习记录</a></span></div><div class="content">使用限制不限制jdk版本，CC库小于等于3.2.1均可利用 CC利用链分析前情回顾CC1根据之前对CC链1的分析，我们知道可以通过ChainedTransformer配合InvokerTransformer实现命令执行。详细的解析可以看我之前的一篇文章：https://hadagaga.github.io/2025/05/15/JavaCC%E9%93%BE1/下面一小段示例代码： 12345678Transformer[] transformers = &#123;        new ConstantTransformer(Runtime.class),        new InvokerTransformer(&quot;getMethod&quot;, new Class[]&#123;String.class, Class[].class&#125;, new Object[]&#123;&quot;getRuntime&quot;, new Class[0]&#125;),        new...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2025/05/15/JavaCC%E9%93%BE1/" title="Java反序列化CC链1"><img class="post-bg" src="/img/JavaCC1/cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Java反序列化CC链1"></a></div><div class="recent-post-info"><a class="article-title" href="/2025/05/15/JavaCC%E9%93%BE1/" title="Java反序列化CC链1">Java反序列化CC链1</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-05-14T16:00:00.000Z" title="发表于 2025-05-15 00:00:00">2025-05-15</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%BC%8F%E6%B4%9E%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/">漏洞学习记录</a></span></div><div class="content">执行类sinkTransformer接口下的实现类InvokerTransformer 条件：继承了Serializable 关键方法：12345public InvokerTransformer(String methodName, Class[] paramTypes, Object[] args) &#123;    this.iMethodName = methodName;    this.iParamTypes = paramTypes;    this.iArgs = args;&#125;  12345678910111213141516171819public Object transform(Object input) &#123;    if (input == null) &#123;        return null;    &#125; else &#123;        try &#123;            Class cls = input.getClass();//获取传入对象的类            Method method...</div></div></div></div><nav id="pagination"><div class="pagination"><span class="page-number current">1</span><a class="page-number" href="/page/2/#content-inner">2</a><a class="page-number" href="/page/3/#content-inner">3</a><a class="extend next" rel="next" href="/page/2/#content-inner"><i class="fas fa-chevron-right fa-fw"></i></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/headimg.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">hada</div><div class="author-info-description">hada的个人博客网站</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">28</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">24</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/hadagaga"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/hadagaga" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a></div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/11/25/%E8%AF%81%E6%8D%AE%E7%BC%BA%E5%8F%A3-Agent%E4%B8%8B%E4%B8%80%E6%AD%A5%E8%AF%A5%E6%9F%A5%E4%BB%80%E4%B9%88/" title="证据缺口：Agent 下一步该查什么"><img src="/img/information-evidence/cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="证据缺口：Agent 下一步该查什么"/></a><div class="content"><a class="title" href="/2026/11/25/%E8%AF%81%E6%8D%AE%E7%BC%BA%E5%8F%A3-Agent%E4%B8%8B%E4%B8%80%E6%AD%A5%E8%AF%A5%E6%9F%A5%E4%BB%80%E4%B9%88/" title="证据缺口：Agent 下一步该查什么">证据缺口：Agent 下一步该查什么</a><time datetime="2026-11-24T16:00:00.000Z" title="发表于 2026-11-25 00:00:00">2026-11-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/11/20/Windows%E7%99%BB%E5%BD%95%E4%BB%A4%E7%89%8C%E4%B8%8E%E4%BC%9A%E8%AF%9D%E6%9C%BA%E5%88%B6/" title="Windows 登录、访问令牌与会话机制"><img src="/img/Windows-logon-token/01-logon-layers.svg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Windows 登录、访问令牌与会话机制"/></a><div class="content"><a class="title" href="/2026/11/20/Windows%E7%99%BB%E5%BD%95%E4%BB%A4%E7%89%8C%E4%B8%8E%E4%BC%9A%E8%AF%9D%E6%9C%BA%E5%88%B6/" title="Windows 登录、访问令牌与会话机制">Windows 登录、访问令牌与会话机制</a><time datetime="2026-11-19T16:00:00.000Z" title="发表于 2026-11-20 00:00:00">2026-11-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/11/11/%E5%85%B3%E4%BA%8ECairn%E5%8F%8AARTEX%E2%80%94%E2%80%94%E8%B0%88%E8%B0%88%E6%88%91%E8%87%AA%E5%B7%B1%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%9D%E8%80%83/" title="基于对 Cairn 和 ARTEX 的分析，谈谈我的一些思考"><img src="/img/Cairn-ARTEX/cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="基于对 Cairn 和 ARTEX 的分析，谈谈我的一些思考"/></a><div class="content"><a class="title" href="/2026/11/11/%E5%85%B3%E4%BA%8ECairn%E5%8F%8AARTEX%E2%80%94%E2%80%94%E8%B0%88%E8%B0%88%E6%88%91%E8%87%AA%E5%B7%B1%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%9D%E8%80%83/" title="基于对 Cairn 和 ARTEX 的分析，谈谈我的一些思考">基于对 Cairn 和 ARTEX 的分析，谈谈我的一些思考</a><time datetime="2026-11-10T16:00:00.000Z" title="发表于 2026-11-11 00:00:00">2026-11-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/03/25/CyberStrikeLab_PT-1/" title="CyberStrikeLab PT-1"><img src="/img/CyberStrikeLab_PT-1/cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="CyberStrikeLab PT-1"/></a><div class="content"><a class="title" href="/2026/03/25/CyberStrikeLab_PT-1/" title="CyberStrikeLab PT-1">CyberStrikeLab PT-1</a><time datetime="2026-03-24T16:00:00.000Z" title="发表于 2026-03-25 00:00:00">2026-03-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/08/03/JavaCC%E9%93%BE3/" title="Java反序列化CC链3"><img src="/img/JavaCC3/cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Java反序列化CC链3"/></a><div class="content"><a class="title" href="/2025/08/03/JavaCC%E9%93%BE3/" title="Java反序列化CC链3">Java反序列化CC链3</a><time datetime="2025-08-02T16:00:00.000Z" title="发表于 2025-08-03 00:00:00">2025-08-03</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline">
+            <i class="fas fa-folder-open"></i>
+            <span>分类</span>
+            
+          </div>
+          <ul class="card-category-list" id="aside-cat-list">
+            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/AI-Agent/"><span class="card-category-list-name">AI Agent</span><span class="card-category-list-count">2</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/AI-Agent/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/"><span class="card-category-list-name">渗透测试</span><span class="card-category-list-count">1</span></a></li></ul></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/CTF%E6%AF%94%E8%B5%9B%E8%AE%B0%E5%BD%95/"><span class="card-category-list-name">CTF比赛记录</span><span class="card-category-list-count">2</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E8%AE%B0%E5%BD%95/"><span class="card-category-list-name">代码审计记录</span><span class="card-category-list-count">9</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/"><span class="card-category-list-name">基础学习记录</span><span class="card-category-list-count">4</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E6%BC%8F%E6%B4%9E%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/"><span class="card-category-list-name">漏洞学习记录</span><span class="card-category-list-count">10</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/"><span class="card-category-list-name">靶场学习记录</span><span class="card-category-list-count">1</span></a></li>
+          </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/XXE/" style="font-size: 1.1em; color: #999">XXE</a> <a href="/tags/Python/" style="font-size: 1.18em; color: #999ca1">Python</a> <a href="/tags/WP/" style="font-size: 1.18em; color: #999ca1">WP</a> <a href="/tags/SSTI/" style="font-size: 1.26em; color: #999fa8">SSTI</a> <a href="/tags/AI/" style="font-size: 1.18em; color: #999ca1">AI</a> <a href="/tags/Twig/" style="font-size: 1.1em; color: #999">Twig</a> <a href="/tags/CVE/" style="font-size: 1.1em; color: #999">CVE</a> <a href="/tags/UAC/" style="font-size: 1.1em; color: #999">UAC</a> <a href="/tags/PHP/" style="font-size: 1.1em; color: #999">PHP</a> <a href="/tags/Java/" style="font-size: 1.42em; color: #99a6b7">Java</a> <a href="/tags/seacms/" style="font-size: 1.1em; color: #999">seacms</a> <a href="/tags/CyberStrikeLab/" style="font-size: 1.1em; color: #999">CyberStrikeLab</a> <a href="/tags/%E8%BA%AB%E4%BB%BD%E8%AE%A4%E8%AF%81/" style="font-size: 1.1em; color: #999">身份认证</a> <a href="/tags/Code-Audit/" style="font-size: 1.5em; color: #99a9bf">Code Audit</a> <a href="/tags/RedTeam/" style="font-size: 1.18em; color: #999ca1">RedTeam</a> <a href="/tags/Serialization/" style="font-size: 1.34em; color: #99a3b0">Serialization</a> <a href="/tags/Windows/" style="font-size: 1.26em; color: #999fa8">Windows</a> <a href="/tags/Redis/" style="font-size: 1.1em; color: #999">Redis</a> <a href="/tags/%E6%A3%80%E7%B4%A2/" style="font-size: 1.1em; color: #999">检索</a> <a href="/tags/RAG/" style="font-size: 1.1em; color: #999">RAG</a> <a href="/tags/CTF/" style="font-size: 1.18em; color: #999ca1">CTF</a> <a href="/tags/%E8%AE%BF%E9%97%AE%E4%BB%A4%E7%89%8C/" style="font-size: 1.1em; color: #999">访问令牌</a> <a href="/tags/SSRF/" style="font-size: 1.1em; color: #999">SSRF</a> <a href="/tags/Agent/" style="font-size: 1.1em; color: #999">Agent</a></div></div><div class="card-widget card-archives">
+    <div class="item-headline">
+      <i class="fas fa-archive"></i>
+      <span>归档</span>
+      <a class="card-more-btn" href="/archives/"
+            title="查看更多">
+            <i class="fas fa-angle-right"></i>
+          </a>
+    </div>
+  
+    <ul class="card-archive-list">
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2026/11/">
+            <span class="card-archive-list-date">
+              十一月 2026
+            </span>
+            <span class="card-archive-list-count">3</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2026/03/">
+            <span class="card-archive-list-date">
+              三月 2026
+            </span>
+            <span class="card-archive-list-count">1</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/08/">
+            <span class="card-archive-list-date">
+              八月 2025
+            </span>
+            <span class="card-archive-list-count">1</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/07/">
+            <span class="card-archive-list-date">
+              七月 2025
+            </span>
+            <span class="card-archive-list-count">1</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/06/">
+            <span class="card-archive-list-date">
+              六月 2025
+            </span>
+            <span class="card-archive-list-count">2</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/05/">
+            <span class="card-archive-list-date">
+              五月 2025
+            </span>
+            <span class="card-archive-list-count">2</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/04/">
+            <span class="card-archive-list-date">
+              四月 2025
+            </span>
+            <span class="card-archive-list-count">2</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/03/">
+            <span class="card-archive-list-date">
+              三月 2025
+            </span>
+            <span class="card-archive-list-count">2</span>
+          </a>
+        </li>
+      
+    </ul>
+  </div></div></div></main><footer id="footer" style="background-image: url(/img/banner.webp);"><div id="footer-wrap"><div class="copyright">&copy;2025 - 2026 By hada</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.3.5</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="translateLink" type="button" title="简繁转换">簡</button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><div class="js-pjax"><script>window.typedJSFn = {
+  init: str => {
+    window.typed = new Typed('#subtitle', Object.assign({
+      strings: str,
+      startDelay: 300,
+      typeSpeed: 150,
+      loop: true,
+      backSpeed: 50,
+    }, null))
+  },
+  run: subtitleType => {
+    if (true) {
+      if (typeof Typed === 'function') {
+        subtitleType()
+      } else {
+        btf.getScript('https://cdn.jsdelivr.net/npm/typed.js/dist/typed.umd.min.js').then(subtitleType)
+      }
+    } else {
+      subtitleType()
+    }
+  },
+  processSubtitle: (content, extraContents = []) => {
+    if (true) {
+      const sub = ["长夜路漫漫，唯有星光作伴。","挫折不过是一个需要修复的0day。","失败不是进步的递归终止符。","杀不死你的，终将让你更强大。","坚持，永远有效的payload"].slice()
+
+      if (extraContents.length > 0) {
+        sub.unshift(...extraContents)
+      }
+
+      if (typeof content === 'string') {
+        sub.unshift(content)
+      } else if (Array.isArray(content)) {
+        sub.unshift(...content)
+      }
+
+      sub.length > 0 && typedJSFn.init(sub)
+    } else {
+      document.getElementById('subtitle').textContent = typeof content === 'string' ? content :
+        (Array.isArray(content) && content.length > 0 ? content[0] : '')
+    }
+  }
+}
+btf.addGlobalFn('pjaxSendOnce', () => { typed.destroy() }, 'typedDestroy')
+</script><script>function subtitleType () {
+  typedJSFn.processSubtitle(["长夜路漫漫，唯有星光作伴。","挫折不过是一个需要修复的0day。","失败不是进步的递归终止符。","杀不死你的，终将让你更强大。","坚持，永远有效的payload"])
+}
+typedJSFn.run(subtitleType)</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

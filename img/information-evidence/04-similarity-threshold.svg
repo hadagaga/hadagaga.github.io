@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="404" viewBox="0 0 720 404" role="img" aria-labelledby="title desc">
+  <title id="title">相似度门槛与弱关联证据</title>
+  <desc id="desc">在 0.60 到 0.90 的线性刻度上，弱关联查询必需证据的最高分为 0.6873，同阶段但缺少采购合同编号的干扰记录为 0.7254，校准门槛为 0.84。任何能挡住这条干扰记录的统一门槛也会挡住分数更低的证据。</desc>
+  <style>
+    text { font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif; }
+    .label { font-size: 24px; font-weight: 600; }
+    .score { font-size: 27px; font-weight: 650; }
+    .tick { font-size: 21px; fill: #625b52; }
+  </style>
+  <rect x="1" y="1" width="718" height="402" rx="20" fill="#fcfaf7" stroke="#e2d9cc" stroke-width="2"/>
+
+  <text x="32" y="42" class="label" fill="#292721">余弦相似度</text>
+
+  <path d="M60 192H660" fill="none" stroke="#625b52" stroke-width="2"/>
+  <path d="M60 192v11m200-11v11m200-11v11m200-11v11" fill="none" stroke="#625b52" stroke-width="2"/>
+  <g class="tick" text-anchor="middle">
+    <text x="60" y="231">0.60</text>
+    <text x="260" y="231">0.70</text>
+    <text x="460" y="231">0.80</text>
+    <text x="660" y="231">0.90</text>
+  </g>
+
+  <path d="M234.6 143V192" fill="none" stroke="#25594c" stroke-width="2"/>
+  <rect x="32" y="62" width="292" height="81" rx="14" fill="#e8f4ee"/>
+  <g fill="#25594c">
+    <text x="50" y="94" class="label">弱关联必需证据最高分</text>
+    <text x="50" y="126" class="score">0.6873</text>
+    <circle cx="234.6" cy="192" r="7" stroke="#fcfaf7" stroke-width="2"/>
+  </g>
+
+  <path d="M310.8 192v64" fill="none" stroke="#954817" stroke-width="2"/>
+  <rect x="224" y="256" width="348" height="82" rx="14" fill="#fff0e3"/>
+  <g fill="#954817">
+    <text x="245" y="288" class="label">同阶段干扰记录</text>
+    <text x="245" y="321" class="score">0.7254</text>
+    <text x="344" y="320" font-size="22">缺采购合同编号</text>
+    <circle cx="310.8" cy="192" r="7" stroke="#fcfaf7" stroke-width="2"/>
+  </g>
+
+  <path d="M540 143V203" fill="none" stroke="#2d4e73" stroke-width="2" stroke-dasharray="5 4"/>
+  <rect x="435" y="62" width="210" height="81" rx="14" fill="#ecf2fa"/>
+  <g fill="#2d4e73" text-anchor="middle">
+    <text x="540" y="94" class="label">校准门槛</text>
+    <text x="540" y="126" class="score">0.84</text>
+    <path d="M540 184l8 8-8 8-8-8Z" stroke="#fcfaf7" stroke-width="2"/>
+  </g>
+
+  <path d="M32 354H688" fill="none" stroke="#e2d9cc" stroke-width="2"/>
+  <text x="32" y="384" font-size="23" fill="#625b52">门槛高到能排掉干扰项，也会丢掉分数更低的证据。</text>
+</svg>

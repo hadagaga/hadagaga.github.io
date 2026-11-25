@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="650" viewBox="0 0 1600 650" role="img" aria-labelledby="title desc">
+<title id="title">A* 或 MCTS 引入行动选择</title>
+<desc id="desc">候选计划可交由 A* 按估计总代价排序，或交由 MCTS 用模拟结果估计长期价值。真实执行产生的新 Fact 返回下一轮。</desc>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="userSpaceOnUse"><path d="M1 1 L8 5 L1 9" fill="none" stroke="#BE753D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<style>text{font-family:PingFang SC,Hiragino Sans GB,Microsoft YaHei,sans-serif;}</style>
+<rect x="0" y="0" width="1600" height="650" rx="0" fill="#FFFFFF" stroke="none" stroke-width="1.5"/>
+<rect x="56" y="28" width="1488" height="594" rx="22" fill="#FFF9F3" stroke="#EDDCCE" stroke-width="1.5"/>
+<rect x="598" y="52" width="404" height="66" rx="13" fill="#FDEBD9" stroke="#EDDCCE" stroke-width="1.5"/>
+<text x="800.0" y="95.0" text-anchor="middle" font-size="28" font-weight="500" fill="#4D3B30">生成候选计划</text>
+<path d="M800 118 V140 H416 V172" fill="none" stroke="#BE753D" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path d="M800 140 H1132 V172" fill="none" stroke="#BE753D" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<text x="800" y="169" text-anchor="middle" font-size="22" font-weight="500" fill="#826B59">或</text>
+<rect x="104" y="172" width="624" height="215" rx="18" fill="#FFFFFF" stroke="#EDDCCE" stroke-width="1.5"/>
+<rect x="820" y="172" width="624" height="215" rx="18" fill="#FFFFFF" stroke="#EDDCCE" stroke-width="1.5"/>
+<text x="132" y="217" text-anchor="start" font-size="30" font-weight="600" fill="#4D3B30">A*</text>
+<text x="848" y="217" text-anchor="start" font-size="30" font-weight="600" fill="#4D3B30">MCTS</text>
+<rect x="132" y="234" width="256" height="65" rx="13" fill="#FFFFFF" stroke="#EDDCCE" stroke-width="1.5"/>
+<text x="260.0" y="276.5" text-anchor="middle" font-size="26" font-weight="500" fill="#4D3B30">计划前缀</text>
+<rect x="446" y="234" width="254" height="65" rx="13" fill="#FFFFFF" stroke="#CFA37F" stroke-width="1.5" stroke-dasharray="7 6"/>
+<text x="573.0" y="276.5" text-anchor="middle" font-size="23" font-weight="500" fill="#4D3B30">估计剩余成本 h(n)</text>
+<path d="M388 266 H446" fill="none" stroke="#CFA37F" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="6 7" marker-end="url(#arrow)"/>
+<text x="416" y="350" text-anchor="middle" font-size="26" font-weight="500" fill="#4D3B30">按 f(n) = g(n) + h(n) 排序</text>
+<rect x="848" y="234" width="247" height="65" rx="13" fill="#FFFFFF" stroke="#EDDCCE" stroke-width="1.5"/>
+<text x="971.5" y="276.5" text-anchor="middle" font-size="26" font-weight="500" fill="#4D3B30">候选行动</text>
+<rect x="1153" y="234" width="263" height="65" rx="13" fill="#FFFFFF" stroke="#CFA37F" stroke-width="1.5" stroke-dasharray="7 6"/>
+<text x="1284.5" y="276.5" text-anchor="middle" font-size="26" font-weight="500" fill="#4D3B30">采样模拟结果</text>
+<path d="M1095 266 H1153" fill="none" stroke="#CFA37F" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="6 7" marker-end="url(#arrow)"/>
+<text x="1132" y="350" text-anchor="middle" font-size="26" font-weight="500" fill="#4D3B30">根据模拟回报比较长期价值</text>
+<path d="M416 387 V420 H603 V457" fill="none" stroke="#BE753D" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path d="M1132 387 V420 H603" fill="none" stroke="#BE753D" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="443" y="457" width="320" height="71" rx="13" fill="#FDEBD9" stroke="#EDDCCE" stroke-width="1.5"/>
+<text x="603.0" y="502.5" text-anchor="middle" font-size="28" font-weight="500" fill="#4D3B30">选定 Intent</text>
+<rect x="836" y="457" width="272" height="71" rx="13" fill="#FFFFFF" stroke="#EDDCCE" stroke-width="1.5"/>
+<text x="972.0" y="502.5" text-anchor="middle" font-size="28" font-weight="500" fill="#4D3B30">Worker 执行</text>
+<rect x="1180" y="457" width="235" height="71" rx="13" fill="#FFFFFF" stroke="#EDDCCE" stroke-width="1.5"/>
+<text x="1297.5" y="502.5" text-anchor="middle" font-size="28" font-weight="500" fill="#4D3B30">新 Fact</text>
+<path d="M763 492 H836" fill="none" stroke="#BE753D" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path d="M1108 492 H1180" fill="none" stroke="#BE753D" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path d="M1297.5 528 V572 H1489 V85 H1002" fill="none" stroke="#BE753D" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<text x="1388" y="559" text-anchor="middle" font-size="20" font-weight="400" fill="#826B59">写回并重新规划</text>
+</svg>
